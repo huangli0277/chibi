@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="{:C('web_keywords')}" />
+    <meta name="Description" content="{:C('web_description')}" />
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.cookies.2.2.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.bxslider.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/layer/layer.js"></script>
+    <script src="__PUBLIC__/v2/js/select2.min.js"></script>
+    <link href="__PUBLIC__/v2/css/select2.min.css" rel="stylesheet" />
+    <title>{:C('web_title')}</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/index.css" />
+    <if condition="$_COOKIE['skin'] eq 'white'">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/white.css" id='style-white'>
+    </if>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+        var home;
+        var resourcesPath = '__PUBLIC__/v2/';
+        var localPath = 'http://bjs.bi:8080/award/';
+        $(function() {
+            home = new bjsIndex();
+        });
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="header-top">
+            <div class="window-wrap w1500 clearfix">
+                <ul class="pull-left topprice" id="topprice">
+                    <li></li>
+                </ul>
+                <ul class="pull-right login_lan">
+                    <li class="style-box">
+                        <span>皮肤</span>
+                        <span class="style-white"></span>
+                        <span class="style-black"></span>
+                    </li>
+                    <!--<li class="top-links">
+                        <a href="#" target="_blank">
+                            <span class="top-links-mobile">手机APP</span>
+                        </a>
+                        <div class="add-dn-qr">
+                            <h3>扫码下载 APP</h3>
+                            <img src="images/app-code.png" alt="gate.io APP">
+                        </div>
+                    </li>
+                    <li class="lang-option">
+                        <span><img src="images/language.png"></span>
+                        <div class="more-lan">
+                            <a href="#"><img src="images/language.png"></a>
+                        </div>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="window-wrap w1500 clearfix">
+                <div class="pull-left home-logo">
+                    <a href="/"><img src="__PUBLIC__/v2/images/logo.png"></a>
+                </div>
+                <div class="pull-right">
+                    <ul class="header-menus pull-left">
+                        <li><a href="/"><span>首页</span></a></li>
+                        <li class="menu-list">
+                            <a href="#"><span>币币交易</span></a>
+                                <ul class="menu-list-show menu-list-bi" id="menu_list_json">
+                                </ul>
+                        </li>
+                        <li><a href="/Finance/mycz.html"><span>C2C交易</span></a></li>
+                        <li><a href="/User"><span>用户中心</span></a></li>
+                        <li><a href="/User/token_apply"><span>上币申请</span></a></li>
+                        <li><a href="/Article/index/id/20.html"><span>资讯中心</span></a></li>
+                    </ul>
+
+                    <gt name="Think.session.userId" value="0">
+                    <ul class="pull-right user_info_list login_lan">
+                        <li class="login-out pull-right">
+                            <a href="{:U('Login/loginout')}">退出</a>
+                        </li>
+                        <li class="user-info pull-right">
+                            <a class="user-name" href="javascript:;"><span><em>{$Think.session.nickName}</em></span></a>
+                            <div class="user-info-list">
+                                <div class="clearfix">
+                                    <div class="user-info-item">
+                                        <h4>可用余额</h4>
+                                        <p><strong>{$userCoin_top['cny']}CNYT</strong></p>
+                                    </div>
+                                    <div class="user-info-item">
+                                        <h4>委托冻结</h4>
+                                        <p><strong>{$userCoin_top['cnyd']}CNYT</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                        <else/> <!-- 登陆前 -->
+                    <ul class="header-login pull-left">
+                        <li class="pull-right">
+                            <a href="{:U('Login/register')}" id="registerBtn"><span>注册</span></a>
+                        </li>
+                            <li class="pull-right">
+                                <a href="/Login/index.html" id="loginBtn"><span>登陆</span></a>
+                            </li>
+                    </ul>
+                    </gt>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        var userId = '{$Think.session.userName}';
+        function loadMenu(){
+            $.getJSON("/Ajax/getJsonMenu?t=" + Math.random(), function (data) {
+                if (data) {
+                    var list = '';
+                    var topList = '';
+                    var c = 0;
+                    for (var i in data) {
+                        list += '<li><a href="/Trade/index/market/' + data[i]['name'] + '"><img src="/Upload/coin/' + data[i]['img'] + '">' + data[i]['title'] + '</a></li>';
+                        if(c < 4){
+                            c++;
+                            var nm = data[i]['name'].replace('_cnyt','').toUpperCase();
+                            if(data[i]['class'] == 'red'){
+                                topList += '<li> ' + nm + ' : ￥ <span class="topnum">' + data[i]['price'] + '</span><i class="icon-arrow-down">↓</i> </li>';
+                            }else{
+                                topList += '<li> ' + nm + ' : ￥ <span class="topnum">' + data[i]['price'] + '</span><i class="icon-arrow-up">↑</i> </li>';
+                            }
+
+                        }
+                    }
+                    $("#menu_list_json").html(list);
+                    $("#topprice").html(topList);
+
+                }
+            });
+        }
+    </script>

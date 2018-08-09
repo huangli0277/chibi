@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>安全中心</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">安全中心</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="my-links padt4">
+				<ul class="padt4">
+					<li>
+						<a class="my-links-uc1" href="uc-phone.html"><span>手机认证 <em class="bjs-color-up">已开启</em></span></a>
+					</li>
+					<li>
+						<a class="my-links-uc2" href="uc-email.html"><span>邮箱认证 <em class="bjs-color-up">已开启</em></span></a>
+					</li>
+					<li>
+						<a class="my-links-uc3" href="uc-google.html"><span>谷歌认证 <em class="bjs-color-up">已开启</em></span></a>
+					</li>
+					<li>
+						<a class="my-links-shiming" href="javascript:;"><span>实名认证 <em class="bjs-color-down">未认证</em></span></a>
+					</li>
+					<li>
+						<a class="my-links-uc6" href="uc-pay-password.html"><span>交易密码 <em class="bjs-color-down">修改</em></span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="padt4"></div>
+		</div>
+		<!-- 弹窗 -->
+		<div id="shiming-dialog" class="wrap-dialog hide">
+			<div class="wrap-dialog-bg hand"></div>
+			<div class="wrap-dialog-box">
+				<div class="wrap-dialog-content">
+					<div class="wrap-dialog-sucess">
+						<div class="tc">
+							<p class="font5 bjs-color-white">温馨提示</p>
+							<p class="font42 lh1375 padt4">请准备好本人身份证，并点击下方图标进行认证 <span class="bjs-color-blue">每日仅限三次</span></p>
+						</div>
+						<div class="wrap-dialog-submit">
+							<a href="login.html" class="default-form-submit default-form-blue">开始认证</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/fastClick.js"></script>
+	<script type="text/javascript" src="layer/layer.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initUc();
+		});
+		$(document).on('click','.my-links-shiming',function(){
+			$('#shiming-dialog').removeClass('hide');
+		});
+		$(document).on('click','.wrap-dialog-bg',function(){
+			$('#shiming-dialog').addClass('hide');
+		});
+	</script>
+</body>
+</html>

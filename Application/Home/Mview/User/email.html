@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>邮箱认证</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">邮箱认证</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<eq name="Think.session.email_verify" value="0">
+			<div id="form-page" class="default-form">
+				<ul class="uc-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">邮箱</span></p>
+						<input class="form-input bg1a1c24" id="email_address" type="text" name="name[]" placeholder="输入邮箱">
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">邮箱验证码</span></p>
+						<div class="input-group input-group-r clearfix">
+							<input type="text" id="email_verify" name="name[]" class="form-control bg1a1c24" placeholder="输入验证"><span class="input-group-addon " id="send_code">发送</span>
+						</div>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="band_email">认证</button>
+					</li>
+				</ul>
+			</div>
+			</eq>
+			<neq name="Think.session.email_verify" value="0">
+			<div id="list-page" class="default-form">
+				<p class="padt4"></p>
+				<ul class="pad5">
+					<li class="wrap-form-item padt4">
+						<p class="clearfix"><span class="wrap-form-label">邮箱号码</span> <span class="pull-right lh1375">已认证</span></p>
+						<p class="padt2 bjs-color-white font5">{$user.email}</p>
+					</li>
+					<li class="wrap-form-item padt4">
+						<p class="clearfix"><span class="wrap-form-label">认证时间</span></p>
+						<p class="padt2 bjs-color-white font5">{$user.emailtime|date="Y-m-d H:i:s",###}</p>
+					</li>	
+					<!--<li class="wrap-form-item padt4 bot1">-->
+						<!--<p class="clearfix padt2"><span class="wrap-form-label">邮件认证</span> <label class="pull-right off-open"><input class="hide" type="checkbox" name="name[]"><span></span></label></p>-->
+					<!--</li>				-->
+				</ul>
+			</div>
+			</neq>
+			<div class="padt4"></div>
+		</div>
+		<div class="wrap-dialog hide">
+			<div class="wrap-dialog-bg"></div>
+			<div class="wrap-dialog-box">
+				<div class="wrap-dialog-content">
+					<div class="wrap-dialog-sucess hide">
+						<div class="wrap-dialog-msg tc">
+							<p>恭喜您</p>
+							<p>邮箱认证成功啦</p>
+						</div>
+						<div class="wrap-dialog-submit">
+							<button class="default-form-submit default-form-blue">确定</button>
+						</div>
+					</div>
+					<div class="wrap-dialog-error hide">
+						<div class="wrap-dialog-msg tc">
+							<p>很遗憾</p>
+							<p>邮箱认证失败</p>
+						</div>
+						<div class="wrap-dialog-submit">
+							<button class="default-form-submit default-form-green">重新认证</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initUc();
+		});
+
+
+		$(document).on('click','.wrap-dialog button.default-form-submit',function(){
+			$('.wrap-dialog,.wrap-dialog-sucess,.wrap-dialog-error').addClass('hide');
+			if($(this).closest('.wrap-dialog-sucess')[0]){
+                window.location = window.location.href;
+			}
+		});
+
+
+        $('#send_code').on('click', function () {
+            var _e = $('#email_address').val();
+
+            $.post("/Verify/sendEmailCode", {"email": _e}, function (data) {
+                layer.msg(data.info);
+            })
+        });
+
+        $('#band_email').on('click', function () {
+            var _c = $('#email_verify').val();
+
+            $.post("/User/bindEmail", {"code": _c}, function (data) {
+                if (data.status == 1) {
+                    $('.wrap-dialog,.wrap-dialog-sucess').removeClass('hide');
+				}else{
+                    $('.wrap-dialog,.wrap-dialog-error').removeClass('hide');
+				}
+
+            })
+        });
+	</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+a{color: #343942;}
+body{background-color: #ebecf1; color: #343942;}
+
+.trade-page .bjs-tab-head,
+.trade-page .bjs-search,
+.trade-page .bjs-tab-tr,
+.trade-page .bjs-tab-thead .bjs-tab-tr,
+.trade-page .bjs-tab-tbody .bjs-tab-tr:nth-child(2n),
+.page-left,
+.login_lan .more-lan a,
+.bjs-aboutUs-cont,
+.bjs-aboutUs-foot,
+.page-right{background-color: #ebecf1;}
+
+.c2c-table,
+.bjs-tab-table{border-color: #d6d6de;}
+
+.bjs-tab-head a.active,
+.bjs-tab-head a:hover,
+.header-login a.active,
+.header-login a:hover,
+.vote-bi-share,
+.register-head .active,
+.bjs-aboutUs-foot li a:hover,
+.bjs-aboutUs-foot li a.active,
+.bjs-tab-trading:hover{color: #00b6b7; border-color: #00b6b7;}
+
+.curr-base:hover,
+.bjs-tab-title span,
+.bjs-tab-title em,
+.menu-list:hover > a span,
+.uc-btn,
+.menu-list-show li:hover > a,
+.c2c-menu-txt-2,
+.vote-title-link:hover{color: #00b6b7;}
+
+.bjs-news-btn-left,
+.bjs-news-btn-right,
+.vote-title-link:hover,
+.bjs-search-box input,
+.menu-list a span,
+.coins-search-box.bjs-search-box input,
+.trade-page .bjs-search-box input,
+.user-name span,
+.pay-type.pay-type,
+.icon-setting,
+.pay-zfb span,
+.pay-wx span,
+.pay-card span,
+.register-agreement span,
+.bjs-sort-up,
+.bjs-sort-down{background-image: url(../images/bjs-icon-white.png);}
+
+.menu-list-show li span{background: none;}
+
+.user-info-item strong,
+.article-detail-title-time,
+.c2c-promotion-txt7,
+.article-tab-title,
+.article-list-title,
+.coins-title,
+.coins-show h4,
+.cc7cce6,
+.coins-hide .p1,
+.coins-hide .p2,
+.coins-detail-title,
+.introduce-title,
+.introduce-title3,
+.order-detail-warning h4,
+.bjs-news-title span{color: #6f7889;}
+
+.order-detail-txt{color: #171820;}
+
+.cc6ccd8{color: #566778;}
+
+.vote-bi-add,
+.bjs-news-title span:after{background-color: #00b6b7;}
+
+.bjs-news-cont,
+.header-menu,
+.menu-list-show li:hover,
+.user-info-item:hover,
+.c2c-menu-left h3,
+.order-detail-box-item,
+.bjs-tab-thead .bjs-tab-tr,
+.c2c-table th,
+.c2c-auth-box,
+.coins-list,
+.progress-box,
+.bjs-tab-head{background-color: #fff;}
+
+.pages a,
+.pages span,
+.bjs-news-cont li h4{color: #343942;}
+
+
+.bjs-news-cont li p{color: #c2c6d1;}
+
+.form-input,
+.input-group .form-control,
+.input-group-addon,
+.register-form input,
+.c2c-recharge-form input,
+.c2c-order-form input,
+.register-phone-code-btn,
+.form-verification input,
+.form-list input,
+.coins-search-box.bjs-search-box input,
+.trade-page .bjs-search-box input,
+.verification-code-btn a,
+.c2c-table .c2c-edit-btn,
+.tpwd .trading-input-group.input-group .form-control,
+.bjs-search-box input{border-color: #c0c0c0; color: #343942;}
+
+.header-menus > li:hover > a,
+.menu-list-show,
+.user_info_list > li:hover,
+.user-info-list,
+.header-menus a.active{background-color: #f2f3f7; color: #00b6b7;}
+
+.home-logo{background-image: url(../images/logo-white.png);}
+
+.join-btn{background-image: url(../images/join-white.png);}
+
+.bjs-logo-cont{background-color: #fafafa; background-image: url(../images/bjs-2-white.jpg);}
+
+.uc-unit,
+.dialog_wrap,
+.share_dialog .sha .s2,
+.bjs-tab-tbody .bjs-tab-tr:nth-child(2n+1),
+.vote-bi-detail,
+.c2c-table tr:nth-child(2n) td,
+.coins-detail-cont-list,
+.introduce-img,
+.trading-input-group.input-group .input-group-addon,
+.tpwd .trading-input-group.input-group .form-control,
+.trade-page .bjs-tab-tbody .bjs-tab-tr:nth-child(2n+1),
+.c2c-menu-unit{background-color: #f6f7fb;}
+
+.c2c-menu-left h3{color: #171820; border-color: #ebecf1;}
+
+.c2c-menu-left ul a:hover,
+.c2c-menu-left ul a.active{background-color: #e0e1e7; color: #444;}
+
+.uc-unit-title,
+.uc-unit-cont ul{border-color: #ebecf1;}
+
+.select2-container--default .select2-selection--single{border-color: #c0c0c0 !important; color: #343942 !important;}
+
+.select2-container--default .select2-results__option,
+.select2-container--default .select2-results__option[aria-selected="true"]{background-color: #ebecf1 !important; color: #343942 !important;}
+.select2-container--default .select2-results__option--highlighted[aria-selected]{background-color: #f6f7fb !important; color: #343942 !important;}
+.select2-dropdown{border-color: #c0c0c0 !important; background-color: #ebecf1 !important;}
+
+.share_dialog .sha .s2,
+.article-tab-title,
+.article-list dl,
+.c2c-auth-title,
+.c2c-auth-msg,
+.coins-detail-title2,
+.coins-detail-cont-table li,
+.coins-list-detail-search,
+.c2c-shuzihuobi-title,
+.trade-page .bjs-tab-head li,
+.trading-box-title,
+.trade-global-box .my-tab-scroll-head,
+.c2c-menu,
+.trade-profession-global-scroll-bob,
+.link-list span,
+.c2c-app-qrcoe,
+.c2c-cont-head-title p{border-color: #d1d4db;}
+.trade-profession-global-scroll-bob,
+.my-tab-scroll-cont4-bob{background-color: #d1d4db;}
+
+.register-agreement a,
+.vote-title-timer em,
+.vote-bi-number,
+.vote-bi-check,
+.vote-bi-num em,
+.vote-bi-detail a,
+.c2c-promotion-txt1 span,
+.c2c-auth-info a,
+.coins-search-list .search-btn:hover,
+.article-list-tab-btn.active,
+.article-list-tab-btn:hover,
+.c00ffff{color: #00b6b7;}
+
+.vote-bi-add,
+.coins-search-list .active,
+.coins-item:hover,
+.coins-list-detail-search .active,
+.trade-unit-title .active,
+.my-tab-head .active,
+.c2c-order-title a.active,
+.c2c-menu-link.active,
+.vote-title{border-color: #00b6b7;}
+
+.default-form-submit,
+.login-form-submit,
+.reset-password-form-submit,
+.submit-btn,
+.c2c-order-form .c2c-order-form-btn,
+.pages a:hover,
+.pages span,
+.c2c-recharge-form .c2c-recharge-form-btn,
+.c2c-promotion-txt5 span,
+.a-border-link,
+.c2c-cont-head-link,
+.register-form-submit{background-color: #fff; color: #343942; border-color: #fff;}
+
+.my-tab-scroll .c2c-table th,
+.bjs-tab-title,
+.input-group .form-control[readonly],
+.c2c-promotion-cont,
+.article-title,
+.page-w50-bol,
+.p-line,
+.form-input[readonly]{background-color: #e0e1e7;}
+
+.coins-hide:after{border-color: transparent transparent #e0e1e7 #e0e1e7; background: rgba(255,255,255,.9);}
+.coins-hide{border-color: #e0e1e7; background: rgba(255,255,255,.9);}
+
+.coins-detail-left .bjs-tab-tr.active{background-color: #d0d1d7; color: #333;}
+
+.verification-code-btn a.disabled{background-color: #e0e1e7; color: #bbb;}
+
+.iScrollIndicator{background-color: #d0d1d7;}
+
+.c2c-table .c2c-edit-btn,
+.input-group-addon{background-color: transparent;}
+
+.c2c-cont-head-link.active,
+.c2c-cont-head-link:hover,
+.c2c-table .c2c-option-btn{color: rgba(0,0,0,.6);}
+
+.coins-detail-cont-link a:hover{color: #343942;}
+.coins-detail-cont-link li:nth-child(1) a{background-position: left -.33rem;}
+.coins-detail-cont-link li:nth-child(2) a{background-position: left -1.02rem;}
+.coins-detail-cont-link li:nth-child(3) a{background-position: left -1.69rem;}
+.coins-detail-cont-link li:nth-child(4) a{background-position: left -2.39rem;}
+.coins-detail-cont-link li:nth-child(5) a{background-position: left -3.09rem;}
+.coins-detail-cont-link li:nth-child(6) a{background-position: left -3.81rem;}
+.coins-detail-cont-link li:nth-child(7) a{background-position: left -4.52rem;}
+.coins-detail-cont-link li:nth-child(1) a:hover{background-position: left 0;}
+.coins-detail-cont-link li:nth-child(2) a:hover{background-position: left -.69rem;}
+.coins-detail-cont-link li:nth-child(3) a:hover{background-position: left -1.36rem;}
+.coins-detail-cont-link li:nth-child(4) a:hover{background-position: left -2.06rem;}
+.coins-detail-cont-link li:nth-child(5) a:hover{background-position: left -2.76rem;}
+.coins-detail-cont-link li:nth-child(6) a:hover{background-position: left -3.48rem;}
+.coins-detail-cont-link li:nth-child(7) a:hover{background-position: left -4.19rem;}
+
+.trade-page-content,
+.page-left-2-1,
+.page-left-2,
+.page-right-2,
+.page-left-2-2,
+.page-left-2-1,
+.page-right-2-1,
+.page-right-2-2,
+.profession-page-right,
+.profession-page-right-1,
+.bjs-aboutUs-foot,
+.profession-page-left-1,
+.page-right-2-1{border-color: #fff;}
+
+.introduce-title2 .introduce-new1{background-image: url(../images/introduce-new1-white.png);}
+.introduce-title2 .introduce-new2{background-image: url(../images/introduce-new2-white.png);}
+.introduce-title2 .introduce-main1{background-image: url(../images/introduce-main1-white.png);}
+.introduce-title2 .introduce-main2{background-image: url(../images/introduce-main2-white.png);}
+
+.order-detail-qrcode-wx{background: url(../images/qrcode-wx-white.png);}
+.order-detail-qrcode-zfb{background: url(../images/qrcode-zfb-white.png);}
+
+.register-logo{background-image: url(../images/register-1-white.jpg);}
+.login-logo{background-image: url(../images/login-1-white.jpg);}
+.reset-password-logo{background-image: url(../images/reset-password-1-white.jpg);}
+.c2c-promotion-title{background-image: url(../images/c2c-promotion-white.jpg);}
+.new-bi-logo{background-image: url(../images/new-1-white.jpg);}
+.c2c-app-title{background-image: url(../images/app-1-white.png);}
+
+/*.trade-page-content{border-top-color: transparent;}*/
+.trade-page-content{border-top: none;}
+
+.order-detail-warning{background: rgba(255,255,255,.9);}
+.no-data span,
+.order-detail-warning h4{background-image: url(../images/warning-2-white.png);}
+
+.c2c-table-item-rect-down .c2c-table-item-rect{background-color: #ece8ed;}
+.c2c-table-item-rect-up .c2c-table-item-rect{background-color: #e4ecee;}
+
+input::-webkit-input-placeholder{ /* WebKit browsers */
+color: #bec2ca;
+} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #bec2ca;
+} 
+input:-ms-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #bec2ca;
+} 
+input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #bec2ca;
+} 
+input:placeholder { /* Mozilla Firefox 4 to 18 */
+color: #bec2ca;
+} 

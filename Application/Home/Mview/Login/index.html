@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索移动端登录</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-form login-form-head">
+		<div class="login-form-cont">
+			<ul class="wrap-form-list">
+				<li class="wrap-form-item">
+					<p><span class="wrap-form-label">账号</span></p>
+					<input type="text" id="login_mobles" class="" style="display: none;">
+					<input class="form-input" type="text" id="login_moble" placeholder="请输入登录账号" value="">
+				</li>
+				<li class="wrap-form-item">
+					<p class="clearfix"><span class="wrap-form-label">密码</span> <span class="pull-right assets-eyes off hand"></span></p>
+					<input class="form-input form-input-password" id="login_password" type="password" name="name[]" placeholder="输入密码">
+				</li>
+				<li class="wrap-form-item">
+					<p><span class="wrap-form-label">验证码</span></p>
+					<div class="input-group input-group-code clearfix">
+						<input type="text" name="name[]" id="login_verify" class="form-control" placeholder="输入验证码"><span class="input-group-addon"><img id="login_verify_up" src="/Verify/code.html" title="换一张" onclick="this.src=this.src+'?t='+Math.random()"></span>
+					</div>
+				</li>
+				<li class="wrap-form-item wrap-form-item-submit">
+					<button class="default-form-submit default-form-blue" onclick="footer_login();">登录</button>
+                    <p class="clearfix wrap-form-msg">
+                        <a class="pull-left" href="/">返回主页</a>
+                        <a class="pull-right" href="/Login/register">注册</a>
+                    </p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initLogin();
+    });
+
+    function footer_login() {
+        var moble = $("#login_moble").val();
+        var mobles = $("#login_mobles").val();
+        var password = $("#login_password").val();
+        var verify = $("#login_verify").val();
+        if (moble == "" || moble == null) {
+            alert
+            layer.tips('请输入登录账号', '#login_moble', {tips: 1});
+            return false;
+        }
+        if (password == "" || password == null) {
+            layer.tips('请输入登录密码', '#login_password', {tips: 1});
+            return false;
+        }
+        if (verify == "" || verify == null) {
+            layer.tips('请输入验证码', '#login_verify', {tips: 1});
+            return false;
+        }
+        $.post("/login/submit/", {
+            username:moble,
+            moble: moble,
+            mobles: mobles,
+            password: password,
+            verify: verify,
+            login_token: "",
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon:1,time:2000},function(){
+                    window.location = "/Index";
+                });
+            } else {
+                layer.msg(data.info, {icon:2,time:2000},function(){
+                    $("#login_verify_up").click();
+                });
+            }
+        }, "json");
+    }
+    $(function(){
+        //submit 事件
+        $('.register-form').on('keyup','input',function(e){
+            if(e.keyCode == 13){
+                $('.default-form-submit').click();
+            }
+        });
+    });
+</script>
+</body>
+</html>

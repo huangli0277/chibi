@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索移动端市场</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix market-search text-nowrap">
+					<span class="pull-left market-search-btn">行情</span>
+					<input class="form-input pull-right market-search-input" type="text" name="bi-keywords" placeholder="搜索币种">
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="bi-list">
+				<div class="bi-list-title tc">
+					<ul class="flex-box">
+						<li><span class="bi-list-btn active" id="bi-cnyt-btn">CNYT</span></li>
+						<li><span class="bi-list-btn">USDT</span></li>
+						<li><span class="bi-list-btn">BTC</span></li>
+						<li><span class="bi-list-btn">ETH</span></li>
+						<li><span class="bi-list-btn">限时</span></li>
+						<li><span class="bi-list-btn" id="bi-fav-btn">自选区</span></li>
+					</ul>
+				</div>
+				<div class="bi-list-sort tc">
+					<ul class="flex-box">
+						<li>
+							<span class="bi-list-sort-btn tl" id="bi-list-sort-btn-pay">币种<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn" id="bi-list-sort-btn-price">价格<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn tr" id="bi-list-sort-btn-24h">24小时涨跌<em></em></span>
+						</li>
+					</ul>
+				</div>
+				<div class="bi-list-table bi-list-table-index bi-list-choose-fav">
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">主区</span>
+							<a href="#" class="pull-right bi-list-thead-introduce">主区介绍</a>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="lists" id="voo">
+							<eq name="voo.main_coin" value="1">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+								<ul class="flex-box">
+									<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="/Upload/coin/{$voo.img}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.mname}</p>
+												<p class="bi-list-tbody-tr-price1">{$voo.volume}</p>
+											</div>
+									</li>
+									<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+									</li>
+									<li class="tr">
+											<if condition="$voo['class'] eq 'red'">
+												<span class="bjs-btn bjs-btn-down">{$voo.change}%</span>
+												<else />
+												<span class="bjs-btn bjs-btn-up">{$voo.change}%</span>
+											</if>
+									</li>
+								</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">创新区</span>
+							<a href="#" class="pull-right bi-list-thead-introduce">创新区介绍</a>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="lists" id="voo">
+							<eq name="voo.main_coin" value="0">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+								<ul class="flex-box">
+									<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="/Upload/coin/{$voo.img}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.mname}</p>
+												<p class="bi-list-tbody-tr-price1">{$voo.volume}</p>
+											</div>
+									</li>
+									<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+									</li>
+									<li class="tr">
+											<if condition="$voo['class'] eq 'red'">
+												<span class="bjs-btn bjs-btn-down">{$voo.change}%</span>
+												<else />
+												<span class="bjs-btn bjs-btn-up">{$voo.change}%</span>
+											</if>
+									</li>
+								</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">实验区</span>
+							<a href="#" class="pull-right bi-list-thead-introduce">试验区介绍</a>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="lists" id="voo">
+							<eq name="voo.main_coin" value="2">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+								<ul class="flex-box">
+									<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="/Upload/coin/{$voo.img}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.mname}</p>
+												<p class="bi-list-tbody-tr-price1">{$voo.volume}</p>
+											</div>
+									</li>
+									<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+									</li>
+									<li class="tr">
+											<if condition="$voo['class'] eq 'red'">
+												<span class="bjs-btn bjs-btn-down">{$voo.change}%</span>
+												<else />
+												<span class="bjs-btn bjs-btn-up">{$voo.change}%</span>
+											</if>
+									</li>
+								</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content">
+				<ul class="flex-box tc">
+					<li>
+						<a href="#" class="f-market active"></a>
+					</li>
+					<li>
+						<a href="/finance/mycz.html" class="f-c2c"></a>
+					</li>
+					<li>
+						<a href="/Index/index.html" class="f-home"></a>
+					</li>
+					<li>
+						<a href="/Trade/mindex.html" class="f-pay"></a>
+					</li>
+					<li>
+						<a href="/Finance/index.html" class="f-my"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		var market="{$market}";
+        var userid={$Think.session.userId};
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initMarket();
+		});
+	</script>
+</body>
+</html>

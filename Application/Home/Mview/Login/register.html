@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索移动端注册</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-form register-form-head">
+		<div class="register-form-cont bjs-tab">
+			<div class="bjs-tab-head register-tab-head tc clearfix">
+				<a href="#" class="bjs-tab-btn register-form-btn active" data-id="register-phone-form">手机注册</a>
+				<a href="#" class="bjs-tab-btn register-form-btn" data-id="register-email-form">邮箱注册</a>
+			</div>
+			<div class="bjs-tab-cont">
+				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
+					<!--<li class="wrap-form-item">-->
+						<!--<p><span class="wrap-form-label">国籍/地区</span><span class="pull-right wrap-form-label-right">国籍和地区注册后不可修改</span></p>-->
+						<!--<input class="form-input" type="text" name="name[]" placeholder="输入账号">-->
+					<!--</li>-->
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">手机号码</span></p>
+						<div class="input-group clearfix">
+							<span class="input-group-addon">+86</span><input type="text" class="form-control" id="moble" placeholder="请输入手机号码" onblur="check_moble()" >
+							<input type="text" id="mobles" style="display: none;">
+						</div>
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">登录密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="password" name="name" placeholder="请输入登陆密码" />
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">确认密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="passwordConfirm" name="name" placeholder="再次输入密码" />
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">验证码</span></p>
+						<div class="input-group input-group-code clearfix">
+							<input type="text" id="verify" name="phone" class="form-control" placeholder="输入图形验证码" />
+							<span class="input-group-addon">
+							<img id="verify_up" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()"/>
+							</span>
+						</div>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="register-phone-next">下一步</button>
+						<p class="clearfix wrap-form-msg">
+							<a class="pull-left" href="/">主页</a>
+							<a class="pull-right" href="/Login">立即登录</a>
+						</p>
+					</li>
+				</ul>
+				<ul class="wrap-form-list register-form-list bjs-tab-list" id="register-email-form">
+					<!--<li class="wrap-form-item">-->
+						<!--<p><span class="wrap-form-label">国籍/地区</span><span class="pull-right wrap-form-label-right">国籍和地区注册后不可修改</span></p>-->
+						<!--<input class="form-input" type="text" name="name[]" placeholder="输入账号">-->
+					<!--</li>-->
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">邮箱</span></p>
+						<input type="text" id="email" class="form-input" name="email" placeholder="输入邮箱" onblur="check_email()"/>
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">登录密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input type="password" id="passwordEmail" class="form-input form-input-password" name="name" placeholder="输入密码" />
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">确认密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input type="password" id="passwordConfirmEmail" class="form-input form-input-password" name="name" placeholder="再次输入密码" />
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">验证码</span></p>
+						<div class="input-group input-group-code clearfix">
+							<input type="text" id="verifyEmail" name="phone" class="form-control" placeholder="输入图形验证码" />
+							<span class="input-group-addon">
+							<img id="verifyUpEmail" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()"/></span>
+						</div>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="register-email-next">下一步</button>
+						<p class="clearfix wrap-form-msg">
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="register-form-cont2 hide">
+			<div class="register-form2 hide" id="register-phone-form2">
+				<div class="clearfix register-form-cont2-head tc">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<p class="pull-right register-form-cont2-title">手机注册</p>
+				</div>
+				<div class="wrap-form-cont2">
+					<ul class="wrap-form-list">
+						<li class="wrap-form-item">
+							<p class="clearfix"><span class="wrap-form-label" id="moble_lbl"></span> <span class="pull-right"><img class="register-country-img" src="__PUBLIC__/m/images/language.png"></span></p>
+						</li>
+						<li class="wrap-form-item">
+							<p><span class="wrap-form-label">短信验证码</span></p>
+							<div class="input-group input-group-r clearfix">
+								<input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码" /><span class="input-group-addon" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
+							</div>
+						</li>
+						<li class="wrap-form-item">
+							<p><span class="wrap-form-label">邀请码(选填)</span></p>
+							<input id="invit" class="form-input" type="text" name="name" placeholder="输入邀请码"/>
+						</li>
+						<li class="wrap-form-item">
+							<p class="user-agreement"><label class="check-off-open" id="regweb-tip"><input type="checkbox" name="name" class="hide" id="regweb"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a>  </label></p>
+						</li>
+						<li class="wrap-form-item wrap-form-item-submit">
+							<button class="default-form-submit default-form-blue" id="register-phone-submit">注册</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="register-form2 hide" id="register-email-form2">
+				<div class="clearfix register-form-cont2-head tc">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<p class="pull-right register-form-cont2-title">邮箱注册</p>
+				</div>
+				<div class="wrap-form-cont2">
+					<ul class="wrap-form-list">
+						<li class="wrap-form-item">
+							<p class="clearfix"><span class="wrap-form-label" id="email_lbl"></span></p>
+						</li>
+						<li class="wrap-form-item">
+							<p><span class="wrap-form-label">邮箱验证码</span></p>
+							<div class="input-group input-group-r clearfix">
+								<input id="email_verify" type="text" name="name" class="form-control" placeholder="请输入验证码" /><span class="input-group-addon" id="email_reg_send" onclick="email_reg_code('mail')">获取</span>
+							</div>
+						</li>
+						<li class="wrap-form-item">
+							<p><span class="wrap-form-label">邀请码(选填)</span></p>
+							<input type="text" id="invitEmail" class="form-input" name="name" placeholder="输入邀请码"/>
+						</li>
+						<li class="wrap-form-item">
+							<p class="user-agreement"><label class="check-off-open" id="regEmail-tip"><input type="checkbox" name="name" class="hide" id="regEmail"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a></label></p>
+						</li>
+						<li class="wrap-form-item wrap-form-item-submit">
+							<button class="default-form-submit default-form-blue" id="register-email-submit">注册</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrap-dialog hide">
+		<div class="wrap-dialog-bg"></div>
+		<div class="wrap-dialog-box">
+			<div class="wrap-dialog-content">
+				<div class="wrap-dialog-sucess hide">
+					<div class="wrap-dialog-msg tc">
+						<p>恭喜您</p>
+						<p>注册成功啦</p>
+					</div>
+					<div class="wrap-dialog-submit">
+						<a href="login.html" class="default-form-submit default-form-blue">立即登录</a>
+					</div>
+				</div>
+				<div class="wrap-dialog-error hide">
+					<div class="wrap-dialog-msg tc">
+						<p>很遗憾</p>
+						<p>注册失败</p>
+					</div>
+					<div class="wrap-dialog-submit">
+						<a href="register.html" class="default-form-submit default-form-green">重新注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initRegister();
+    });
+    $("#registerBtn").addClass("active");
+
+    function regWeb() {
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-rim', // 边框
+            area: ['280px', '400px'], // 宽高
+            title: '用户注册协议', // 标题
+            content: "{:U('Login/webreg')}"
+        });
+    }
+
+    function check_moble() {
+        var moble  = $('#moble').val();
+        var mobles = $('#mobles').val();
+        if (moble == "" || moble == null) {
+            layer.tips("请输入手机号", '#moble', {tips: 1});
+            return false;
+        }
+        $.post("/login/check_moble.html", {
+            moble: moble,
+            mobles: mobles,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+
+            } else {
+                layer.tips(data.info, '#moble', {tips: 1});
+                return false;
+            }
+        }, 'json');
+    }
+
+    function new_sends() {
+        var moble  = $('#moble').val();
+        var mobles = $('#mobles').val();
+        if (moble == "" || moble == null) {
+            layer.tips("请输入手机号", '#moble', {tips: 1});
+            return false;
+        }
+        $.post("/login/check_moble.html", {
+            moble: moble,
+            mobles: mobles,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+
+            } else {
+                layer.tips(data.info, '#moble', {tips: 1});
+                return false;
+            }
+        }, 'json');
+    }
+    function moble_reg(type) {
+        if($('#moble_reg_send').html() != '获取'){
+            return false;
+        }
+        var moble  = $("#moble").val();
+        var mobles = $("#mobles").val();
+        var verify = $("#verify").val();
+        if (moble == "" || moble == null) {
+            layer.tips("请输入手机号码", '#moble', {tips: 1});
+            return false;
+        }
+        if (verify == "" || verify == null) {
+            layer.tips("请输入图形验证码", '#verify', {tips: 1});
+            return false;
+        }
+        $.post("/login/real.html", {
+            moble: moble,
+            mobles: mobles,
+            type: type,
+            verify: verify,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1});
+
+                $("#moble_verify").focus();
+                $('#moble').attr("disabled", "disabled");
+                $('#mobles').attr("disabled", "disabled");
+                var obj      = $('#moble_reg_send');
+                var wait     = 60;
+                var interval = setInterval(function () {
+                    obj.html(wait + "秒");
+                    wait--;
+                    if (wait < 0) {
+                        clearInterval(interval);
+                        obj.html('获取');
+                    };
+                }, 1000);
+                sendMobileSuccess();
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+        return true;
+    }
+
+    function check_email(){
+        var email  = $('#email').val();
+        if (email == "" || email == null) {
+            layer.tips("请输入邮箱", '#email', {tips: 1});
+            return false;
+        }
+        $.post("/login/check_mail.html", {
+            email: email,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+
+            } else {
+                layer.tips(data.info, '#email', {tips: 1});
+                return false;
+            }
+        }, 'json');
+    }
+
+    function email_reg_code(type){
+        if($('#email_reg_send').html() != '获取'){
+            return false;
+        }
+        var email  = $("#email").val();
+        var verifyEmail = $("#verifyEmail").val();
+        if (email == "" || email == null) {
+            layer.tips("请输入邮箱", '#email', {tips: 1});
+            return false;
+        }
+        if (verifyEmail == "" || verifyEmail == null) {
+            layer.tips("请输入图形验证码", '#verifyEmail', {tips: 1});
+            return false;
+        }
+        $.post("/login/real_mail.html", {
+            email: email,
+            type: type,
+            verifyEmail: verifyEmail,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1});
+                $("#verifyEmail").focus();
+                $('#email').attr("disabled", "disabled");
+                var obj      = $('#email_reg_send');
+                var wait     = 60;
+                var interval = setInterval(function () {
+                    obj.html(wait + "秒");
+                    wait--;
+                    if (wait < 0) {
+                        clearInterval(interval);
+                        obj.html('获取');
+                    }
+                    ;
+                }, 1000);
+                sendEmailSuccess();
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+    }
+    function reg_up() {
+        var moble        = $("#moble").val();
+        var mobles       = $("#mobles").val();
+        var moble_verify = $("#moble_verify").val();
+        var password     = $("#password").val();
+        var passwordConf = $("#passwordConfirm").val();
+        var invit        = $("#invit").val();
+
+        if (moble == "" || moble == null) {
+            layer.tips("请输入手机号", '#moble', {tips: 1});
+            return false;
+        }
+        if (moble_verify == "" || moble_verify == null) {
+            layer.tips("请输入验证码", '#moble_verify', {tips: 1});
+            return false;
+        }
+        if (password == "" || password == null) {
+            layer.tips("请输入密码", '#password', {tips: 1});
+            return false;
+        }
+
+        if(passwordConf != password){
+            layer.tips("请确认两次密码相同", '#password', {tips: 1});
+            $("#password").val('');
+            $("#passwordConfirm").val('');
+            return false;
+        }
+        console.log('44444');
+
+        if (!$("#regweb").is(':checked')) {
+            layer.tips("请勾选用户注册协议", '#regweb-tip', {tips: 1});
+            return false;
+        }
+
+        $.post("/login/upregister/", {
+            username:moble,
+            moble: moble,
+            mobles: mobles,
+            moble_verify: moble_verify,
+            password: password,
+            repassword: passwordConf,
+            invit: invit,
+            token: ""
+        }, function (data) {
+            if (data.status==1) {
+                $.cookies.set('move_moble', moble);
+                $.cookies.set('move_mobles', mobles);
+                layer.msg(data.info, {icon: 1,time:2000},function(){
+                    window.location = '/Login/paypassword';
+                });
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+    }
+
+    function email_reg_up(){
+        var email        = $("#email").val();
+        var email_verify = $("#email_verify").val();
+        var password     = $("#passwordEmail").val();
+        var passwordConf = $("#passwordConfirmEmail").val();
+        var invit        = $("#invitEmail").val();
+
+        if (email == "" || email == null) {
+            layer.tips("请输入邮箱", '#email', {tips: 1});
+            return false;
+        }
+
+        if (email_verify == "" || email_verify == null) {
+            layer.tips("请输入邮箱验证码", '#email_verify', {tips: 1});
+            return false;
+        }
+        if (password == "" || password == null) {
+            layer.tips("请输入密码", '#passwordEmail', {tips: 1});
+            return false;
+        }
+        if(passwordConf != password){
+            layer.tips("请确认两次密码相同", '#passwordEmail', {tips: 1});
+            $("#passwordEmail").val('');
+            $("#passwordConfirmEmail").val('');
+            return false;
+        }
+        if (!$("#regEmail").is(':checked')) {
+            layer.tips("请勾选用户注册协议", '#regEmail-tip', {tips: 1});
+            return false;
+        }
+
+        $.post("/login/upregisterEmail/", {
+            email: email,
+            emailVerify: email_verify,
+            password: password,
+            invit: invit,
+            token: ""
+        }, function (data) {
+            if (data.status==1) {
+                $.cookies.set('move_moble', email);
+                layer.msg(data.info, {icon: 1,time:2000},function(){
+                    window.location = '/Login/paypassword';
+                });
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+    }
+
+
+
+
+    //页面切换
+    $(document).on('click','#register-phone-next',function(){
+        var moble        = $("#moble").val();
+        var password     = $("#password").val();
+        var passwordConf = $("#passwordConfirm").val();
+        var verify = $("#verify").val();
+        if (moble == "" || moble == null) {
+            layer.tips("请输入手机号", '#moble', {tips: 1});
+            return false;
+        }
+        if (password == "" || password == null) {
+            layer.tips("请输入密码", '#password', {tips: 1});
+            return false;
+        }
+        if(passwordConf != password){
+            layer.tips("请确认两次密码相同", '#password', {tips: 1});
+            $("#password").val('');
+            $("#passwordConfirm").val('');
+            return false;
+        }
+        if (verify == "" || verify == null) {
+            layer.tips("请输入图形验证码", '#verify', {tips: 1});
+            return false;
+        }
+        if($('#moble_reg_send').html() != '获取'){
+            sendMobileSuccess();
+        }else{
+            if(!moble_reg('sms')){
+                return false;
+            }
+		}
+        $('#moble_lbl').text('+86 '+moble);
+    });
+
+    function sendMobileSuccess(){
+        $('.register-form-cont').addClass('hide');
+        $('.register-form-cont2,#register-phone-form2').removeClass('hide');
+	}
+    $(document).on('click','#register-email-next',function(){
+
+        var email        = $("#email").val();
+        var verifyEmail = $("#verifyEmail").val();
+        var password     = $("#passwordEmail").val();
+        var passwordConf = $("#passwordConfirmEmail").val();
+
+        if (email == "" || email == null) {
+            layer.tips("请输入邮箱", '#email', {tips: 1});
+            return false;
+        }
+
+        if (password == "" || password == null) {
+            layer.tips("请输入密码", '#passwordEmail', {tips: 1});
+            return false;
+        }
+        if(passwordConf != password){
+            layer.tips("请确认两次密码相同", '#passwordEmail', {tips: 1});
+            $("#passwordEmail").val('');
+            $("#passwordConfirmEmail").val('');
+            return false;
+        }
+
+        if (verifyEmail == "" || verifyEmail == null) {
+            layer.tips("请输入图形验证码", '#verifyEmail', {tips: 1});
+            return false;
+        }
+
+        if($('#email_reg_send').html() != '获取'){
+            sendEmailSuccess();
+        }else{
+            if(!email_reg_code('mail')){
+                return false;
+            }
+        }
+        $('#email_lbl').text(email);
+    });
+
+    function sendEmailSuccess(){
+        $('.register-form-cont').addClass('hide');
+        $('.register-form-cont2,#register-email-form2').removeClass('hide');
+	}
+    $(document).on('click','.search-slide-back',function(event){
+        event.preventDefault();
+        $('.register-form-cont2,.register-form2').addClass('hide');
+        $('.register-form-cont').removeClass('hide');
+    });
+    $(document).on('click','#register-phone-submit',function(event){
+        event.preventDefault();
+        reg_up();
+        // $('.register-form-head').addClass('hide');
+        // $('.wrap-dialog-error').addClass('hide');
+        // $('.wrap-dialog,.wrap-dialog-sucess').removeClass('hide');
+    });
+    $(document).on('click','#register-email-submit',function(event){
+        event.preventDefault();
+        email_reg_up();
+        // $('.register-form-head').addClass('hide');
+        // $('.wrap-dialog-sucess').addClass('hide');
+        // $('.wrap-dialog,.wrap-dialog-error').removeClass('hide');
+    });
+</script>
+</body>
+</html>

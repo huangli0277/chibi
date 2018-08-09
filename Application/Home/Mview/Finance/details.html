@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端我的资产</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">我的资产</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="content">
+			<div class="my-asset-head">
+				<div class="bjs-tab">
+					<!--<h3 class="notice-title bjs-tab-head tc">-->
+						<!--<span class="bjs-tab-btn active" data-id="my-asset-now">可用资产</span>-->
+						<!--<span class="bjs-tab-btn ml5" data-id="my-asset-all">全部资产</span>-->
+					<!--</h3>-->
+					<!--<div class="notice-cont bjs-tab-cont">-->
+						<!--<div class="notice-list bjs-tab-list active" id="my-asset-now">-->
+							<!--<h4 class="my-asset-title">可用资产折合（CNYT）</h4>-->
+							<!--<p class="my-asset-money text-nowrap">{$cny['ky_zj']|NumToStr}</p>-->
+							<!--&lt;!&ndash;<p class="my-asset-money2 text-nowrap">≈1245654.24CNY</p>&ndash;&gt;-->
+						<!--</div>-->
+						<!--<div class="notice-list bjs-tab-list" id="my-asset-all">-->
+							<!--<h4 class="my-asset-title">全部资产折合（CNYT）</h4>-->
+							<!--<p class="my-asset-money text-nowrap">{$cny['zj']|NumToStr}</p>-->
+							<!--&lt;!&ndash;<p class="my-asset-money2 text-nowrap">≈12456540.24CNY</p>&ndash;&gt;-->
+						<!--</div>-->
+					<!--</div>-->
+					<div class="assets">
+						<!--<h3 class="assets-title">我的资产 <span class="pull-right assets-eyes hide"></span></h3>-->
+						<div class="assets-cont">
+							<ul class="flex-box">
+								<li>
+									<div class="assets-item assets-pay">
+										<p class="assets-item-type text-nowrap">可用资产折合(CNYT)</p>
+										<p class="assets-item-price"><span>{$cny['ky_zj']|NumToStr}</span> <em></em></p>
+										<!--<p class="assets-item-price2"><span>≈1201.45</span> <em>cny</em></p>-->
+									</div>
+								</li>
+								<li>
+									<div class="assets-item assets-c2c">
+										<p class="assets-item-type text-nowrap">全部资产折合(CNYT)</p>
+										<p class="assets-item-price"><span>{$cny['zj']|NumToStr}</span> <em></em></p>
+										<!--<p class="assets-item-price2"><span>≈120011.47</span> <em>cny</em></p>-->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="my-asset-cont">
+				<div class="my-asset-search">
+					<ul class="flex-box">
+						<li class="flex-item-2">
+							<input type="text" name="name[]" placeholder="搜索币种" class="search-input form-input">
+						</li>
+						<!--<li class="tr">-->
+							<!--<label class="my-asset-search-check check-off-open">-->
+								<!--<input type="checkbox" name="name[]" class="hide">-->
+								<!--<span>隐藏小额币种</span>-->
+							<!--</label>-->
+						<!--</li>-->
+					</ul>
+				</div>
+				<div class="my-asset-list">
+					<volist name="coinList" id="vo">
+					<ul class="flex-box" data-name="">
+						<li class="flex-item-3">
+							<h4 class="my-asset-list-title my-asset-list-bi-icon text-nowrap">
+								<img src="{:C('siteurl')}__UPLOAD__/coin/{$vo['img']}">
+								<span>{$vo['title']}</span>
+							</h4>
+							<p>可用</p>
+							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['xnb']|NumToStr}</p>
+							<div class="my-asset-list-button text-nowrap">
+								<p class="text-nowrap padt4">总计(CNYT)</p>
+								<p class="text-nowrap padt2 bjs-color-white font42">{$vo['zhehe']|NumToStr}</p>
+							</div>
+						</li>
+						<li>
+							<h4 class="my-asset-list-title"></h4>
+							<p>冻结</p>
+							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['xnbd']|NumToStr}</p>
+							<div class="my-asset-list-button text-nowrap"></div>
+						</li>
+						<li class="flex-item-4 tr">
+							<h4 class="my-asset-list-title">
+								<a href="/finance/asset_detail/coin/{$vo['name']}">财务记录</a>
+							</h4>
+							<p>折合(CNYT)</p>
+							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['zhehe']|NumToStr}</p>
+							<div class="my-asset-list-button text-nowrap">
+								<p class="padt4 tr">
+									<a href="#" class="bjs-btn default-form-red ml2">充币</a>
+									<a href="#" class="bjs-btn default-form-green ml2">提币</a>
+									<a href="/trade/mindex/market/{$vo.url}" class="bjs-btn default-form-blue ml2">交易</a>
+								</p>
+							</div>
+						</li>
+					</ul>
+					</volist>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content">
+				<ul class="flex-box tc">
+					<li>
+						<a href="/Market/index.html" class="f-market"></a>
+					</li>
+					<li>
+						<a href="/finance/mycz.html" class="f-c2c"></a>
+					</li>
+					<li>
+						<a href="/Index/index.html" class="f-home"></a>
+					</li>
+					<li>
+						<a href="/Trade/mindex.html" class="f-pay"></a>
+					</li>
+					<li>
+						<a href="/Finance/index.html" class="f-my active"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initMyAsset();
+		});
+	</script>
+</body>
+</html>

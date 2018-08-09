@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动c2c</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div id="c2c-page" class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left hide"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">C2C交易</p>
+					</div>
+				</div>
+				<div class="search-slide-box hide">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<input type="text" name="keywords" placeholder="搜索" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="c2c-page bjs-tab">
+				<div class="c2c-page-tab tc clearfix bjs-tab-head">
+					<ul class="pull-left">
+						<li><span class="bjs-tab-btn c2c-page-btn-pay tl active" data-id="c2c-page-pay-box">买入</span></li>
+						<li><span class="bjs-tab-btn c2c-page-btn-sell ml3" data-id="c2c-page-sell-box">卖出</span></li>
+					</ul>
+				</div>
+				<div class="c2c-page-cont bjs-tab-cont">
+					<div class="c2c-page-tab-unit bjs-tab-list active" id="c2c-page-pay-box">
+						<div class="c2c-page-tab-box">
+							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix"><span class="pull-left">买入估价 <em>1.0 CNYT</em></span><span class="pull-right">余额：<span>¥{$user_coin.cny}</span></span></h3>
+							<div class="default-form">
+								<div class="form-item">
+									<p class="input-group">
+										<span class="input-group-placeholder tr">CNYT</span>
+										<span class="input-group-addon text-overflow">买入数量</span><input id="cnyin_num" onBlur="jnum(this.value,1)" class="form-control" type="text" name="name[]" >
+									</p>
+								</div>
+								<div class="form-item">
+									<p class="input-group">
+										<span class="input-group-placeholder tr">CNY</span>
+										<span class="input-group-addon text-overflow">兑换金额</span><input id="pric" class="form-control" type="text" name="name[]"  readonly="readonly">
+									</p>
+								</div>
+								<div class="form-item">
+									<button class="default-form-submit default-form-green" id="c2c-pay-submit">立即买入</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c2c-page-tab-unit bjs-tab-list" id="c2c-page-sell-box">
+						<div class="c2c-page-tab-box">
+							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix"><span class="pull-left">卖出估价 <em>0.995 CNYT</em></span><span class="pull-right">余额：<span>¥{$user_coin.cny}</span></span></h3>
+							<div class="default-form">
+								<div class="form-item">
+									<p class="input-group">
+										<span class="input-group-placeholder tr">CNYT</span>
+										<span class="input-group-addon text-overflow">卖出数量</span><input class="form-control" id="cnyin_num1" type="text" name="name[]" onBlur="jnum(this.value,2)" >
+									</p>
+								</div>
+								<div class="form-item">
+									<p class="input-group">
+										<span class="input-group-placeholder tr">CNY</span>
+										<span class="input-group-addon text-overflow">兑换金额</span><input class="form-control" id="prir" readonly="readonly" type="text" name="name[]" >
+									</p>
+								</div>
+								<div class="form-item">
+									<button class="default-form-submit default-form-red" id="c2c-sell-submit">立即卖出</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c2c-page-tab-box">
+					<div class="market-order bjs-tab">
+						<h3 class="c2c-page-tab-cont-title text-nowrap bjs-tab-head">
+							<span class="c2c-page-order-status bjs-tab-btn active" data-id="c2c-page-order-now-buy">买单</span>
+							<span class="c2c-page-order-status bjs-tab-btn" data-id="c2c-page-order-now-shell">卖单</span>
+						</h3>
+						<div class="bjs-tab-cont">
+									<div class="market-order-list bjs-tab-list c2c-page-tab-unit active" id="c2c-page-order-now-buy">
+										<volist name="list" id="vo">
+										<eq name="vo.tpl" value="买入">
+
+											<ul class="flex-box">
+												<li class="flex-item-3">
+													<p class="market-order-type text-nowrap bjs-color-up">
+														<eq name="vo.status" value="99">
+															<span class="c00ffff">交易成功</span>
+														</eq>
+														<eq name="vo.status" value="0">
+															<span class="c414755">交易取消</span>
+														</eq>
+														<eq name="vo.pp" value="1">
+															<a href="javascript:;" onclick="cancel('{$vo.cid}')"><span class="c414755">取消</span></a>
+														</eq>
+													</p>
+													<p class="market-order-price text-nowrap">{$vo.pri}</p>
+													<p class="market-order-btn-box"><button data-id="{$vo.cid}" data-kaihu="{$vo.kaihu}" data-truename="{$vo.truename}" data-username="{$vo.username}" data-pri="{$vo.pri}" data-min="{$vo.min}" img="{$vo.img}" data-status="{$vo.status}" class="bjs-btn bjs-btn-full bjs-btn-up show-detail-btn">查看详情</button></p>
+												</li>
+												<li class="flex-item-2">
+													<p class="market-order-txt">单号</p>
+													<p class="market-order-num text-nowrap">{$vo.cid}</p>
+													<p class="market-order-txt">价格</p>
+													<p class="market-order-num text-nowrap">1 CNYT</p>
+													<p class="market-order-status text-nowrap">
+														<span>
+															<eq name="vo.status" value="1">未付款<a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="cb94e50">我已付款</span> </a></eq>
+															<eq name="vo.status" value="2">待卖家确认</eq>
+														</span>
+													</p>
+												</li>
+												<li class="flex-item-3 tr">
+													<p class="market-order-txt">时间</p>
+													<p class="market-order-num text-nowrap">{$vo.uptime|date='Y-m-d H:i:s',###}</p>
+													<p class="market-order-txt">数量</p>
+													<p class="market-order-num text-nowrap">{$vo.num}</p>
+												</li>
+											</ul>
+											<!--
+											<ul class="flex-box">
+												<li class="flex-item-3">
+													<p class="market-order-type text-nowrap bjs-color-down">卖出</p>
+													<p class="market-order-price text-nowrap">¥25368.20</p>
+													<p class="market-order-btn-box"><a href="order.html" class="bjs-btn bjs-btn-full bjs-btn-down">查看详情</a></p>
+												</li>
+												<li class="flex-item-2">
+													<p class="market-order-txt">单号</p>
+													<p class="market-order-num text-nowrap">825343</p>
+													<p class="market-order-txt">价格</p>
+													<p class="market-order-num text-nowrap">¥213.51</p>
+													<p class="market-order-status text-nowrap"><span>已完成</span></p>
+												</li>
+												<li class="flex-item-3 tr">
+													<p class="market-order-txt">时间</p>
+													<p class="market-order-num text-nowrap">05-23 21:20:12</p>
+													<p class="market-order-txt">数量</p>
+													<p class="market-order-num text-nowrap">5516</p>
+												</li>
+											</ul>
+											<ul class="flex-box">
+												<li class="flex-item-3">
+													<p class="market-order-type text-nowrap bjs-color-down">卖出</p>
+													<p class="market-order-price text-nowrap">¥25368.20</p>
+													<p class="market-order-btn-box"><a href="order.html" class="bjs-btn bjs-btn-full bjs-btn-down">查看详情</a></p>
+												</li>
+												<li class="flex-item-2">
+													<p class="market-order-txt">单号</p>
+													<p class="market-order-num text-nowrap">825343</p>
+													<p class="market-order-txt">价格</p>
+													<p class="market-order-num text-nowrap">¥213.51</p>
+													<p class="market-order-status text-nowrap"><span>未付款</span> <em class="market-order-status-time">剩余 12:00:06</em></p>
+												</li>
+												<li class="flex-item-3 tr">
+													<p class="market-order-txt">时间</p>
+													<p class="market-order-num text-nowrap">05-23 21:20:12</p>
+													<p class="market-order-txt">数量</p>
+													<p class="market-order-num text-nowrap">5516</p>
+												</li>
+											</ul>
+											-->
+										</eq>
+										</volist>
+									</div>
+
+									<div class="market-order-list bjs-tab-list c2c-page-tab-unit" id="c2c-page-order-now-shell">
+										<volist name="list" id="vo">
+										<eq name="vo.tpl" value="卖出">
+										<ul class="flex-box">
+											<li class="flex-item-3">
+												<p class="market-order-type text-nowrap bjs-color-up">
+													<eq name="vo.status" value="99">
+														<span class="c00ffff">交易成功</span>
+													</eq>
+													<eq name="vo.status" value="0">
+														<span class="c414755">交易取消</span>
+													</eq>
+												</p>
+												<p class="market-order-price text-nowrap">{$vo.pri}</p>
+												<p class="market-order-btn-box"><button data-id="{$vo.cid}" data-kaihu="{$vo.kaihu}" data-truename="{$vo.truename}" data-username="{$vo.username}" data-pri="{$vo.pri}" data-min="{$vo.min}" img="{$vo.img}" data-status="{$vo.status}" class="bjs-btn bjs-btn-full bjs-btn-up show-detail-btn">查看详情</button></p>
+											</li>
+											<li class="flex-item-2">
+												<p class="market-order-txt">单号</p>
+												<p class="market-order-num text-nowrap">{$vo.cid}</p>
+												<p class="market-order-txt">价格</p>
+												<p class="market-order-num text-nowrap">0.995 CNYT</p>
+												<p class="market-order-status text-nowrap">
+														<span>
+															<eq name="vo.status" value="1">
+																	未付款<a  href="/Finance/mycz_q/id/{$vo.cid}" style="    color: #2674FF!important;"> <span class="cb94e50">我已收款</span> </a>
+																</eq>
+																<eq name="vo.status" value="2">
+																	已付款 <a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="c00ffff">我已收款 </span></a>
+																</eq>
+														</span>
+												</p>
+											</li>
+											<li class="flex-item-3 tr">
+												<p class="market-order-txt">时间</p>
+												<p class="market-order-num text-nowrap">{$vo.uptime|date='Y-m-d H:i:s',###}</p>
+												<p class="market-order-txt">数量</p>
+												<p class="market-order-num text-nowrap">{$vo.num}</p>
+											</li>
+										</ul>
+										</eq>
+										</volist>
+									</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content">
+				<ul class="flex-box tc">
+					<li>
+						<a href="/Market/index.html" class="f-market"></a>
+					</li>
+					<li>
+						<a href="#" class="f-c2c active"></a>
+					</li>
+					<li>
+						<a href="/Index/index.html" class="f-home"></a>
+					</li>
+					<li>
+						<a href="/Trade/mindex.html" class="f-pay"></a>
+					</li>
+					<li>
+						<a href="/Finance/index.html" class="f-my"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 弹窗 -->
+		<!--
+		<div class="bjs-show-pager bjs-bi-choose-show">
+			<div class="bi-list">
+				<div class="bi-list-title tc">
+					<ul class="flex-box">
+						<li><span class="bi-list-btn tl">自选区</span></li>
+						<li><span class="bi-list-btn active">USDT</span></li>
+						<li><span class="bi-list-btn">BTC</span></li>
+						<li><span class="bi-list-btn">ETH</span></li>
+						<li><span class="bi-list-btn">QTUM</span></li>
+						<li><span class="bi-list-btn tr">限时</span></li>
+					</ul>
+				</div>
+				<div class="bi-list-sort tc">
+					<ul class="flex-box">
+						<li>
+							<span class="bi-list-sort-btn tl" id="bi-list-sort-btn-pay">交易量<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn" id="bi-list-sort-btn-price">价格<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn tr" id="bi-list-sort-btn-24h">24小时涨跌<em></em></span>
+						</li>
+					</ul>
+				</div>
+				<div class="bi-list-table">
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">主区</span>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<ul class="bi-list-tbody-tr flex-box" data-name="ETH" data-price="$4333" data-chg="122225">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">比特币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-down">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-down">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-down">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">创新区</span>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+						<ul class="bi-list-tbody-tr flex-box" data-name="BTC" data-price="$333" data-chg="122222">
+							<li class="tl">
+								<a href="#">
+									<img class="bi-list-tbody-tr-img" src="http://bjs.bi/Upload/coin/5a9f9cafb125a.png">
+									<div class="bi-list-tbody-tr-info">
+										<p class="bi-list-tbody-tr-name">以太币</p>
+									</div>
+								</a>
+							</li>
+							<li class="tc">
+								<a href="#">
+									<p class="bi-list-tbody-tr-price2">$584.63</p>
+								</a>
+							</li>
+							<li class="tr">
+								<a href="#">
+									<span class="bjs-btn bjs-color-up">-60.52%</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		-->
+	</div>
+	<div id="c2c-detail-page" class="wrap hide">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">买入详情</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2">
+			<div class="order-table">
+				<h4 class="order-title">请选择以下方式给卖家付款</h4>
+				<div class="order-pay-list">
+					<div class="order-pay-item">
+						<ul class="order-detail-box-list clearfix" id="pay_detail">
+						</ul>
+						<script type="text/template" id="order-detail-tmp">
+							{{ var cardCssType =''; var cardTitle=''; if(data.kaihu == '支付宝'){cardCssType='order-detail-pay-zfb';cardTitle='支付宝' }else if(data.kaihu == '微信'){ cardCssType='order-detail-pay-wx';cardTitle='微信' }else{cardCssType='order-detail-pay-card';cardTitle='银行卡'}  }}
+							<li>
+								<div class="order-detail-box-item {{= cardCssType}}">
+									<h4 class="order-detail-head">{{= cardTitle}}支付</h4>
+									<div class="order-detail-cont">
+										<p>卖家姓名：<span class="order-detail-txt">{{= data.truename }}</span>   <span class="copy-btn" data-clipboard-text="{{= data.truename }}">复制</span></p>
+										{{ if(data.kaihu != '支付宝' && data.kaihu != '微信'){ }}
+										<p>{{= cardTitle}}：<span class="order-detail-txt">{{= data.kaihu }}</span>  <span class="copy-btn" data-clipboard-text="{{= data.kaihu }}">复制</span></p>
+										{{ } }}
+										<p>{{= cardTitle}}账号：<span class="order-detail-txt">{{= data.username }}</span>  <span class="copy-btn" data-clipboard-text="{{= data.username }}">复制</span></p>
+										<p>付款金额：<span class="order-detail-txt">{{= data.pri }}</span>  <span class="copy-btn" data-clipboard-text="{{= data.pri }}">复制</span></p>
+										<p>联系方式：<span class="order-detail-txt">{{= data.min }}</span>  <span class="copy-btn" data-clipboard-text="{{= data.min }}">复制</span></p>
+										<p>付款时请备注：<span class="order-detail-txt">{{= data.cid }}</span>  <span class="copy-btn" data-clipboard-text="{{= data.cid }}">复制</span></p>
+									</div>
+								</div>
+								{{ if(data.status == 99 || data.status == 0){ }}
+								<div class="order-detail-warning">
+									<h4>此订单已关闭</h4>
+									<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
+									<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+								</div>
+								{{ } }}
+							</li>
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 弹窗 -->
+		<div class="wrap-dialog hide">
+			<div class="wrap-dialog-bg"></div>
+			<div class="wrap-dialog-box">
+				<div class="wrap-dialog-content">
+					<div class="wrap-dialog-sucess hide">
+						<div class="wrap-dialog-msg tc">
+							<p>
+								<span class="font5">恭喜您</span>
+							</p>
+							<p class="text-nowrap">
+								<span class="font5">成功到账</span>
+								<span class="bjs-color-up font62">10000.25</span>
+								<span class="bjs-color-up font42">btc</span>
+							</p>
+						</div>
+						<div class="wrap-dialog-submit">
+							<a href="c2c.html" class="default-form-submit default-form-blue">立即交易</a>
+						</div>
+					</div>
+					<div class="wrap-dialog-error hide">
+						<div class="wrap-dialog-msg tc">
+							<p>
+								<span class="font5">很遗憾</span>
+							</p>
+							<p>
+								<span class="font5">成功失败</span>
+							</p>
+						</div>
+						<div class="wrap-dialog-submit">
+							<a href="c2c.html" class="default-form-submit default-form-cancel">继续交易</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/v2/js/template.js"></script>
+	<script type="text/javascript">
+		var home;
+		var orderList = ['']
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initC2c();
+            home.initOrder();
+		});
+		//展示详情
+        $('#c2c-page').on('click','.show-detail-btn',function () {
+            var id = $(this).data('id');
+
+            $('#c2c-page').addClass('hide');
+            $('#c2c-detail-page').removeClass('hide');
+
+            var payData = {};
+            payData.cid = $(this).data('id');
+            payData.kaihu = $(this).data('kaihu');
+            payData.truename = $(this).data('truename');
+            payData.username = $(this).data('username');
+            payData.pri = $(this).data('pri');
+            payData.min = $(this).data('min');
+            payData.img = $(this).data('img');
+            payData.status = $(this).data('status');
+
+            var dataTmp = {
+                data:payData
+            }
+            console.log(dataTmp);
+            var tpl = $('#order-detail-tmp').html();
+            var _html = template(tpl, dataTmp);
+
+        	$("#pay_detail").html(_html);
+            console.log($("#pay_detail").html());
+        });
+        //关闭详情
+		$('#c2c-detail-page').on('click','.search-slide-back',function () {
+            $('#c2c-page').removeClass('hide');
+            $('#c2c-detail-page').addClass('hide');
+        });
+
+		//弹出交易支付方式
+		$(document).on('click','#c2c-pay-submit',function(){
+            if(!cnyin_up(0,1)){
+                return false;
+			}
+			layer.open({
+				title: '信息确认'
+				,content: '<div class="form-item"><p>请选择交易方式:</p><ul class="flex-box tc padt2"><li class="tl"><label class="check-off-open"><input type="radio" name="cnyin_type" value="weixin" class="hide pay-icon-wx"><span>微信</span></label></li><li><label class="check-off-open"><input type="radio" name="cnyin_type" value="bank" class="hide pay-icon-card"><span>银行卡</span></label></li><li class="tr"><label class="check-off-open"><input type="radio" name="cnyin_type" value="alipay" class="hide pay-icon-zfb"><span>支付宝</span></label></li></ul></div>'
+				,btn: '确认买入'
+				,btnAlign: 'c'
+				,yes: function(index){
+                    if(cnyin_up()){
+                        layer.close(index);
+					}
+				}
+			});
+		});
+		//弹出交易支付方式
+		$(document).on('click','#c2c-sell-submit',function(){
+		    if(!cnyin_up(1,1)){
+                return false;
+			}
+			layer.open({
+				title: '信息确认'
+				,content: '<div class="form-item"><p>请选择交易方式:</p><ul class="flex-box tc padt2"><li class="tl"><label class="check-off-open"><input type="radio" name="cnyin_type1" value="weixin" class="hide pay-icon-wx"><span>微信</span></label></li><li><label class="check-off-open"><input type="radio" name="cnyin_type1" value="bank" class="hide pay-icon-card"><span>银行卡</span></label></li><li class="tr"><label class="check-off-open"><input type="radio" name="cnyin_type1" value="alipay" class="hide pay-icon-zfb"><span>支付宝</span></label></li></ul></div>'
+				,btn: '确认卖出'
+				,btnAlign: 'c'
+				,yes: function(index){
+                    if(cnyin_up(1)){
+                        layer.close(index);
+					}
+				}
+			});
+		});
+
+
+        var lock = 0;
+        function cnyin_up(tbs,state) {
+            //tbs:true卖出false买入状态,state:true只执行页面参数检查
+            if(tbs){
+                var type = $("input[name='cnyin_type1']:checked").val();;
+                var num = $("#cnyin_num1").val();
+                if(!jnum(num,2)){
+                    return false;
+                }
+                if (!state && (type == "" || type == null)) {
+                    return false;
+                }
+                if (num == "" || num == null) {
+                    layer.tips('请输入卖出量', '#cnyin_num1', {tips: 1});
+                    return false;
+                } else {
+                    // num = num + $('#random').html();
+                }
+                var tpl = 2;
+
+            }else{
+                var type = $("input[name='cnyin_type']:checked").val();
+                var num = $("#cnyin_num").val();
+                if(!jnum(num,1)){
+                    return false;
+                }
+                if (!state && (!type || type == "" || type == null)) {
+                    return false;
+                }
+                if (num == "" || num == null) {
+                    layer.tips('请输入买入量', '#cnyin_num', {tips: 1});
+                    return false;
+                } else {
+                    // num = num + $('#random').html();
+                }
+                var tpl = 1;
+
+            }
+            if(state){
+                return true;
+			}
+            if(lock){
+                layer.msg('加载中,请勿重复点击...');
+                return;
+            }
+            lock = 1;
+            $.post("/Finance/myc2c/", {
+                tpl: tpl,
+                type: type,
+                num: num
+            }, function (data) {
+                lock = 0;
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+                    window.setTimeout("refreshPage()",1000);
+                } else {
+                    layer.msg(data.info, {icon: 2});
+                    lock = 0;
+                }
+            }, "json");
+        }
+
+
+        function jnum(num,tpl){
+            var ival = parseInt(num);
+            if(tpl==1){
+                if(isNaN(ival)){
+                    layer.tips('请输入数字', '#cnyin_num', {tips: 1});
+                    return false;
+                }
+                if(num<500){
+                    layer.tips('最低买入500.0CNYT', '#cnyin_num', {tips: 1});
+                    return false;
+                }
+                if(num%100){
+                    layer.tips('买入CNYT需为100的倍数', '#cnyin_num', {tips: 1});
+                    return false;
+                }
+                $("#pric").attr("value",num*1+" CNY");
+            }else{
+                if(isNaN(ival)){
+                    layer.tips('请输入数字', '#cnyin_num1', {tips: 1});
+                    return false;
+                }
+                if(num<500){
+                    layer.tips('最低卖出500.0CNYT', '#cnyin_num1', {tips: 1});
+                    return false;
+                }
+                if(num%100){
+                    layer.tips('卖出CNYT需为100的倍数', '#cnyin_num1', {tips: 1});
+                    return false;
+                }
+                var nums = num *0.995;
+                $("#prir").attr("value",nums.toFixed(1)+" CNY");
+            }
+            return true;
+        }
+
+        function cancel(id){
+//http://localhost/Finance/mycz_del/id/
+            lock = 1;
+            $.post("/Finance/mycz_del/id/"+id, {}, function (data) {
+                lock = 0;
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+                    window.setTimeout("refreshPage()",1000);
+                } else {
+                    layer.msg(data.info, {icon: 2});
+                }
+            }, "json");
+        }
+        function refreshPage(){
+            window.location = "/Finance/mycz.html";
+        }
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索实名认证成功</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-form register-form-head">
+		<div class="register-form-cont2 bjs-tab">
+			<div class="bjs-tab-cont wrap-form-cont2">
+				<div class="clearfix register-form-cont2-head tc">
+					<p class="pull-right register-form-cont2-title">实名认证成功</p>
+				</div>
+				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">用户名:{$user.username}</span></p>
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">认证姓名:{$user.truename}</span></p>
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">证件号码:{$user.idcard}</span></p>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						您还可以：
+						<a href="{:U('/')}" >交易</a>　
+						<a href="{:U('Finance/mycz')}">充值</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+
+
+
+<script>
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initRegister();
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

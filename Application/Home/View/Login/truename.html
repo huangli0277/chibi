@@ -1,0 +1,68 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="slide-unit register-logo">
+		<img src="__PUBLIC__/v2/images/register-1.jpg">
+	</div>
+	<div class="register-box">
+		<div class="register-form">
+			<div id="register-phone-form" class="register-list active">
+				<div class="register-item">
+					<label>根据 国家相关规定，请填写您的真实身份信息</label>
+				</div>
+
+				<div class="register-item">
+					<div class="tc" id="qrcode_div"></div>
+				</div>
+				<div class="register-item tc login-form-item clearfix">
+					<!--<p><a class="default-form-submit" href="javascript:;" onclick="truename_up();">下一步</a></p>-->
+					<p><a class="default-form-submit" href="javascript:;"  id="gaojirenzheng-bnt" onclick="refreshToken();">去认证</a></p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+
+<script>
+    $(function () {
+        var auth_token = $('#auth_token').val();
+        var face_url = "https://api.megvii.com/faceid/lite/do?token=";
+        face_url += auth_token;
+        $('#qrcode_div').qrcode({
+            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+            text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+            width: 320, //二维码的宽度
+            height: 320,
+            background: "#ffffff", //二维码的后景色
+            foreground: "#000000", //二维码的前景色
+            src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+            imgWidth: 40,
+            imgHeight: 40
+        });
+    });
+    function refreshToken() {
+        $.get("/User/auth", function (data) {
+            var face_url = "https://api.megvii.com/faceid/lite/do?token=" + data;
+            $('#qrcode_div').html("");
+            $('#qrcode_div').qrcode({
+                render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+                text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+                width: 320, //二维码的宽度
+                height: 320,
+                background: "#ffffff", //二维码的后景色
+                foreground: "#000000", //二维码的前景色
+                src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+                imgWidth: 40,
+                imgHeight: 40
+            });
+        })
+    }
+</script>
+
+<include file="Public:footer" />

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>支付管理</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div id="payment-page" class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<a href="#" class="search-input-box-r pull-right padt2 lh1375 font5 tr" id="add-payment-btn">添加</a>
+					<div class="pull-right search-input-box search-input-box-2">
+						<p class="order-header tc">支付管理</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="my-asset-cont">
+				<div class="payment-list">
+					<ul class="order-detail-box-list clearfix">
+						<li>
+							<div class="order-detail-box-item order-detail-pay-wx">
+								<h4 class="order-detail-head">微信</h4>
+								<div class="payment-item-cont font5">
+									<div class="clearfix"><span>张天爱</span> <label class="off-open pull-right"><input type="checkbox" name="name[]" class="hide"><span class="pull-right show-text"></span></label></div>
+									<p class="padt2">158 4256 9847</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="order-detail-box-item order-detail-pay-zfb">
+								<h4 class="order-detail-head">支付宝</h4>
+								<div class="payment-item-cont font5">
+									<div class="clearfix"><span>张天爱</span> <label class="off-open pull-right"><input type="checkbox" checked="checked" name="name[]" class="hide"><span class="pull-right show-text"></span></label></div>
+									<p class="padt2">75481454@qq.com</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="order-detail-box-item order-detail-pay-card">
+								<h4 class="order-detail-head">银行卡</h4>
+								<div class="payment-item-cont font5">
+									<div class="clearfix"><span>张天爱</span> <label class="off-open pull-right"><input type="checkbox" name="name[]" class="hide"><span class="pull-right show-text"></span></label></div>
+									<p class="padt2">684 4517841 269464 455</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="payment-address" class="wrap hide">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">支付地址添加</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="my-asset-cont">
+				<ul class="flex-box">
+					<li class="mr2">
+						<button class="bjs-btn bjs-btn-full bjs-btn-card bjs-btn-pay-icon" data-id="payment-card-page">银行卡</button>
+					</li>
+					<li class="mlr1">
+						<button class="bjs-btn bjs-btn-full bjs-btn-zfb bjs-btn-pay-icon" data-id="payment-zfb-page">支付宝</button>
+					</li>
+					<li class="ml2">
+						<button class="bjs-btn bjs-btn-full bjs-btn-wx bjs-btn-pay-icon" data-id="payment-wx-page">微信</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="payment-card-page" class="payment-address-page wrap hide">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">添加银行卡</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="default-form">
+				<ul class="uc-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">姓名</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入姓名">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">银行卡号</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入银行卡号">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">开户银行</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入银行卡名称">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">开户地址（选填）</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入开户行地址">
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="payment-card-submit">保存</button>
+					</li>
+				</ul>
+			</div>
+		</div>		
+	</div>
+	<div id="payment-wx-page" class="payment-address-page wrap hide">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">添加微信</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="default-form">
+				<ul class="uc-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">姓名</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入姓名">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">微信账号</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入微信账号">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">添加收款二维码</span> <span class="pull-right font42 lh1375 hand preview-btn">预览</span></p>
+						<div class="upload-payment bg1a1c24 hand"><img src="http://192.168.0.32/Upload/public/5ae5773fb7321.jpg"></div>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="payment-wx-submit">保存</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="payment-zfb-page" class="payment-address-page wrap hide">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">添加支付宝</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="default-form">
+				<ul class="uc-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">姓名</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入姓名">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">支付宝账号</span></p>
+						<input class="form-input bg1a1c24" type="text" name="name[]" placeholder="输入支付宝账号">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">添加收款二维码</span> <span class="pull-right font42 lh1375 hand preview-btn">预览</span></p>
+						<div class="upload-payment bg1a1c24 hand"></div>
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="payment-zfb-submit">保存</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/fastClick.js"></script>
+	<script type="text/javascript" src="layer/layer.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initPayment();
+		});
+
+
+		//银行卡保存按钮
+		$(document).on('click','#payment-card-submit',function(){
+			var random = Math.random();
+			if(random > 0.5){
+				layer.msg('保存成功',{icon:1,time:1000},function(){
+					$('#payment-address').removeClass('hide');
+					$('#payment-card-page').addClass('hide');
+				});
+			}else{
+				layer.msg('保存失败',{icon:2,time:1000});
+			}
+			
+		});
+		//微信保存按钮
+		$(document).on('click','#payment-wx-submit',function(){
+			var random = Math.random();
+			if(random > 0.5){
+				layer.msg('保存成功',{icon:1,time:1000},function(){
+					$('#payment-address').removeClass('hide');
+					$('#payment-wx-page').addClass('hide');
+				});
+			}else{
+				layer.msg('保存失败',{icon:2,time:1000});
+			}
+		});
+		//支付宝保存按钮
+		$(document).on('click','#payment-zfb-submit',function(){
+			var random = Math.random();
+			if(random > 0.5){
+				layer.msg('保存成功',{icon:1,time:1000},function(){
+					$('#payment-address').removeClass('hide');
+					$('#payment-zfb-page').addClass('hide');
+				});
+			}else{
+				layer.msg('保存失败',{icon:2,time:1000});
+			}
+		});
+	</script>
+</body>
+</html>

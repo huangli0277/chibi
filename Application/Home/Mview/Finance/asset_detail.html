@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端资产详细</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tl">{$C['coin'][$xnb]['name'] | strtoupper}</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="content">
+			<div class="asset-detail-head">
+				<ul class="flex-box">
+					<li class="flex-item-3">
+						<h4>可用</h4>
+						<p class="text-nowrap bjs-color-white">{$coin_info.num}</p>
+					</li>
+					<li class="flex-item-2">
+						<h4>冻结</h4>
+						<p class="text-nowrap bjs-color-white">{$coin_info.num_d}</p>
+					</li>
+					<li class="flex-item-3 tr">
+						<h4>折合</h4>
+						<p class="text-nowrap">{$coin_info.zh}</p>
+					</li>
+				</ul>
+			</div>
+			<div class="my-asset-cont">
+				<h3 class="asset-detail-filter clearfix">
+					<span class="pull-left asset-detail-filter-name">财务记录</span>
+					<span class="pull-right asset-detail-filter-btn">全部</span>
+				</h3>
+				<div class="my-asset-list asset-detail-list">
+					<volist name="list" id="vo">
+						<ul class="flex-box" data-state="{$vo.direction}">
+							<li class="flex-item-3">
+								<h4 class="my-asset-list-title my-asset-list-bi-icon text-nowrap">
+									<eq name="vo.direction" value="1">
+										<span class="bjs-color-white">充币</span>
+									<else />
+										<span class="bjs-color-white">提币</span>
+									</eq>
+								</h4>
+								<p>数量</p>
+								<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.num}</p>
+							</li>
+							<li class="flex-item-2">
+								<h4 class="my-asset-list-title"></h4>
+								<p>状态</p>
+								<p class="my-asset-list-price text-nowrap bjs-color-white">已完成</p>
+							</li>
+							<li class="flex-item-3 tr">
+								<h4 class="my-asset-list-title"></h4>
+								<p>日期</p>
+								<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.addtime|date='Y-m-d H:i:s',###}</p>
+							</li>
+						</ul>
+					</volist>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content footer-content-link">
+				<ul class="flex-box tc mr2 ml2">
+					<li class="mr2 ml2">
+						<a href="tibi.html" class="link-less"></a>
+					</li>
+					<li class="ml2 mr2">
+						<a href="chongbi.html" class="link-add"></a>
+					</li>
+					<li class="ml2 mr2">
+						<a href="/trade/mindex/market/{$C['coin'][$xnb]['name']}_cny" class="link-pay"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 弹窗 -->
+		<div class="asset-detail-filter-box">
+			<div class="asset-detail-filter-box-bg"></div>
+			<div class="asset-detail-filter-box-cont">
+				<ul class="tc">
+					<li>
+						<a href="#" data-state="0">全部</a>
+					</li>
+					<!--<li>-->
+						<!--<a href="#" data-state="2">转出</a>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<a href="#" data-state="1">转入</a>-->
+					<!--</li>-->
+					<li>
+						<a href="#" data-state="1">充币</a>
+					</li>
+					<li>
+						<a href="#" data-state="2">提币</a>
+					</li>
+					<li class="asset-detail-filter-box-cancel">
+						<a href="#" data-state="-1">取消</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initAssetDetail();
+		});
+	</script>
+</body>
+</html>

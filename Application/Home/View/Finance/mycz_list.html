@@ -1,0 +1,209 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title pull-left">
+						C2C交易记录
+					</h3>
+				</div>
+				<div class="c2c-order">
+					<div class="c2c-order-table">
+						<table class="c2c-table">
+							<thead>
+							<tr>
+								<th>订单ID</th>
+								<th>类型</th>
+								<th>数量</th>
+								<th>转账金额</th>
+								<th>建立时间</th>
+								<th>状态</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							<volist name="list" id="vo">
+								<tr>
+									<td><span <eq name="vo.tpl" value="买入">class="open-order-btn"</eq> >{$vo.cid}</span></td>
+									<td>{$vo.tpl}</td>
+									<td>{$vo.num}</td>
+									<td>{$vo.pri}</td>
+									<td>{$vo.uptime|date='Y-m-d H:i:s',###}</td>
+									<td>
+										<eq name="vo.tpl" value="买入">
+											<eq name="vo.status" value="1">
+												未付款<a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="cb94e50">我已付款</span> </a>
+											</eq>
+											<eq name="vo.status" value="2">
+												待卖家确认
+											</eq>
+										</eq>
+										<eq name="vo.tpl" value="卖出">
+											<eq name="vo.status" value="1">
+												未付款<a  href="/Finance/mycz_q/id/{$vo.cid}" style="    color: #2674FF!important;"> <span class="cb94e50">我已收款</span> </a>
+											</eq>
+											<eq name="vo.status" value="2">
+												已付款 <a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="c00ffff">我已收款 </span></a>
+											</eq>
+										</eq>
+										<eq name="vo.status" value="99">
+											<span class="c00ffff">交易成功</span>
+										</eq>
+										<eq name="vo.status" value="0">
+											<span class="c414755">交易取消</span>
+										</eq>
+										<eq name="vo.pp" value="1">
+											<eq name="vo.tpl" value="买入">
+												<a href="javascript:;" onclick="cancel('{$vo.cid}')"><span class="c414755">取消</span></a>
+											</eq>
+										</eq>
+									</td>
+								</tr>
+
+								<eq name="vo.tpl" value="买入">
+									<!-- 占位 -->
+									<tr class="hide">
+										<td colspan="6"></td>
+									</tr>
+									<tr class="order-detail-list hide">
+										<td colspan="6">
+											<div class="order-detail-box tl">
+												<h3>请选择以下方式给卖家付款</h3>
+												<ul class="order-detail-box-list clearfix">
+													<eq name="vo.kaihu" value="支付宝">
+														<li>
+															<div class="order-detail-box-item order-detail-pay-zfb">
+																<h4 class="order-detail-head">支付宝支付</h4>
+																<div class="order-detail-cont">
+																	<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
+																	<p>支付宝账号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
+																	<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
+																	<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
+																	<p>订单ID：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
+																	<p>请及时核对卖家信息是否一致</p>
+																	<p></p>
+																	<p><a href="#">卖家收款码 ></a></p>
+																	<div class="order-detail-qrcode order-detail-qrcode-zfb" data-img="/Upload/public/{$vo.img}"></div>
+																</div>
+															</div>
+															<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
+																<div class="order-detail-warning">
+																	<h4>此订单已关闭</h4>
+																	<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
+																	<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+																</div>
+															</if>
+														</li>
+														<else/>
+														<eq name="vo.kaihu" value="微信">
+															<li>
+																<div class="order-detail-box-item order-detail-pay-wx">
+																	<h4 class="order-detail-head">微信支付</h4>
+																	<div class="order-detail-cont">
+																		<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
+																		<p>微信账号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
+																		<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
+																		<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
+																		<p>订单ID：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
+																		<p>请及时核对卖家信息是否一致</p>
+																		<p></p>
+																		<p><a href="#">卖家收款码 ></a></p>
+																		<div class="order-detail-qrcode order-detail-qrcode-wx" data-img="/Upload/public/{$vo.img}"></div>
+																	</div>
+																</div>
+																<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
+																	<div class="order-detail-warning">
+																		<h4>此订单已关闭</h4>
+																		<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
+																		<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+																	</div>
+																</if>
+															</li>
+															<else/>
+															<li>
+																<div class="order-detail-box-item order-detail-pay-card">
+																	<h4 class="order-detail-head">银行卡转账</h4>
+																	<div class="order-detail-cont">
+																		<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
+																		<p>银行名：<span class="order-detail-txt">{$vo.kaihu}</span>  <span class="copy-btn" data-clipboard-text="{$vo.kaihu}">复制</span></p>
+																		<p>银行卡号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
+																		<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
+																		<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
+																		<p>备注：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
+																	</div>
+																</div>
+
+																<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
+																	<div class="order-detail-warning">
+																		<h4>此订单已关闭</h4>
+																		<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
+																		<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+																	</div>
+																</if>
+															</li>
+														</eq>
+													</eq>
+												</ul>
+												<p>非自动扣款，请本人付款成功后点击“我已付款”，<span class="cb94e50">未付款并点击“我已付款”，经核实，将会暂停账号功能（转账时切勿备注“比特币”，“虚拟币”等信息，否则禁止C2C交易）</span></p>
+											</div>
+										</td>
+									</tr>
+								</eq>
+							</volist>
+							</tbody>
+						</table>
+						<div class="pages">{$page}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/v2/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    $('.select2').select2({
+        minimumResultsForSearch: -1
+    });
+    $('.c2c-menu-left').on('click','.c2c-menu-unit h3',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('.c2c-menu-unit').toggleClass('close-list');
+    });
+
+jQuery(document).ready(function($){
+	$('.copys').click(function() {
+		var tits = $(this).html();
+		var input = document.getElementById("copys");
+			input.value = tits ; // 修改文本框的内容
+		  input.select(); // 选中文本
+		  document.execCommand("copy"); // 执行浏览器复制命令
+			layer.msg("账户："+tits+" 复制成功", {icon: 1});
+	});
+});
+
+    function cancel(id){
+//http://localhost/Finance/mycz_del/id/
+        lock = 1;
+        $.post("/Finance/mycz_del/id/"+id, {}, function (data) {
+            lock = 0;
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1});
+                window.setTimeout("refreshPage()",1000);
+            } else {
+                layer.msg(data.info, {icon: 2});
+            }
+        }, "json");
+	}
+	function refreshPage(){
+		window.location = "/Finance/mycz.html";
+	}
+    $(function () {
+        home.initC2c();
+    })
+</script>
+<include file="Public:footer" />

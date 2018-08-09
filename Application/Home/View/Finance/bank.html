@@ -1,0 +1,244 @@
+<include file="Public:header" />
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title">
+						<p>支付设置</p>
+					</h3>
+				</div>
+				<div class="clearfix">
+					<div class="default-form">
+						<div class="form-item">
+							<h5 class="form-label">支付方式</h5>
+							<div class="select-100">
+								<select id="choose-pay" class="form-input vhide select3" name="pay">
+									<option value="01">银行卡</option>
+									<option value="02">微信支付</option>
+									<option value="03">支付宝</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-item">
+							<h5 class="form-label">姓名</h5>
+							<input class="form-input" type="text" name="name" readonly="" value="{$truename}">
+						</div>
+						<div id="bank-card-pay" class="">
+							<div class="form-item">
+								<h5 class="form-label">开户银行</h5>
+								<select name="bank" id="bank_bank" class="select1 vhide">
+									<volist name="UserBankType" id="vo">
+										<option value="{$vo['title']}"  <if condition="$userbank.bank == $vo['title'] "> selected</if>>{$vo['title']}</option>
+									</volist>
+								</select>
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">开户支行</h5>
+								<input class="form-input" id="bankaddr" type="text" value="{$userbank.bankaddr}" placeholder="输入开户支行">
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">银行卡账号</h5>
+								<input class="form-input" id="bankcard" type="text" value="{$userbank.bankcard}" placeholder="输入银行卡账号">
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">交易密码</h5>
+								<input class="form-input" type="password" id="bankpwd" placeholder="输入交易密码">
+								<span class="font12"><a href="/findpwd/findpwd">忘记密码?</a></span>
+							</div>
+							<div class="form-item">
+								<button class="default-form-submit pull-right" onClick="bank(1)">绑定</button>
+							</div>
+						</div>
+						<div id="wechat-pay" class="hide">
+							<div class="form-item">
+								<h5 class="form-label">微信账号</h5>
+								<input class="form-input" id="weixin" type="text" value="{$userweixin.bankcard}" name="name" placeholder="输入微信账号">
+
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">二维码</h5>
+								<div class="form-item-card">
+									<div class="order-detail-box-item order-detail-pay-wx">
+										<h4 class="order-detail-head">微信支付</h4>
+										<div class="order-detail-cont">
+											<div class="form-item-file">
+												<label class="form-item-file-btn">
+													<img id="sdcard2" onclick="getElementById('inputfile2').click()" src="__PUBLIC__/v2/images/upload.png" >
+													<input type="hidden" id="card2" name="card2" value="{$card2}">
+												</label>
+												<p class="form-item-file-msg tc">请上传您的微信收款二维码图片<br>（*.jpg / *.png / *.jpeg）</p>
+											</div>
+											<div class="order-detail-qrcode order-detail-qrcode-wx" data-img="{$userweixin.backimg}"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">交易密码</h5>
+								<input class="form-input" type="password" id="weixinpwd" placeholder="输入交易密码">
+							</div>
+							<div class="form-item">
+								<button class="default-form-submit pull-right" onClick="bank(3)">保存</button>
+							</div>
+						</div>
+						<div id="alipay-pay" class="hide">
+							<div class="form-item">
+								<h5 class="form-label">支付宝账号</h5>
+								<input class="form-input" id="alipay" value="{$useralipay.bankcard}" type="password" name="name" placeholder="输入支付宝账号">
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">二维码</h5>
+								<div class="form-item-card">
+									<div class="order-detail-box-item order-detail-pay-zfb">
+										<h4 class="order-detail-head">支付宝支付</h4>
+										<div class="order-detail-cont">
+											<div class="form-item-file">
+												<label class="form-item-file-btn">
+													<img id="sdcard1" onclick="getElementById('inputfile1').click()" src="__PUBLIC__/v2/images/upload.png" >
+													<input type="hidden" id="card1" name="card1" value="{$card1}">
+												</label>
+												<p class="form-item-file-msg tc">请上传您的支付宝收款二维码图片<br>（*.jpg / *.png / *.jpeg）</p>
+											</div>
+											<div class="order-detail-qrcode order-detail-qrcode-zfb" data-img="{$userweixin.backimg}"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-item">
+								<h5 class="form-label">交易密码</h5>
+								<input class="form-input" type="password" id="alipaypwd" placeholder="输入交易密码">
+							</div>
+							<div class="form-item">
+								<button class="default-form-submit pull-right" onClick="bank(2)">保存</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hide">
+		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile1" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile2" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile3" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        home.initSetPay();
+    });
+    $('.select1').select2({
+        minimumResultsForSearch: -1,
+        dropdownAutoWidth: true
+    });
+    function bank(tpl){
+		if(tpl==1){
+			var bank = $('#bank_bank option:selected').val();
+			var bankaddr = $("#bankaddr").val();
+			var bankcard = $("#bankcard").val();
+			var bankpwd = $("#bankpwd").val();
+		}else if(tpl==2){
+			var bankcard = $("#alipay").val();
+			var bankpwd = $("#alipaypwd").val();
+			var bankimg = $("#card1").val();
+		}else if(tpl==3){
+			var bankcard = $("#weixin").val();
+			var bankpwd = $("#weixinpwd").val();
+			var bankimg = $("#card2").val();
+		}
+
+		$.post("/Finance/bankup/", {
+			bank: bank,
+			bankaddr: bankaddr,
+			bankcard: bankcard,
+			bankpwd: bankpwd,
+			type: tpl,
+			bankimg: bankimg,
+		}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1,time:2000},function () {
+                    window.location = window.location.href;
+                });
+			} else {
+				$("#login_verify_up").click();
+				layer.msg(data.info, {icon: 2});
+			}
+		}, "json");
+	}
+$("#inputfile1").change(function () {
+	//创建FormData对象
+	var data = new FormData();
+	//为FormData对象添加数据
+	$.each($('#inputfile1')[0].files, function (i, file) {
+		data.append('upload_file' + i, file);
+	});
+	//发送数据
+	$.ajax({
+		url: '/ajax/imgbank',
+		type: 'POST',
+		data: data,
+		cache: false,
+		contentType: false,		//不可缺参数
+		processData: false,		//不可缺参数
+		success: function (data) {
+			if (data) {
+				if(data=="error"){
+                    layer.msg('请选择正确的文件类型和大小！', {icon: 2});
+					return false;
+				}
+				//$('#sdcard1').attr('src','/Upload/pay/' + data);
+                $('.order-detail-qrcode-zfb').data('img','/Upload/pay/' + data);
+				$('#card1').val(data);
+			}
+		},
+		error: function () {
+            layer.msg('上传出错！', {icon: 2});
+				$('#sdcard1').attr('src','/Upload/pay/alipay.jpg');
+				$('#card1').val('');
+			//$('.set_upload_img').hide();
+			//$(".loading").hide();	//加载失败移除加载图片
+		}
+	});
+
+});
+$("#inputfile2").change(function () {
+	//创建FormData对象
+	var data = new FormData();
+	//为FormData对象添加数据
+	$.each($('#inputfile2')[0].files, function (i, file) {
+		data.append('upload_file' + i, file);
+	});
+	//发送数据
+	$.ajax({
+		url: '/ajax/imgbank',
+		type: 'POST',
+		data: data,
+		cache: false,
+		contentType: false,		//不可缺参数
+		processData: false,		//不可缺参数
+		success: function (data) {
+			if (data) {
+				if(data=="error"){
+                    layer.msg('请选择正确的文件类型和大小！', {icon: 2});
+					return false;
+				}
+				//$('#sdcard2').attr('src','/Upload/pay/' + data);
+                $('.order-detail-qrcode-wx').data('img','/Upload/pay/' + data);
+				$('#card2').val(data);
+			}
+		},
+		error: function () {
+            layer.msg('上传出错！', {icon: 2});
+				$('#sdcard2').attr('src','/Upload/pay/weixin.jpg');
+				$('#card2').val('');
+			//$('.set_upload_img').hide();
+			//$(".loading").hide();	//加载失败移除加载图片
+		}
+	});
+
+});
+</script>
+<include file="Public:footer" />

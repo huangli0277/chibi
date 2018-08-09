@@ -1,0 +1,59 @@
+<include file="Public:header"/>
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+
+        <div class="">
+            <div class="c2c-cont">
+                <div class="c2c-promotion-head">
+                    <h3 class="c2c-app-title"><img src="__PUBLIC__/v2/images/app-1.png"></h3>
+                    <p class="c2c-promotion-txt0 cc7cce6">请扫描和您手机系统相对应的二维码进行下载，方便快捷。</p>
+                </div>
+                <div class="c2c-promotion-cont clearfix c2c-app-cont">
+                    <div class="pull-left c2c-promotion-cont-left">
+                        <div class="c2c-promotion-qrcoe c2c-app-qrcoe c6f798b">
+                            <div class="qrcode_div"></div>
+                            <span class="c2c-promotion-txt3 app-ios-btn">IOS</span>
+                        </div>
+                    </div>
+                    <div class="pull-right c2c-promotion-cont-right">
+                        <div class="c2c-promotion-qrcoe c2c-app-qrcoe c6f798b">
+                            <div class="qrcode_div"></div>
+                            <span class="c2c-promotion-txt3 app-android-btn">Android</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="c2c-promotion-foot">
+                    <p class="padt20"></p>
+                    <p class="padt20"></p>
+                    <p class="padt20"></p>
+                    <p class="padt20"></p>
+                    <h3 class="c2c-promotion-txt6 cc7cce6 padt20 font18">IOS9用户安装指南</h3>
+                    <p class="c2c-promotion-txt6">由于IOS9的安全机制，首次安装笔加索 APP的用户需要进入系统“设置”</p>
+                    <p class="c2c-promotion-txt6">选择“通用”——“描述文件”/“设备管理”</p>
+                    <p class="c2c-promotion-txt6">选择“一个英文的公司名称.”，设置为信任</p>
+                    <p class="c2c-promotion-txt6">点击“信任”完成验证</p>
+                    <p class="padt20"></p>
+                    <p class="c2c-promotion-txt6 cc7cce6 padt20 font18">IOS用户App Store安装指南</p>
+                    <p class="c2c-promotion-txt6">App Store下载需要AppleID所属 国家/区域 为中国以外的地区 参考链接</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+
+<script type="text/javascript">
+    $('.qrcode_div').qrcode({
+        render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+        text: 'https://fir.im/7hpz?utm_source=fir&utm_medium=qr', //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+        width: 160, //二维码的宽度
+        height: 160,
+        background: "#ffffff", //二维码的后景色
+        foreground: "#000000", //二维码的前景色
+        src: 'http://v2.bjs.bi/Public/v2/images/qrcode_w.PNG',
+        imgWidth: 40,
+        imgHeight: 40
+    });
+</script>
+<include file="Public:footer"/>

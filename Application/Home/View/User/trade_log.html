@@ -1,0 +1,95 @@
+<include file="Public:header" />
+
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+
+        <include file="User:left" />
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title pull-left">
+                        我的成交记录
+                    </h3>
+                </div>
+                <form name="formSearch" id="formSearch" method="get">
+                    <div class="c2c-order-form">
+                        <label>交易市场：</label>
+                        <select class="market-select vhide" id="market_selected" name="market">
+                            <option value=""
+                            <empty name="Think.get.market">selected</empty>
+                            >全部</option>
+                            <volist name="C['market']" id="vo">
+                                <option value="{$vo['name']}"
+                                <eq name="vo['name']" value="$Think.get.market">selected</eq>
+                                >{$vo['title']}</option>
+                            </volist>
+                        </select>
+                        <a class="c2c-order-form-btn" href="javascript: void(0);" onclick="search_trade_log();">查询</a>
+                    </div>
+                    <div class="c2c-order">
+                        <div class="c2c-order-table">
+                            <table class="c2c-table">
+                                <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>交易类型</th>
+                                    <th>交易对</th>
+                                    <th>成交价</th>
+                                    <th>成交量</th>
+                                    <th>总价</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                                    <tr>
+                                        <td>{$vo.addtime|addtime}</td>
+                                        <td>
+                                            <eq name="vo.type" value="1">买入
+                                                <else/>
+                                                卖出
+                                            </eq>
+                                        </td>
+                                        <td>{$vo['market']}</td>
+                                        <td>{$vo['price']|NumToStr}</td>
+                                        <td>{$vo['num']|NumToStr}</td>
+                                        <td>{$vo['mum']|NumToStr}</td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <div class="pages">{$page}</div>
+                            <!--<p class="c2c-order-table-info">当前服务器时间: 2018-07-03 22:46:27 UTC+8<br/>最多下载十次</p>-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div></div>
+
+<script>
+    $(function(){
+        $('#market_selected').select2({
+            minimumResultsForSearch: -1,
+            dropdownAutoWidth: true
+        });
+    });
+    function search_trade_log() {
+        $('#formSearch').submit();
+//         var market = $('#market_selected').val();
+//         $.post("/User/trade_log", {
+//             market: market,
+//         }, function (data) {
+// alert(data);
+//             // if (data.status == 1) {
+//             //
+//             // } else {
+//             //     layer.msg(data.info, {icon: 2});
+//             //     if (data.url) {
+//             //         window.location = data.url;
+//             //     }
+//             // }
+//         }, "json");
+    }
+</script>
+
+<include file="Public:footer" />

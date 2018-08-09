@@ -1,0 +1,76 @@
+<include file="Public:header"/>
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+        <include file="User:left"/>
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title">
+                        <p>绑定邮箱地址</p>
+                    </h3>
+                </div>
+                <div class="clearfix">
+                    <if condition="$Think.session.email_verify eq 1">
+                        <div class="default-form">
+                            <div class="form-item">
+                                <h5 class="form-label">您的账户已启用邮箱验证</h5>
+                            </div>
+                            <div class="form-item">
+                                <h5 class="form-label">邮箱地址</h5>
+                                <input class="form-input" disabled type="text" value="{$user.email}" readonly
+                                       name="email">
+                            </div>
+                            <div class="form-item">
+                                <h5 class="form-label" id="dd-mobilebindd">绑定时间:{$user.emailtime|date="Y-m-d
+                                    H:i:s",###}</h5>
+                            </div>
+                        </div>
+                        <else/>
+                        <div class="default-form">
+                            <div class="form-item">
+                                <h5 class="form-label">待绑定的邮箱地址</h5>
+                                <input type="text" id="email_address" class="form-input">
+                            </div>
+                            <div class="form-item">
+                                <h5 class="form-label">获取验证码</h5>
+                                <div class="input-group input-group-r">
+                                    <input class="form-control form-input" id="email_verify" type="text" name="code"
+                                           placeholder="请输入邮箱验证码"><a class="input-group-addon tc" id="send_code"
+                                                                     href="#">发送邮箱验证码</a>
+                                </div>
+                            </div>
+                            <div class="form-item">
+                                <button class="default-form-submit pull-right" id="band_email">
+                                    绑定
+                                </button>
+                            </div>
+                        </div>
+                    </if>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#send_code').on('click', function () {
+            var _e = $('#email_address').val();
+
+            $.post("/Verify/sendEmailCode", {"email": _e}, function (data) {
+                layer.msg(data.info);
+            })
+        });
+
+        $('#band_email').on('click', function () {
+            var _c = $('#email_verify').val();
+
+            $.post("/User/bindEmail", {"code": _c}, function (data) {
+                layer.msg(data.info);
+            })
+        });
+    });
+
+</script>
+
+<include file="Public:footer"/>

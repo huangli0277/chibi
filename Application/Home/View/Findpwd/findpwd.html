@@ -1,0 +1,153 @@
+<include file="Public:header" />
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title">
+						<p>找回交易密码</p>
+					</h3>
+				</div>
+				<div class="clearfix">
+					<div class="default-form">
+						<div class="form-item">
+							<h5 class="form-label">手机号</h5>
+							<input type="text" id="mobles" class="texts" style="display: none;">
+							<input type="text" id="moble" class="form-input" placeholder="请输入手机号码" onblur="check_moble()"/>
+						</div>
+						<div class="form-item">
+							<h5 class="form-label">图形验证码</h5>
+							<div class="input-group input-group-r">
+								<input type="text" id="verify" value="" class="form-control form-input"/>
+								<img id="verify_up" class="cinput-group-addon tc" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34">
+							</div>
+						</div>
+						<div class="form-item">
+							<h5 class="form-label">获取验证码</h5>
+							<div class="input-group input-group-r">
+								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入短信验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="moble_findpwd('sms')" href="javascript:;">发送短信验证码</a>
+							</div>
+						</div>
+						<div class="form-item">
+							<input type="button" class="default-form-submit pull-right" onclick="findpwd_up();" value="找回登录密码">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function check_moble() {
+		var moble  = $('#moble').val();
+		var mobles = $('#mobles').val();
+		if (moble == "" || moble == null) {
+			layer.tips("请输入手机号", '#moble', {tips: 2});
+			return false;
+		}
+		$.post("/Login/check_pwdmoble.html", {
+			moble: moble,
+			mobles: mobles,
+			token: ""
+		}, function (data) {
+			if (data.status == 1) {
+				$('#reg_moble_new').html('发送短信验证码');
+			} else {
+				layer.tips(data.info, '#moble', {tips: 2});
+				return false;
+			}
+		}, 'json');
+	}
+
+
+	function moble_findpwd(type) {
+        if($('#reg_moble_new').html() != '发送短信验证码'){
+            return;
+        }
+		var moble  = $("#moble").val();
+		var mobles = $("#mobles").val();
+		var verify = $("#verify").val();
+		if (moble == "" || moble == null) {
+			layer.tips("请输入手机号码", '#moble', {tips: 2});
+			return false;
+		}
+		if (verify == "" || verify == null) {
+			layer.tips("请输入图形验证码", '#verify', {tips: 2});
+			return false;
+		}
+		$.post("/verify/moble_findpwd.html", {
+			moble: moble,
+			mobles: mobles,
+			type: type,
+			verify: verify,
+			token: ""
+		}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1});
+				$("#moble_verify").focus();
+				$('#moble').attr("disabled", "disabled");
+				$('#mobles').attr("disabled", "disabled");
+				var obj      = $('#reg_moble_new');
+				var wait     = 30;
+				var interval = setInterval(function () {
+					obj.html("" + wait + "秒可再次发送");
+					wait--;
+					if (wait < 0) {
+						clearInterval(interval);
+						$(".reloadverify").click();
+						$("#verify").val('');
+						obj.html('发送短信验证码');
+					}
+					;
+				}, 1000);
+			} else {
+				$(".reloadverify").click();
+				layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+				});
+			}
+		}, "json");
+	}
+
+
+	function findpwd_up() {
+		var moble        = $("#moble").val();
+		var mobles       = $("#mobles").val();
+		var moble_verify = $("#moble_verify").val();
+
+
+		if (moble == "" || moble == null) {
+			layer.tips("请输入手机号", '#moble', {tips: 2});
+			return false;
+		}
+		if (moble_verify == "" || moble_verify == null) {
+			layer.tips("请输入验证码", '#moble_verify', {tips: 2});
+			return false;
+		}
+
+		$.post("/Findpwd/findpwd.html", {
+			moble: moble,
+			mobles: mobles,
+			moble_verify: moble_verify,
+			token: ""
+		}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1,data:2000},function(){
+                    window.location = '/Findpwd/findpwdconfirm';
+				});
+			} else {
+				layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+				});
+			}
+		}, "json");
+	}
+</script>
+
+<include file="Public:footer" />

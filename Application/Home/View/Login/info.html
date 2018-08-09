@@ -1,0 +1,30 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="slide-unit register-logo">
+		<img src="__PUBLIC__/v2/images/register-1.jpg">
+	</div>
+	<div class="register-box">
+		<div class="register-form">
+			<div id="register-phone-form" class="register-list register-login-info active">
+				<div class="register-item">
+					<label>恭喜您，已经注册成功！</label>
+				</div>
+
+				<div class="register-item">
+					<if condition="$user['email'] neq ''">
+						<label>邮箱:{$user.email}</label>
+						<else/>
+						<label>手机:{$user.moble}</label>
+					</if>
+				</div>
+				<div class="register-item">
+					您可以：<label class="default-btn"><a href="/trade/index.html" >去交易</a></label>或者<label class="default-btn"><a href="{:U('Finance/mycz')}">人民币充值</a></label>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />

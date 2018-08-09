@@ -1,0 +1,233 @@
+<include file="Public:header"/>
+
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+
+        <include file="User:left"/>
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title">
+                        <p>账户管理</p>
+                    </h3>
+                </div>
+                <div class="uc-unit">
+                    <h4 class="uc-unit-title">基本信息</h4>
+                    <div class="clearfix uc-unit-cont">
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span>账号：</span></li>
+                            <li class="flex-item-8"><span>{$Think.session.userName|hideCell}</span></li>
+                            <li class="flex-item-2 tr"></li>
+                        </ul>
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span>UID：</span></li>
+                            <li class="flex-item-8"><span>{$Think.session.userId}</span></li>
+                            <li class="flex-item-2 tr"></li>
+                        </ul>
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span>账户昵称</span></li>
+                            <li class="flex-item-8"><span id="nick_name">{$Think.session.nickname}</span></li>
+                            <li class="flex-item-2 tr"><a class="uc-btn" href="#" id="change_nick_name">修改</a></li>
+                        </ul>
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span>登录密码：</span></li>
+                            <li class="flex-item-8"><span>*******</span></li>
+                            <li class="flex-item-2 tr"><a class="uc-btn" href="uc-set-password.html">修改</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="uc-unit">
+                    <h4 class="uc-unit-title">实名认证</h4>
+                    <div class="clearfix uc-unit-cont">
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span class="picon-success">实名认证</span></li>
+                            <li class="flex-item-4"><span
+                                    class="">{$Think.session.userIdCardNumber|hideIdCardNumber}</span></li>
+                            <li class="flex-item-4"><span>用于提币、找回密码、修改安全设置、等</span></li>
+                            <li class="flex-item-2 tr">
+                                <if condition="$Think.session.idcardauth neq 1">
+                                <a class="uc-btn" href="#" id="gaojirenzheng-bnt">去认证</a>
+                                    <else />
+                                已认证
+                                </if>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="uc-unit">
+                    <h4 class="uc-unit-title">双重身份认证</h4>
+                    <div class="clearfix uc-unit-cont">
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span>安全等级：</span></li>
+                            <li class="flex-item-4">
+                                <div>
+                                    <if condition="($Think.session.idcard_verify eq 1) AND ($Think.session.email_verify eq 1)">
+                                        高
+                                        <else/>
+                                        低
+                                    </if>
+                                </div>
+                            </li>
+                            <li class="flex-item-4"><span>强烈建议开启两重身份认证</span></li>
+                            <li class="flex-item-2 tr"><span class=""></span></li>
+                        </ul>
+                        <ul class="flex-box">
+                            <li class="flex-item-2">
+                                <if condition="$Think.session.email_verify eq 1">
+                                <span class="picon-success">邮箱</span>
+                                <else />
+                                    <span class="picon-warning">邮箱</span>
+                                </if>
+                            </li>
+                            <li class="flex-item-4"><span class="">{$Think.session.email}</span></li>
+                            <li class="flex-item-4"><span>用于提币、找回密码、修改安全设置、等</span></li>
+                            <li class="flex-item-2 tr">
+
+                                <if condition="$Think.session.email_verify eq 1">
+                                    已绑定
+                                    <else />
+                                    <a class="uc-btn" href="email.html">去绑定</a>
+                                </if>
+
+
+                            </li>
+                        </ul>
+                        <ul class="flex-box">
+                            <li class="flex-item-2">
+                                <if condition="$Think.session.moble_verify eq 1">
+                                    <span class="picon-success">手机</span>
+                                    <else />
+                                    <span class="picon-warning">手机</span>
+                                </if></li>
+                            <li class="flex-item-4"><span><if condition="$Think.session.moble_verify eq 1">{$Think.session.userName|hideCell}</if></span></li>
+                            <li class="flex-item-4"><span>用于提币、找回密码、修改安全设置、等</span></li>
+                            <li class="flex-item-2 tr">
+                                <if condition="$Think.session.moble_verify eq 1">
+                                    已绑定
+                                    <else />
+                                    <a class="uc-btn" href="moble.html">去绑定</a>
+                                </if>
+                             </li>
+                        </ul>
+                        <!--<ul class="flex-box">-->
+                        <!--<li class="flex-item-2"><span class="picon-warning">谷歌验证器</span></li>-->
+                        <!--<li class="flex-item-4"><span class=""></span></li>-->
+                        <!--<li class="flex-item-4"><span class="">用于登陆、提币、找回密码、修改安全设置、等</span></li>-->
+                        <!--<li class="flex-item-2 tr"><a class="uc-btn" href="#">绑定</a></li>-->
+                        <!--</ul>-->
+                    </div>
+                </div>
+                <div class="uc-unit">
+                    <h4 class="uc-unit-title">最近登录</h4>
+                    <div class="clearfix uc-unit-cont">
+                        <ul class="flex-box">
+                            <li class="flex-item-2"><span class="">时间</span></li>
+                            <li class="flex-item-4"><span class="">登录方式</span></li>
+                            <li class="flex-item-4"><span class="">IP</span></li>
+                            <li class="flex-item-2 tr"><span class="">状态</span></li>
+                        </ul>
+
+                        <volist name="list" id="vo">
+                            <ul class="flex-box cc7cce6">
+                                <li class="flex-item-2"><span class="">{$vo.addtime|addtime}</span></li>
+                                <li class="flex-item-4"><span class="">{$vo.type}</span></li>
+                                <li class="flex-item-4"><span class="">{$vo.addip}</span></li>
+                                <li class="flex-item-2 tr"><span class=""><eq name="vo.status" value="0">
+									<font color="violet">出错</font>
+								</eq>
+								<eq name="vo.status" value="1"> <font class="green">正常</font></eq>
+								<eq name="vo.status" value="2">
+									<font color="red">异常</font>
+								</eq></span></li>
+                            </ul>
+                        </volist>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="gaojirenzheng" class="hide">
+    <div class="c2c-auth-box">
+        <h4 class="c2c-auth-title">高级认证 <span class="c2c-auth-close pull-right"></span></h4>
+        <div class="c2c-auth-box2">
+            <p class="c2c-auth-info1 tc">交易额超过单笔2,000 CNY或累计50,000 CNY需进行高级认证</p>
+            <p class="c2c-auth-qrcode"><div class="tc" id="qrcode_div"></div></p>
+            <p class="c2c-auth-msg padt20">请准备好本人身份证，并用微信扫码，每日仅限三次</p>
+            <p class="c2c-auth-info">如二维码过期请<a href="#" onclick="javascript: refreshToken();">刷新重试</a>；</p>
+            <p class="c2c-auth-info">如微信无法访问，请尝试其他扫码方式</p>
+        </div>
+    </div>
+    <div class="c2c-auth-bg"></div>
+</div>
+<input type="hidden" id="auth_token" value="{$token}" />
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+<script>
+    function changeNickName() {
+        layer.open({
+            title: '修改昵称',
+            content: "<ul class=\"tpwd\"><li><p class=\"input-group trading-input-group\"><input type=\"text\" id=\"new_nick_name\" placeholder=\"请输入新的昵称\" class=\"form-control form-control-tl\"></p></li></ul>",
+            yes: function (index, y) {
+                var _url = "/User/changeNickName?new_nickname=" + $('#new_nick_name').val();
+                $.get(_url, function (data) {
+                    if (data.status == "ok") {
+                        $('#nick_name').html(data.nick);
+                        $('.user-name span em').html(data.nick);
+                    } else if (data.status == "error") {
+                        layer.msg("昵称长度最大12，最低2!",{icon: 2})
+                    }
+                });
+                layer.close(index);
+            }
+        });
+    }
+
+    $(document).on('click','#gaojirenzheng-bnt',function(event){
+        event.preventDefault();
+        $('#gaojirenzheng').removeClass('hide');
+        refreshToken();
+    });
+    $(document).on('click','.c2c-auth-close',function(event){
+        event.preventDefault();
+        $('#gaojirenzheng').addClass('hide');
+    });
+    $('#change_nick_name').on('click', function () {
+        changeNickName();
+    });
+
+    $(function () {
+        var auth_token = $('#auth_token').val();
+        var face_url = "https://api.megvii.com/faceid/lite/do?token=";
+        face_url += auth_token;
+        $('#qrcode_div').qrcode({
+            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+            text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+            width: 160, //二维码的宽度
+            height: 160,
+            background: "#ffffff", //二维码的后景色
+            foreground: "#000000", //二维码的前景色
+            src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+            imgWidth: 40,
+            imgHeight: 40
+        });
+    });
+
+    function refreshToken() {
+        $.get("/User/auth", function (data) {
+            var face_url = "https://api.megvii.com/faceid/lite/do?token=" + data;
+            $('#qrcode_div').html("");
+            $('#qrcode_div').qrcode({
+                render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+                text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+                width: 160, //二维码的宽度
+                height: 160,
+                background: "#ffffff", //二维码的后景色
+                foreground: "#000000", //二维码的前景色
+                src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+                imgWidth: 40,
+                imgHeight: 40
+            });
+        })
+    }
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端申诉</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">申诉</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="content content2">
+			<div class="my-asset-cont">
+				<h3 class="bjs-color-white font5 padt2">请提交您的相关图像证据材料（可选）</h3>
+				<ul class="padt4 lh1375">
+					<li>注意</li>
+					<li>1.请确保图片清晰，无水印，无污渍</li>
+					<li>2.点击图片可重新上传</li>
+					<li>3.点击提交按钮上传图片</li>
+				</ul>
+				<div class="upload-m-box padt4">
+					<ul class="flex-box padt2">
+						<li class="tl">
+							<div class="upload-m"><img src="images/upload-m.png"></div>
+						</li>
+						<li class="tc">
+							<div class="upload-m"><img src="images/upload-m.png"></div>
+						</li>
+						<li class="tr">
+							<div class="upload-m"><img src="images/upload-m.png"></div>
+						</li>
+					</ul>
+				</div>
+				<p class="padt2"></p>
+				<h3 class="bjs-color-white font5 padt4">您的文字资料</h3>
+				<div class="padt4">
+					<textarea placeholder="请输入您的文字资料" class="form-textarea"></textarea>
+				</div>
+				<p class="padt4"></p>
+				<div class="padt4">
+					<button class="default-form-submit default-form-blue">我已确认无误，提交</button>
+				</div>
+				<p class="padt4"></p>
+			</div>
+			<div class="my-asset-cont">
+				<div class="complaint-list">
+					<h3 class="bjs-color-white font5 padt2">申诉历史</h3>
+					<ul class="flex-box padt4">
+						<li>单号</li>
+						<li>类型</li>
+						<li class="tr flex-item-2">时间</li>
+						<li class="tr">结果</li>
+					</ul>
+					<ul class="flex-box padt4 font42">
+						<li class="text-nowrap">02145</li>
+						<li class="bjs-color-down">卖出</li>
+						<li class="tr flex-item-2 text-nowrap">02-05 22:30:54</li>
+						<li class="tr">胜诉</li>
+					</ul>
+					<ul class="flex-box padt4 font42">
+						<li class="text-nowrap">02145</li>
+						<li class="bjs-color-up">买入</li>
+						<li class="tr flex-item-2 text-nowrap">02-05 22:30:54</li>
+						<li class="tr">败诉</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/fastClick.js"></script>
+	<script type="text/javascript" src="layer/layer.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initComplaint();
+		});
+	</script>
+</body>
+</html>

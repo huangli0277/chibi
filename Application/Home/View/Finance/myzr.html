@@ -1,0 +1,122 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title">
+					<p><img src="__UPLOAD__/coin/{$coin_list[$xnb]['img']}" alt="" class="icon-bi"/> 转入
+						<select name="type" id="coin-select" class="select2 vhide" style="width:250px;">
+							<volist name="coin_list" id="vo">
+								<eq name="xnb" value="$key">
+									<option data-img="/Upload/coin/{$vo['img']}" value="{$vo['name']}" selected="selected">{$vo.title} ({$vo['name']|strtoupper})</option>
+									<else/>
+									<option data-img="/Upload/coin/{$vo['img']}"  value="{$vo['name']}">{$vo.title} ({$vo['name']|strtoupper})</option>
+								</eq>
+							</volist>
+						</select>
+					</p></h3>
+				</div>
+				<div class="clearfix">
+					<div>
+						<div class="tixian-form">
+							<div class="default-form">
+								<div class="form-item">
+									<h5 class="form-label">钱包名称</h5>
+									<input class="form-input" type="text" value="{$coin_list[$xnb]['title']}" name="name" placeholder="输入提币地址">
+								</div>
+								<div class="form-item">
+									<h5 class="form-label">钱包地址，转入即赠{$coin_list[$xnb]['zr_zs']}%</h5>
+									<input class="form-input" type="text" value="{$qianbao}" readonly name="name" placeholder="输入提币地址">
+
+								</div>
+							</div>
+							<div class="tixian-form-info">
+								<h4>温馨提示</h4>
+								<ul>
+									<li>为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系</li>
+									<li>请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="tixian-jilu-list">
+						<h3 class="c2c-cont-head-title">
+							最近转入记录
+						</h3>
+						<table class="c2c-table">
+							<thead>
+							<tr>
+								<th style="width: 15%;">转入时间</th>
+								<th style="width: 30%;">转入币种</th>
+								<th style="width: 14%;">转入数量</th>
+								<th style="width: 26%;">转入赠送</th>
+								<th style="width: 15%;">到账数量</th>
+								<th style="width: 15%;">状态</th>
+							</tr>
+							</thead>
+							<tbody>
+							<volist name="list" id="vo">
+								<tr>
+									<td>{$vo.addtime|addtime}</td>
+									<td>{$vo.coinname}</td>
+									<td>{$vo['num']|NumToStr}</td>
+									<td>{$vo['fee']|NumToStr}</td>
+									<td>{$vo['mum']|NumToStr}</td>
+									<td>
+										<eq name="vo.status" value="1">
+											转入成功
+											<else/>
+											等待处理,还需要{$vo.status|abs}个确认
+										</eq>
+									</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/Public/v2/js/select2.min.js"></script>
+<link href="/Public/v2/css/select2.min.css" rel="stylesheet" />
+<script type="text/javascript">
+	$(function(){
+        function formatState(state){
+            //console.log(state.element)
+            var img = $(state.element).data('img');
+            if(img != undefined && img.length > 0){
+                var $state = $(
+                    '<span><img src="'+$(state.element).data('img')+'" class="img-flag" style="width:16px;float:left;margin-top: 1px;margin-right: 3px;" /> ' + state.text + '</span>'
+                );
+                return $state;
+            }else{
+                var $state = $(
+                    '<span> ' + state.text + '</span>'
+                );
+                return $state;
+            }
+
+        }
+
+        $(".select2").select2({
+            minimumResultsForSearch: -1,
+            templateResult: formatState
+        });
+	});
+
+    $("#coin-select").change(function () {
+        var coin = $("#coin-select option:selected").val();
+        var url    = '/Finance/myzr';
+        if (coin) {
+            url += '/coin/' + coin + '.html';
+        }
+        window.location = url;
+    });
+</script>
+<include file="Public:footer" />

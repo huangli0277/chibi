@@ -1,0 +1,60 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="clearfix window-wrap w1500">
+		<div class="clearfix article-page">
+			<div class="article-left article-detail-left">
+				<div class="article-title">
+					<h3>
+						<volist name="ArticleTypeList" id="vo">
+								<a href="{:U('Article/index',array('id'=>$vo['id']))}" class="article-list-tab-btn <if condition="$vo['id'] eq $id">active</if>">
+									{$vo.title}
+								</a>
+						</volist>
+					</h3>
+				</div>
+				<div class="article-tab-cont">
+					<div class="article-list-box active">
+						<div class="article-list">
+							<volist name="list" id="vo">
+							<dl class="clearfix">
+								<dt>
+									<img src="/Upload/article/{$vo.img}" />
+								</dt>
+								<dd>
+									<h4><a href="{:U('Article/detail','id='.$vo['id'])}" class="article-list-title">{$vo.title}</a></h4>
+									<p class="article-list-txt">
+										<a href="{:U('Article/detail','id='.$vo['id'])}">{$vo.brief}</a>
+									</p>
+									<p><span class="article-list-time">更新时间：{$vo.addtime|addtime}</span><span class="article-num">阅读：{$vo.hits}</span></p>
+								</dd>
+							</dl>
+							</volist>
+						</div>
+						<div class="pages">{$page}</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-left article-detail-right">
+				<div class="article-title">
+					<h3>热门文章</h3>
+				</div>
+				<div class="article-list">
+					<volist name="hotlist" id="vo">
+					<dl>
+						<dd>
+							<h4><a class="article-list-title" href="{:U('Article/detail','id='.$vo['id'])}">{$vo.title}</a></h4>
+							<p class="article-list-txt">
+								<a href="{:U('Article/detail','id='.$vo['id'])}">{$vo.brief}</a>
+							</p>
+							<p><span class="article-list-time">更新时间：{$vo.addtime|addtime}</span><span class="article-num">阅读：{$vo.hits}</span></p>
+						</dd>
+					</dl>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />

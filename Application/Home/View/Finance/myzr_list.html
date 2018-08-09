@@ -1,0 +1,65 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title pull-left">
+						最近充币记录
+					</h3>
+				</div>
+				<div class="c2c-order">
+					<div class="c2c-order-table">
+						<table class="c2c-table">
+							<thead>
+							<tr>
+								<th>转入时间</th>
+								<th>转入币种</th>
+								<th>转入数量</th>
+								<th>手续费</th>
+								<th>到账数量</th>
+								<th>状态</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							<volist name="list" id="vo">
+								<tr>
+									<td>{$vo.addtime|addtime}</td>
+									<td>{$vo.coinname}</td>
+									<td>{$vo['num']|NumToStr}</td>
+									<td>{$vo['fee']|NumToStr}</td>
+									<td>{$vo['mum']|NumToStr}</td>
+									<td>
+										<eq name="vo.status" value="1">
+											<span class="c00ffff">成功</span>
+											<else/>
+											<span class="cb94e50">等待处理,还需要{$vo.status|abs}个确认</span>
+										</eq>
+									</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+						<div class="pages">{$page}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $('.select2').select2({
+        minimumResultsForSearch: -1
+    });
+    $('.c2c-menu-left').on('click','.c2c-menu-unit h3',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('.c2c-menu-unit').toggleClass('close-list');
+    });
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,12 @@
+body .myskin .layui-layer-content,
+body .myskin .layui-layer-btn{background-color: #292e38;}
+body .myskin.layui-layer-tips i.layui-layer-TipsL,
+body .myskin.layui-layer-tips i.layui-layer-TipsR{border-bottom-color: #292e38;}
+body .myskin.layui-layer-tips i.layui-layer-TipsT,
+body .myskin.layui-layer-tips i.layui-layer-TipsB{border-right-color: #292e38;}
+body .myskin .layui-layer-title{background-color: #292e38; border-color: #35383e; color: #c6ccd8; font-size: 16px;}
+.myskin .layui-layer-ico{background-image: url(icon.png)}
+body .myskin .layui-layer-btn .layui-layer-btn0{background-color: #01e5f5; color: #000; border-color: #01e5f5;}
+body .myskin .layui-layer-btn a{}
+.layer-btn,
+.layer-input{background-color: #21252d; border: 1px solid #6f798b; height: 32px; line-height: 20px; padding: 5px 10px; border-radius: 3px; color: #6f798b; box-sizing: border-box; display: inline-block; vertical-align: top;}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索实名认证</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-form register-form-head">
+		<div class="register-form-cont2 bjs-tab">
+			<div class="bjs-tab-cont wrap-form-cont2">
+				<div class="clearfix register-form-cont2-head tc">
+					<p class="pull-right register-form-cont2-title">实名认证</p>
+				</div>
+				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">真实姓名</span></p>
+						<input type="text"class="form-input" id="regtruename" value=""  placeholder="输入姓名"/>
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">身份证号</span></p>
+						<input class="form-input" id="regidcard" type="text" name="name[]" placeholder="输入身份证号">
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="register-phone-next" onclick="Update();">下一步</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+
+
+
+<script>
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initRegister();
+    });
+
+    $('.reg_input_box input').each(function(i,d){
+        $(d).focus(function(){
+            var oRegMsg=$('#'+$(this).attr('id')+'-msg');
+            oRegMsg.attr('class')=='form_explain_error'?oRegMsg.attr('class','form_explain').html(oRegMsg.attr('data-explain')).show():oRegMsg.show();
+        })
+        $(d).blur(function(){
+            var oRegMsg=$('#'+$(this).attr('id')+'-msg');
+            $(this).parent().find('.form_explain').hide();
+        })
+    })
+
+    function Update(){
+        var truename=$("#regtruename").val();
+        var idcard=$("#regidcard").val();
+
+
+        if(truename==""||truename==null){
+            layer.tips("请输入真实姓名", '#regtruename', {tips: 1});
+            return false;
+        }
+        if(idcard==""||idcard==null){
+            layer.tips("请输入身份证号", '#regidcard', {tips: 1});
+            return false;
+        }
+
+
+        $.post("{:U('Login/upregister3')}",{truename:truename,idcard:idcard},function(data){
+            if(data.status==1){
+                layer.msg(data.info,{icon:1,time:2000},function(){
+                    window.location='/Login/register4';
+                });
+            }else{
+                layer.msg(data.info,{icon:2,time:2000},function(){
+                    if(data.url){
+                        window.location=data.url;
+                    }
+                });
+            }
+        },"json");
+    }
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

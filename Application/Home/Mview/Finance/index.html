@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端个人中心</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix my-heade tc">
+					<span class="my-heade-skin moon"></span>
+					<h3 class="my-heade-text">个人中心</h3>
+					<a href="#" class="my-heade-settings"></a>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="my-box">
+				<div class="my-box-bg"></div>
+				<div class="my-box-avatar tc">
+					<img src="__PUBLIC__/m/images/avatar.png">
+					<div class="my-box-vip"></div>
+				</div>
+				<div class="my-box-name tc">{$Think.session.userName}</div>
+				<div class="my-box-id tc">ID:{$Think.session.userId}</div>
+			</div>
+			<div class="my-manage tc">
+				<ul class="flex-box">
+					<li>
+						<a class="my-asset" href="/finance/details.html">我的资产</a>
+					</li>
+					<li>
+						<a class="my-order" href="/finance/mywt/status/1">订单管理</a>
+					</li>
+				</ul>
+			</div>
+			<div class="my-links">
+				<ul>
+					<li>
+						<a class="my-links1" href="/finance/promotion.html"><span>邀请返佣</span></a>
+					</li>
+					<li>
+						<a class="my-links2" href="/User/uc.html"><span>安全中心</span></a>
+					</li>
+					<li>
+						<a class="my-links3" href="/finance/bank.html"><span>支付管理</span></a>
+					</li>
+					<li>
+						<a class="my-links4" href="#"><span>提币地址</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content">
+				<ul class="flex-box tc">
+					<li>
+						<a href="/Market/index.html" class="f-market"></a>
+					</li>
+					<li>
+						<a href="/finance/mycz.html" class="f-c2c"></a>
+					</li>
+					<li>
+						<a href="/Index/index.html" class="f-home"></a>
+					</li>
+					<li>
+						<a href="/Trade/mindex.html" class="f-pay"></a>
+					</li>
+					<li>
+						<a href="#" class="f-my active"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initMy();
+		});
+	</script>
+</body>
+</html>

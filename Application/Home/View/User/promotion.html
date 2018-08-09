@@ -1,0 +1,83 @@
+<include file="Public:header"/>
+
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+
+        <include file="User:left"/>
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-promotion-head">
+                    <h3 class="c2c-promotion-title"><img src="__PUBLIC__/v2/images/c2c-promotion.jpg"></h3>
+                    <p class="c2c-promotion-txt0">通过以下链接推荐其他用户访问本站并注册，</p>
+                    <p class="c2c-promotion-txt1">您可以获得被推荐用户一年内交易手续的 20% 作为佣金。</p>
+                </div>
+                <div class="c2c-promotion-cont clearfix">
+                    <div class="tc">
+                        <p class="c2c-promotion-txt4">推荐到bjs.bi注册页面的链接：</p>
+                        <p class="c2c-promotion-txt4">
+                            http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}</p>
+                        <p class="padt20">
+                            <div id="invit_qrcode"></div>
+                        </p>
+                        <p class="c2c-promotion-txt3 padt20">点击保存二维码，去您的社交媒体推广</p>
+                        <p class="c2c-promotion-txt5"><span class="copy-btn"
+                                                            data-clipboard-text="http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}">复制</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="c2c-promotion-foot">
+                    <h3 class="c2c-promotion-title2 cc7cce6">推广方法</h3>
+                    <p class="c2c-promotion-txt6">01/复制以上任一推广链接，或者下载保存以上二维码，去您的社交媒体推广，让您的朋友们通过此链接访问本站并注册。</p>
+                    <p class="c2c-promotion-txt6">
+                        02/移动端扫码以上二维码，并把打开的bjs.bi页面分享到您的社交媒体。如微信，扫码以上二维码后，在打开的bjs.bi页面，点击微信右上角菜单，在弹窗的对话框中，点击发送给朋友、分享到朋友圈、分享到手机QQ或者分享到QQ空间即可。</p>
+                </div>
+                <div class="c2c-promotion-list clearfix">
+                    <div class="pull-left c2c-promotion-list-left">
+                        <h3>最近接受推荐的用户 <span class="pull-right">我的有效推荐用户个数为：<em>4</em></span></h3>
+                        <table class="c2c-table">
+                            <thead>
+                            <tr>
+                                <th>注册日期</th>
+                                <th>用户名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right c2c-promotion-list-left">
+                        <h3>我的最近30天佣金</h3>
+                        <table class="c2c-table">
+                            <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>金额</th>
+                                <th>笔数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+<script src="__PUBLIC__/v2/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        home.initPromotion();
+    });
+    $('#invit_qrcode').qrcode({
+        render: "canvas", //table方式
+        width: 160, //二维码的宽度
+        height: 160,
+        text: "http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}", //任意内容
+        src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+        imgWidth: 60,
+        imgHeight: 60
+    }); //任意字符串
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,157 @@
+<include file="Public:header" />
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title">
+						<p>绑定手机号码</p>
+					</h3>
+				</div>
+				<div class="clearfix">
+					<div class="default-form" id="step1">
+						<div class="form-item">
+							<if condition="$user.moble">
+								<h5 class="form-label">您的账户已启用手机验证</h5>
+								<else />
+								<h5 class="form-label">您的账户未启用手机验证</h5>
+							</if>
+						</div>
+						<div class="form-item">
+							<h5 class="form-label">手机号码</h5>
+							<input class="form-input" type="text" value="{$user.moble}" readonly name="phone">
+						</div>
+						<div class="form-item">
+							<h5 class="form-label" id="dd-mobilebindd">绑定时间:{$user.mobletime|date="Y-m-d H:i:s",###}</h5>
+						</div>
+						<div class="form-item">
+							<empty name="user.moble">
+								<button class="default-form-submit pull-right" onclick="new_moble()">更换绑定</button>
+								<else /></empty>
+						</div>
+					</div>
+
+					<div class="default-form hide" id="step2">
+						<div class="form-item">
+							<h5 class="form-label">新手机号码</h5>
+							<input type="text" id="mobles_new"  style="display: none;">
+							<input type="text" id="moble_new" class="form-input">
+						</div>
+						<div class="form-item">
+							<h5 class="form-label">当前手机号码</h5>
+							<input class="form-input" type="text" value="{$user.moble} (接收验证码)" readonly name="phone">
+						</div>
+
+						<div class="form-item">
+							<h5 class="form-label">获取验证码</h5>
+							<div class="input-group input-group-r">
+								<input class="form-control form-input" id="moble_verify_new"  type="text" name="code" placeholder="请输入短信验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="send_moble_new('sms')" href="javascript:;">发送短信验证码</a>
+							</div>
+						</div>
+						<div class="form-item">
+							<button class="default-form-submit pull-right" id="genghuan" onclick="moble_news()">更换绑定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+function new_moble() {
+    $("#step2").removeClass('hide');
+	$("#step1").addClass('hide');
+}
+
+function send_moble_new(type) {
+    if($('#reg_moble_new').html() != '发送短信验证码'){
+        return;
+	}
+	var moble      = "{$user.moble}";
+	var moble_new  = $("#moble_new").val();
+	var mobles_new = $("#mobles_new").val();
+
+	if (moble_new == "" || moble_new == null) {
+		layer.tips("请输入新手机号码", '#moble_new', {tips: 3});
+		return false;
+	}
+	if (moble == "" || moble == null) {
+        moble = moble_new;
+	}
+    console.log(moble);
+	$.post("/Verify/real_qq3479015851.html", {
+		moble: moble,
+		moble_new: moble_new,
+		mobles_new: mobles_new,
+		type: type,
+	}, function (data) {
+		if (data.status == 1) {
+
+			$("#genghuan").removeAttr("disabled");
+
+			layer.msg(data.info, {icon: 1});
+			$(".step5").hide();
+			$(".step6").show();
+			$('#moble_new').attr("disabled", "disabled");
+			var obj      = $('#reg_moble_new');
+			var wait     = 60;
+			var interval = setInterval(function () {
+				obj.html(wait + "秒可再次发送");
+				wait--;
+				if (wait < 0) {
+                    clearInterval(interval);
+					obj.html('发送短信验证码');
+				}
+				;
+			}, 1000);
+		} else {
+			layer.msg(data.info, {icon: 2,time:2000},function () {
+                if (data.url) {
+                    window.location = data.url;
+                }
+            });
+		}
+	}, "json");
+}
+function moble_news() {
+	var moble_new        = $("#moble_new").val();
+	var mobles_new       = $("#mobles_new").val();
+	var moble_verify_new = $("#moble_verify_new").val();
+	if (moble_new == "" || moble_new == null) {
+		layer.tips("请输入手机号码", '#moble_new', {tips: 3});
+		return false;
+	}
+	if (moble_verify_new == "" || moble_verify_new == null) {
+		layer.tips("请输入短信验证码", '#moble_verify_new', {tips: 3});
+		return false;
+	}
+	$.post("/User/upmoble_qq3479015851.html", {
+		moble_new: moble_new,
+		mobles_new: mobles_new,
+		moble_verify_new: moble_verify_new
+	}, function (data) {
+		if (data.status == 1) {
+			layer.msg(data.info, {icon: 1});
+			location.reload();
+		} else {
+			layer.msg(data.info, {icon: 2,time:2000},function () {
+                if (data.url) {
+                    window.location = data.url;
+                }
+            });
+		}
+	}, "json");
+}
+</script>
+<script>
+	$('.user_moble').addClass('active');
+</script>
+
+
+
+
+
+<include file="Public:footer" />

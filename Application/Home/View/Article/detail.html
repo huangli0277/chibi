@@ -1,0 +1,49 @@
+<include file="Public:header" />
+<div class="content">
+	<div class="clearfix window-wrap w1500">
+		<div class="clearfix article-page">
+			<div class="article-left article-detail-left">
+				<div class="article-title">
+					<h3 class="article-detail-title clearfix">
+						{$data.title} <span class="pull-right article-detail-title-time"><span class="article-list-time">发布时间：{$data.addtime|date="Y-m-d H:i:s",###}</span><span class="article-num">阅读：{$data.hits}</span></span>
+					</h3>
+				</div>
+				<div class="article-tab-cont">
+					<div class="articletext">{$data['content']}
+					</div>
+					<div class="article-detail-foot clearfix">
+						<p class="link-list pull-right">
+							快来分享到：
+							<a href="#" class="link-wb"></a>
+							<a href="#" class="link-qq"></a>
+							<a href="#" class="link-wx"></a>
+							<a href="#" class="link-tt"></a>
+							<a href="#" class="link-fb"></a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="article-left article-detail-right">
+				<div class="article-title">
+					<h3>热门文章</h3>
+				</div>
+				<div class="article-list">
+					<volist name="hotlist" id="vo">
+						<dl>
+							<dd>
+								<h4><a class="article-list-title" href="{:U('Article/detail','id='.$vo['id'])}">{$vo.title}</a></h4>
+								<p class="article-list-txt">
+									<a href="{:U('Article/detail','id='.$vo['id'])}">{$vo.brief}</a>
+								</p>
+								<p><span class="article-list-time">更新时间：{$vo.addtime|addtime}</span><span class="article-num">阅读：{$vo.hits}</span></p>
+							</dd>
+						</dl>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />
