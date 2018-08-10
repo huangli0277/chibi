@@ -12,7 +12,7 @@ class ArticleController extends HomeController
 		if (!check($id, 'd')) {
 			redirect(U('Article/detail'));
 		}
-
+        $this->assign('type', $id == 20?'资讯':'公告');
 		$Articletype = M('ArticleType')->where(array('id' => $id))->find();
 		$ArticleTypeList = M('ArticleType')->where(array('status' => 1, 'index' => 1, 'shang' => $Articletype['shang']))->order('sort asc ,id asc')->select();
 		
@@ -88,6 +88,29 @@ class ArticleController extends HomeController
 		$this->assign('type', $data['type']);
 		$this->display();
 	}
+
+    public function mdetail($id = NULL)
+    {
+        if (empty($id)) {
+            $id = 1;
+        }
+
+        if (!check($id, 'd')) {
+            $id = 1;
+        }
+
+        $data = M('Article')->where(array('id' => $id))->find();
+        $ArticleType = M('ArticleType')->where(array('status' => 1, 'index' => 1))->order('sort asc ,id desc')->select();
+
+        foreach ($ArticleType as $k => $v) {
+            $ArticleTypeList[$v['name']] = $v;
+        }
+
+        $this->assign('ArticleTypeList', $ArticleTypeList);
+        $this->assign('data', $data);
+        $this->assign('type', $data['type']);
+        $this->display();
+    }
 
 	public function type($id = NULL)
 	{

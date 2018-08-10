@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>公告列表</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc text-nowrap lh1375 bjs-tab-head">
+							<eq name="type" value="公告">
+								<a href="#"><span class="article-head-btn hand  active" data-id="article-page-1">官方公告</span></a>
+								<a href="/Article/index/id/20"><span class="article-head-btn hand " data-id="article-page-2">最新资讯</span></a>
+							<else />
+								<a href="/Article/index/id/19"><span class="article-head-btn hand  " data-id="article-page-1">官方公告</span></a>
+								<a href=""><span class="article-head-btn hand  active" data-id="article-page-2">最新资讯</span></a>
+							</eq>
+								
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="bjs-tab-list article-tab-list pad5 active" id="article-page-1">
+				<ul class="article-list">
+					<volist name="list" id="vo">
+					<li class="article-item">
+						<a href="{:U('Article/mdetail','id='.$vo['id'])}" class="db">
+							<div class="clearfix">
+								<span>发布时间：{$vo.addtime|addtime}</span>
+								<span class="pull-right">阅读：<span>{$vo.hits}</span></span>
+							</div>
+							<div class="lh1375 font42 bjs-color-white padt2 text-overflow" style="width: 80%">{$vo.title}</div>
+							<div class="lh1375 article-item-detail">{$vo.brief}... ...</div>
+						</a>
+					</li>
+					</volist>
+				</ul>
+				<!--<p class="tc padt4"><span class="hand load-more" data-state="1">加载更多...</span></p>-->
+			</div>
+			<!--<div class="bjs-tab-list article-tab-list pad5" id="article-page-2">-->
+				<!--<ul class="article-list">-->
+					<!--<li class="article-item">-->
+						<!--<a href="articledetail.html" class="db">-->
+							<!--<div class="clearfix">-->
+								<!--<span>发布时间：2018-07-08 17:09:51</span>-->
+								<!--<span class="pull-right">阅读：<span>173</span></span>-->
+							<!--</div>-->
+							<!--<div class="lh1375 font42 bjs-color-white padt2 text-nowrap">美国万亿基金巨头贝莱德成立工作小组，研究区块链</div>-->
+							<!--<div class="lh1375 article-item-detail">经过与百姓链(ESM)社区友好沟通，双方达成良好共识；笔加索将开通百姓链(ESM)与CNYT交易对：... ...</div>-->
+						<!--</a>-->
+					<!--</li>-->
+					<!--<li class="article-item">-->
+						<!--<a href="articledetail.html" class="db">-->
+							<!--<div class="clearfix">-->
+								<!--<span>发布时间：2018-07-08 17:09:51</span>-->
+								<!--<span class="pull-right">阅读：<span>173</span></span>-->
+							<!--</div>-->
+							<!--<div class="lh1375 font42 bjs-color-white padt2 text-nowrap">美国万亿基金巨头贝莱德成立工作小组，研究区块链</div>-->
+							<!--<div class="lh1375 article-item-detail">经过与百姓链(ESM)社区友好沟通，双方达成良好共识；笔加索将开通百姓链(ESM)与CNYT交易对：... ...</div>-->
+						<!--</a>-->
+					<!--</li>-->
+					<!--<li class="article-item">-->
+						<!--<a href="articledetail.html" class="db">-->
+							<!--<div class="clearfix">-->
+								<!--<span>发布时间：2018-07-08 17:09:51</span>-->
+								<!--<span class="pull-right">阅读：<span>173</span></span>-->
+							<!--</div>-->
+							<!--<div class="lh1375 font42 bjs-color-white padt2 text-nowrap">美国万亿基金巨头贝莱德成立工作小组，研究区块链</div>-->
+							<!--<div class="lh1375 article-item-detail">经过与百姓链(ESM)社区友好沟通，双方达成良好共识；笔加索将开通百姓链(ESM)与CNYT交易对：... ...</div>-->
+						<!--</a>-->
+					<!--</li>-->
+				<!--</ul>-->
+				<!--<p class="tc padt4"><span class="hand load-more" data-state="2">加载更多...</span></p>-->
+			<!--</div>-->
+			<div class="padt4"></div>
+		</div>
+		
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initArticle();
+
+			var page = {
+				1: 1,
+				2: 1
+			}
+			$(document).on('click','.load-more',function(){
+				var $this = $(this);
+				var state = $this.data('state');
+				layer.load();
+				var url = '';
+				var data = {state: state, page: page[state]};
+				var type = 'post';
+				var dataType = 'json';
+				var tpl = '';
+				var success = function(result){
+					console.log(result);
+					if(result.data && result.data.length){
+						result.data.forEach(function(item,index){
+							tpl += '<li class="article-item">'
+								+	'<a href="articledetail/'+item.id+'" class="db">'
+								+		'<div class="clearfix">'
+								+			'<span>发布时间：'+item.time+'</span>'
+								+			'<span class="pull-right">阅读：<span>'+item.num+'</span></span>'
+								+		'</div>'
+								+		'<div class="lh1375 font42 bjs-color-white padt2 text-nowrap">'+item.title+'</div>'
+								+		'<div class="lh1375 article-item-detail">'+item.detail+'</div>'
+								+	'</a>'
+								+'</li>';
+						});
+						$this.parent().siblings('.article-list').append(tpl);
+						page[state] ++;
+						layer.closeAll('loading');
+					}
+				};
+				var error = function(e){
+					console.log(e);
+					layer.closeAll('loading');
+					layer.msg('暂无数据',{icon:0,time:800});
+				};
+				home._fetch(url,data,type,dataType,success,error);
+			});
+		});
+		
+	</script>
+</body>
+</html>

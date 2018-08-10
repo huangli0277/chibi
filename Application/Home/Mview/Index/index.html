@@ -35,6 +35,7 @@
 						<span class="bjs-tab-btn {$k == 1?'active':''}" data-id="{$k == 1?'official-notice':'news-notice'}">{$vo.type}</span>
 						<!--<span class="bjs-tab-btn" data-id="news-notice">最新动态</span>-->
 					</volist>
+					<a href="/Article/index/id/20.html" class="pull-right font42 padt2 lh1375">更多</a>
 				</h3>
 				<div class="notice-cont bjs-tab-cont">
 					<volist name="information" id="vo" key="k">
@@ -42,7 +43,7 @@
 						<ul class="flex-box">
 							<volist name="vo.list" id="voo">
 							<li class="notice-item">
-								<a href="/m">
+								<a href="/Article/mdetail/id/{$voo.id}.html">
 									<h4 class="notice-item-title text-overflow">{$voo.title}</h4>
 									<p class="notice-item-desc text-overflow">{$voo.brief}</p>
 								</a>
