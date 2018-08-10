@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端交易</title>
+<script src="__PUBLIC__/v2/js/template.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap" id="trade-page">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-btn-box">
+					<div class="bjs-bi-choose pull-left">
+						<span class="bjs-bi-choose-name">{$C['coin'][$xnb]['name'] | strtoupper} / CNYT</span>
+					</div>
+					<div class="bjs-role-choose pull-right">
+						<ul>
+							<li>
+								<a href="#" class="fav-btn"></a>
+							</li>
+							<li>
+								<a href="#" class="kline-btn"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix search-slide-box hide">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<input type="text" name="bi-keywords" placeholder="搜索" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="pay-page">
+				<div class="pay-content clearfix">
+					<div class="bjs-tab pull-left pay-left">
+						<div class="c2c-page-tab tc clearfix bjs-tab-head c2c-page-tab-none">
+							<ul class="pull-left">
+								<li><span class="bjs-tab-btn c2c-page-btn-pay tl active" data-id="c2c-page-pay-box">买入</span></li>
+								<li><span class="bjs-tab-btn c2c-page-btn-sell ml3" data-id="c2c-page-sell-box">卖出</span></li>
+							</ul>
+						</div>
+						<div class="clearfix bjs-tab-cont">
+							<div class="c2c-page-tab-unit bjs-tab-list active" id="c2c-page-pay-box">
+								<div class="default-form pay-form">
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">价格</span>
+											<span class="pull-right">
+												<span class="pay-form-less hide"></span>
+												<span class="pay-form-add ml3 hide"></span>
+											</span>
+										</p>
+										<input id="buy_price" type="text" name="name[]" class="form-input" oninput="value=value.replace(/[^\d.]/g,'')">
+										<!--<p class="form-msg">≈1201.45 cny</p>-->
+									</div>
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">买入量</span>
+											<span class="pull-right">{$C['coin'][$xnb]['name'] | strtoupper}</span>
+										</p>
+										<input id="buy_num" type="text" name="name[]" class="form-input num" oninput="value=value.replace(/[^\d.]/g,'')">
+										<p class="form-msg">可用 <span id="cny_num">{$cny['ky']|NumToStr}</span> CNYT</p>
+									</div>
+									<div class="form-item">
+										<div class="bjs-progress bjs-progress-up clearfix">
+											<div class="bjs-progress-top">
+												<div class="bjs-progress-line"></div>
+												<div class="bjs-progress-points">
+													<span class="bjs-progress-point bjs-progress-point1" data-point="0"></span>
+													<span class="bjs-progress-point bjs-progress-point2" data-point="25"></span>
+													<span class="bjs-progress-point bjs-progress-point3" data-point="50"></span>
+													<span class="bjs-progress-point bjs-progress-point4" data-point="75"></span>
+													<span class="bjs-progress-point bjs-progress-point5" data-point="100"></span>
+												</div>
+												<div class="bjs-progress-btn"></div>
+											</div>
+											<div class="bjs-progress-bot clearfix text-nowrap">
+												<span class="pull-left bjs-progress-num">0%</span>
+												<span class="pull-right bjs-progress-price"><span class="maxmum-buy maxnum">-</span> {$C['coin'][$xnb]['name'] | strtoupper}</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">交易额</span>
+											<span class="pull-right">CNYT</span>
+										</p>
+										<p id="buy_mum" class="mum pay-form-text text-nowrap">-</p>
+									</div>
+									<div class="form-item">
+										<button class="bjs-btn bjs-btn-full bjs-btn-up" id="trade-pay-submit">买入{$C['coin'][$xnb]['name'] | strtoupper}</button>
+									</div>
+								</div>
+							</div>
+							<div class="c2c-page-tab-unit bjs-tab-list" id="c2c-page-sell-box">
+								<div class="default-form pay-form">
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">价格</span>
+											<span class="pull-right">
+												<span class="pay-form-less hide"></span>
+												<span class="pay-form-add ml3 hide"></span>
+											</span>
+										</p>
+										<input id="sell_price" type="text" name="name[]" class="form-input" oninput="value=value.replace(/[^\d.]/g,'')">
+										<!--<p class="form-msg">≈1201.45 cny</p>-->
+									</div>
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">卖出量</span>
+											<span class="pull-right">{$C['coin'][$xnb]['name'] | strtoupper}</span>
+										</p>
+										<input id="sell_num" type="text" name="name[]" class="form-input num" oninput="value=value.replace(/[^\d.]/g,'')">
+										<p class="form-msg">可用 <span id="my_xnb">0</span> {$C['coin'][$xnb]['name'] | strtoupper}</p>
+									</div>
+									<div class="form-item">
+										<div class="bjs-progress bjs-progress-down clearfix">
+											<div class="bjs-progress-top">
+												<div class="bjs-progress-line"></div>
+												<div class="bjs-progress-points">
+													<span class="bjs-progress-point bjs-progress-point1" data-point="0"></span>
+													<span class="bjs-progress-point bjs-progress-point2" data-point="25"></span>
+													<span class="bjs-progress-point bjs-progress-point3" data-point="50"></span>
+													<span class="bjs-progress-point bjs-progress-point4" data-point="75"></span>
+													<span class="bjs-progress-point bjs-progress-point5" data-point="100"></span>
+												</div>
+												<div class="bjs-progress-btn"></div>
+											</div>
+											<div class="bjs-progress-bot clearfix text-nowrap">
+												<span class="pull-left bjs-progress-num">0%</span>
+												<span class="pull-right bjs-progress-price"><span class="maxmum-sell maxnum">0</span> {$C['coin'][$xnb]['name'] | strtoupper}</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-item">
+										<p class="clearfix form-label">
+											<span class="pull-left">交易额</span>
+											<span class="pull-right">CNYT</span>
+										</p>
+										<p id="sell_mum" class="mum pay-form-text">-</p>
+									</div>
+									<div class="form-item">
+										<button class="bjs-btn bjs-btn-full bjs-btn-down" id="trade-sell-submit">卖出{$C['coin'][$xnb]['name'] | strtoupper}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="pull-right pay-right">
+						<div class="pay-order">
+							<ul class="flex-box">
+								<li class="flex-item-2">
+									<span>档次</span>
+								</li>
+								<li class="tr flex-item-3">
+									<span>价格</span>
+								</li>
+								<li class="tr flex-item-3">
+									<span>数量</span>
+								</li>
+							</ul>
+							<div class="pay-order-up pay-order-list dialog-loading" id="pay-up-list"></div>
+							<div class="">
+								<ul class="flex-box">
+									<li>
+										<h4 class="bjs-color-up pay-new-price">0</h4>
+										<!--<p class="pay-new-price2">≈120251.45 cny</p>-->
+									</li>
+									<li class="tr">
+										<!--<p class="bjs-color-up pay-new-price3">+0.25%</p>-->
+									</li>
+								</ul>
+							</div>
+							<div class="pay-order-down pay-order-list dialog-loading"></div>
+						</div>
+					</div>
+				</div>
+				<div class="pay-content">
+					<div class="pay-entrust">
+						<h3 class="pay-entrust-title clearfix">
+							<span>当前委托</span>
+							<a class="pull-right" href="/finance/mywt.html">查看全部</a>
+						</h3>
+						<div class="pay-entrust-list my-asset-list bi-list-table-index">
+							<div class="no-data tc padt4"><span>当前无数据!</span></div>
+						</div>
+						<!--当前委托模板-->
+						<script type="text/template" id="entrustlist-tmp">
+							{{ for(var i in  entrusts){ }}
+							<ul class="flex-box" data-name="ETH" data-state="1">
+								<li class="flex-item-3">
+									<h4 class="my-asset-list-title my-asset-list-bi-icon text-nowrap">
+										{{ if(entrusts[i].type == 1){ }}
+										<span class="bjs-color-up">买入</span><span class="bjs-color-white bjs-bi-name">{$C['coin'][$xnb]['name'] | strtoupper} / CNYT</span>
+										{{ }else{ }}
+										<span class="bjs-color-down">卖出</span><span class="bjs-color-white bjs-bi-name">{$C['coin'][$xnb]['name'] | strtoupper} / CNYT</span>
+										{{  } }}
+									</h4>
+									<p class="text-nowrap">时间</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].addtime }}</p>
+									<p class="padt4"></p>
+									<p class="text-nowrap">成交总额(CNYT)</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= (entrusts[i].price * entrusts[i].num).toFixed(6) }}</p>
+								</li>
+								<li class="flex-item-2">
+									<h4 class="my-asset-list-title"></h4>
+									<p class="text-nowrap">委托价(CNYT)</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].price }}</p>
+									<p class="padt4"></p>
+									<p class="text-nowrap">成交量({$C['coin'][$xnb]['name'] | strtoupper})</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].deal }}</p>
+								</li>
+								<li class="flex-item-3 tr">
+									<h4 class="my-asset-list-title">
+										{{ if(entrusts[i].status == 0){ }}
+										进行中
+										{{ }else{ }}
+										{{ if(entrusts[i].status == 1){ }}
+										已完成
+										{{ }else{ }}
+										已撤销
+										{{  } }}
+										{{  } }}
+									</h4>
+									<p class="text-nowrap">委托量({$C['coin'][$xnb]['name'] | strtoupper})</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].num }}</p>
+									<p class="padt4"></p>
+									{{ if(entrusts[i].status == 0){ }}
+										<button class="bjs-btn default-form-cancel" onclick="cancelaa('{{= entrusts[i].id }}')">撤销</button>
+									{{ }else{ }}
+										<button class="bjs-btn default-form-cancel vhide" >撤销</button>
+									{{  } }}
+								</li>
+							</ul>
+							{{  } }}
+						</script>
+					</div>
+				</div>							
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-content">
+				<ul class="flex-box tc">
+					<li>
+						<a href="/Market/index.html" class="f-market"></a>
+					</li>
+					<li>
+						<a href="/finance/mycz.html" class="f-c2c"></a>
+					</li>
+					<li>
+						<a href="/Index/index.html" class="f-home"></a>
+					</li>
+					<li>
+						<a href="#" class="f-pay active"></a>
+					</li>
+					<li>
+						<a href="/Finance/index.html" class="f-my"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 弹窗 -->
+		<div class="bjs-show-pager bjs-bi-choose-show">
+			<div class="bi-list">
+				<div class="bi-list-title tc">
+					<ul class="flex-box">
+						<li><span class="bi-list-btn active" id="bi-cnyt-btn">CNYT</span></li>
+						<li><span class="bi-list-btn">USDT</span></li>
+						<li><span class="bi-list-btn">BTC</span></li>
+						<li><span class="bi-list-btn">ETH</span></li>
+						<li><span class="bi-list-btn">限时</span></li>
+						<li><span class="bi-list-btn" id="bi-fav-btn">自选区</span></li>
+					</ul>
+				</div>
+				<div class="bi-list-sort tc">
+					<ul class="flex-box">
+						<li>
+							<span class="bi-list-sort-btn tl" id="bi-list-sort-btn-pay">币种<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn" id="bi-list-sort-btn-price">价格<em></em></span>
+						</li>
+						<li>
+							<span class="bi-list-sort-btn tr" id="bi-list-sort-btn-24h">24小时涨跌<em></em></span>
+						</li>
+					</ul>
+				</div>
+				<div class="bi-list-table bi-list-choose-fav">
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">主区</span>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="dataall" id="voo">
+							<eq name="voo.main_coin" value="1">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+									<ul class="flex-box">
+										<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="{$voo.9}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.0}</p>
+											</div>
+										</li>
+										<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.1}</p>
+										</li>
+										<li class="tr">
+											<if condition="$voo[7] egt 0">
+												<span class="bjs-btn bjs-color-up">{$voo.7}%</span>
+											<else />
+												<span class="bjs-btn bjs-color-down">{$voo.7}%</span>
+											</if>
+										</li>
+									</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">创新区</span>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="dataall" id="voo">
+							<eq name="voo.main_coin" value="0">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+									<ul class="flex-box">
+										<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="{$voo.9}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.0}</p>
+											</div>
+										</li>
+										<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.1}</p>
+										</li>
+										<li class="tr">
+											<if condition="$voo[7] egt 0">
+												<span class="bjs-btn bjs-color-up">{$voo.7}%</span>
+												<else />
+												<span class="bjs-btn bjs-color-down">{$voo.7}%</span>
+											</if>
+										</li>
+									</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+					<div class="bi-list-thead">
+						<h3 class="clearfix">
+							<span class="pull-left bi-list-thead-name">创新区</span>
+						</h3>
+					</div>
+					<div class="bi-list-tbody">
+						<volist name="dataall" id="voo">
+							<eq name="voo.main_coin" value="2">
+								<a href="/trade/mindex/market/{$voo.url}" class="bi-list-tbody-tr db" data-name="{$voo.url}" data-price="¥{$voo.1}" data-chg="<if condition="$voo[7] egt 0">{$voo.7}%<else />{$voo.7}%</if>">
+									<ul class="flex-box">
+										<li class="tl">
+											<img class="bi-list-tbody-tr-img" src="{$voo.9}">
+											<div class="bi-list-tbody-tr-info">
+												<p class="bi-list-tbody-tr-name">{$voo.0}</p>
+											</div>
+										</li>
+										<li class="tc">
+											<p class="bi-list-tbody-tr-price2">¥{$voo.1}</p>
+										</li>
+										<li class="tr">
+											<if condition="$voo[7] egt 0">
+												<span class="bjs-btn bjs-color-up">{$voo.7}%</span>
+												<else />
+												<span class="bjs-btn bjs-color-down">{$voo.7}%</span>
+											</if>
+										</li>
+									</ul>
+								</a>
+							</eq>
+						</volist>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrap hide" id="market-page">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">详情</p>
+					</div>					
+				</div>
+				<div class="clearfix search-slide-box hide">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<input type="text" name="keywords" placeholder="搜索">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2">
+			<div class="pay-market">
+				<h3 class="clearfix text-nowrap pay-market-title">
+					<span class="pull-left pay-market-title-price1 bjs-color-up">-</span>
+					<span class="pull-right pay-market-title-price2">
+						<span class="pull-left">高 <em class="bjs-color-white" id="market_max_price">-</em></span>
+						<span class="pull-left ml5">低 <em class="bjs-color-white" id="market_min_price">-</em></span>
+					</span>
+				</h3>
+				<div class="clearfix text-nowrap pay-market-title2">
+					<span class="pull-left pay-market-title2-price"><em class="bjs-color-up" id="market_change">-%</em></span>
+					<span class="pull-right">24H量 <em class="bjs-color-white" id="market_volume">-</em></span>
+				</div>
+			</div>
+			<div class="pay-market">
+				<div class="pay-market-kline">
+					<iframe style="border-style: none;" border="0" width="100%" height="100%" id="market_chart" src="/Trade/ordinary?market={$market}"></iframe>
+				</div>
+			</div>
+			<div class="pay-market">
+				<div class="bjs-tab">
+					<div class="bjs-tab-head pay-market-tab-head">
+						<ul class="flex-box tc">
+							<!--<li><span class="bjs-tab-btn pay-market-tab-btn active" data-id="pay-market-depth-box">深度</span></li>-->
+							<li><span class="bjs-tab-btn pay-market-tab-btn active" data-id="pay-market-list-box">成交</span></li>
+							<li><span class="bjs-tab-btn pay-market-tab-btn" data-id="pay-market-intro-box">简介</span></li>
+						</ul>
+					</div>
+					<div class="bjs-tab-cont pay-market-tab-cont">
+						<div class="bjs-tab-list pay-market-tab-list active" id="pay-market-list-box">
+							<div class="pay-market-table">
+								<div class="pay-market-thead">
+									<ul class="flex-box">
+										<li class="tl flex-item-2">时间</li>
+										<li class="tc flex-item-1">方向</li>
+										<li class="tr flex-item-3">价格(CNYT)</li>
+										<li class="tr flex-item-3">数量({$C['coin'][$xnb]['name'] | strtoupper})</li>
+									</ul>
+								</div>							
+								<div class="pay-market-tbody">
+								</div>
+							</div>
+						</div>
+						<div class="bjs-tab-list pay-market-tab-list" id="pay-market-intro-box">
+							<h3 class="bjs-bi-icon"><img src="http://bjs.bi/Upload/coin/{$C['coin'][$xnb]['img']}"><span>{$C['coin'][$xnb]['name'] | strtoupper}</span></h3>
+							<div class="pay-market-intro-list">
+								<ul class="flex-box">
+									<li class="tl">
+										<label>推出日期</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white">{$C['coin'][$xnb]['cs_fb']}</span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>市值</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white"></span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>区块大小</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white"></span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>发行总量</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white">{$C['coin'][$xnb]['cs_zl']}</span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>币种算法</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white">{$C['coin'][$xnb]['cs_sf']}</span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>存量</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white"></span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>区块速度</label>
+									</li>
+									<li class="tr flex-item-3">
+										<span class="bjs-color-white">{$C['coin'][$xnb]['cs_qk']}</span>
+									</li>
+								</ul>
+								<ul class="flex-box">
+									<li class="tl">
+										<label>官方网站</label>
+									</li>
+									<li class="tr flex-item-3 text-overflow">
+										<span class="bjs-color-white"></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initPay();
+			home._initProgress(progressCallBack)
+		});
+	</script>
+	<script>
+        function getJsonTop(data) {
+            if (data['info']['new_price']) {
+                $('#market_new_price').removeClass('buy');
+                $('#market_new_price').removeClass('sell');
+                $("#price_now").removeClass('icon-arrow-up');
+                $("#price_now").removeClass('icon-arrow-down');
+                if ($("#market_new_price").html() > data['info']['new_price']) {
+                    $('#market_new_price').addClass('sell');
+                    $("#price_now").addClass('icon-arrow-up');
+                }
+                if ($("#market_new_price").html() <= data['info']['new_price']) {
+                    $('#market_new_price').addClass('buy');
+                    $("#price_now").addClass('icon-arrow-down');
+                }
+                $("#market_new_price").html(data['info']['new_price']);
+                $("#price_now").html(data['info']['new_price']);
+            }
+            //最高价
+            if (data['info']['max_price']) {
+                $("#market_max_price").html(data['info']['max_price']);
+            }
+            //最低价
+            if (data['info']['min_price']) {
+                $("#market_min_price").html(data['info']['min_price']);
+            }
+            //显示24小时成交量
+            if (data['info']['volume']) {
+                if (data['info']['volume'] > 10000) {
+                    data['info']['volume'] = (data['info']['volume'] / 10000).toFixed(2) + "万"
+                }
+                if (data['info']['volume'] > 100000000) {
+                    data['info']['volume'] = (data['info']['volume'] / 100000000).toFixed(2) + "亿"
+                }
+                $("#market_volume").html(data['info']['volume']);
+            }
+            //显示最新价格
+            if (data['info']['change']) {
+                $('#market_change').removeClass('bjs-color-up');
+                $('#market_change').removeClass('bjs-color-down');
+                if (data['info']['change'] > 0) {
+                    $('#market_change').addClass('bjs-color-up');
+                } else {
+                    $('#market_change').addClass('bjs-color-down');
+                }
+                $("#market_change").html(data['info']['change'] + "%");
+            }else{
+                $("#market_change").html(data['info']['change'] + "%");
+            }
+        }
+	</script>
+	<script>
+		function progressCallBack(data,progress){
+			//todo 这里是进度条回调
+			var $form = $(progress).parent().parent();
+			var max_num = $form.find('.maxnum').html();//获取到最大数量
+			var num = (max_num * data / 100).toFixed(6)?(max_num * data / 100).toFixed(6):0;
+			$form.find('.num').val(num);//根据进度条百分比和最大数量计算该填入的数量
+			var price = $form.find('.form-input').val();//获取价格
+			if(num != 0 && price && !isNaN(price) && price != null){
+                $form.find('.mum').html((num * price).toFixed(8));
+			}else{
+                $form.find('.mum').html("-");
+			}
+
+		}
+		//弹出交易密码 买入
+		$(document).on('click','#trade-pay-submit',function(){
+		    var buy_price = parseFloat($('#buy_price').val());//买价格
+            var buy_num = parseFloat($('#buy_num').val());//买数量
+			if(!buy_price || buy_price <= 0){
+                layer.msg('请输入购买价格',{icon:0});
+                return;
+			}
+            if(!buy_num || buy_num <= 0){
+                layer.msg('请输入购买数量',{icon:0});
+                return;
+            }
+			layer.open({
+				title: '信息确认'
+				,content: '<div class="form-item"><p>请输入交易密码:</p><input type="password" id="trade-password" class="form-input myskin-layer-input"></div>'
+				,btn: '确认交易'
+				,btnAlign: 'c'
+				,yes: function(index){
+                    layer.close(index);
+                    $.post("{:U('Trade/upTrade')}", {
+                        price: buy_price,
+                        num: buy_num,
+                        paypassword: $('#trade-password').val(),
+                        market: market,
+                        type: 1
+                    }, function (data) {
+                        layer.closeAll('loading');
+                        trans_lock = 0;
+                        if (data.status == 1) {
+
+                            $("#buy_price").val('');
+                            $("#buy_num").val('');
+                            $("#buy_mum").html('-');
+                            $("#sell_price").val('');
+                            $("#sell_num").val('');
+                            $("#sell_mum").html('-');
+                            layer.msg(data.info, {icon: 1});
+                        } else {
+                            layer.msg(data.info, {icon: 2});
+                        }
+                    }, 'json');
+				}
+			});
+		});
+		//弹出交易密码 卖出
+		$(document).on('click','#trade-sell-submit',function(){
+            var sell_price = parseFloat($('#sell_price').val());//买价格
+            var sell_num = parseFloat($('#sell_num').val());//买数量
+            if(!sell_price || sell_price <= 0){
+                layer.msg('请输入购买价格',{icon:0});
+                return;
+            }
+            if(!sell_num || sell_num <= 0){
+                layer.msg('请输入购买数量',{icon:0});
+                return;
+            }
+			layer.open({
+				title: '信息确认'
+				,content: '<div class="form-item"><p>请输入交易密码:</p><input type="password" id="trade-password" class="form-input myskin-layer-input"></div>'
+				,btn: '确认交易'
+				,btnAlign: 'c'
+				,yes: function(index){
+					layer.close(index);
+                    $.post("{:U('Trade/upTrade')}", {
+                        price: sell_price,
+                        num: sell_num,
+                        paypassword: $('#trade-password').val(),
+                        market: market,
+                        type: 2
+                    }, function (data) {
+                        layer.closeAll('loading');
+                        trans_lock = 0;
+                        if (data.status == 1) {
+                            $("#buy_price").val('');
+                            $("#buy_num").val('');
+                            $("#buy_mum").html('-');
+                            $("#sell_price").val('');
+                            $("#sell_num").val('');
+                            $("#sell_mum").html('-');
+                            layer.msg(data.info, {icon: 1});
+                        } else {
+                            layer.msg(data.info, {icon: 2});
+                        }
+                    }, 'json');
+				}
+			});
+		});
+        //撤销
+        function cancelaa(id) {
+            $.post("{:U('Trade/chexiao')}", {id: id}, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+                } else {
+                    layer.msg(data.info, {icon: 2});
+                }
+            });
+        }
+
+
+        var market="{$market}";
+        var market_round="{$C['market'][$market]['round']}";
+        var market_round_num=8-"{$C['market'][$market]['round']}";
+        var userid={$Think.session.userId};
+        var trade_moshi=1;
+        var getDepth_tlme=null;
+        var trans_lock = 0;
+        var is_slide=true;//是否主动滑动
+        function myFunction(){
+            $("#buy_mum").html(($('#buy_num').val()*$('#buy_best_price').val()).toFixed(8)*1);
+        }
+        function myFunctiony(){
+            $("#sell_mum").html(($('#sell_best_price').val()*$('#sell_num').val()).toFixed(8)*1);
+        }
+        function szwom(){
+            var buy_numo=document.getElementById('buy_num').value;
+            if(buy_numo==0){
+                document.getElementById('buy_num').value='';
+            }
+        }
+        function szwo(){
+            var sell_numo=document.getElementById('sell_num').value;
+            if(sell_numo==0){
+                document.getElementById('sell_num').value='';
+            }
+        }
+        // getEntrustAndUsercoin();
+
+        function getJsonData(data){
+            if(data){
+                if(data['depth']){
+                    var list='';
+                    var sellk=data['depth']['sell'].length;
+                    if(data['depth']['sell']){
+                        for(i=0; i<(data['depth']['sell'].length); i++){
+                            list+='<ul class="flex-box"><li class="flex-item-2"><span>卖'+(sellk-i)+'</span></li><li class="tr flex-item-3" ><span onclick="autotrust(this,\'sell\',1)">'+data['depth']['sell'][i][0]+'</span></li><li class="tr flex-item-3"><span>'+data['depth']['sell'][i][1]+'</span><div class="pay-order-depth"></div></li></ul>';
+                        }
+                    }
+
+                    $(".pay-order-up").html(list);
+					if(is_slide) {
+					    //全部只有第一次进入时有效
+                        var boxElement = document.getElementById('pay-up-list');
+                        boxElement.scrollTop = boxElement.scrollHeight - boxElement.clientHeight;
+                        console.log(data['depth']['sell'][sellk-1][0]);
+                        var cnyt=$("#cny_num").html();//获取有多少cnyt
+                        $(".maxmum-buy").html((cnyt/data['depth']['sell'][sellk-1][0]).toFixed(4));//赋值可以购买多少币
+                        $('#buy_price').val(data['depth']['sell'][sellk-1][0]);//将最低卖出价赋值到购买价格
+                        $('#sell_price').val(data['depth']['buy'][0][0]);//将最高买入价赋值到卖出价格
+                        is_slide = false;
+                    }
+                    list2='';
+                    if(data['depth']['buy']){
+                        for(i=0; i<(data['depth']['buy'].length); i++){
+                            list2+='<ul class="flex-box"><li class="flex-item-2"><span>买'+(i+1)+'</span></li><li class="tr flex-item-3" ><span onclick="autotrust(this,\'buy\',1)">'+data['depth']['buy'][i][0]+'</span></li><li class="tr flex-item-3"><span>'+data['depth']['buy'][i][1]+'</span><div class="pay-order-depth"></div></li></ul>';
+                        }
+                    }
+                    $(".pay-order-down").html(list2);
+                }
+                if(data['tradelog']){
+                    var list='';
+                    var type='';
+                    var typename='';
+                    for( var i in data['tradelog']){
+                        if(data['tradelog'][i]['type']==1){
+                            list+='<ul class="flex-box bjs-color-white"><li class="tl flex-item-2"><span>'+ data['tradelog'][i]['oktime'] +'</span></li><li class="tc flex-item-1"><span class="bjs-color-up">买入</span> </li> <li class="tr flex-item-3"> <span> '+ data['tradelog'][i]['price'] +' </span> </li> <li class="tr flex-item-3"> <span>'+data['tradelog'][i]['num']+'</span> </li> </ul>';
+                            // list+='<dd class="clear"><span class="w_180 red1">买入</span><span class="w_270">'+data['tradelog'][i]['oktime']+'</span><span class="w_270">'+data['tradelog'][i]['price']+'</span><span class="w_270 po_re red1">'+data['tradelog'][i]['num']+'</span></dd>';
+                        }else{
+                        	list+='<ul class="flex-box bjs-color-white"> <li class="tl flex-item-2"> <span>'+data['tradelog'][i]['oktime']+'</span> </li> <li class="tc flex-item-1"> <span class="bjs-color-down">卖出</span> </li> <li class="tr flex-item-3"> <span>'+data['tradelog'][i]['price']+'</span> </li> <li class="tr flex-item-3"> <span>'+data['tradelog'][i]['num']+'</span> </li> </ul>';
+                            // list+='<dd class="clear"><span class="w_180 green">卖出</span><span class="w_270">'+data['tradelog'][i]['oktime']+'</span><span class="w_270">'+data['tradelog'][i]['price']+'</span><span class="w_270 po_re green">'+data['tradelog'][i]['num']+'</span></dd>';
+                        }
+                    }
+                    $(".pay-market-tbody").html(list);
+                }
+                if(data['getJsonTop']){
+
+                    $(".pay-new-price").html(data['getJsonTop']['new_price']);//赋值最新成交价
+                    $(".pay-market-title-price1").html(data['getJsonTop']['new_price']);//赋值详情页最新成交价
+                    // $("#cnentermoney1").html(data['getJsonTop']['new_price']);
+                }
+            }
+        }
+        function getEntrustAndUsercoin(data){
+            if (data) {
+                if (data['entrust']) {
+                    var _html = '';
+                    if (data['entrust']) {
+                        //$('#entrust_over').show();
+                        var dataTmp = {
+                            entrusts: data['entrust']
+                        }
+                        var tpl = $('#entrustlist-tmp').html();
+                        _html = template(tpl, dataTmp);
+                    }
+                    $(".pay-entrust-list").html(_html);
+                } else {
+                    $('.pay-entrust-list').html('<div class="no-data tc padt4"><span>当前无数据!</span></div>');
+                }
+                if (data['usercoin']) {
+                    if (data['usercoin']['cny']) {
+                        $("#cny_num").html(data['usercoin']['cny'].toFixed(2));
+                        var buy_price = $("#buy_price").html();
+                        if(buy_price >0) {
+                            $('.maxmum-buy').html((data['usercoin']['cny'] / buy_price).toFixed(2));
+                        }else{
+                            $('.maxmum-buy').html('0.00');
+						}
+                    } else {
+                        $("#cny_num").html('0.00');
+                        $('.maxmum-buy').html('0.00');
+                    }
+
+                    if (data['usercoin']['xnb']) {
+                        $("#my_xnb").html(data['usercoin']['xnb']);
+                        $(".maxmum-sell").html(data['usercoin']['xnb'])
+                    } else {
+                        $("#my_xnb").html('0.00');
+                        $(".maxmum-sell").html('0.00');
+                    }
+                }
+            }
+            return;
+            $.getJSON("/Ajax/getEntrustAndUsercoin?market="+market+"&t="+Math.random(),function(data){
+                if(data){
+                    if(data['entrust']){
+                        $('#entrust_over').show();
+                        var list='';
+                        var cont=data['entrust'].length;
+                        for(i=0; i<data['entrust'].length; i++){
+                            if(data['entrust'][i]['type']==1){
+                                list+='<dt class="clear"><span class="w_180 red">买</span><span class="w_270">'+data['entrust'][i]['price']+'</span><span class="w_180">'+data['entrust'][i]['num']+'</span><span class="w_180">'+data['entrust'][i]['deal']+'</span><span class="w_180"><a style="color: #2674FF;" class="cancelaa" id="'+data['entrust'][i]['id']+'" onclick="cancelaa(\''+data['entrust'][i]['id']+'\')" href="javascript:void(0);">撤销</a></span></dt>';
+                            }else{
+                                list+='<dt class="clear"><span class="w_180 green">卖</span><span class="w_270">'+data['entrust'][i]['price']+'</span><span class="w_180">'+data['entrust'][i]['num']+'</span><span class="w_180">'+data['entrust'][i]['deal']+'</span><span class="w_180"><a style="color: #2674FF;" class="cancelaa" id="'+data['entrust'][i]['id']+'" onclick="cancelaa(\''+data['entrust'][i]['id']+'\')" href="javascript:void(0);">撤销</a></span></dt>';
+                            }
+                        }
+                        $('#entrustlist').html(list);
+                    }else{
+                        $('#entrustlist').html("<div class='center record_no'>暂无记录</div>");
+                    }
+                    var alldb=0;
+                    if(data['usercoin']){
+                        if(data['usercoin']['xnb']){
+                            $("#my_xnb").html(data['usercoin']['xnb']);
+                            $('.maxmum-sell').html(data['usercoin']['xnb']);
+                        }else{
+                            $("#my_xnb").html('0.00');
+                            $('.maxmum-sell').html('0.00');
+                        }
+                        if(data['usercoin']['xnbd']){
+                            $("#my_xnbd").html(data['usercoin']['xnbd']);
+                        }else{
+                            $("#my_xnbd").html('0.00');
+                        }
+                        if(data['usercoin']['allxnb']){
+                            $("#my_allxnb").html(data['usercoin']['allxnb']);
+                        }else{
+                            $("#my_allxnb").html('0.00');
+                        }
+                    }
+                }
+            });
+        }
+        function toNum(num, round) {
+            return Math.round(num * Math.pow(10, round) - 1) / Math.pow(10, round);
+        }
+
+
+        //绑定输入价格和数量时候的事件
+        $('#buy_price,#buy_num,#sell_price,#sell_num').css("ime-mode", "disabled").bind('keyup change', function () {
+            var buyprice = parseFloat($('#buy_price').val());//买价
+            var buynum = parseFloat($('#buy_num').val());//买数量
+            var sellprice = parseFloat($('#sell_price').val());//卖价
+            var sellnum = parseFloat($('#sell_num').val());//卖数量
+            var buymum = buyprice * buynum;//买金额
+            var sellmum = sellprice * sellnum;//卖金额
+			var cny_num = $('#cny_num').html();//获取当前有多少RMB
+
+
+            console.log(buyprice);
+            //计算可以购买多少币
+			if (buyprice && !isNaN(buyprice) && buyprice != null && buyprice.toString().split(".") != null){
+                $('.maxmum-buy').html((cny_num/buyprice.toFixed(market_round)).toFixed(4));
+			}else{
+                $('.maxmum-buy').html(0);
+			}
+
+			//省略小数
+            if (buyprice != null && buyprice.toString().split(".") != null && buyprice.toString().split(".")[1] != null) {
+                if (buyprice.toString().split('.')[1].length > market_round) {
+                    $('#buy_price').val(buyprice.toFixed(market_round));
+                }
+            }
+
+            if (buynum != null && buynum.toString().split(".") != null && buynum.toString().split(".")[1] != null) {
+                if (buynum.toString().split('.')[1].length > market_round_num) {
+                    $('#buy_num').val(toNum(buynum, market_round_num));
+                }
+            }
+            if (sellprice != null && sellprice.toString().split(".") != null && sellprice.toString().split(".")[1] != null) {
+                if (sellprice.toString().split('.')[1].length > market_round) {
+                    $('#sell_price').val(sellprice.toFixed(market_round));
+                }
+            }
+            if (sellnum != null && sellnum.toString().split(".") != null && sellnum.toString().split(".")[1] != null) {
+                if (sellnum.toString().split('.')[1].length > market_round_num) {
+                    $('#sell_num').val(toNum(sellnum, market_round_num));
+                }
+            }
+            if (buymum != null && buymum > 0) {
+                $('#buy_mum').html(buymum.toFixed(8) * 1);
+            }
+            if (sellmum != null && sellmum > 0) {
+                $('#sell_mum').html(sellmum.toFixed(8) * 1);
+            }
+            // if (buykenum != null && buykenum > 0 && buykenum != 'Infinity') {
+            //     $('#buy_max').html(toNum(buykenum, market_round_num));
+            // }
+            // if (sellkenum != null && sellkenum > 0 && sellkenum != 'Infinity') {
+            //     $('#sell_max').html(sellkenum);
+            // }
+		})
+
+        // 自动填价格
+        function autotrust(_this, type, cq) {
+
+            if (type == 'sell') {
+                $('#buy_price').val($(_this).html());
+                var maxNum = '';
+                if ($("#cny_num").html() > 0) {
+                    maxNum = toNum(($("#cny_num").html() / $('#buy_price').val() * 1.002), market_round_num);
+                    $(".maxmum-buy").html(maxNum);
+                }
+                $("#buy_num").val(maxNum);
+                if ($('#buy_num').val()) {
+                    $("#buy_mum").html(($('#buy_num').val() * $('#buy_price').val()).toFixed(8) * 1);
+                }
+            }
+            if (type == 'buy') {
+                $('#sell_price').val($(_this).html());
+                var maxNum = '';
+                if ($("#my_xnb").html() > 0) {
+                    maxNum = $("#my_xnb").html();
+                    $("#sell_max").html();
+                }
+                $("#sell_num").val(maxNum);
+                if ($('#sell_num').val()) {
+                    $("#sell_mum").html(($('#sell_num').val() * $('#sell_price').val()).toFixed(8) * 1);
+                }
+            }
+
+        }
+	</script>
+	<script type="text/javascript">
+        if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+        // 如果浏览器不支持websocket，会使用这个flash自动模拟websocket协议，此过程对开发者透明
+        WEB_SOCKET_SWF_LOCATION = "/web/swf/WebSocketMain.swf";
+        // 开启flash的websocket debug
+        WEB_SOCKET_DEBUG = true;
+
+        var ws, name, client_list={};
+        var name = userid;
+        // 连接服务端
+        function connect() {
+            // 创建websocket
+            ws = new WebSocket("ws://www.bjs.bi:7272");
+            // 当socket连接打开时，输入用户名
+            ws.onopen = onopen;
+            // 当有消息时根据消息类型显示不同信息
+            ws.onmessage = onmessage;
+            ws.onclose = function() {
+                //console.log("连接关闭，定时重连");
+                connect();
+            };
+            ws.onerror = function() {
+                //console.log("出现错误");
+            };
+        }
+
+        // 连接建立时发送登录信息
+        function onopen()
+        {
+            if(name > 0){
+
+            }else{
+                name = "youke"+Math.ceil(Math.random()*1000000000000);;
+            }
+            // 登录
+            var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"'+market+'"}';
+            console.log("websocket握手成功，发送登录数据:"+login_data);
+            ws.send(login_data);
+        }
+
+        // 服务端发来消息时
+        function onmessage(e)
+        {
+            //console.log(e.data);
+            var data = eval("("+e.data+")");
+            switch(data['type']){
+                // 服务端ping客户端
+                case 'ping':
+                    ws.send('{"type":"pong"}');
+                    break;;
+                // 登录 更新用户列表
+                case 'login':
+                    //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+                    // say(data['client_id'], data['client_name'],  data['client_name']+' 加入了聊天室', data['time']);
+                    if(data['client_list'])
+                    {
+                        client_list = data['client_list'];
+                    }
+                    else
+                    {
+                        client_list[data['client_id']] = data['client_name'];
+                    }
+                    flush_client_list();
+                    //console.log(data['client_name']+"登录成功");
+                    break;
+                case 'data':
+                    say1(data['content'], data['time']);
+                    break;
+                // 发言
+                case 'say':
+                    //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                    // say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                    break;
+                // 用户退出 更新用户列表
+                case 'logout':
+                //{"type":"logout","client_id":xxx,"time":"xxx"}
+                //say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                //delete client_list[data['from_client_id']];
+                //flush_client_list();
+            }
+        }
+
+        // 输入姓名
+        function show_prompt(){
+            name = prompt('输入你的名字：', '');
+            if(!name || name=='null'){
+                name = '游客';
+            }
+        }
+
+        // 提交对话
+        function onSubmit() {
+            var input = document.getElementById("textarea");
+            var to_client_id = $("#client_list option:selected").attr("value");
+            var to_client_name = $("#client_list option:selected").text();
+            ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+            input.value = "";
+            input.focus();
+        }
+
+        // 刷新用户列表框
+        function flush_client_list(){
+            var userlist_window = $("#userlist");
+            var client_list_slelect = $("#client_list");
+            userlist_window.empty();
+            client_list_slelect.empty();
+            userlist_window.append('<h4>在线用户</h4><ul>');
+            client_list_slelect.append('<option value="all" id="cli_all">所有人</option>');
+            for(var p in client_list){
+                userlist_window.append('<li id="'+p+'">'+client_list[p]+'</li>');
+                client_list_slelect.append('<option value="'+p+'">'+client_list[p]+'</option>');
+            }
+            $("#client_list").val(select_client_id);
+            userlist_window.append('</ul>');
+        }
+
+        // 发言
+        function say1(content, time){
+            $("#coins_timer").html("数据更新时间："+time);
+            //alert(content);
+            //datay = eval('(' + content + ')');
+            if(content.getJsonData){
+                $(".pay-order-down").removeClass('dialog-loading');
+                $(".pay-order-up").removeClass('dialog-loading');
+                getJsonData(content.getJsonData);
+            }
+			if(content.getJsonTop){
+                getJsonTop(content.getJsonTop);
+			}
+//		if(datay.getTradelog){
+//			getTradelog(datay.getTradelog);
+//		}
+			if(content.getEntrustAndUsercoin){
+				getEntrustAndUsercoin(content.getEntrustAndUsercoin);
+			}
+            //$("#dialog").append('<div class="speech_item"><img src="http://lorempixel.com/38/38/?'+from_client_id+'" class="user_icon" /> '+from_client_name+' <br> '+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+        }
+        function say(from_client_id, from_client_name, content, time){
+            $("#coins_timer").html("数据更新时间："+time);
+            //alert(content);
+            datay = eval('(' + content + ')');
+            if(datay.getJsonData){
+                //getJsonData(datay.getJsonData);
+            }
+//		if(datay.getJsonTop){
+//			getDepth(datay.getDepth);
+//		}
+//		if(datay.getTradelog){
+//			getTradelog(datay.getTradelog);
+//		}
+//		if(datay.getEntrustAndUsercoin){
+//			getEntrustAndUsercoin(datay.getEntrustAndUsercoin);
+//		}
+            //$("#dialog").append('<div class="speech_item"><img src="http://lorempixel.com/38/38/?'+from_client_id+'" class="user_icon" /> '+from_client_name+' <br> '+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+        }
+
+        $(function(){
+            select_client_id = 'all';
+            $("#client_list").change(function(){
+                select_client_id = $("#client_list option:selected").attr("value");
+            });
+        });
+        connect();
+	</script>
+</body>
+</html>

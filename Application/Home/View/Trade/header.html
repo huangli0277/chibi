@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="{:C('web_keywords')}" />
+    <meta name="Description" content="{:C('web_description')}" />
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.cookies.2.2.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.bxslider.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/layer/layer.js"></script>
+    <script src="__PUBLIC__/v2/js/select2.min.js"></script>
+    <link href="__PUBLIC__/v2/css/select2.min.css" rel="stylesheet" />
+    <title>{:C('web_title')}</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/white.css" id='style-white'>
+    <style type="text/css">
+    </style>
+    <script type="text/javascript">
+        var localPath = 'http://bjs.bi:8080/award/';
+        if($.cookies.get('skin') !== 'white'){
+            $('#style-white').remove();
+        }
+        var home;
+        var resourcesPath = '__PUBLIC__/v2/';
+        $(function() {
+            home = new bjsIndex();
+        });
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="header-menu">
+            <div class="window-wrap w1500 clearfix">
+                <div class="pull-left home-logo">
+                    <a href="/"><img src="__PUBLIC__/v2/images/logo.png"></a>
+                </div>
+                <div class="pull-right">
+                    <ul class="header-menus pull-left">
+                        <li><a href="/"><span>首页</span></a></li>
+                        <li class="menu-list">
+                            <a href="#"><span>币币交易</span></a>
+                            <ul class="menu-list-show menu-list-bi" id="menu_list_json">
+                            </ul>
+                        </li>
+                        <li><a href="/Finance/mycz.html"><span>C2C交易</span></a></li>
+                        <li><a href="/User"><span>用户中心</span></a></li>
+                        <li><a href="/User/token_apply"><span>上币申请</span></a></li>
+                        <li><a href="/Article/index/id/20.html"><span>资讯中心</span></a></li>
+                    </ul>
+
+                    <div class="pull-right user_info_box">
+                        <ul class="pull-right user_info_list login_lan hide" id="login-ing">
+                            <li class="login-out pull-right">
+                                <a href="{:U('Login/loginout')}">退出</a>
+                            </li>
+                            <li class="user-info pull-right">
+                                <a class="user-name" href="javascript:;"><span><em id="username"></em></span></a>
+                                <div class="user-info-list">
+                                    <div class="clearfix">
+                                        <div class="user-info-item">
+                                            <h4>可用余额</h4>
+                                            <p><strong id="userCoin"></strong></p>
+                                        </div>
+                                        <div class="user-info-item">
+                                            <h4>委托冻结</h4>
+                                            <p><strong id="userCoinCnyd"></strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="header-login pull-left hide" id="login-out">
+                            <li class="pull-right">
+                                <a href="{:U('Login/register')}" id="registerBtn"><span>注册</span></a>
+                            </li>
+                            <li class="pull-right">
+                                <a href="/Login/index.html" id="loginBtn"><span>登陆</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        var userId = '';
+        function loadMenu(){
+            $.getJSON("/Ajax/getJsonMenu?t=" + Math.random(), function (data) {
+                if (data) {
+                    var list = '';
+                    for (var i in data) {
+                        list += '<li><a href="/Trade/index/market/' + data[i]['name'] + '"><img src="/Upload/coin/' + data[i]['img'] + '">' + data[i]['title'] + '</a></li>';
+                    }
+                    $("#menu_list_json").html(list);
+                }
+            });
+        }
+    </script>

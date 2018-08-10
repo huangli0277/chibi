@@ -1945,5 +1945,40 @@ function hideIdCardNumber($id)
     return $_id;
 }
 
+function getData($url)
+{
+    $ci = curl_init();
+    curl_setopt($ci, CURLOPT_URL, $url);
+
+    curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+    curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ci, CURLOPT_HEADER, FALSE);
+
+    $res = curl_exec($ci);
+    curl_close($ci);
+    return $res;
+}
+
+function postData($url, $data)
+{
+    $ci = curl_init();
+    curl_setopt($ci, CURLOPT_URL, $url);
+
+    curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+    curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ci, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charset=utf-8',
+        'Accept: application/json',
+    ));
+    curl_setopt($ci, CURLOPT_POSTFIELDS, json_encode($data));
+//        curl_setopt($ci, CURLOPT_POSTFIELDS, $data);
+
+    $res = curl_exec($ci);
+    curl_close($ci);
+    return $res;
+}
+
 
 ?>

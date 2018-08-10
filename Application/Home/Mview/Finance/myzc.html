@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>提币</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="header">
+		<div class="header-content">
+			<div class="clearfix search-slide-box">
+				<a href="#" class="search-slide-back pull-left"></a>
+				<div class="pull-right search-input-box">
+					<p class="order-header tc">{$coin_list[$xnb]['title']}提币</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content content2 bg1f2029">
+		<div class="my-asset-cont">
+			<h3 class="font5 padt4">可用</h3>
+			<p class="padt2 bjs-color-white font62"><span class="tibi-amount">{$user_coin[$xnb]|Num}</span> <span class="tibi-name">{$coin_list[$xnb]['title']}</span></p>
+			<div class="padt4"></div>
+			<ul class="wrap-form-list padt2">
+				<li class="wrap-form-item">
+					<p class="clearfix"><span class="wrap-form-label">地址</span> <a class="pull-right lh1375 font42" href="/user/qianbao?coin={$coin_list[$xnb]['name']}">地址选择</a></p>
+					<input class="form-input" id="cnyout_bank" type="text" name="name[]" placeholder="输入或粘贴地址">
+				</li>
+				<li class="wrap-form-item">
+					<p><span class="wrap-form-label">数量</span></p>
+					<div class="wrap-form-group">
+						<input type="text" id="cnyout_num" name="name[]" class="form-input" placeholder="输入数量">
+						<div class="wrap-form-group-addon padt4">
+							<span class="font42 mr2 pull-left">{$coin_list[$xnb]['title']}</span>
+							<span class="hand bol1 font42 padl2 pull-left mr2" id="all-amount">全部</span>
+						</div>
+					</div>
+				</li>
+				<li class="wrap-form-item">
+					<p><span class="wrap-form-label">手续费</span></p>
+					<div class="wrap-form-group">
+						<input type="text" name="name[]" class="form-input tibi-amount-poundage" readonly="readonly" value="{$coin_list[$xnb]['zc_fee']}个">
+						<div class="wrap-form-group-addon padt4">
+							<span class="font42 padl2 pull-left mr2">{$coin_list[$xnb]['title']}</span>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="padt2 lh1375">
+				<p>最小提币数量为：{$coin_list[$xnb]['zc_min']}个</p>
+				<p>为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或者邮箱联系。</p>
+				<p>请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</p>
+			</div>
+			<p class="padt2"></p>
+			<p class="padt4"></p>
+			<p class="padt4"></p>
+			<div class="clearfix biti-amount-box padt4">
+				<ul class="flex-box">
+					<li class="text-nowrap"><span class="font5 ml2">到账数量</span></li>
+					<li class="text-nowrap flex-item-3 tr"><span class="font62 bjs-color-white mr2"><span class="tibi-amount-2">0.0</span> <span class="tibi-name">{$coin_list[$xnb]['title']}</span></span></li>
+				</ul>
+				<p class="padt4"></p>
+				<p class="padt4"></p>
+				<p class="padt4"></p>
+			</div>
+			<p>
+				<empty name="zc_jz">
+					<button class="default-form-submit default-form-blue" id="form-page-submit">提币</button>
+					<else/>
+					<button class="default-form-submit default-form-blue">{$zc_jz}</button>
+				</empty>
+
+
+			</p>
+			<div class="padt4"></div>
+		</div>
+	</div>
+	<!-- 弹窗 -->
+	<div class="wrap-dialog hide" id="result-dialog">
+		<div class="wrap-dialog-bg"></div>
+		<div class="wrap-dialog-box">
+			<div class="wrap-dialog-content">
+				<div class="wrap-dialog-sucess hide">
+					<div class="wrap-dialog-msg tc">
+						<p>恭喜您，提币成功</p>
+						<p class="padt2"></p>
+						<div class="padt4 font42">到账数目</div>
+						<p class="padt4"><span class="tibi-amount-2">12.458420</span> <span class="tibi-name">BTC</span></p>
+					</div>
+					<div class="wrap-dialog-submit padt4">
+						<p class="padt2"></p>
+						<button class="default-form-submit default-form-blue" id="result-page-ok">确定</button>
+					</div>
+				</div>
+				<div class="wrap-dialog-error hide">
+					<div class="wrap-dialog-msg tc">
+						<p>很遗憾</p>
+						<p>提币失败</p>
+					</div>
+					<div class="wrap-dialog-submit">
+						<button class="default-form-submit default-form-blue" id="result-page-no">重新提币</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 弹窗 发送短信-->
+	<div class="wrap-dialog hide" id="anquan-dialog">
+		<div class="wrap-dialog-bg"></div>
+		<div class="wrap-dialog-box">
+			<div class="wrap-dialog-content">
+				<span class="wrap-dialog-close hand"></span>
+				<h3 class="bjs-color-white font5">安全认证</h3>
+				<p class="padt4"></p>
+				<p class="padt4"></p>
+				<ul class="wrap-form-list wrap-form-list2 padt4">
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label bjs-color-white">{$moble}(接收验证码)</span></p>
+						<div class="input-group input-group-r clearfix">
+							<input type="text" name="name[]" class="form-control" id="cnyout_moble_verify" placeholder="请输入短信验证码"><span class="input-group-addon"  onclick="send_moble_coinout('sms')" id="reg_moble_new">发送</span>
+						</div>
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label bjs-color-white">交易密码</span></p>
+						<div class="input-group input-group-r clearfix">
+							<input type="text" id="cnyout_paypassword" name="name[]" class="form-control" placeholder="输入交易密码">
+						</div>
+					</li>
+					<!--<li class="wrap-form-item">-->
+						<!--<p><span class="wrap-form-label bjs-color-white">77***1275@qq.com</span></p>-->
+						<!--<div class="input-group input-group-r clearfix">-->
+							<!--<input type="text" name="name[]" class="form-control" placeholder="输入邮箱验证"><span class="input-group-addon">发送</span>-->
+						<!--</div>-->
+					<!--</li>-->
+					<!--<li class="wrap-form-item">-->
+						<!--<p><span class="wrap-form-label bjs-color-white">谷歌验证码</span></p>-->
+						<!--<input class="form-input" type="text" name="name[]" placeholder="输入谷歌验证码">-->
+					<!--</li>-->
+					<li>
+						<button class="default-form-submit default-form-blue" id="anquan-form-submit">确认</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initUc();
+    });
+
+    //打开安全验证窗口
+    $(document).on('click','#form-page-submit',function(){
+
+        var num          = $("#cnyout_num").val();
+        var bank         = $('#cnyout_bank').val();
+        if (bank == "" || bank == null) {
+            layer.tips('请选择转出地址', '#cnyout_bank', {
+                tips: 1
+            });
+            return false;
+        }
+        if (num == "" || num == null) {
+            layer.tips('请输入转出数量', '#cnyout_num', {
+                tips: 1
+            });
+            return false;
+        }
+        var ival = parseInt(num);
+        if(isNaN(ival)){
+            layer.tips('请输入数字', '#cnyout_num', {tips: 1});
+            $("#cnyout_num").val('');
+            return false;
+        }
+        $('#anquan-dialog').removeClass('hide');
+    });
+    //关闭安全验证窗口
+    $(document).on('click','.wrap-dialog-close',function(){
+        $(this).closest('.wrap-dialog').addClass('hide');
+    });
+    //关闭安全验证窗口、打开验证结果窗口
+    $(document).on('click','#anquan-form-submit',function(){
+        //$('#result-dialog').removeClass('hide').find('.wrap-dialog-'+(Math.random() > 0.5 ? 'sucess':'error')).removeClass('hide');
+        coinout_up();
+    });
+    //关闭验证结果窗口
+    $(document).on('click','#result-page-ok,#result-page-no',function(){
+        $('#result-dialog').addClass('hide').find('.wrap-dialog-sucess,.wrap-dialog-error').addClass('hide');
+    });
+    //全部
+    $(document).on('click','#all-amount',function(){
+        $(this).closest('.wrap-form-group').find('.form-input').val(($('.tibi-amount').text()*1 - $('.tibi-amount-poundage').val()).toFixed(6));
+    });
+
+
+    function send_moble_coinout(type) {
+        if($('#reg_moble_new').html() != '发送'){
+            return;
+        }
+
+        $.post("{:U('Verify/myzc')}", {
+            type: type,
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1});
+                $(".step5").hide();
+                $(".step6").show();
+                $("#cnyout_moble_verify").focus();
+                $('#moble_new').attr("disabled", "disabled");
+                var obj      = $('#reg_moble_new');
+                var wait     = 60;
+                var interval = setInterval(function () {
+                    obj.html(wait + "秒");
+                    wait--;
+                    if (wait < 0) {
+                        clearInterval(interval);
+                        obj.html('发送');
+                    }
+                    ;
+                }, 1000);
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+    }
+
+    function coinout_up() {
+        var num          = $("#cnyout_num").val();
+        var paypassword  = $("#cnyout_paypassword").val();
+        var moble_verify = $("#cnyout_moble_verify").val();
+        var bank         = $('#cnyout_bank').val();
+        var coin         = "{$coin_list[$xnb]['name']}";
+        if (moble_verify == "" || moble_verify == null) {
+            layer.tips('请输入短信验证码', '#cnyout_moble_verify', {
+                tips: 1
+            });
+            return false;
+        }
+        if (bank == "" || bank == null) {
+            layer.tips('请选择转出地址', '#cnyout_bank', {
+                tips: 1
+            });
+            return false;
+        }
+        if (num == "" || num == null) {
+            layer.tips('请输入转出数量', '#cnyout_num', {
+                tips: 1
+            });
+            return false;
+        }
+
+        var ival = parseInt(num);
+        if(isNaN(ival)){
+            layer.tips('请输入数字', '#cnyout_num', {tips: 1});
+            $("#cnyout_num").val('');
+            return false;
+        }
+        if (paypassword == "" || paypassword == null) {
+            layer.tips('请输入交易密码', '#cnyout_paypassword', {
+                tips: 1
+            });
+            return false;
+        }
+        if (coin == "" || coin == null) {
+            layer.tips('请选择币种', '#coin-select', {
+                tips: 1
+            });
+            return false;
+        }
+        // $('#anquan-dialog').removeClass('hide');
+
+        var lock = 0;
+        var goole ="0";
+        if(goole == 1){
+            layer.ready(function () {
+                layer.prompt({
+                    title: '输入谷歌验证码，并确认',
+                    formType: 1
+                }, function (val) {
+                    if (val) {
+                        $.post("/finan/coinout_up", {
+                            coin:coin,
+                            num: num,
+                            paypassword: paypassword,
+                            moble_verify: moble_verify,
+                            bank: bank,
+                            goole:val,
+                        }, function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.info, {
+                                    icon: 1,
+                                    time:2000
+                                },function(){
+                                    window.location = "/finan/coinoutlog.html";
+                                });
+                            } else {
+                                layer.msg(data.info, {
+                                    icon: 2,
+                                    time:2000
+                                },function(){
+                                    if (data.url) {
+                                        window.location = data.url;
+                                    }
+                                });
+                            }
+                        }, "json");
+                    }
+                    ;
+                });
+            });
+        }else{
+            if(lock){
+                layer.msg('加载中,请勿重复点击...');
+                return;
+            }
+            lock = 1;
+            layer.load();
+            $.post("{:U('Finance/upmyzc')}", {
+                coin:coin,
+                num: num,
+                paypassword: paypassword,
+                moble_verify: moble_verify,
+                addr: bank,
+            }, function (data) {
+                layer.alert(data.info,{closeBtn:''},function(index){
+                    if (data.status == 1) {
+                        //window.location = "/finance/coinoutlog.html";
+                        window.location = "/finance/myzc.html";
+                    } else {
+                        //layer.msg(data.info, {icon: 2});
+                        if (data.url) {
+                            window.location = data.url;
+                        }
+                    }
+                    layer.close(index);
+                });
+                layer.closeAll('loading');
+            }, "json");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>充币</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="header">
+		<div class="header-content">
+			<div class="clearfix search-slide-box">
+				<a href="#" class="search-slide-back pull-left"></a>
+				<div class="pull-right search-input-box">
+					<p class="order-header tc">{$coin_list[$xnb]['title']}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content content2 bg1f2029">
+		<div class="uc-qrcode">
+			<div id="qrcode_div"></div>
+		</div>
+		<div class="padt4 tc"><button class="bjs-btn default-form-cancel">长按二维码保存至相册</button></div>
+		<div class="padt4 tc">
+			<p class="padt2"></p>
+			<p class="padt4"></p>
+			<p class="bjs-color-white padt4 font5">{$qianbao}</p>
+			<p class="padt4 bi-list-table-index"><button class="bjs-btn default-form-cancel copy-btn" data-clipboard-text="{$qianbao}">复制</button></p>
+		</div>
+		<div class="pad5 lh1375">
+			<p class="padt4"></p>
+			<p class="padt4"></p>
+			<p class="padt4"></p>
+			<p>请勿向上述地址充值任何非{$coin_list[$xnb]['title']}资产，否则资产将不可找回。</p>
+			<p>您充值至上诉地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。</p>
+			<p>最小充值金额：0.001{$coin_list[$xnb]['title']},小于最小金额的充值将不会被上账且无法退回。</p>
+		</div>
+		<div class="padt4"></div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initUc();
+    });
+    function createCanvas(){
+        var face_url = "https://api.megvii.com/faceid/lite/do?token=btc";
+        var qrcode_img = 'images/qrcode_w.PNG';
+        $('#qrcode_div').qrcode({
+            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+            text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+            width: 160, //二维码的宽度
+            height: 160,
+            background: "#ffffff", //二维码的后景色
+            foreground: "#000000", //二维码的前景色
+            src: qrcode_img,
+            imgWidth: 40,
+            imgHeight: 40
+        });
+        function callback(){
+            var src = $('#qrcode_div canvas')[0].toDataURL("image/png");
+            $('#qrcode-download').attr('href',src);
+            $('#qrcode_div').html('<img src="'+src+'" />');
+        }
+        setTimeout(callback,2000);
+    }
+    createCanvas();
+</script>
+</body>
+</html>

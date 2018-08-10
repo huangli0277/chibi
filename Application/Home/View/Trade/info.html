@@ -1,0 +1,192 @@
+<include file="Trade:header" />
+
+<div class="content">
+	<div class="window-wrap w1500">
+		<div class="clearfix">
+			<div class="c2c-page-left pull-left">
+				<div class="coins-detail-left">
+					<div class="clearfix padt20 mart20">
+						<div class="bjs-tab-tr clearfix">
+							<div class="bjs-search-box coins-search-box">
+								<input type="text" name="keywords" placeholder="搜索">
+							</div>
+						</div>
+					</div>
+					<ul class="coins-list-detail-search flex-box">
+						<li>
+							<span>排序：</span>
+						</li>
+						<li>
+							<a class="active" data-keywords="default" href="javascript:;"><span>默认</span></a>
+						</li>
+						<li>
+							<a class="" data-keywords="logogram" href="javascript:;"><span>币种缩写</span></a>
+						</li>
+						<li>
+							<a class="" data-keywords="mvalue" href="javascript:;"><span>币种价格</span></a>
+						</li>
+					</ul>
+					<div class="padt20 bjs-tab-cont">
+						<div class="bjs-tab-table page-left-iscroll">
+							<div id="page-left-iscroll-wrap" class="page-left-iscroll-wrap">
+								<div class="page-left-iscroll-box">
+									<div class="bjs-tab-title">
+										<em>主区</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_main.html" target="_blank">主区介绍</a>
+									</div>
+									<div class="bjs-tab-tbody" id="all_coin">
+									</div>
+									<div class="bjs-tab-title">
+										<em>创新区</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_new.html" target="_blank">创新区介绍</a>
+									</div>
+									<div class="bjs-tab-tbody" id="all_coin_new">
+									</div>
+
+									<div class="bjs-tab-title">
+										<em>实验区</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_experiment.html" target="_blank">实验区介绍</a>
+									</div>
+									<div class="bjs-tab-tbody" id="all_coin_experiment">
+									</div>
+
+									<!--左侧导航模板-->
+									<script type="text/template" id="all_coin-tmp">
+										{{ for(var i in coin_list){ if(coin_list[i].main_coin == is_new ){  }}
+										{{ if('{$C['coin'][$xnb]['name']}_cny' == i){ }}
+										<ul class="clearfix bjs-tab-tr active" data-mvalue="{{= coin_list[i].new_price }}" data-logogram="{{= coin_list[i].name }}">
+											{{ }else{ }}
+											<ul class="clearfix bjs-tab-tr" data-mvalue="{{= coin_list[i].new_price }}" data-logogram="{{= coin_list[i].name }}">
+											{{ } }}
+											<li>
+												<a href="/trade/info/market/{{= coin_list[i].name }}">
+													<span class="bjs-bi-icon "><img src="__UPLOAD__/coin/{{= coin_list[i].img }}">{{= coin_list[i]['title'] }}</span>
+												</a>
+											</li>
+										</ul>
+										{{ } }}{{ } }}
+									</script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="c2c-page-right pull-right">
+				<div class="c2c-cont">
+					<h3 class="tc coins-detail-title"><img src="__UPLOAD__/coin/{$C['market'][$market]['xnbimg']}">{$C['market'][$market]['xnbtitle']}({$xnb|strtoupper})介绍</h3>
+					<div class="coins-detail-title2 tc clearfix">
+						<div class="coins-detail-menu pull-left">
+							<ul class="breadcrumbs-navigation">
+								<li><a href="#">币种资料库</a></li>
+								<li><span>{$xnb|strtoupper}</span></li>
+							</ul>
+						</div>
+						<div class="tc coins-detail-info">
+							中文名 <span class="cc7cce6">{$C['coin'][$xnb]['title']}</span>           英文名 <span class="cc7cce6">{$C['coin'][$xnb]['js_yw']}</span>           缩写 <span class="cc7cce6">{$xnb|strtoupper}</span>
+						</div>
+						<div class="pull-right">
+							<a href="/Trade/index/market/{$C['coin'][$xnb]['name']}_cnyt" class="a-border-link">去交易</a>
+						</div>
+					</div>
+					<div class="coins-detail-cont">
+						<h4 class="coins-detail-cont-title tc">币种简介</h4>
+						<div class="coins-detail-cont-info tc">
+							{$C['coin'][$xnb]['js_sm']|htmlspecialchars_decode}
+						</div>
+						<h4 class="coins-detail-cont-title tc">币种参数</h4>
+						<div class="coins-detail-cont-list">
+							<ul class="coins-detail-cont-table flex-box">
+								<li>
+									<p><label>推出日期</label>：{$C['coin'][$xnb]['cs_fb']}</p>
+									<p><label>区块奖励</label>： {$C['coin'][$xnb]['cs_jl']}</p>
+									<p><label>发行总量</label>： {$C['coin'][$xnb]['cs_zl']}</p>
+								</li>
+								<li>
+									<p><label>研发者</label>：{$C['coin'][$xnb]['cs_yf']}</p>
+									<p><label>核心算法</label>：{$C['coin'][$xnb]['cs_sf']}</p>
+									<p><label>难度调整</label>：{$C['coin'][$xnb]['cs_nd']}</p>
+								</li>
+								<li>
+									<p><label>存<span class="vhide">存量</span>量</label>：{$C['coin'][$xnb]['cs_cl']}</p>
+									<p><label>区块速度</label>：{$C['coin'][$xnb]['cs_qk']}</p>
+									<p><label>证明方式</label>：{$C['coin'][$xnb]['cs_zm']}</p>
+								</li>
+								<li>
+									<p><label>主要特色</label>：{$C['coin'][$xnb]['cs_ts']}</p>
+									<p><label>不足之处</label>：{$C['coin'][$xnb]['cs_bz']}</p>
+								</li>
+							</ul>
+						</div>
+						<h4 class="coins-detail-cont-title tc">链 接</h4>
+						<div class="coins-detail-cont-list">
+							<ul class="coins-detail-cont-link flex-box tc">
+								<li>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_qb']}">{$C['coin'][$xnb]['title']}钱包下载</a>
+								</li>
+								<li>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_ym']}">{$C['coin'][$xnb]['title']}源码下载</a>
+								</li>
+								<li>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_gw']}">{$C['coin'][$xnb]['title']}官方网站</a>
+								</li>
+								<li>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_lt']}">{$C['coin'][$xnb]['title']}白皮书</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="__PUBLIC__/v2/js/template.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/iscroll.js"></script>
+<script type="text/javascript">
+	$(function () {
+        home.initCoinsDetail();
+        getJsonTop1();
+        $.getJSON("/login/getuid/t/"+Math.ceil(Math.random()*1000000000000),function(result){
+            if(result.userid){
+                $("#username").html(result.nickName);
+                $("#login-out").addClass('hide');
+                $("#login-ing").removeClass('hide');
+            }else{
+                $("#username").html('');
+                $("#login-out").removeClass('hide');
+                $("#login-ing").addClass('hide');
+            };
+    });
+    });
+
+    function getJsonTop1() {
+        $.getJSON("/Ajax/getJsonTop?market={$market}&t=" + Math.random(), function (data) {
+            if (data) {
+                if (data['list']) {
+                    var dt = {
+                        coin_list: data['list'],
+                        is_new: 1
+                    }
+                    var tpl = $('#all_coin-tmp').html();
+                    var _html = template(tpl,dt);
+                    $("#all_coin").html(_html);
+                    dt = {
+                        coin_list: data['list'],
+                        is_new: 0
+                    }
+                    _html = template(tpl,dt);
+                    $("#all_coin_new").html(_html);
+                    dt = {
+                        coin_list: data['list'],
+                        is_new: 2
+                    }
+                    _html = template(tpl,dt);
+                    $("#all_coin_experiment").html(_html);
+                    home.refreshIScroll('page-left-iscroll-wrap');
+                }
+            }
+        });
+    }
+</script>
+<include file="Public:footer" />

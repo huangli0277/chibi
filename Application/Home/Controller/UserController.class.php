@@ -511,59 +511,15 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $data = array();
 
         $url_token = "http://face.zlnnk.com:5000/face-notify-listener/token";
-        $data['api_key'] = "Xqq-ck5XIADmYOhlOrYifBoEj78P7Cfp";
-        $data['api_secret'] = "cWps1K7CDxqYBKjNfSrz_8EDp5Ni2wWy";
-        $data['return_url'] = "http://face.zlnnk.com:5000/face-notify-listener/return";//返回页面地址
-        $data['notify_url'] = "http://face.zlnnk.com:5000/face-notify-listener/notify";//回调通知地址
         $data['biz_no'] = $userid;//流水号，我方提供，传入用户ＩＤ
-        $data['web_title'] = "高级认证";//认证页标题
-        $data['scene_id'] = 110;
-        $data['comparison_type'] = 1;
-        $data['idcard_mode'] = 2;
-        $data['idcard_uneditable_field'] = "idcard_number,idcard_valid_date";//身份证号，过期时间不可编辑．发证机关和姓名由于生僻字、形近字而允许用户修改
 
-        $result = $this->postData($url_token, $data);
+        $result = postData($url_token, $data);
 
         $res = json_decode($result, true)["token"];
 
         if (!empty($res)) {
             echo json_encode($res);
         }
-    }
-
-    function getData($url)
-    {
-        $ci = curl_init();
-        curl_setopt($ci, CURLOPT_URL, $url);
-
-        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-        curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ci, CURLOPT_HEADER, FALSE);
-
-        $res = curl_exec($ci);
-        curl_close($ci);
-        return $res;
-    }
-
-    function postData($url, $data)
-    {
-        $ci = curl_init();
-        curl_setopt($ci, CURLOPT_URL, $url);
-
-        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-        curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ci, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json; charset=utf-8',
-            'Accept: application/json',
-        ));
-        curl_setopt($ci, CURLOPT_POSTFIELDS, json_encode($data));
-//        curl_setopt($ci, CURLOPT_POSTFIELDS, $data);
-
-        $res = curl_exec($ci);
-        curl_close($ci);
-        return $res;
     }
 
     public function uc()
@@ -575,27 +531,6 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $data = array();
 
         header("content-type: application/json");
-
-        $url_token = "http://192.168.0.177:8002/token";
-        $data['api_key'] = "Xqq-ck5XIADmYOhlOrYifBoEj78P7Cfp";
-        $data['api_secret'] = "cWps1K7CDxqYBKjNfSrz_8EDp5Ni2wWy";
-        $data['return_url'] = "http://face.zlnnk.com:5000/face-notify-listener/return";//返回页面地址
-        $data['notify_url'] = "http://face.zlnnk.com:5000/face-notify-listener/notify";//回调通知地址
-        $data['biz_no'] = userid();//流水号，我方提供，传入用户ＩＤ
-        $data['web_title'] = "高级认证";//认证页标题
-        $data['scene_id'] = 110;
-        $data['comparison_type'] = 1;
-        $data['idcard_mode'] = 2;
-        $data['idcard_uneditable_field'] = "idcard_number,idcard_valid_date";//身份证号，过期时间不可编辑．发证机关和姓名由于生僻字、形近字而允许用户修改
-
-        $result = $this->postData($url_token, $data);
-
-        $res = json_decode($result, true)["token"];
-        $biz_id = json_decode($result, true)["biz_id"];
-
-        if (!empty($res)) {
-            $this->assign('token', $res);
-        }
 
         $user = M('User')->where(array('id' => userid()))->find();
 

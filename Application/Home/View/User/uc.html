@@ -160,7 +160,6 @@
     </div>
     <div class="c2c-auth-bg"></div>
 </div>
-<input type="hidden" id="auth_token" value="{$token}" />
 <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
 <script>
     function changeNickName() {
@@ -193,23 +192,6 @@
     });
     $('#change_nick_name').on('click', function () {
         changeNickName();
-    });
-
-    $(function () {
-        var auth_token = $('#auth_token').val();
-        var face_url = "https://api.megvii.com/faceid/lite/do?token=";
-        face_url += auth_token;
-        $('#qrcode_div').qrcode({
-            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
-            text: face_url, //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
-            width: 160, //二维码的宽度
-            height: 160,
-            background: "#ffffff", //二维码的后景色
-            foreground: "#000000", //二维码的前景色
-            src: '__PUBLIC__/v2/images/qrcode_w.PNG',
-            imgWidth: 40,
-            imgHeight: 40
-        });
     });
 
     function refreshToken() {
