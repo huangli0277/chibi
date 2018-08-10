@@ -614,10 +614,12 @@
             var _html = template(tpl, dataTmp);
 
         	$("#pay_detail").html(_html);
-            console.log($("#pay_detail").html());
+        	home._initClipboard();
+            //console.log($("#pay_detail").html());
         });
         //关闭详情
-		$('#c2c-detail-page').on('click','.search-slide-back',function () {
+		$('#c2c-detail-page').on('click','.search-slide-back',function (event) {
+			event.preventDefault();
             $('#c2c-page').removeClass('hide');
             $('#c2c-detail-page').addClass('hide');
         });

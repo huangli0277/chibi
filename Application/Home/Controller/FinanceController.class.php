@@ -77,6 +77,9 @@ class FinanceController extends HomeController
         $cny['zj'] = 0;
         $cny['ky_zj'] = 0;
         foreach ($CoinList as $k => $v) {
+            if($Market[C('market_type')[$v['name']]]['status'] != 1){
+                continue;
+            }
             if ($v['name'] == 'cny') {
                 $cny['ky'] = round($UserCoin[$v['name']], 2) * 1;//可用数量
                 $cny['dj'] = round($UserCoin[$v['name'] . 'd'], 2) * 1;//冻结数量
@@ -86,8 +89,7 @@ class FinanceController extends HomeController
             else {
                 if ($Market[C('market_type')[$v['name']]]['new_price']) {
                     $jia = $Market[C('market_type')[$v['name']]]['new_price'];
-                }
-                else {
+                } else {
                     $jia = 1;
                 }
 

@@ -214,11 +214,13 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .my-heade{font-size: .62rem; color: #dbdfe6; padding-top: .3rem; position: relative;}
 .my-heade-text{padding-top: .25rem;}
 .my-heade-skin,
+.my-heade-logout,
 .my-heade-settings{width: 1rem; height: 1rem; position: absolute; top: .25rem; cursor: pointer;}
 .my-heade-skin{left: 0; background: url() no-repeat left center / .65rem auto;}
 .my-heade-skin.moon{background-image: url(../images/moon.png);}
 .my-heade-skin.sun{background-image: url(../images/sun.png);}
 .my-heade-settings{right: 0; background: url(../images/settings.png) no-repeat right center / .65rem auto;}
+.my-heade-logout{right: 0; background: url(../images/logout.png) no-repeat right center / .8rem auto;}
 .my-box{position: relative; margin: .37rem .42rem;}
 .my-box-bg{position: absolute; z-index: 0; width: 100%; height: 0; padding-top: 44.15%; background: url(../images/my-bg.png) no-repeat 0 0 / 100% auto;}
 .my-box-avatar{position: relative; z-index: 1; padding-top: 5.47%}
@@ -364,14 +366,15 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 /*---- wrap-form ----*/
 .wrap-form{position: relative; height: 100%; overflow: auto; -webkit-overflow-scrolling: touch;}
 .login-form-head{}
-.login-form-cont{padding: 71% 1.47rem 0; background: #171820 url(../images/login-banner.jpg) no-repeat center top / 100% auto;}
+.login-form-cont{padding: 63% 1.47rem 0; background: #171820 url(../images/login-banner.jpg) no-repeat center top / 100% auto;}
+.login-link-home{position: absolute; width: 100%; height: 0; padding-top: 30%; left: 0; top: 0; margin-top: 20%;}
 .register-form-head{}
-.register-form-cont{padding: 40% 1.47rem 0; background: #171820 url(../images/register-banner.jpg) no-repeat center top / 100% auto;}
+.register-form-cont{padding: 10% 1.47rem 0; background: #171820 url(../images/register-banner.jpg) no-repeat center top / 100% auto;}
 .wrap-form-list{}
 .wrap-form-item{padding-bottom: .55rem;}
 .wrap-form-item input{font-size: .42rem;}
 .wrap-form-label{display: inline-block; font-size: .5rem; padding-bottom: .18rem;}
-.wrap-form-item-submit{padding-top: .8rem;}
+/*.wrap-form-item-submit{padding-top: .8rem;}*/
 .order-wrap-dialog-tpl{line-height: 1;}
 .wrap-dialog-close{position: absolute; width: .66rem; height: .66rem; right: .25rem; top: .25rem; background: url(../images/wrap-form-close.png) no-repeat center center / .49rem auto;}
 
@@ -397,8 +400,8 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .wrap-dialog-error .wrap-dialog-msg{background: url(../images/register-error.png) no-repeat center top / 1.06rem auto;}
 .wrap-dialog-submit{padding-top: 1.5rem;}
 
-.register-form-cont2{padding: 1.4rem .42rem 0; background: #171820 url(../images/register-banner.jpg) no-repeat center top / 100% auto;}
-.register-form-cont2-head{padding-bottom: 5rem;}
+.register-form-cont2{padding: 10% .42rem 0; background: #171820 url(../images/register-banner.jpg) no-repeat center top / 100% auto;}
+.register-form-cont2-head{padding-bottom: 2rem;}
 .register-form-cont2-title{padding-right: 1.5rem; width: calc(100% - 3rem); font-size: .62rem; color: #f5f5f5; padding-top: .22rem;}
 .wrap-form-cont2{padding: 0 1rem;}
 .register-country-img{width: .66rem; height: .66rem;}
@@ -528,10 +531,11 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .article-head-btn.active{color: #05e1e1; border-bottom: 2px solid #05e1e1;}
 .article-item{padding: .5rem 0; border-bottom: 1px solid #242731;}
 .article-item:last-child{border-bottom: none;}
-.article-item-detail{max-height: 1.05rem; overflow: hidden; margin-top: .3rem;}
+.article-item-detail{max-height: .92rem; overflow: hidden; margin-top: .3rem; line-height: .46rem;}
 .article-tab-list{display: none;}
 .article-tab-list.active{display: block;}
-.article-text{max-height: 16rem; min-height: 6rem; overflow: auto; -webkit-overflow-scrolling: touch;}
+.article-wrap{height: calc(100% - 6.5rem);}
+.article-text{height: 100%; overflow: auto; -webkit-overflow-scrolling: touch;}
 .article-text img{max-width: 100% !important;}
 
 

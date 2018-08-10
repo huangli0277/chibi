@@ -20,10 +20,6 @@
 			</div>
 			<div class="bjs-tab-cont">
 				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
-					<!--<li class="wrap-form-item">-->
-						<!--<p><span class="wrap-form-label">国籍/地区</span><span class="pull-right wrap-form-label-right">国籍和地区注册后不可修改</span></p>-->
-						<!--<input class="form-input" type="text" name="name[]" placeholder="输入账号">-->
-					<!--</li>-->
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">手机号码</span></p>
 						<div class="input-group clearfix">
@@ -48,19 +44,24 @@
 							</span>
 						</div>
 					</li>
-					<li class="wrap-form-item wrap-form-item-submit">
-						<button class="default-form-submit default-form-blue" id="register-phone-next">下一步</button>
-						<p class="clearfix wrap-form-msg">
-							<a class="pull-left" href="/">主页</a>
-							<a class="pull-right" href="/Login">立即登录</a>
-						</p>
-					</li>
+                    <li class="wrap-form-item">
+                        <p><span class="wrap-form-label">短信验证码</span></p>
+                        <div class="input-group input-group-r clearfix">
+                            <input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码" /><span class="input-group-addon" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
+                        </div>
+                    </li>
+                    <li class="wrap-form-item">
+                        <p><span class="wrap-form-label">邀请码(选填)</span></p>
+                        <input id="invit" class="form-input" type="text" name="name" placeholder="输入邀请码"/>
+                    </li>
+                    <li class="wrap-form-item wrap-form-item-submit">
+                        <button class="default-form-submit default-form-blue" id="register-phone-submit">注册</button>
+                        <p class="clearfix wrap-form-msg font42 user-agreement">
+                            <label class="check-off-open pull-left" id="regweb-tip"><input type="checkbox" name="name" class="hide" id="regweb"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a>  </label>
+                        </p>
+                    </li>
 				</ul>
 				<ul class="wrap-form-list register-form-list bjs-tab-list" id="register-email-form">
-					<!--<li class="wrap-form-item">-->
-						<!--<p><span class="wrap-form-label">国籍/地区</span><span class="pull-right wrap-form-label-right">国籍和地区注册后不可修改</span></p>-->
-						<!--<input class="form-input" type="text" name="name[]" placeholder="输入账号">-->
-					<!--</li>-->
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">邮箱</span></p>
 						<input type="text" id="email" class="form-input" name="email" placeholder="输入邮箱" onblur="check_email()"/>
@@ -81,11 +82,22 @@
 							<img id="verifyUpEmail" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()"/></span>
 						</div>
 					</li>
-					<li class="wrap-form-item wrap-form-item-submit">
-						<button class="default-form-submit default-form-blue" id="register-email-next">下一步</button>
-						<p class="clearfix wrap-form-msg">
-						</p>
-					</li>
+                    <li class="wrap-form-item">
+                        <p><span class="wrap-form-label">邮箱验证码</span></p>
+                        <div class="input-group input-group-r clearfix">
+                            <input id="email_verify" type="text" name="name" class="form-control" placeholder="请输入验证码" /><span class="input-group-addon" id="email_reg_send" onclick="email_reg_code('mail')">获取</span>
+                        </div>
+                    </li>
+                    <li class="wrap-form-item">
+                        <p><span class="wrap-form-label">邀请码(选填)</span></p>
+                        <input type="text" id="invitEmail" class="form-input" name="name" placeholder="输入邀请码"/>
+                    </li>
+                    <li class="wrap-form-item wrap-form-item-submit">
+                        <button class="default-form-submit default-form-blue" id="register-email-submit">注册</button>
+                        <p class="clearfix wrap-form-msg font42 user-agreement">
+                            <label class="check-off-open pull-left" id="regEmail-tip"><input type="checkbox" name="name" class="hide" id="regEmail"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a>  </label>
+                        </p>
+                    </li>
 				</ul>
 			</div>
 		</div>

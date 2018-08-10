@@ -172,8 +172,47 @@ class AjaxController extends HomeController
 			return $data;
 		}
 	}
-	
-	
+
+	public function getJsonArticle($ajax = 'json'){
+        $input = I('post.');
+        $id = $input['id'];
+        $pageIndex= $input['pageIndex'];
+        $pageSize= $input['pageSize'];
+        if($id != 19 && $id != 20){
+            echo "id error";
+            exit();
+        }
+        if($pageIndex <= 0){
+            echo "pageIndex error";
+            exit();
+        }
+        if($pageSize <= 0){
+            echo "pageSize error";
+            exit();
+        }
+        $Articletype = M('ArticleType')->where(array('id' => $id))->find();
+        $where = array('type' => $Articletype['name'],'status'=>1);
+        $Model = M('Article');
+        $count = $Model->where($where)->count();
+
+        $list = $Model->where($where)->order('addtime desc')->limit((($pageIndex-1)*$pageSize) . ',' . ($pageIndex*$pageSize))->select();
+        foreach ($list as $k => $v) {
+            $list[$k]['brief'] = mb_substr(preg_replace("/<[^>]+>/is", "", $v['content']), 0, 150);
+            $list[$k]['content'] = '';
+            if (empty($v['img']))
+                $list[$k]['img'] = "app-code.png";
+        }
+        $result['data'] = $list;
+        $result['pageIndex'] = $pageIndex;
+        $result['pageSize'] =  $pageSize;
+        $result['count'] = $count;
+        if ($ajax) {
+            exit(json_encode($result));
+        }
+        else {
+            return $result;
+        }
+    }
 	
 	public function top_coin_menu($ajax = 'json')
 	{

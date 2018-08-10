@@ -60,6 +60,16 @@ var bjsIndex = (function(){
 		$(document).on('click','.my-heade-skin',function(){
 			$(this).toggleClass('moon sun');
 		});
+		/*$(document).on('click','.my-heade-logout',function(event){
+			event.preventDefault();
+			var cookies = document.cookie.split('; ');
+			cookies.forEach(function(item,index){
+				$.cookies.set(item.split('=')[0],'',0);
+			});
+			layer.msg('已退出登录',{icon:1,time:800},function(){
+				window.location.replace('/login');
+			});
+		});*/
 	}
 	bjsIndex.prototype.initMyAsset = function(){
 		var _this = this;
@@ -134,7 +144,7 @@ var bjsIndex = (function(){
 				}
 				img.onerror = function(){
 					layer.closeAll('loading');
-					layer.msg('图片已损坏',{icon:0})
+					layer.msg('图片已损坏',{icon:0,time:800})
 				}
 			}else{
 				layer.msg('请上传图片',{icon:0,time:1000});
@@ -286,7 +296,7 @@ var bjsIndex = (function(){
 			}
 			img.onerror = function(){
 				layer.closeAll('loading');
-				layer.msg('图片已损坏',{icon:0})
+				layer.msg('图片已损坏',{icon:0,time:800})
 			}
 			return false;
 		});
@@ -312,7 +322,7 @@ var bjsIndex = (function(){
 		//切换自选区
 		$(document).on('click','#bi-fav-btn',function(){
 			if(!userId){
-				layer.msg('请登录',{icon:0});
+				layer.msg('请登录',{icon:0,time:800});
 				return false;
 			}
 			$(this).parent().parent().find('.active').removeClass('active');
@@ -339,7 +349,7 @@ var bjsIndex = (function(){
 		$(document).on('click','.fav-btn',function(event){
 			event.preventDefault();
 			if(!userId){
-				layer.msg('请登录',{icon:0});
+				layer.msg('请登录',{icon:0,time:800});
 				return false;
 			}
 			var $this = $(this);
@@ -361,14 +371,14 @@ var bjsIndex = (function(){
 				_this._removeFav(userId,cid,function(){
 					$this.removeClass('star-cur');
 					$('.bi-list-choose-fav').find('[data-name="'+cid+'"]').removeClass('fav-cur').addClass('hide');
-					layer.msg('移除收藏成功',{icon:0,time:600});
+					layer.msg('移除收藏成功',{icon:0,time:800});
 				});				
 			}else{
 				//执行添加操作
 				_this._addFav(userId,cid,function(){
 					$this.addClass('star-cur');
 					$('.bi-list-choose-fav').find('[data-name="'+cid+'"]').addClass('fav-cur').removeClass('hide');
-					layer.msg('收藏成功',{icon:1,time:600});
+					layer.msg('收藏成功',{icon:1,time:800});
 				});
 			}
 		});
@@ -396,10 +406,10 @@ var bjsIndex = (function(){
 		//复制到剪贴板
 		var clipboard = new ClipboardJS('.copy-btn');	
 		clipboard.on('success', function(e){
-        	layer.msg('复制成功',{time:800,icon:1});
+        	layer.msg('复制成功',{icon:1,time:800});
         });
         clipboard.on('error', function(e){
-        	layer.msg('复制失败,请手动复制',{time:800,icon:2});
+        	layer.msg('浏览器不支持,请手动复制',{icon:2,time:800});
         });
 	}
 	bjsIndex.prototype._initChooseBi = function(){
