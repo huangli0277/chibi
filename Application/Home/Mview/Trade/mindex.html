@@ -804,7 +804,8 @@
                 if (data['usercoin']) {
                     if (data['usercoin']['cny']) {
                         $("#cny_num").html(data['usercoin']['cny'].toFixed(2));
-                        var buy_price = $("#buy_price").html();
+                        var buy_price = $("#buy_price").val();
+                        console.log(buy_price);
                         if(buy_price >0) {
                             $('.maxmum-buy').html((data['usercoin']['cny'] / buy_price).toFixed(2));
                         }else{

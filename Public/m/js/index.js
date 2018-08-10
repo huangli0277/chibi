@@ -9,7 +9,7 @@ var bjsIndex = (function(){
 			starRemove: 'user/star/remove',
 			starGet: 'user/star/find'
 		};
-		this._fastClick();
+		//this._fastClick();
 		this._initFontSize();
 		this._resizeWindow();
 		this._initSkin();
@@ -21,6 +21,7 @@ var bjsIndex = (function(){
 	bjsIndex.prototype.initIndex = function(){
 		this._initTabs();
 		this._initSwiper();
+		this._initFav();
 		$(document).on('click','.assets-eyes',function(event){
 			event.preventDefault();
 			$(this).toggleClass('off');
@@ -80,7 +81,7 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.initArticle = function(){
 		var _this = this;
-		this._initBack();
+		//this._initBack();
 		this._initTabs();
 	}
 	bjsIndex.prototype.initAddress = function(){
@@ -316,7 +317,9 @@ var bjsIndex = (function(){
 			}
 			$(this).parent().parent().find('.active').removeClass('active');
 			$(this).addClass('active');
-			_this._toSearch($('input[name="bi-keywords"]').val());
+			if($('input[name="bi-keywords"]')[0]){
+				_this._toSearch($('input[name="bi-keywords"]').val());
+			}			
 			$('.bi-list-choose-fav').find('.bi-list-tbody-tr:not(".fav-cur")').addClass('hide');
 		});
 		//切换CNYT
@@ -327,7 +330,9 @@ var bjsIndex = (function(){
 			$(this).parent().parent().find('.active').removeClass('active');
 			$(this).addClass('active');
 			$('.bi-list-choose-fav .bi-list-tbody-tr').removeClass('hide');
-			_this._toSearch($('input[name="bi-keywords"]').val());
+			if($('input[name="bi-keywords"]')[0]){
+				_this._toSearch($('input[name="bi-keywords"]').val());
+			}
 		});
 		//收藏、移除
 		var timer = 0, num = 0;

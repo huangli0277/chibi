@@ -758,16 +758,15 @@
     var trade_moshi = 1;
     var getDepth_tlme = null;
     var trans_lock = 0;
-    var selllist_state = true;
 
 
-	
-	
 
-	
-	
-	
-	
+
+
+
+
+
+
     function hangqing() {
         layer.alert("交易市场:{:C('market')[$market]['title']}<br><br>" +
                 "昨日收盘价:{$C['market'][$market]['hou_price']|NumToStr}<br>" +
@@ -975,10 +974,6 @@
                         }
                         $("#selllist").html(_html);
                         home.refreshIScroll("my-tab-scroll-box-4");
-                        if(selllist_state){
-                            home.iscroll['my-tab-scroll-box-4'].scrollTo(0,home.iscroll['my-tab-scroll-box-4'].maxScrollY,0);
-                            selllist_state = false;
-                        }
                         _html = '';
                         if (data['depth']['buy']) {
                             var dataTmp = {
