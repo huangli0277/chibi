@@ -125,16 +125,16 @@
 					if(loadingStep == 0 && this.y < (this.maxScrollY - 20) && this.y > (this.maxScrollY - 40)){
 						//上拉加载更多
 						pullUp.addClass("refresh").show();
-						pullUpLabel.text("继续下拉加载");					
+						pullUpLabel.text($('.load-more').data('state') != 0 ? "继续下拉加载":'已全部加载');
 					}
 					if(loadingStep == 0 && this.y < (this.maxScrollY - 40)){
 						//上拉加载更多
-						pullUpLabel.text("释放加载");
+						pullUpLabel.text($('.load-more').data('state') != 0 ? "释放加载":'已全部加载');
 						loadingStep = 1;						
 					}
 				}
 				if(loadingStep == 1 && this.y > (this.maxScrollY - 40)){
-					pullUpLabel.text("继续下拉加载");
+					pullUpLabel.text($('.load-more').data('state') != 0 ? "继续下拉加载":'已全部加载');
 					loadingStep = 0;		
 				}
 			});
@@ -163,7 +163,7 @@
             pageIndex ++;
 			var $this = $('.load-more');
 			if($this.data('state') == 0){
-				layer.msg('已全部加载',{time:800});
+				//layer.msg('已全部加载',{time:800});
 				return false;
 			}
 			var state = $this.data('state');

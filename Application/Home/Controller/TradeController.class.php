@@ -66,6 +66,10 @@ class TradeController extends HomeController
         if (!$market) {
             $market = C('market_mr');
         }
+        $names = array_column(C('market'), 'name');
+        if(!in_array($market,$names)){
+            $this->error('请选择正确币种');
+        }
 
         //---x修改--s17/2/72/9/55
         //查询全部币种的信息
