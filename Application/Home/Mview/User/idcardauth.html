@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>手机认证</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">手机认证</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div id="list-page" class="default-form">
+				<p class="padt4"></p>
+				<ul class="pad5">
+					<li class="wrap-form-item padt4">
+						<p class="clearfix"><span class="wrap-form-label">姓名</span> <span class="pull-right lh1375">已认证</span></p>
+						<p class="padt2 bjs-color-white font5">{$user.truename}</p>
+					</li>
+					<li class="wrap-form-item padt4">
+						<p class="clearfix"><span class="wrap-form-label">身份证</span></p>
+						<p class="padt2 bjs-color-white font5">{$Think.session.userIdCardNumber|hideIdCardNumber}</p>
+					</li>
+                        <!--<li class="wrap-form-item padt4 bot1">-->
+                            <!--<p class="clearfix padt2"><span class="wrap-form-label">短信认证</span> <label class="pull-right off-open"><input class="hide" type="checkbox" name="name[]"><span></span></label></p>-->
+                        <!--</li>				-->
+				</ul>
+			</div>
+			<div class="padt4"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initUc();
+		});
+
+		//弹窗
+		$(document).on('click','#renzheng-submit',function(){
+            var moble_new        = $("#moble_new").val();
+            var moble_verify_new = $("#moble_verify_new").val();
+            if (moble_new == "" || moble_new == null) {
+                layer.tips("请输入手机号码", '#moble_new', {tips: 3});
+                return false;
+            }
+            if (moble_verify_new == "" || moble_verify_new == null) {
+                layer.tips("请输入短信验证码", '#moble_verify_new', {tips: 3});
+                return false;
+            }
+            $.post("/User/upmoble_qq3479015851.html", {
+                moble_new: moble_new,
+                moble_verify_new: moble_verify_new
+            }, function (data) {
+                if (data.status == 1) {
+                    $('.wrap-dialog,.wrap-dialog-sucess').removeClass('hide');
+                } else {
+                    $('.wrap-dialog,.wrap-dialog-error').removeClass('hide');
+                }
+            }, "json");
+		});
+
+
+		$(document).on('click','.wrap-dialog button.default-form-submit',function(){
+            $('.wrap-dialog,.wrap-dialog-sucess,.wrap-dialog-error').addClass('hide');
+            if($(this).closest('.wrap-dialog-sucess')[0]){
+                window.location = "/User/uc.html";
+            }
+		});
+
+        function send_moble_new(type) {
+            var moble      = "{$user.moble}";
+            var moble_new  = $("#moble_new").val();
+
+            if (moble_new == "" || moble_new == null) {
+                layer.tips("请输入新手机号码", '#moble_new', {tips: 3});
+                return false;
+            }
+            if (moble == "" || moble == null) {
+                moble = moble_new;
+            }
+            console.log(moble);
+            $.post("/Verify/real_qq3479015851.html", {
+                moble: moble,
+                moble_new: moble_new,
+                type: type,
+            }, function (data) {
+                if (data.status == 1) {
+
+                    $("#genghuan").removeAttr("disabled");
+
+                    layer.msg(data.info, {icon: 1});
+                    $(".step5").hide();
+                    $(".step6").show();
+                    $('#moble_new').attr("disabled", "disabled");
+                    var obj      = $('#reg_moble_new');
+                    var wait     = 60;
+                    var interval = setInterval(function () {
+                        obj.html(wait + "秒可再次发送");
+                        wait--;
+                        if (wait < 0) {
+                            clearInterval(interval);
+                            obj.html('发送短信验证码');
+                        }
+                        ;
+                    }, 1000);
+                } else {
+                    layer.msg(data.info, {icon: 2,time:2000},function () {
+                        if (data.url) {
+                            window.location = data.url;
+                        }
+                    });
+                }
+            }, "json");
+        }
+	</script>
+</body>
+</html>

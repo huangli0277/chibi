@@ -34,7 +34,7 @@
 				<li class="wrap-form-item wrap-form-item-submit padt4">
 					<button class="default-form-submit default-form-blue" onclick="footer_login();">登录</button>
                     <p class="clearfix wrap-form-msg font42">
-                        <a class="pull-left" href="/">忘记密码</a>
+                        <a class="pull-left" href="/Login/findpwd">忘记密码</a>
                         <a class="pull-right" href="/Login/register">注册账号</a>
                     </p>
 				</li>
@@ -46,6 +46,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
     var home;
     $(document).ready(function(){
@@ -75,7 +76,7 @@
             username:moble,
             moble: moble,
             mobles: mobles,
-            password: password,
+            password: hex_md5(password),
             verify: verify,
             login_token: "",
         }, function (data) {

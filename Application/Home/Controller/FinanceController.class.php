@@ -182,7 +182,17 @@ class FinanceController extends HomeController
             M('User')->where(array('id' => userid()))->save(array('invit' => $tradeno));
             $user = M('User')->where(array('id' => userid()))->find();
         }
-
+        //获取奖励排序
+        $yqlist = M('FenhongMyyq')->alias('f')->field('u.username,SUM(f.num) as num')
+            ->join("__USER__ as u on u.id = f.userid","LEFT")
+            ->order('SUM(f.num) desc')
+            ->group('f.userid')
+            ->page(1,3)
+            ->select();
+        foreach ($yqlist as $key=>$value){
+            $yqlist[$key]['num']=round($value['num'],2);
+        }
+        $this->assign('yqlist', $yqlist);
         $this->assign('user', $user);
         $this->display();
     }

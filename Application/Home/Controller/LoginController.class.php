@@ -574,7 +574,7 @@ class LoginController extends HomeController
             $this->error('登录密码格式错误！');
         }
 
-        if (md5($password) != $user['password']) {
+        if (strtoupper($password) != strtoupper($user['password'])) {
             $this->error('登录密码错误！');
         }
 
@@ -947,8 +947,7 @@ class LoginController extends HomeController
 
     public function findpwdinfo()
     {
-
-        if (empty(session('findpwdmoble'))) {
+        if (empty(session('findpwdmoble')) && empty(session('findpwdemail'))) {
             session(null);
             redirect('/');
         }

@@ -39,18 +39,23 @@
 				<div class="c2c-page-cont bjs-tab-cont">
 					<div class="c2c-page-tab-unit bjs-tab-list active" id="c2c-page-pay-box">
 						<div class="c2c-page-tab-box">
-							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix"><span class="pull-left">买入估价 <em>1.0 CNYT</em></span><span class="pull-right">余额：<span>¥{$user_coin.cny}</span></span></h3>
+							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix">
+								<ul class="flex-box">
+									<li class="tl">买入估价 <em>1.0 CNYT</em></li>
+									<li class="tr">余额：<span>¥{$user_coin.cny}</span></li>
+								</ul>
+							</h3>
 							<div class="default-form">
-								<div class="form-item">
+								<div class="form-item font42">
 									<p class="input-group">
 										<span class="input-group-placeholder tr">CNYT</span>
-										<span class="input-group-addon text-overflow">买入数量</span><input id="cnyin_num" onBlur="jnum(this.value,1)" class="form-control" type="text" name="name[]" >
+										<span class="input-group-addon text-overflow">买入数量</span><input id="cnyin_num" onBlur="jnum(this.value,1)" class="form-control font42" type="text" name="name[]" >
 									</p>
 								</div>
-								<div class="form-item">
+								<div class="form-item font42">
 									<p class="input-group">
 										<span class="input-group-placeholder tr">CNY</span>
-										<span class="input-group-addon text-overflow">兑换金额</span><input id="pric" class="form-control" type="text" name="name[]"  readonly="readonly">
+										<span class="input-group-addon text-overflow">兑换金额</span><input id="pric" class="form-control font42" type="text" name="name[]"  readonly="readonly">
 									</p>
 								</div>
 								<div class="form-item">
@@ -61,18 +66,23 @@
 					</div>
 					<div class="c2c-page-tab-unit bjs-tab-list" id="c2c-page-sell-box">
 						<div class="c2c-page-tab-box">
-							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix"><span class="pull-left">卖出估价 <em>0.995 CNYT</em></span><span class="pull-right">余额：<span>¥{$user_coin.cny}</span></span></h3>
+							<h3 class="c2c-page-tab-cont-title text-nowrap clearfix">
+								<ul class="flex-box">
+									<li class="tl">卖出估价 <em>0.995 CNYT</em></li>
+									<li class="tr">余额：<span>¥{$user_coin.cny}</span></li>
+								</ul>
+							</h3>
 							<div class="default-form">
-								<div class="form-item">
+								<div class="form-item font42">
 									<p class="input-group">
 										<span class="input-group-placeholder tr">CNYT</span>
-										<span class="input-group-addon text-overflow">卖出数量</span><input class="form-control" id="cnyin_num1" type="text" name="name[]" onBlur="jnum(this.value,2)" >
+										<span class="input-group-addon text-overflow">卖出数量</span><input class="form-control font42" id="cnyin_num1" type="text" name="name[]" onBlur="jnum(this.value,2)" >
 									</p>
 								</div>
-								<div class="form-item">
+								<div class="form-item font42">
 									<p class="input-group">
 										<span class="input-group-placeholder tr">CNY</span>
-										<span class="input-group-addon text-overflow">兑换金额</span><input class="form-control" id="prir" readonly="readonly" type="text" name="name[]" >
+										<span class="input-group-addon text-overflow">兑换金额</span><input class="form-control font42" id="prir" readonly="readonly" type="text" name="name[]" >
 									</p>
 								</div>
 								<div class="form-item">

@@ -79,7 +79,7 @@
         $.post("{:U('Login/upregister2')}",{paypassword:paypassword,repaypassword:repaypassword},function(data){
             if(data.status==1){
                 layer.msg(data.info,{icon:1,time:2000},function(){
-                    window.location='/Login/register3';
+                    window.location='/Login/truename';
                 });
             }else{
                 layer.msg(data.info,{icon:2,time:2000},function(){

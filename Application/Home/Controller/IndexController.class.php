@@ -27,7 +27,7 @@ class IndexController extends HomeController
         foreach ($information as $k => $v){
             if(!$v['list']) {
                 $where=['type'=>$v['type'],'status'=>1];
-                $information[$k]['list'] = $Model->where($where)->page(1, 2)->select();
+                $information[$k]['list'] = $Model->where($where)->page(1, 2)->order('id desc')->select();
                 foreach ($information[$k]['list'] as $kk => $vv){
                     $information[$k]['list'][$kk]['brief'] = mb_substr(preg_replace("/<[^>]+>/is", "", $vv['content']), 0, 150);
                 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>提币地址</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="wrap" id="tibi-page">
+    <div class="header">
+        <div class="header-content">
+            <div class="clearfix search-slide-box">
+                <a href="#" class="search-slide-back pull-left"></a>
+                <div class="pull-right search-input-box">
+                    <p class="order-header tc">提币地址</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content content2 bg1f2029">
+        <div class="tibi-list my-links padt4">
+            <ul class="padt4">
+                <volist name="coin_list" id="vo">
+                        <li>
+                            <a class="tibi-list-address" href="/user/qianbao?coin={$vo.name}"><span><img class="tibi-list-img" src="http://bjs.bi/Upload/coin/{$vo.img}">{$vo.title} ({$vo['name']|strtoupper})<em></em></span></a>
+                        </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="padt4"></div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initAddress();
+    });
+
+    //地址详情返回地址列表
+    $(document).on('click','#tibi-address-page .search-slide-back',function(event){
+        event.preventDefault();
+        $('#tibi-address-page').addClass('hide');
+        $('#tibi-page').removeClass('hide');
+    });
+    //新增地址返回地址详情
+    $(document).on('click','#add-tibi-address-page .search-slide-back',function(event){
+        event.preventDefault();
+        $('#add-tibi-address-page').addClass('hide');
+        $('#tibi-address-page').removeClass('hide');
+    });
+</script>
+</body>
+</html>

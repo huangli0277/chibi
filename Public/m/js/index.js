@@ -3,7 +3,7 @@ var bjsIndex = (function(){
 		this.init();
 	}
 	bjsIndex.prototype.init = function(){
-		this.localPath = "http://bjs.bi:8080/award/";
+		this.localPath = typeof localPath === 'undefined' ? 'http://ws.bjs.bi:8080/award/' : localPath;
 		this.indexUrl = {
 			starAdd: 'user/star/add',
 			starRemove: 'user/star/remove',
@@ -22,9 +22,15 @@ var bjsIndex = (function(){
 		this._initTabs();
 		this._initSwiper();
 		this._initFav();
+		if($.cookies.get('homePageEyes')){
+			$('.'+$('.assets-eyes').data('class')).toggleClass('hide');
+			$('.assets-eyes').toggleClass('off');
+		}
 		$(document).on('click','.assets-eyes',function(event){
 			event.preventDefault();
 			$(this).toggleClass('off');
+			$('.'+$(this).data('class')).toggleClass('hide');
+			$.cookies.set('homePageEyes',$.cookies.get('homePageEyes') == 1? 0 : 1,360);
 		});
 	}
 	bjsIndex.prototype.initC2c = function(){
@@ -404,11 +410,14 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype._initClipboard = function(){
 		//复制到剪贴板
-		var clipboard = new ClipboardJS('.copy-btn');	
-		clipboard.on('success', function(e){
+		if(this.clipboard){
+			this.clipboard.destroy();
+		}
+		this.clipboard = new ClipboardJS('.copy-btn');	
+		this.clipboard.on('success', function(e){
         	layer.msg('复制成功',{icon:1,time:800});
         });
-        clipboard.on('error', function(e){
+        this.clipboard.on('error', function(e){
         	layer.msg('浏览器不支持,请手动复制',{icon:2,time:800});
         });
 	}

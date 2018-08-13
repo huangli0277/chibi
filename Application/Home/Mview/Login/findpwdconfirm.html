@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>笔加索移动端找回密码</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-form register-form-head">
+		<div class="register-form-cont bjs-tab">
+			<div class="bjs-tab-head register-tab-head tc clearfix">
+				<a href="#" class="bjs-tab-btn register-form-btn active" data-id="register-phone-form">设置密码</a>
+			</div>
+			<div class="bjs-tab-cont">
+				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">新密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input id="password" class="form-input form-input-password" type="password"  placeholder="请输入新密码"/>
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">新密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input id="repassword" class="form-input form-input-password" type="password"  placeholder="请输入确认新密码"/>
+					</li>
+
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" onclick="password_up();">下一步</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script>
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initLogin();
+    });
+    function password_up() {
+
+        var password   = $("#password").val();
+        var repassword = $("#repassword").val();
+
+
+
+        if (password == "" || password == null) {
+            layer.tips("请输入新密码", '#password', {tips: 1});
+            return false;
+        }
+        if (repassword == "" || repassword == null) {
+            layer.tips("请输入确认密码", '#repassword', {tips: 1});
+            return false;
+        }
+        if (password != repassword) {
+            layer.tips("确认密码错误", '#repassword', {tips: 1});
+            return false;
+        }
+
+        $.post("/Login/password_up.html", {
+            password: password,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1,time:2000},function(){
+                    window.location = '/Login/findpwdinfo';
+                });
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+                });
+            }
+        }, "json");
+    }
+</script>
+</body>
+</html>

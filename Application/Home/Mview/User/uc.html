@@ -67,7 +67,7 @@
 									</em>
 								<else />
 									<em class="bjs-color-up">
-										已开启
+										已认证
 									</em>
 								</neq>
 							</span>
@@ -97,7 +97,7 @@
 							<p class="font42 lh1375 padt4">请准备好本人身份证，并点击下方图标进行认证 <span class="bjs-color-blue">每日仅限三次</span></p>
 						</div>
 						<div class="wrap-dialog-submit">
-							<a href="login.html" class="default-form-submit default-form-blue">开始认证</a>
+							<a href="#" onclick="refreshToken()" class="default-form-submit default-form-blue">开始认证</a>
 						</div>
 					</div>
 				</div>
@@ -115,11 +115,23 @@
 			home.initUc();
 		});
 		$(document).on('click','.my-links-shiming',function(){
-			$('#shiming-dialog').removeClass('hide');
+		    if({$Think.session.idcardauth} == 1){
+                window.location.href = "/User/idcardauth.html";
+			}else{
+                $('#shiming-dialog').removeClass('hide');
+            }
 		});
+
 		$(document).on('click','.wrap-dialog-bg',function(){
 			$('#shiming-dialog').addClass('hide');
 		});
+
+        function refreshToken() {
+            $.get("/User/auth", function (data) {
+                var face_url = "https://api.megvii.com/faceid/lite/do?token=" + data;
+                window.location.href = face_url;
+            })
+        }
 	</script>
 </body>
 </html>

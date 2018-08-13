@@ -9,6 +9,10 @@ class TradeController extends HomeController
         $showPW = 1;
         $market = str_replace("cnyt", "cny", $market);
         $markety = $market;
+        $names = array_column(C('market'), 'name');
+        if(!in_array($markety,$names)){
+            $this->error('请选择正确币种');
+        }
         if (userid()) {
             $user = M('User')->where(array('id' => userid()))->find();
 

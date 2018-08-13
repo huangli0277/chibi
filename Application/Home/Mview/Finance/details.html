@@ -107,8 +107,16 @@
 							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['zhehe']|NumToStr}</p>
 							<div class="my-asset-list-button text-nowrap">
 								<p class="padt4 tr">
-									<a href="/Finance/myzr/coin/{$vo['name']}" class="bjs-btn default-form-red ml2">充币</a>
-									<a href="/Finance/myzc/coin/{$vo['name']}" class="bjs-btn default-form-green ml2">提币</a>
+									<eq name="vo.zr_jz" value='1'>
+										<a href="/Finance/myzr/coin/{$vo['name']}" class="bjs-btn default-form-red ml2">充币</a>
+									<else/>
+										<a href="#" class="bjs-btn default-form-cancel ml2">充币</a>
+									</eq>
+									<eq name="vo.zc_jz" value='1'>
+										<a href="/Finance/myzc/coin/{$vo['name']}" class="bjs-btn default-form-green ml2">提币</a>
+									<else/>
+										<a href="#" class="bjs-btn default-form-cancel ml2">提币</a>
+									</eq>
 									<a href="/trade/mindex/market/{$vo.url}" class="bjs-btn default-form-blue ml2">交易</a>
 								</p>
 							</div>

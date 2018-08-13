@@ -50,7 +50,7 @@
 						</div>
 						<div class="clearfix bjs-tab-cont">
 							<div class="c2c-page-tab-unit bjs-tab-list active" id="c2c-page-pay-box">
-								<div class="default-form pay-form">
+								<div class="default-form pay-form font42">
 									<div class="form-item">
 										<p class="clearfix form-label">
 											<span class="pull-left">价格</span>
@@ -68,7 +68,7 @@
 											<span class="pull-right">{$C['coin'][$xnb]['name'] | strtoupper}</span>
 										</p>
 										<input id="buy_num" type="text" name="name[]" class="form-input num" oninput="value=value.replace(/[^\d.]/g,'')">
-										<p class="form-msg">可用 <span id="cny_num">{$cny['ky']|NumToStr}</span> CNYT</p>
+										<p class="form-msg">可用 <span id="cny_num">0</span> CNYT</p>
 									</div>
 									<div class="form-item">
 										<div class="bjs-progress bjs-progress-up clearfix">
@@ -83,7 +83,7 @@
 												</div>
 												<div class="bjs-progress-btn"></div>
 											</div>
-											<div class="bjs-progress-bot clearfix text-nowrap">
+											<div class="bjs-progress-bot clearfix text-nowrap font3">
 												<span class="pull-left bjs-progress-num">0%</span>
 												<span class="pull-right bjs-progress-price"><span class="maxmum-buy maxnum">-</span> {$C['coin'][$xnb]['name'] | strtoupper}</span>
 											</div>
@@ -102,7 +102,7 @@
 								</div>
 							</div>
 							<div class="c2c-page-tab-unit bjs-tab-list" id="c2c-page-sell-box">
-								<div class="default-form pay-form">
+								<div class="default-form pay-form font42">
 									<div class="form-item">
 										<p class="clearfix form-label">
 											<span class="pull-left">价格</span>
@@ -135,7 +135,7 @@
 												</div>
 												<div class="bjs-progress-btn"></div>
 											</div>
-											<div class="bjs-progress-bot clearfix text-nowrap">
+											<div class="bjs-progress-bot clearfix text-nowrap font3">
 												<span class="pull-left bjs-progress-num">0%</span>
 												<span class="pull-right bjs-progress-price"><span class="maxmum-sell maxnum">0</span> {$C['coin'][$xnb]['name'] | strtoupper}</span>
 											</div>
@@ -157,7 +157,7 @@
 					</div>
 					<div class="pull-right pay-right">
 						<div class="pay-order">
-							<ul class="flex-box">
+							<ul class="flex-box font42">
 								<li class="flex-item-2">
 									<span>档次</span>
 								</li>
@@ -220,25 +220,11 @@
 									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].deal }}</p>
 								</li>
 								<li class="flex-item-3 tr">
-									<h4 class="my-asset-list-title">
-										{{ if(entrusts[i].status == 0){ }}
-										进行中
-										{{ }else{ }}
-										{{ if(entrusts[i].status == 1){ }}
-										已完成
-										{{ }else{ }}
-										已撤销
-										{{  } }}
-										{{  } }}
-									</h4>
+									<h4 class="my-asset-list-title">进行中</h4>
 									<p class="text-nowrap">委托量({$C['coin'][$xnb]['name'] | strtoupper})</p>
 									<p class="my-asset-list-price text-nowrap bjs-color-white">{{= entrusts[i].num }}</p>
 									<p class="padt4"></p>
-									{{ if(entrusts[i].status == 0){ }}
-										<button class="bjs-btn default-form-cancel" onclick="cancelaa('{{= entrusts[i].id }}')">撤销</button>
-									{{ }else{ }}
-										<button class="bjs-btn default-form-cancel vhide" >撤销</button>
-									{{  } }}
+									<button class="bjs-btn default-form-cancel" onclick="cancelaa('{{= entrusts[i].id }}')">撤销</button>
 								</li>
 							</ul>
 							{{  } }}
@@ -413,12 +399,12 @@
 			<div class="pay-market">
 				<h3 class="clearfix text-nowrap pay-market-title">
 					<span class="pull-left pay-market-title-price1 bjs-color-up">-</span>
-					<span class="pull-right pay-market-title-price2">
+					<span class="pull-right pay-market-title-price2 font42">
 						<span class="pull-left">高 <em class="bjs-color-white" id="market_max_price">-</em></span>
 						<span class="pull-left ml5">低 <em class="bjs-color-white" id="market_min_price">-</em></span>
 					</span>
 				</h3>
-				<div class="clearfix text-nowrap pay-market-title2">
+				<div class="clearfix text-nowrap pay-market-title2 font42">
 					<span class="pull-left pay-market-title2-price"><em class="bjs-color-up" id="market_change">-%</em></span>
 					<span class="pull-right">24H量 <em class="bjs-color-white" id="market_volume">-</em></span>
 				</div>
@@ -440,7 +426,7 @@
 					<div class="bjs-tab-cont pay-market-tab-cont">
 						<div class="bjs-tab-list pay-market-tab-list active" id="pay-market-list-box">
 							<div class="pay-market-table">
-								<div class="pay-market-thead">
+								<div class="pay-market-thead font42">
 									<ul class="flex-box">
 										<li class="tl flex-item-2">时间</li>
 										<li class="tc flex-item-1">方向</li>
@@ -448,7 +434,7 @@
 										<li class="tr flex-item-3">数量({$C['coin'][$xnb]['name'] | strtoupper})</li>
 									</ul>
 								</div>							
-								<div class="pay-market-tbody">
+								<div class="pay-market-tbody font42">
 								</div>
 							</div>
 						</div>
@@ -606,6 +592,10 @@
 		}
 		//弹出交易密码 买入
 		$(document).on('click','#trade-pay-submit',function(){
+		    if(userid == 0){
+                layer.msg('请登录',{icon:0});
+                return;
+			}
 		    var buy_price = parseFloat($('#buy_price').val());//买价格
             var buy_num = parseFloat($('#buy_num').val());//买数量
 			if(!buy_price || buy_price <= 0){
@@ -650,6 +640,10 @@
 		});
 		//弹出交易密码 卖出
 		$(document).on('click','#trade-sell-submit',function(){
+            if(userid == 0){
+                layer.msg('请登录',{icon:0});
+                return;
+            }
             var sell_price = parseFloat($('#sell_price').val());//买价格
             var sell_num = parseFloat($('#sell_num').val());//买数量
             if(!sell_price || sell_price <= 0){
@@ -805,9 +799,8 @@
                     if (data['usercoin']['cny']) {
                         $("#cny_num").html(data['usercoin']['cny'].toFixed(2));
                         var buy_price = $("#buy_price").val();
-                        console.log(buy_price);
                         if(buy_price >0) {
-                            $('.maxmum-buy').html((data['usercoin']['cny'] / buy_price).toFixed(2));
+                            $('.maxmum-buy').html((data['usercoin']['cny'] / buy_price * 1.002).toFixed(2));
                         }else{
                             $('.maxmum-buy').html('0.00');
 						}
@@ -885,9 +878,9 @@
             console.log(buyprice);
             //计算可以购买多少币
 			if (buyprice && !isNaN(buyprice) && buyprice != null && buyprice.toString().split(".") != null){
-                $('.maxmum-buy').html((cny_num/buyprice.toFixed(market_round)).toFixed(4));
+                $('.maxmum-buy').html((cny_num/buyprice * 1.002).toFixed(4));
 			}else{
-                $('.maxmum-buy').html(0);
+                $('.maxmum-buy').html(0.00);
 			}
 
 			//省略小数
@@ -968,7 +961,7 @@
         // 连接服务端
         function connect() {
             // 创建websocket
-            ws = new WebSocket("ws://www.bjs.bi:7272");
+            ws = new WebSocket("ws://ws.bjs.bi:7272");
             // 当socket连接打开时，输入用户名
             ws.onopen = onopen;
             // 当有消息时根据消息类型显示不同信息

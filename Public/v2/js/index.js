@@ -1,6 +1,6 @@
 var bjsIndex = (function(){
 	var bjsIndex = function(){
-		this.localPath = typeof localPath === 'undefined' ? 'http://bjs.bi:8080/award/' : localPath;
+		this.localPath = typeof localPath === 'undefined' ? 'http://ws.bjs.bi:8080/award/' : localPath;
 		this.resourcesPath = typeof resourcesPath === 'undefined' ? '' : resourcesPath;
 		this.indexUrl = {
 			day3: 'market/day3',
@@ -952,7 +952,7 @@ var bjsIndex = (function(){
 				var _left = event.pageX;
 				var x = _left - left; // move s
 				var _width = x / width * 100;
-				_width = _width < 0 ? 0 : (_width > 100 ? 100 : (Math.round(_width / 10) * 10));
+				_width = _width < 0 ? 0 : (_width > 100 ? 100 : _width>>0);
 				$this.find('.progress-left').css('width',_width+'%');
 				$this.find('.progress-btn').css('left',_width+'%');
 				$this.siblings('.progress-num').html(_width+'%');
@@ -967,7 +967,7 @@ var bjsIndex = (function(){
 				var _left = event.pageX;
 				var x = _left - left;
 				var _width = x / width * 100;
-				_width = _width < 0 ? 0 : (_width > 100 ? 100 : (Math.round(_width / 10) * 10));
+				_width = _width < 0 ? 0 : (_width > 100 ? 100 : _width>>0);
 				$this.find('.progress-left').css('width',_width+'%');
 				$this.find('.progress-btn').css('left',_width+'%');
 				$this.siblings('.progress-num').html(_width+'%');

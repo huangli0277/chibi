@@ -57,21 +57,21 @@
 			</div>
 			<eq name="is_login" value="1">
 			<div class="assets">
-				<h3 class="assets-title">我的资产 <span class="pull-right assets-eyes hide"></span></h3>
+				<h3 class="assets-title">我的资产 <span class="pull-right assets-eyes" data-class="assets-eyes-price"></span></h3>
 				<a href="/finance/details.html">
 				<div class="assets-cont">
 					<ul class="flex-box">
 						<li>
 							<div class="assets-item assets-pay">
-								<p class="assets-item-type">可用CNYT</p>
-								<p class="assets-item-price"><span>{$userCoin_top['cny']}</span> <em></em></p>
+								<p class="assets-item-type font42">可用CNYT</p>
+								<p class="assets-item-price"><span class="assets-eyes-price">{$userCoin_top['cny']}</span> <em class="assets-eyes-price hide font5">***</em></p>
 								<!--<p class="assets-item-price2"><span>≈1201.45</span> <em>cny</em></p>-->
 							</div>
 						</li>
 						<li>
 							<div class="assets-item assets-c2c">
-								<p class="assets-item-type">预估总资产</p>
-								<p class="assets-item-price"><span>{$zj}</span> <em></em></p>
+								<p class="assets-item-type font42">预估总资产</p>
+								<p class="assets-item-price"><span class="assets-eyes-price">{$zj}</span> <em class="assets-eyes-price hide font5">***</em></p>
 								<!--<p class="assets-item-price2"><span>≈120011.47</span> <em>cny</em></p>-->
 							</div>
 						</li>
@@ -237,6 +237,7 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/swiper.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 	<script type="text/javascript">
 		var home;

@@ -647,7 +647,7 @@ function check($data, $rule = NULL, $ext = NULL)
     $validate['username'] = '/^[a-zA-Z]{1}[0-9a-zA-Z_]{5,15}$/';
     $validate['email'] = '/^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/';
     $validate['moble'] = '/^(((1[0-9][0-9]{1})|159|153)+\\d{8})$/';
-    $validate['password'] = '/^[a-zA-Z0-9_\\@\\#\\$\\%\\^\\&\\*\\(\\)\\!\\,\\.\\?\\-\\+\\|\\=]{6,16}$/';
+    $validate['password'] = '/^[a-zA-Z0-9_\\@\\#\\$\\%\\^\\&\\*\\(\\)\\!\\,\\.\\?\\-\\+\\|\\=]{6,36}$/';
     $validate['xnb'] = '/^[a-zA-Z]$/';
 
     if (isset($validate[strtolower($rule)])) {

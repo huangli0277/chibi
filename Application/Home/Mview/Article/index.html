@@ -7,7 +7,40 @@
 <title>公告列表</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
 <style type="text/css">
-
+#wrapper{overflow: hidden;}
+#scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width:100%;
+	box-sizing: border-box;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+#pullDown,#pullUp,.pulldown-tips{
+	height:40px;
+	line-height:40px;
+	text-align:center;
+}
+.pulldown-tips{
+	position:absolute;
+	top:-40px;
+	left:0;
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -31,9 +64,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="content content2 bg1f2029">
-			<div class="bjs-tab-list article-tab-list pad5 active" id="article-page-1">
-				<ul class="article-list">
+		<div class="content content2 bg1f2029" id="wrapper">
+			<div class="bjs-tab-list article-tab-list pad5 active" id="scroller">
+				<ul class="article-list" id="list">
 					<volist name="list" id="vo">
 					<li class="article-item">
 						<a href="{:U('Article/mdetail','id='.$vo['id'])}" class="db">
@@ -47,7 +80,10 @@
 					</li>
 					</volist>
 				</ul>
-				<p class="tc padt4"><span class="hand load-more" data-state="1">加载更多...</span></p>
+				<div id="pullUp" class="">
+					<div class="pullUpLabel">加载更多</div>
+				</div>
+				<p class="tc padt4 hide"><span class="hand load-more" data-state="1">加载更多...</span></p>
 			</div>
 			<div class="padt4"></div>
 			<div class="padt4"></div>
@@ -58,57 +94,116 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/iscroll.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/iscroll-probe.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function(){
+			load();
+		});
+		function load () {
+			var myScroll,
+			pullUp = $("#pullUp"),
+			pullUpLabel = $(".pullUpLabel"),
+			container = $('#list'),
+			loadingStep = 0;//加载状态0默认，1显示加载状态，2执行加载数据，只有当为0时才能再次加载，这是防止过快拉动刷新
+
+			pullUp.hide();
+ 
+			myScroll = new IScroll("#wrapper", {
+				scrollbars: true,
+				mouseWheel: false,
+				interactiveScrollbars: true,
+				shrinkScrollbars: 'scale',
+				fadeScrollbars: true,
+				click: true,
+				scrollY:true,
+				probeType: 2,
+				bindToWrapper:true
+			});
+			myScroll.on("scroll",function(){
+				if(loadingStep == 0){
+					if(loadingStep == 0 && this.y < (this.maxScrollY - 20) && this.y > (this.maxScrollY - 40)){
+						//上拉加载更多
+						pullUp.addClass("refresh").show();
+						pullUpLabel.text("继续下拉加载");					
+					}
+					if(loadingStep == 0 && this.y < (this.maxScrollY - 40)){
+						//上拉加载更多
+						pullUpLabel.text("释放加载");
+						loadingStep = 1;						
+					}
+				}
+				if(loadingStep == 1 && this.y > (this.maxScrollY - 40)){
+					pullUpLabel.text("继续下拉加载");
+					loadingStep = 0;		
+				}
+			});
+			myScroll.on("scrollEnd",function(){
+				if(loadingStep == 1){
+					pullUpAction();
+				}
+			});
+		function pullUpAction(){
+			pulldata(function(){
+				pullUp.attr('class','').hide();
+				myScroll.refresh();
+				loadingStep = 0;
+			});
+		}
+	 
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);}
+
 		var home;
 		var pageIndex = 1;
 		$(document).ready(function(){
 			home = new bjsIndex();
 			home.initArticle();
-
-			var page = {
-				1: 1,
-				2: 1
-			}
-			$(document).on('click','.load-more',function(){
-                pageIndex ++;
-				var $this = $(this);
-				var state = $this.data('state');
-				layer.load();
-				var url = '/Ajax/getJsonArticle';
-				var data = {id: {$id}, pageIndex: pageIndex,pageSize: 10};
-				var type = 'post';
-				var dataType = 'json';
-				var tpl = '';
-				var success = function(result){
-					if(result.data && result.data.length && result.count){
-						result.data.forEach(function(item,index){
-							tpl += '<li class="article-item">'
-								+	'<a href="/Article/mdetail/id/'+item.id+'" class="db">'
-								+		'<div class="clearfix">'
-								+			'<span>发布时间：'+parseTime(item.addtime*1000)+'</span>'
-								+			'<span class="pull-right">阅读：<span>'+item.hits+'</span></span>'
-								+		'</div>'
-								+		'<div class="lh1375 font42 bjs-color-white padt2 text-overflow">'+item.title+'</div>'
-								+		'<div class="article-item-detail">'+item.brief+'</div>'
-								+	'</a>'
-								+'</li>';
-						});
-						$this.parent().siblings('.article-list').append(tpl);
-						page[state] ++;
-						layer.closeAll('loading');
-					}else{
-                        layer.closeAll('loading');
-                        $this.parent().addClass('vhide');
-                        layer.msg('已全部加载');
-					}
-				};
-				var error = function(e){
-					layer.closeAll('loading');
-					layer.msg('暂无数据',{icon:0,time:800});
-				};
-				home._fetch(url,data,type,dataType,success,error);
-			});
 		});
+		function pulldata(callback){
+            pageIndex ++;
+			var $this = $('.load-more');
+			if($this.data('state') == 0){
+				layer.msg('已全部加载',{time:800});
+				return false;
+			}
+			var state = $this.data('state');
+			layer.load();
+			var url = '/Ajax/getJsonArticle';
+			var data = {id: {$id}, pageIndex: pageIndex,pageSize: 10};
+			var type = 'post';
+			var dataType = 'json';
+			var tpl = '';
+			var success = function(result){
+				if(result.data && result.data.length && result.count){
+					result.data.forEach(function(item,index){
+						tpl += '<li class="article-item">'
+							+	'<a href="/Article/mdetail/id/'+item.id+'" class="db">'
+							+		'<div class="clearfix">'
+							+			'<span>发布时间：'+parseTime(item.addtime*1000)+'</span>'
+							+			'<span class="pull-right">阅读：<span>'+item.hits+'</span></span>'
+							+		'</div>'
+							+		'<div class="lh1375 font42 bjs-color-white padt2 text-overflow">'+item.title+'</div>'
+							+		'<div class="article-item-detail">'+item.brief+'</div>'
+							+	'</a>'
+							+'</li>';
+					});
+					$this.parent().siblings('.article-list').append(tpl);
+					layer.closeAll('loading');
+				}else{
+                    layer.closeAll('loading');
+                    $this.data('state','0');
+                    //$this.parent().addClass('vhide');
+                    layer.msg('已全部加载',{time:800});
+				}
+				callback();
+			};
+			var error = function(e){
+				layer.closeAll('loading');
+				layer.msg('暂无数据',{icon:0,time:800});
+				callback();
+			};
+			home._fetch(url,data,type,dataType,success,error);
+		}
 
 		function parseTime(str){
             return getSmpFormatDate(new Date(str), true);

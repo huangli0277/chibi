@@ -920,6 +920,19 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $this->display();
     }
 
+    public function idcardauth(){
+        if (!userid()) {
+            redirect('/Login');
+        }
+
+        $user = M('User')->where(array('id' => userid()))->find();
+
+
+
+        $this->assign('user', $user);
+        $this->display();
+    }
+
     public function bindEmail()
     {
         if (IS_POST && userid()) {
@@ -1206,6 +1219,23 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $userQianbaoList = M('UserQianbao')->where(array('userid' => userid(), 'status' => 1, 'coinname' => $coin))->order('id desc')->select();
         $this->assign('userQianbaoList', $userQianbaoList);
         $this->assign('prompt_text', D('Text')->get_content('user_qianbao'));
+        $this->display();
+    }
+
+
+    public function qianbao_list($coin = NULL)
+    {
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $Coin = M('Coin')->where(array(
+            'status' => 1,
+            'name' => array('neq', 'cny')
+        ))->select();
+        foreach ($Coin as $k => $v) {
+            $coin_list[$v['name']] = $v;
+        }
+        $this->assign('coin_list', $coin_list);
         $this->display();
     }
 

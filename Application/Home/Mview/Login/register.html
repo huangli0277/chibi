@@ -23,7 +23,7 @@
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">手机号码</span></p>
 						<div class="input-group clearfix">
-							<span class="input-group-addon">+86</span><input type="text" class="form-control" id="moble" placeholder="请输入手机号码" onblur="check_moble()" >
+							<span class="input-group-addon font42">+86</span><input type="text" class="form-control" id="moble" placeholder="请输入手机号码" onblur="check_moble()" >
 							<input type="text" id="mobles" style="display: none;">
 						</div>
 					</li>
@@ -47,7 +47,7 @@
                     <li class="wrap-form-item">
                         <p><span class="wrap-form-label">短信验证码</span></p>
                         <div class="input-group input-group-r clearfix">
-                            <input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码" /><span class="input-group-addon" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
+                            <input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码" /><span class="input-group-addon font42" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
                         </div>
                     </li>
                     <li class="wrap-form-item">
@@ -85,7 +85,7 @@
                     <li class="wrap-form-item">
                         <p><span class="wrap-form-label">邮箱验证码</span></p>
                         <div class="input-group input-group-r clearfix">
-                            <input id="email_verify" type="text" name="name" class="form-control" placeholder="请输入验证码" /><span class="input-group-addon" id="email_reg_send" onclick="email_reg_code('mail')">获取</span>
+                            <input id="email_verify" type="text" name="name" class="form-control" placeholder="请输入验证码" /><span class="input-group-addon font42" id="email_reg_send" onclick="email_reg_code('mail')">获取</span>
                         </div>
                     </li>
                     <li class="wrap-form-item">
@@ -101,65 +101,6 @@
 				</ul>
 			</div>
 		</div>
-		<div class="register-form-cont2 hide">
-			<div class="register-form2 hide" id="register-phone-form2">
-				<div class="clearfix register-form-cont2-head tc">
-					<a href="#" class="search-slide-back pull-left"></a>
-					<p class="pull-right register-form-cont2-title">手机注册</p>
-				</div>
-				<div class="wrap-form-cont2">
-					<ul class="wrap-form-list">
-						<li class="wrap-form-item">
-							<p class="clearfix"><span class="wrap-form-label" id="moble_lbl"></span> <span class="pull-right"><img class="register-country-img" src="__PUBLIC__/m/images/language.png"></span></p>
-						</li>
-						<li class="wrap-form-item">
-							<p><span class="wrap-form-label">短信验证码</span></p>
-							<div class="input-group input-group-r clearfix">
-								<input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码" /><span class="input-group-addon" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
-							</div>
-						</li>
-						<li class="wrap-form-item">
-							<p><span class="wrap-form-label">邀请码(选填)</span></p>
-							<input id="invit" class="form-input" type="text" name="name" placeholder="输入邀请码"/>
-						</li>
-						<li class="wrap-form-item">
-							<p class="user-agreement"><label class="check-off-open" id="regweb-tip"><input type="checkbox" name="name" class="hide" id="regweb"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a>  </label></p>
-						</li>
-						<li class="wrap-form-item wrap-form-item-submit">
-							<button class="default-form-submit default-form-blue" id="register-phone-submit">注册</button>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="register-form2 hide" id="register-email-form2">
-				<div class="clearfix register-form-cont2-head tc">
-					<a href="#" class="search-slide-back pull-left"></a>
-					<p class="pull-right register-form-cont2-title">邮箱注册</p>
-				</div>
-				<div class="wrap-form-cont2">
-					<ul class="wrap-form-list">
-						<li class="wrap-form-item">
-							<p class="clearfix"><span class="wrap-form-label" id="email_lbl"></span></p>
-						</li>
-						<li class="wrap-form-item">
-							<p><span class="wrap-form-label">邮箱验证码</span></p>
-							<div class="input-group input-group-r clearfix">
-								<input id="email_verify" type="text" name="name" class="form-control" placeholder="请输入验证码" /><span class="input-group-addon" id="email_reg_send" onclick="email_reg_code('mail')">获取</span>
-							</div>
-						</li>
-						<li class="wrap-form-item">
-							<p><span class="wrap-form-label">邀请码(选填)</span></p>
-							<input type="text" id="invitEmail" class="form-input" name="name" placeholder="输入邀请码"/>
-						</li>
-						<li class="wrap-form-item">
-							<p class="user-agreement"><label class="check-off-open" id="regEmail-tip"><input type="checkbox" name="name" class="hide" id="regEmail"><span>我已阅读并同意</span><a href="javascript:;" onclick="regWeb();">《用户协议》</a></label></p>
-						</li>
-						<li class="wrap-form-item wrap-form-item-submit">
-							<button class="default-form-submit default-form-blue" id="register-email-submit">注册</button>
-						</li>
-					</ul>
-				</div>
-			</div>
 		</div>
 	</div>
 	<div class="wrap-dialog hide">
@@ -517,8 +458,8 @@
     });
 
     function sendMobileSuccess(){
-        $('.register-form-cont').addClass('hide');
-        $('.register-form-cont2,#register-phone-form2').removeClass('hide');
+        //$('.register-form-cont').addClass('hide');
+        //$('.register-form-cont2,#register-phone-form2').removeClass('hide');
 	}
     $(document).on('click','#register-email-next',function(){
 
@@ -559,8 +500,8 @@
     });
 
     function sendEmailSuccess(){
-        $('.register-form-cont').addClass('hide');
-        $('.register-form-cont2,#register-email-form2').removeClass('hide');
+        //$('.register-form-cont').addClass('hide');
+        //$('.register-form-cont2,#register-email-form2').removeClass('hide');
 	}
     $(document).on('click','.search-slide-back',function(event){
         event.preventDefault();
