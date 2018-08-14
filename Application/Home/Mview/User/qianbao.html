@@ -128,6 +128,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
     var home;
     $(document).ready(function(){
@@ -197,7 +198,7 @@
             coin: coin,
             name: name,
             addr: addr,
-            paypassword: paypassword
+            paypassword: hex_md5(paypassword)
         }, function (data) {
             $('#anquan-dialog').addClass('hide');
             if (data.status == 1) {

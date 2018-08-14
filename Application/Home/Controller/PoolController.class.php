@@ -37,7 +37,7 @@ class PoolController extends HomeController
 				$this->error('请先登录！');
 			}
 
-			if (md5($input['paypassword']) != $user['paypassword']) {
+			if ($input['paypassword'] != $user['paypassword']) {
 				$this->error('交易密码错误！');
 			}
 

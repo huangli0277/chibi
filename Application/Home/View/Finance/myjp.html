@@ -1,0 +1,63 @@
+<include file="Public:header" />
+
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+        <include file="User:left" />
+
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title pull-left">
+                        我的奖励<span style='font-size:12px;'>(累计奖励:{$s_count})</span>
+                    </h3>
+                </div>
+                <div class="c2c-order">
+                    <div class="c2c-order-table">
+                        <table class="c2c-table">
+                            <thead>
+                            <tr>
+                                <th>下家用户名</th>
+                                <th>奖励类型</th>
+                                <th>奖励说明</th>
+                                <th>操作时间</th>
+                                <th>操作数量</th>
+                                <th>奖励数量</th>
+                                <th>奖励状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <volist name="list" id="vo">
+                                <tr>
+                                <tr>
+                                    <td>{$vo.invit|substr_replace='****',3,4}</td>
+                                    <td>{$vo.type}</td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.addtime|addtime}</td>
+                                    <td>{$vo['num']|NumToStr}</td>
+                                    <td>{$vo['fee']|NumToStr}</td>
+                                    <td><eq name="vo.status" value="0"> <font class="sell">未到账 </font></eq> <eq name="vo.status" value="1"> <font class="buy">已到账 </font></eq></td>
+                                </tr>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="pages">{$page}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.select2').select2({
+        minimumResultsForSearch: -1
+    });
+    $('.c2c-menu-left').on('click','.c2c-menu-unit h3',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('.c2c-menu-unit').toggleClass('close-list');
+    });
+</script>
+<include file="Public:footer" />

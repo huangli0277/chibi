@@ -125,7 +125,7 @@
 		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile2" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
 		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile3" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
 </div>
-
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
     $(function(){
         home.initSetPay();
@@ -154,7 +154,7 @@
 			bank: bank,
 			bankaddr: bankaddr,
 			bankcard: bankcard,
-			bankpwd: bankpwd,
+			bankpwd: hex_md5(bankpwd),
 			type: tpl,
 			bankimg: bankimg,
 		}, function (data) {

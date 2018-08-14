@@ -574,11 +574,22 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .footer-content-link .link-less{background: url(../images/link-less.png) no-repeat center center / 90% auto;}
 
 
-/*---- flex实现 ----*/
+/*---- log ----*/
+.add-btn span{background: url(../images/bjs-icon.png) no-repeat -18px -1590px; padding-left: 15px; display: block; height: 16px; line-height: 16px; cursor: pointer;}
+.add-btn.active span{background-position: -18px -1620px;}
+.add-btn .log-add-btn-1{margin-left: 0px;}
+.add-btn .log-add-btn-2{margin-left: 5px;}
+.add-btn .log-add-btn-3{margin-left: 20px; background: transparent; cursor: text; display: inline-block; padding-left: 0;}
+
 .flex-table{}
 .flex-table-head{}
-.flex-table-body{}
+.flex-table-body{padding-top: .2rem;}
 .flex-table-scroll{}
+.flex-table-tr{padding: .2rem 0;}
+
+
+
+/*---- flex实现 ----*/
 .flex-box{display: -webkit-flex; display: flex; align-items: center;}
 .flex-box.align-top{align-items: baseline;}
 .flex-box > li{flex-grow: 1; width: 0;}

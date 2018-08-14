@@ -625,6 +625,23 @@ function addtime($time = NULL, $type = NULL)
     return date($type, $time);
 }
 
+function maddtime($time = NULL, $type = NULL)
+{
+    if (empty($time)) {
+        return '---';
+    }
+
+    if (($time < 2545545) && (1893430861 < $time)) {
+        return '---';
+    }
+
+    if (empty($type)) {
+        $type = 'Y-m-d';
+    }
+
+    return date($type, $time);
+}
+
 function check($data, $rule = NULL, $ext = NULL)
 {
     $data = trim(str_replace(PHP_EOL, '', $data));

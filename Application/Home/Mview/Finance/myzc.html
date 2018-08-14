@@ -155,6 +155,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
     var home;
     $(document).ready(function(){
@@ -298,7 +299,7 @@
                         $.post("/finan/coinout_up", {
                             coin:coin,
                             num: num,
-                            paypassword: paypassword,
+                            paypassword: hex_md5(paypassword),
                             moble_verify: moble_verify,
                             bank: bank,
                             goole:val,
@@ -335,7 +336,7 @@
             $.post("{:U('Finance/upmyzc')}", {
                 coin:coin,
                 num: num,
-                paypassword: paypassword,
+                paypassword: hex_md5(paypassword),
                 moble_verify: moble_verify,
                 addr: bank,
             }, function (data) {

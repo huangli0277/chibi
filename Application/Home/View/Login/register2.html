@@ -82,6 +82,7 @@
 		</li>
 	</ul>
 </div>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
 	$('input').focus(function(){
 		var t=$(this);
@@ -133,7 +134,7 @@
 			return false;
 		}
 
-		$.post("{:U('Login/upregister2')}",{paypassword:paypassword,repaypassword:repaypassword},function(data){
+		$.post("{:U('Login/upregister2')}",{paypassword:hex_md5(paypassword),repaypassword:hex_md5(repaypassword)},function(data){
 			if(data.status==1){
 				layer.msg(data.info,{icon:1,time:2000},function(){
                     window.location='/Login/register3';

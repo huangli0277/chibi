@@ -1,0 +1,107 @@
+<include file="Public:header" />
+
+<div class="content">
+	<div class="clearfix window-wrap w1500 c2c-page">
+		<include file="User:left" />
+		<div class="c2c-page-right pull-right">
+			<div class="c2c-cont">
+				<div class="c2c-cont-head clearfix">
+					<h3 class="c2c-cont-head-title">
+						<p>我的推荐</p>
+					</h3>
+				</div>
+				<div class="tixian-jilu-list c2c-table flex-table">
+					<div class="flex-table-head">
+						<ul class="flex-box text-nowrap">
+							<li>下家类型</li>
+							<li class="tc">用户名</li>
+							<li class="tc flex-item-2">注册时间</li>
+							<li class="tr">是否认证</li>
+						</ul>
+					</div>
+					<div class="flex-table-body log-body-1">
+						<!-- 一级 tr -->
+						<volist name="list" id="v">
+						<div class="flex-table-tr">
+							<ul class="flex-box text-nowrap">
+								<li class="add-btn"><span class="log-add-btn-1">一级下家({$v.invitss})</span></li>
+								<li class="tc">{$v.username|substr_replace='****',3,6}</li>
+								<li class="tc flex-item-2">{$v.addtime|addtime}</li>
+								<li class="tr">
+									<empty name="v.idcardauth">
+										未认证
+									<else />
+										已认证
+									</empty>
+								</li>
+							</ul>
+							<notempty name="v['invits']">
+								<div class="flex-table-body log-body-2 hide">
+								<!-- 二级 tr -->
+									<volist name="v['invits']" id="vv">
+										<div class="flex-table-tr">
+									<ul class="flex-box text-nowrap">
+										<li class="add-btn"><span class="log-add-btn-2">二级下家({$vv.invitss})</span></li>
+										<li class="tc">{$vv.username|substr_replace='****',3,6}</li>
+										<li class="tc flex-item-2">{$vv.addtime|addtime}</li>
+										<li class="tr">
+											<empty name="vv.idcardauth">
+												未认证
+												<else />
+												已认证
+											</empty>
+										</li>
+									</ul>
+									<div class="flex-table-body log-body-3 hide">
+										<!-- 三级 tr -->
+										<notempty name="vv['invits']">
+											<volist name="vv['invits']" id="vvv">
+												<div class="flex-table-tr">
+													<ul class="flex-box text-nowrap">
+														<li class="add-btn"><span class="log-add-btn-3">三级下家</span></li>
+														<li class="tc">{$vvv.username|substr_replace='****',3,6}</li>
+														<li class="tc flex-item-2">{$vvv.addtime|addtime}</li>
+														<li class="tr">
+															<empty name="vv.idcardauth">
+																未认证
+																<else />
+																已认证
+															</empty>
+														</li>
+													</ul>
+												</div>
+											</volist>
+										</notempty>
+										<!-- 三级 END -->
+									</div>
+								</div>
+									</volist>
+								<!-- 二级 END -->
+								</div>
+							</notempty>
+						</div>
+						</volist>
+					</div>
+				</div>
+				<div class="pages">{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.cookies.2.2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/index.js"></script>
+<script src="js/select2.min.js"></script>
+<script type="text/javascript">
+var home = new bjsIndex();
+
+$(document).on('click','.log-add-btn-1',function(e){
+	e.preventDefault();
+	$(this).parent().toggleClass('active').closest('.flex-table-tr').find('.log-body-2').toggleClass('hide');
+});
+$(document).on('click','.log-add-btn-2',function(e){
+	e.preventDefault();
+	$(this).parent().toggleClass('active').closest('.flex-table-tr').find('.log-body-3').toggleClass('hide');
+});
+</script>
+<include file="Public:footer" />

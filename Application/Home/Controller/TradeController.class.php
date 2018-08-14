@@ -283,7 +283,7 @@ class TradeController extends HomeController
         }
         //每笔交易都需要输入交易密码
         if ($user['tpwdsetting'] == 2) {
-            if (md5($paypassword) != $user['paypassword']) {
+            if ($paypassword != $user['paypassword']) {
                 $this->error('交易密码错误！');
             }
         }
@@ -291,7 +291,7 @@ class TradeController extends HomeController
         //每次登录只输入一次交易密码
         if ($user['tpwdsetting'] == 1) {
             if (!session(userid() . 'tpwdsetting')) {
-                if (md5($paypassword) != $user['paypassword']) {
+                if ($paypassword != $user['paypassword']) {
                     $this->error('交易密码错误！');
                 } else {
                     session(userid() . 'tpwdsetting', 1);

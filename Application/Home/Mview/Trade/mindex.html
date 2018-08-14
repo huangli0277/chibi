@@ -516,6 +516,7 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 	<script type="text/javascript">
 		var home;
 		$(document).ready(function(){
@@ -616,7 +617,7 @@
                     $.post("{:U('Trade/upTrade')}", {
                         price: buy_price,
                         num: buy_num,
-                        paypassword: $('#trade-password').val(),
+                        paypassword:  hex_md5($('#trade-password').val()),
                         market: market,
                         type: 1
                     }, function (data) {
@@ -664,7 +665,7 @@
                     $.post("{:U('Trade/upTrade')}", {
                         price: sell_price,
                         num: sell_num,
-                        paypassword: $('#trade-password').val(),
+                        paypassword:  hex_md5($('#trade-password').val()),
                         market: market,
                         type: 2
                     }, function (data) {

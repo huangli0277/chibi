@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端我的奖励</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">我的奖励<span style='font-size:12px;'>(累计奖励:{$s_count})</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="my-asset-list ml2 mr2">
+				<div class="flex-table ml2 mr2">
+					<div class="flex-table-body ">
+						<volist name="list" id="vo">
+							<ul class="flex-box" data-name="" data-state="<?php echo $vo['type'] == 1?1:2;?>">
+								<li class="flex-item-3">
+									<p class="text-nowrap">下家用户名</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.invit|substr_replace='****',3,4}</p>
+									<p class="padt4"></p>
+									<p class="text-nowrap">奖励类型</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.type}</p>
+								</li>
+								<li class="flex-item-2">
+									<p class="text-nowrap">奖励说明</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.name}</p>
+									<p class="padt4"></p>
+									<p class="text-nowrap">操作时间</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo.addtime|addtime}</p>
+								</li>
+								<li class="flex-item-3 tr">
+									<p class="text-nowrap">操作数量</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['num']|NumToStr}</p>
+									<p class="padt4"></p>
+									<p class="text-nowrap">奖励数量</p>
+									<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['fee']|NumToStr}</p>
+								</li>
+							</ul>
+						</volist>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+	var home;
+	$(document).ready(function(){
+		home = new bjsIndex();
+		home._initBack();
+	});
+	</script>
+</body>
+</html>

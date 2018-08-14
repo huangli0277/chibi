@@ -115,7 +115,7 @@
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
 	$(function () {
 		var register = new bjsIndex();
@@ -329,8 +329,8 @@
             moble: moble,
             mobles: mobles,
             moble_verify: moble_verify,
-            password: password,
-            repassword: passwordConf,
+            password: hex_md5(password),
+            repassword: hex_md5(passwordConf),
             invit: invit,
             token: ""
         }, function (data) {
@@ -384,7 +384,7 @@
         $.post("/login/upregisterEmail/", {
             email: email,
             emailVerify: email_verify,
-            password: password,
+            password: hex_md5(password),
             invit: invit,
             token: ""
         }, function (data) {

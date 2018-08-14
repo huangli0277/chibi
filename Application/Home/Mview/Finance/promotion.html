@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
-<title>笔加索移动端推广返佣</title>
+<title>笔加索移动端邀请好友</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
 <style type="text/css">
 
@@ -17,59 +17,26 @@
 				<div class="register-form2">
 					<div class="clearfix tc">
 						<a href="#" class="search-slide-back pull-left"></a>
-						<p class="pull-right register-form-cont2-title">邀请佣金</p>
+						<p class="pull-right register-form-cont2-title">邀请好友</p>
 					</div>
 					<div class="tc promotion-head">
 						<p class="promotion-title bjs-color-white">推荐好友,可以获得一年内手续费</p>
 						<p class="bjs-color-blue promotion-title2">20%返佣</p>
 					</div>
-					<div class="promotion-cont">
-						<ul class="flex-box tc">
-							<li>
-								<div class="promotion-level promotion-level2">
-									<div class="promotion-level-cont">
-										<div class="promotion-level-man">
-											<p class="promotion-level-man-name">{$yqlist[1]['username']|hideCell}</p>
-											<p class="promotion-level-man-money bjs-color-white">{$yqlist[1]['num']}</p>
-											<p>CNUT</p>
-										</div>
-										<div class="promotion-level-null hide"></div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="promotion-level promotion-level1">
-									<div class="promotion-level-cont">
-										<div class="promotion-level-man">
-											<p class="promotion-level-man-name">{$yqlist[0]['username']|hideCell}</p>
-											<p class="promotion-level-man-money bjs-color-white">{$yqlist[0]['num']}</p>
-											<p>CNUT</p>
-										</div>
-										<div class="promotion-level-null hide"></div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="promotion-level promotion-level3">
-									<div class="promotion-level-cont">
-										<div class="promotion-level-man">
-											<p class="promotion-level-man-name">{$yqlist[2]['username']|hideCell}</p>
-											<p class="promotion-level-man-money bjs-color-white">{$yqlist[2]['num']}</p>
-											<p>CNUT</p>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul>
+					<div class="promotion-cont tc">
+						<div class="uc-qrcode">
+                        	<div id="qrcode_div"></div>
+                        </div>
 					</div>
 					<div class="tc promotion-code">
-						<p>邀请码：<span class="bjs-color-white">{$user['invit']}</span><span class="copy-btn ml3 promotion-copy-btn bjs-btn default-form-cancel" data-clipboard-text="5861BJS">复制</span></p>
+						<p>邀请码：<span class="bjs-color-white">{$user['invit']}</span><span class="copy-btn ml3 promotion-copy-btn bjs-btn default-form-cancel" data-clipboard-text="http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}">复制</span></p>
 					</div>
 					<div class="tc promotion-foot">
-						<p>通过以下推广按钮推荐好友访问本站并注册APP，</p>
+						<p>通过推广二维码推荐好友访问本站并注册APP，</p>
+						<p class="hide">通过以下推广按钮推荐好友访问本站并注册APP，</p>
 						<p>您可以获得被推荐好友一年内交易手续的 20% 作为佣金。</p>
 					</div>
-					<div class="tc promotion-submit">
+					<div class="tc promotion-submit hide">
 						<button class="default-form-submit default-form-blue promotion-form-submit">立即推广</button>
 					</div>
 				</div>
@@ -101,6 +68,9 @@
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+
+	<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+
 	<script type="text/javascript">
 		var home;
 		$(document).ready(function(){
@@ -114,6 +84,25 @@
 		$(document).on('click','.promotion-wrap-dialog-btn',function(){
 			$('.wrap-dialog').addClass('hide');
 		});
+
+		function createCanvas(){
+		    $('#qrcode_div').qrcode({
+		        render: "canvas", //table方式
+		        width: 160, //二维码的宽度
+		        height: 160,
+		        text: "http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}", //任意内容
+		        src: '__PUBLIC__/v2/images/qrcode_w.PNG',
+		        imgWidth: 60,
+		        imgHeight: 60
+		    });
+		    function callback(){
+	            var src = $('#qrcode_div canvas')[0].toDataURL("image/png");
+	            $('#qrcode-download').attr('href',src);
+	            $('#qrcode_div').html('<img src="'+src+'" />');
+	        }
+	        setTimeout(callback,2000);
+	    }
+	    createCanvas();
 	</script>
 </body>
 </html>

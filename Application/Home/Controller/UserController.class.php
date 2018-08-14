@@ -692,11 +692,11 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $password = M('User')->where(array('id' => userid()))->getField('password');
 
-        if (md5($oldpassword) != $password) {
+        if ($oldpassword != $password) {
             $this->error('旧登录密码错误！');
         }
 
-        $rs = M('User')->where(array('id' => userid()))->save(array('password' => md5($newpassword)));
+        $rs = M('User')->where(array('id' => userid()))->save(array('password' => $newpassword));
 
         if ($rs) {
             $this->success('修改成功');
@@ -729,17 +729,17 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $password = M('User')->where(array('id' => userid()))->getField('password');
 
-        if (md5($oldpassword) != $password) {
+        if ($oldpassword != $password) {
             $this->error('旧登录密码错误！');
         }
         $paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($newpassword) == $paypassword) {
+        if ($newpassword == $paypassword) {
             $this->error("新密码不能和交易密码一样");
         }
 
 
-        $rs = M('User')->where(array('id' => userid()))->save(array('password' => md5($newpassword)));
+        $rs = M('User')->where(array('id' => userid()))->save(array('password' => $newpassword));
 
         if (!($rs === false)) {
             $this->success('修改成功');
@@ -785,15 +785,15 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user = M('User')->where(array('id' => userid()))->find();
 
-        if (md5($oldpaypassword) != $user['paypassword']) {
+        if ($oldpaypassword != $user['paypassword']) {
             $this->error('旧交易密码错误！');
         }
 
-        if (md5($newpaypassword) == $user['password']) {
+        if ($newpaypassword == $user['password']) {
             $this->error('交易密码不能和登录密码相同！');
         }
 
-        $rs = M('User')->where(array('id' => userid()))->save(array('paypassword' => md5($newpaypassword)));
+        $rs = M('User')->where(array('id' => userid()))->save(array('paypassword' => $newpaypassword));
 
         if (!($rs === false)) {
             $this->success('修改成功');
@@ -833,15 +833,15 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user = M('User')->where(array('id' => userid()))->find();
 
-        if (md5($oldpaypassword) != $user['paypassword']) {
+        if ($oldpaypassword != $user['paypassword']) {
             $this->error('旧交易密码错误！');
         }
 
-        if (md5($newpaypassword) == $user['password']) {
+        if ($newpaypassword == $user['password']) {
             $this->error('交易密码不能和登录密码相同！');
         }
 
-        $rs = M('User')->where(array('id' => userid()))->save(array('paypassword' => md5($newpaypassword)));
+        $rs = M('User')->where(array('id' => userid()))->save(array('paypassword' => $newpaypassword));
 
         if ($rs) {
             $this->success('修改成功');
@@ -1099,7 +1099,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -1148,7 +1148,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -1196,7 +1196,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -1281,7 +1281,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -1328,7 +1328,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 

@@ -58,6 +58,13 @@ class FinanceController extends HomeController
     }
 
     /**
+     * 手机页面（我的账户）
+     */
+    public function index_list(){
+        $this->display();
+    }
+
+    /**
      * 手机（我的资产）
      */
     public function details()
@@ -479,7 +486,7 @@ class FinanceController extends HomeController
             $userbank = M()->query("SELECT id FROM  qq3479015851_user_bank where bank like '%微信%' and userid='" . userid() . "' order by id desc LIMIT 1");
         }
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
-        if (md5($bankpwd) != $user_paypassword) {
+        if ($bankpwd != $user_paypassword) {
             $this->error('交易密码错误！');
         }
         if ($userbank) {
@@ -546,7 +553,7 @@ class FinanceController extends HomeController
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -605,7 +612,7 @@ class FinanceController extends HomeController
 
         $user_paypassword = M('User')->where(array('id' => userid()))->getField('paypassword');
 
-        if (md5($paypassword) != $user_paypassword) {
+        if ($paypassword != $user_paypassword) {
             $this->error('交易密码错误！');
         }
 
@@ -740,7 +747,7 @@ class FinanceController extends HomeController
 
         $user = M('User')->where(array('id' => userid()))->find();
 
-        if (md5($paypassword) != $user['paypassword']) {
+        if ($paypassword != $user['paypassword']) {
             $this->error('交易密码错误！');
         }
 
@@ -1023,6 +1030,125 @@ class FinanceController extends HomeController
         $this->display();
     }
 
+    /**
+     * 我的推荐
+     */
+    public function mywd()
+    {
+        if (!userid()) {
+            redirect('/#login');
+        }
+
+        $this->assign('prompt_text', D('Text')->get_content('finance_mywd'));
+        check_server();
+        $where['invit_1'] = userid();
+        $Model = M('User');
+        $count = $Model->where($where)->count();
+        $Page = new \Think\Page($count, 10);
+
+
+
+
+        if ($_GET['p'] == '') {
+            $_GET['p'] = 1;
+        }
+        $uppage=$_GET['p']-1;
+        $dopage=$_GET['p']+1;
+        if ($count <= 10) {
+            $Page->setConfig('theme', '');
+        } else if ($_GET['p'] == 1) {
+            $Page->setConfig('theme', '<a href="/Finance/mywd/p/'.$dopage.'">»</a>');
+        } else if ($_GET['p'] == ceil($count / 10)) {
+            $Page->setConfig('theme', '<a href="/Finance/mywd/p/'.$uppage.'">«</a>');
+        } else if ($_GET['p'] > 1) {
+            $Page->setConfig('theme', '<a href="/Finance/mywd/p/'.$uppage.'">«</a><a href="/Finance/mywd/p/'.$dopage.'">»</a>');
+        }
+
+
+
+        $Page->setConfig('prev', '上一页');
+        $Page->setConfig('next', '下一页');
+        $show = $Page->show();
+
+
+        $list = $Model->where($where)->order('id asc')->field('id,username,moble,addtime,invit_1')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        foreach ($list as $k => $v) {
+            $list[$k]['invits'] = M('User')->where(array('invit_1' => $v['id']))->order('id asc')->field('id,username,moble,addtime,invit_1')->select();
+            $list[$k]['invitss'] = count($list[$k]['invits']);
+
+            foreach ($list[$k]['invits'] as $kk => $vv) {
+                $list[$k]['invits'][$kk]['invits'] = M('User')->where(array('invit_1' => $vv['id']))->order('id asc')->field('id,username,moble,addtime,invit_1')->select();
+                $list[$k]['invits'][$kk]['invitss'] = count($list[$k]['invits'][$kk]['invits']);
+            }
+        }
+        $s_count = 0;
+        if(is_array($list)){
+            foreach($list as $k => $v){
+                $s_count++;
+
+                foreach($v['invits'] as $kk => $vv){
+                    $s_count++;
+
+                    foreach($vv['invits'] as $kkk=>$vvv){
+                        $s_count++;
+                    }
+                }
+
+            }
+        }
+        //echo $s_count;
+        //die;
+        //print_r($list[0]['invits']);
+        //die;
+        //$this->assign('s_count_1', $s_count_1);
+        //$this->assign('s_count_2', $s_count_2);
+        //$this->assign('s_count_3', $s_count_3);
+        $this->assign('s_count', $s_count);
+
+        $this->assign('list', $list);
+        $this->assign('page', $show);
+        $this->display();
+    }
+
+    /**
+     * 我的奖品
+     */
+    public function myjp()
+    {
+        if (!userid()) {
+            redirect('/#login');
+        }
+
+        $this->assign('prompt_text', D('Text')->get_content('finance_myjp'));
+        check_server();
+        $where['userid'] = userid();
+        $Model = M('Invit');
+        $count = $Model->where($where)->count();
+        $Page = new \Think\Page($count, 10);
+        $show = $Page->show();
+        $list = $Model->where($where)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        foreach ($list as $k => $v) {
+            $list[$k]['invit'] = M('User')->where(array('id' => $v['invit']))->getField('id');
+        }
+
+        $s_count = 0;
+        $s_count = $Model->where($where)->sum('fee');
+        //$s_count = round($s_count,2);
+
+        $this->assign('s_count', $s_count);
+
+
+        $this->assign('list', $list);
+        $this->assign('page', $show);
+        $this->display();
+    }
+
+
+    /**
+     * 最新活动
+     */
     public function myzc($coin = NULL,$addr = NULL)
     {
         if (!userid()) {
@@ -1141,7 +1267,7 @@ class FinanceController extends HomeController
 
         $user = M('User')->where(array('id' => userid()))->find();
 
-        if (md5($paypassword) != $user['paypassword']) {
+        if ($paypassword != $user['paypassword']) {
             $this->error('交易密码错误！');
         }
 

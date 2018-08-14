@@ -32,7 +32,7 @@
 
 
 
-
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
 	function password_up() {
 
@@ -53,8 +53,8 @@
 		}
 
 		$.post("/Findpwd/password_up.html", {
-			password: password,
-			repassword:repassword,
+			password: hex_md5(password),
+			repassword: hex_md5(repassword),
 			token: ""
 		}, function (data) {
 			console.log(data);

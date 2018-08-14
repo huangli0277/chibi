@@ -135,7 +135,7 @@ class LoginController extends HomeController
         $mo->execute('set autocommit=0');
         //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_coin write ');
         $rs = array();
-        $rs[] = $mo->table('qq3479015851_user')->add(array('username' => $username, 'moble' => $moble, 'mobletime' => time(), 'password' => md5($password), 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'endtime' => time(), 'status' => 1));
+        $rs[] = $mo->table('qq3479015851_user')->add(array('username' => $username, 'moble' => $moble, 'mobletime' => time(), 'password' => $password, 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'endtime' => time(), 'status' => 1));
         $rs[] = $mo->table('qq3479015851_user_coin')->add(array('userid' => $rs[0], 'doge' => 100));
         //推荐赠送cnut+doge，冻结
 //		$istj = M()->query("SELECT count(id) as coun FROM  `qq3479015851_user` where invit_1 = '".$invit_1."' ");
@@ -297,7 +297,7 @@ class LoginController extends HomeController
         //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_coin write ');
         $rs = array();
         $moble = '';
-        $rs[] = $mo->table('qq3479015851_user')->add(array('username' => $username,'email' => $email, 'moble' => $moble, 'mobletime' => time(), 'password' => md5($password), 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'endtime' => time(), 'status' => 1));
+        $rs[] = $mo->table('qq3479015851_user')->add(array('username' => $username,'email' => $email, 'moble' => $moble, 'mobletime' => time(), 'password' => $password, 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'endtime' => time(), 'status' => 1));
         $rs[] = $mo->table('qq3479015851_user_coin')->add(array('userid' => $rs[0], 'doge' => 100));
         //推荐赠送cnut+doge，冻结
 //		$istj = M()->query("SELECT count(id) as coun FROM  `qq3479015851_user` where invit_1 = '".$invit_1."' ");
@@ -418,11 +418,11 @@ class LoginController extends HomeController
             $this->error('非法访问！');
         }
 
-        if (M('User')->where(array('id' => session('reguserId'), 'password' => md5($paypassword)))->find()) {
+        if (M('User')->where(array('id' => session('reguserId'), 'password' => $paypassword))->find()) {
             $this->error('交易密码不能和登录密码一样！');
         }
 
-        if (M('User')->where(array('id' => session('reguserId')))->save(array('paypassword' => md5($paypassword)))) {
+        if (M('User')->where(array('id' => session('reguserId')))->save(array('paypassword' => $paypassword))) {
             $this->success('成功！');
         } else {
             $this->error('失败！');
@@ -900,7 +900,7 @@ class LoginController extends HomeController
                 $this->error('不存在该手机号码');
             }
 
-            if ($user['paypassword'] == md5($password)) {
+            if ($user['paypassword'] == $password) {
                 $this->error("登录密码不能和交易密码一样");
             }
 
@@ -909,7 +909,7 @@ class LoginController extends HomeController
             $mo->execute('set autocommit=0');
             //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
             $rs = array();
-            $rs[] = $mo->table('qq3479015851_user')->where(array('moble' => $user['moble']))->save(array('password' => md5($password)));
+            $rs[] = $mo->table('qq3479015851_user')->where(array('moble' => $user['moble']))->save(array('password' => $password));
 
             if (check_arr($rs)) {
                 $mo->execute('commit');
@@ -926,7 +926,7 @@ class LoginController extends HomeController
                 $this->error('不存在该邮箱账号');
             }
 
-            if ($user['paypassword'] == md5($password)) {
+            if ($user['paypassword'] == $password) {
                 $this->error("登录密码不能和交易密码一样");
             }
 
@@ -935,7 +935,7 @@ class LoginController extends HomeController
             $mo->execute('set autocommit=0');
             //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
             $rs = array();
-            $rs[] = $mo->table('qq3479015851_user')->where(array('email' => $user['email']))->save(array('password' => md5($password)));
+            $rs[] = $mo->table('qq3479015851_user')->where(array('email' => $user['email']))->save(array('password' => $password));
 
             if (check_arr($rs)) {
                 $mo->execute('commit');
@@ -1002,7 +1002,7 @@ class LoginController extends HomeController
             $mo->execute('set autocommit=0');
             //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
             $rs = array();
-            $rs[] = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('paypassword' => md5($input['password'])));
+            $rs[] = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('paypassword' => $input['password']));
 
             if (check_arr($rs)) {
                 $mo->execute('commit');

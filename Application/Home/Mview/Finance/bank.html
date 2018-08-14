@@ -250,6 +250,7 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 	<div class="hide">
 		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile1" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
 		<input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile2" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
@@ -281,7 +282,7 @@
                 bank: bank,
                 bankaddr: bankaddr,
                 bankcard: bankcard,
-                bankpwd: bankpwd,
+                bankpwd: hex_md5(bankpwd),
                 type: tpl,
                 bankimg: bankimg,
             }, function (data) {

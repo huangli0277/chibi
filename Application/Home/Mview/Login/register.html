@@ -134,6 +134,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
     var home;
     $(document).ready(function(){
@@ -346,8 +347,8 @@
             moble: moble,
             mobles: mobles,
             moble_verify: moble_verify,
-            password: password,
-            repassword: passwordConf,
+            password: hex_md5(password),
+            repassword: hex_md5(passwordConf),
             invit: invit,
             token: ""
         }, function (data) {
@@ -401,7 +402,7 @@
         $.post("/login/upregisterEmail/", {
             email: email,
             emailVerify: email_verify,
-            password: password,
+            password: hex_md5(password),
             invit: invit,
             token: ""
         }, function (data) {

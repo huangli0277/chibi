@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>笔加索移动端我的推荐</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">我的推荐</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="flex-table pad5">
+				<div class="flex-table-head">
+					<ul class="flex-box text-nowrap bjs-color-white font42">
+						<li>下家类型</li>
+						<li class="tc flex-item-2">UID</li>
+						<li class="tc flex-item-2">注册时间</li>
+						<li class="tr">是否认证</li>
+					</ul>
+				</div>
+				<div class="flex-table-body log-body-1">
+					<!-- 一级 tr -->
+					<volist name="list" id="v">
+						<div class="flex-table-tr">
+							<ul class="flex-box text-nowrap">
+								<li class="add-btn"><span class="log-add-btn-1">一级({$v.invitss})</span></li>
+								<li class="tc flex-item-2">{$v.id}</li>
+								<li class="tc flex-item-2">{$v.addtime|maddtime}</li>
+								<li class="tr">
+									<empty name="v.idcardauth">
+										未认证
+										<else />
+										已认证
+									</empty>
+								</li>
+							</ul>
+							<notempty name="v['invits']">
+								<div class="flex-table-body log-body-2 hide">
+									<!-- 二级 tr -->
+									<volist name="v['invits']" id="vv">
+										<div class="flex-table-tr">
+											<ul class="flex-box text-nowrap">
+												<li class="add-btn"><span class="log-add-btn-2">二级({$vv.invitss})</span></li>
+												<li class="tc flex-item-2">{$v.id}</li>
+												<li class="tc flex-item-2">{$vv.addtime|maddtime}</li>
+												<li class="tr">
+													<empty name="vv.idcardauth">
+														未认证
+														<else />
+														已认证
+													</empty>
+												</li>
+											</ul>
+											<div class="flex-table-body log-body-3 hide">
+												<!-- 三级 tr -->
+												<notempty name="vv['invits']">
+													<volist name="vv['invits']" id="vvv">
+														<div class="flex-table-tr">
+															<ul class="flex-box text-nowrap">
+																<li class="add-btn"><span class="log-add-btn-3">三级</span></li>
+																<li class="tc flex-item-2">{$v.id}</li>
+																<li class="tc flex-item-2">{$vvv.addtime|maddtime}</li>
+																<li class="tr">
+																	<empty name="vv.idcardauth">
+																		未认证
+																		<else />
+																		已认证
+																	</empty>
+																</li>
+															</ul>
+														</div>
+													</volist>
+												</notempty>
+												<!-- 三级 END -->
+											</div>
+										</div>
+									</volist>
+									<!-- 二级 END -->
+								</div>
+							</notempty>
+						</div>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+	var home;
+	$(document).ready(function(){
+		home = new bjsIndex();
+		home._initBack();
+	});
+
+	$(document).on('click','.log-add-btn-1',function(e){
+		e.preventDefault();
+		$(this).parent().toggleClass('active').closest('.flex-table-tr').find('.log-body-2').toggleClass('hide');
+	});
+	$(document).on('click','.log-add-btn-2',function(e){
+		e.preventDefault();
+		$(this).parent().toggleClass('active').closest('.flex-table-tr').find('.log-body-3').toggleClass('hide');
+	});
+	</script>
+</body>
+</html>

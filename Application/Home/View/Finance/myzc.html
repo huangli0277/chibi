@@ -133,7 +133,7 @@
 
 
 
-
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
     $(function(){
         function formatState(state){
@@ -262,7 +262,7 @@
 						$.post("/finan/coinout_up", {
 							coin:coin,
 							num: num,
-							paypassword: paypassword,
+							paypassword: hex_md5(paypassword),
 							moble_verify: moble_verify,
 							bank: bank,
 							goole:val,
@@ -299,7 +299,7 @@
 			$.post("{:U('Finance/upmyzc')}", {
 				coin:coin,
 				num: num,
-				paypassword: paypassword,
+				paypassword: hex_md5(paypassword),
 				moble_verify: moble_verify,
 				addr: bank,
 			}, function (data) {

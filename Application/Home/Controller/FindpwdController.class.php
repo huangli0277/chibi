@@ -104,6 +104,9 @@ class FindpwdController extends HomeController
 
     public function findpwd()
     {
+        if (!session('userId')) {
+            redirect('/Login');
+        }
         if (IS_POST) {
             $input = I('post.');
             //判断参数前校验手机号码是否被篡改
@@ -112,83 +115,25 @@ class FindpwdController extends HomeController
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
                 $this->error('手机号码错误');
-            if (M_ONLY == 0) {
-//                if (!check_verify(strtoupper($input['verify']))) {
-//                    $this->error('图形验证码错误!');
-//                }
 
-                if (!check($input['username'], 'username')) {
-                    $this->error('用户名格式错误！');
-                }
-
-                if (!check($input['moble'], 'moble')) {
-                    $this->error('手机号码格式错误！');
-                }
-
-                if (!check($input['moble_verify'], 'd')) {
-                    $this->error('短信验证码格式错误！');
-                }
-                $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
-
-                $user = M('User')->where(array('username' => $input['username']))->find();
-
-
-                if (!$user) {
-                    $this->error('用户名不存在！');
-                }
-
-                if ($user['moble'] != $input['moble']) {
-                    $this->error('用户名或手机号码错误！');
-                }
-
-                if (!check($input['password'], 'password')) {
-                    $this->error('新登录密码格式错误！');
-                }
-
-
-                if ($input['password'] != $input['repassword']) {
-                    $this->error('确认密码错误！');
-                }
-
-
-                $mo = M();
-                $mo->execute('set autocommit=0');
-                //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
-                $rs = array();
-                $rs[] = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('password' => md5($input['password'])));
-
-                if (check_arr($rs)) {
-                    $mo->execute('commit');
-                    //$mo->execute('unlock tables');
-                    session('findpwd_verify',null);
-                    $this->success('修改成功');
-                } else {
-                    $mo->execute('rollback');
-                    $this->error('修改失败');
-                }
-
-            } else {
-
-
-                if (!check($input['moble'], 'moble')) {
-                    $this->error('手机号码格式错误！');
-                }
-
-                $user = M('User')->where(array('moble' => $input['moble']))->find();
-
-                if (!$user) {
-                    $this->error('不存在该手机号码');
-                }
-
-                if (!check($input['moble_verify'], 'd')) {
-                    $this->error('短信验证码格式错误！');
-                }
-
-                $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
-                session("findpaypwdmoble", $user['moble']);
-                session('findpwd_verify',null);
-                $this->success('验证成功');
+            if (!check($input['moble'], 'moble')) {
+                $this->error('手机号码格式错误！');
             }
+
+            $user = M('User')->where(array('moble' => $input['moble'],'id' => session('userId')))->find();
+
+            if (!$user) {
+                $this->error('不存在该手机号码');
+            }
+
+            if (!check($input['moble_verify'], 'd')) {
+                $this->error('短信验证码格式错误！');
+            }
+
+            $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
+            session("findpaypwdmoble", $user['moble']);
+            session('findpwd_verify',null);
+            $this->success('验证成功');
 
         } else {
             $this->display();
@@ -235,14 +180,14 @@ class FindpwdController extends HomeController
         }
 
 
-        if ($user['password'] == md5($password)) {
+        if ($user['password'] == $password) {
             $this->error('交易密码不能和登录密码一样');
         }
 
         $mo = M();
         $mo->execute('set autocommit=0');
         //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
-        $rs = $mo->table('qq3479015851_user')->where(array('moble' => $user['moble']))->save(array('paypassword' => md5($password)));
+        $rs = $mo->table('qq3479015851_user')->where(array('moble' => $user['moble']))->save(array('paypassword' => $password));
 
         if (!($rs === false)) {
             $mo->execute('commit');
@@ -308,7 +253,7 @@ class FindpwdController extends HomeController
             $mo->execute('set autocommit=0');
             //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
             $rs = array();
-            $rs[] = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('paypassword' => md5($input['password'])));
+            $rs[] = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('paypassword' => $input['password']));
 
             if (check_arr($rs)) {
                 $mo->execute('commit');

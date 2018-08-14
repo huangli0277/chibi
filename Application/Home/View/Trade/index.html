@@ -574,6 +574,7 @@
 </div>
 
 <script src="__PUBLIC__/v2/js/template.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
     function getJsonTop1() {
         $.getJSON("/Ajax/getJsonTop?market={$market}&t=" + Math.random(), function (data) {
@@ -820,7 +821,7 @@
         }
 
 
-        $.post('/user/uptpwdsetting', {paypassword: paypassword, tpwdsetting: tpwdsetting}, function (d) {
+        $.post('/user/uptpwdsetting', {paypassword: hex_md5(paypassword), tpwdsetting: tpwdsetting}, function (d) {
             if (d.status) {
                 layer.msg('设置成功', {icon: 1,time:2000},function(){window.location.reload();});
             } else {
@@ -865,7 +866,7 @@
         $.post("{:U('Trade/upTrade')}", {
             price: $('#buy_price').val(),
             num: $('#buy_num').val(),
-            paypassword: $('#buy_paypassword').val(),
+            paypassword:  hex_md5($('#buy_paypassword').val()),
             market: market,
             type: 1
         }, function (data) {
@@ -916,7 +917,7 @@
         $.post("{:U('Trade/upTrade')}", {
             price: $('#sell_price').val(),
             num: $('#sell_num').val(),
-            paypassword: $('#sell_paypassword').val(),
+            paypassword:  hex_md5($('#sell_paypassword').val()),
             market: market,
             type: 2
         }, function (data) {

@@ -24,11 +24,11 @@ table{
 .pull-left{ float: left !important}
 .pull-right{ float: right !important}
 .clearfix:after{
-	content: "";
-	clear: both;
-	display: block;
-	width: 0;
-	height: 0;
+    content: "";
+    clear: both;
+    display: block;
+    width: 0;
+    height: 0;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -40,6 +40,8 @@ input:-webkit-autofill:active {
 .hide{display: none!important;}
 .show{display: block!important;}
 .vhide{visibility: hidden;}
+.text-overflow{overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.text-nowrap{white-space: nowrap;}
 /*----------- reset End----------*/
 
 .topprice {
@@ -1049,7 +1051,7 @@ color: rgba(94,102,120,.7);
 .c2c-cont-head-title p{border-bottom: .02rem solid #2c303b; padding-bottom: .1rem; margin-bottom: .25rem; font-size: .18rem;}
 .page-w48{width: 48%;}
 .page-w50{width: 50%;}
-.tixian-jilu-list{font-size: .12rem; margin-top: .25rem;}
+.tixian-jilu-list{font-size: .14rem; margin-top: .25rem;}
 .tixian-jilu-list .c2c-table th,
 .tixian-jilu-list .c2c-table td{padding-left: 0; padding-right: 0;}
 .no-data span{padding-left: .2rem; background: url(../images/warning-2.png) no-repeat left center / auto .17rem; display: inline-block; height: .17rem; line-height: .17rem;}
@@ -1215,11 +1217,23 @@ color: rgba(94,102,120,.7);
 .upload-m2 img{width: 3.15rem; height: 2rem;}
 
 
+/*log*/
+.add-btn span{background: url(../images/bjs-icon.png) no-repeat -16px -1589px; padding-left: 20px; display: block; height: 16px; line-height: 16px; cursor: pointer;}
+.add-btn.active span{background-position: -16px -1619px;}
+.add-btn .log-add-btn-1{margin-left: 0px;}
+.add-btn .log-add-btn-2{margin-left: 10px;}
+.add-btn .log-add-btn-3{margin-left: 40px; background: transparent; cursor: text; display: inline-block; padding-left: 0;}
+.log-body-1 > .flex-table-tr:nth-child(2n){background: #1b1c25;}
+/*.log-body-1 > .flex-table-tr:nth-child(2n+1) .log-body-2 > .flex-table-tr:nth-child(2n+1){background: #1b1c25;}
+.log-body-1 > .flex-table-tr:nth-child(2n) .log-body-2 > .flex-table-tr:nth-child(2n+1){background: #181820;}*/
+
+
 /*---- flex实现 ----*/
 .flex-table{}
-.flex-table-head{}
+.flex-table-head{background: #292e38;}
 .flex-table-body{}
 .flex-table-scroll{}
+.flex-table .flex-box > li{padding: .1rem;}
 .flex-box{display: -webkit-flex; display: flex; align-items: center;}
 .flex-box.align-top{align-items: baseline;}
 .flex-box > li{flex-grow: 1; width: 0;}

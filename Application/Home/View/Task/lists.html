@@ -1,0 +1,55 @@
+<include file="Public:header" />
+
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+        <include file="User:left" />
+
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title pull-left">
+                        {$name}
+                    </h3>
+                </div>
+                <div class="c2c-order">
+                    <div class="c2c-order-table">
+                        <table class="c2c-table">
+                            <thead>
+                            <tr>
+                                <th>发放类型</th>
+                                <th>数量</th>
+                                <th>发放时间</th>
+                                <th>来源</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo['num']|NumToStr}</td>
+                                    <td>{$vo.addtime|addtime}</td>
+                                    <td>{$vo['tps']}</td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="pages">{$page}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.select2').select2({
+        minimumResultsForSearch: -1
+    });
+    $('.c2c-menu-left').on('click','.c2c-menu-unit h3',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('.c2c-menu-unit').toggleClass('close-list');
+    });
+</script>
+<include file="Public:footer" />

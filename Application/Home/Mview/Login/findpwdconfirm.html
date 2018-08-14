@@ -42,6 +42,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
     var home;
     $(document).ready(function(){
@@ -69,7 +70,7 @@
         }
 
         $.post("/Login/password_up.html", {
-            password: password,
+            password: hex_md5(password),
             token: ""
         }, function (data) {
             if (data.status == 1) {
