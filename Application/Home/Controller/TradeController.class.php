@@ -519,6 +519,9 @@ class TradeController extends HomeController
             $this->error('交易类型错误');
         }
         $rs = M()->table('a_market')->add(array('type' => $type, 'addtime' => time(), 'market' => $market, 'num' => $num, 'mum' => $mum, 'pri' => $price, 'fee' => $fee, 'userid' => userid()));
+        $redis = new \redis();
+        $redis->connect('redis', 6379);
+        $redis->lpush("order_list", $rs);
         $this->success('交易成功！');
     }
 
