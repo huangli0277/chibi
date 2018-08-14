@@ -81,12 +81,14 @@ class LoginController extends HomeController
             $this->error('短信验证码格式错误！');
         }
 
-        if ($moble_verify != session('real_verify')) {
-            $this->error('短信验证码错误！');
-        }
+        $this->_verify_count_check($moble_verify,session('real_verify'));
 
         if (M('User')->where(array('moble' => $moble))->find()) {
             $this->error('手机号码已存在！');
+        }
+
+        if(session('register_mobile_validation') != md5($moble)){
+            $this->error('手机号码错误');
         }
 
         if (M('User')->where(array('username' => $username))->find()) {
@@ -211,6 +213,7 @@ class LoginController extends HomeController
         session('real_email_verify', $code);
         $content = 'CC注册，your code：' . $code;
         SendEmail(array('to'=>$email, 'subject'=>'CC注册', 'content'=>$content));//发送邮件
+        session('register_email_validation', md5($email));
         if (MOBILE_CODE == 0) {
             $this->success('目前是演示模式,请输入' . $code);
         } else {
@@ -236,14 +239,14 @@ class LoginController extends HomeController
             $this->error('邮件格式错误！');
         }
         $username = $email;
-
         if (!check($emailVerify, 'd')) {
             $this->error('邮箱验证码格式错误！');
         }
 
-        if ($emailVerify != session('real_email_verify')) {
-            $this->error('邮箱验证码错误！');
+        if(session('register_email_validation') != md5($email)){
+            $this->error('邮箱错误!');
         }
+        $this->_verify_email_count_check($emailVerify,session('real_email_verify'));
 
         if (M('User')->where(array('email' => $email))->find()) {
             $this->error('邮箱已存在！');
@@ -368,6 +371,7 @@ class LoginController extends HomeController
         $content = 'CC注册，your code：' . $code;
         //$sen = send_moble($moble, $content);
         if (send_moble($moble, $content)) {
+            session('register_mobile_validation', md5($moble));
             if (MOBILE_CODE == 0) {
                 $this->success('目前是演示模式,请输入' . $code);
             } else {
@@ -705,15 +709,19 @@ class LoginController extends HomeController
 
     public function findpwd()
     {
+        if(userid()){
+            redirect('/');
+            return;
+        }
         if (IS_POST) {
             $input = I('post.');
 
             //判断参数前校验手机号码是否被篡改
             //修改登录密码
-            $fakeHash = md5($input['moble'] . $input['moble_verify']);
+            $fakeHash = md5($input['moble']);
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
-                $this->error('短信验证码错误');
+                $this->error('手机号码错误');
 
 //            if (M_ONLY == 0) {
 //                if (!check_verify(strtoupper($input['verify']))) {
@@ -810,10 +818,9 @@ class LoginController extends HomeController
                     $this->error('短信验证码格式错误！');
                 }
 
-                if ($input['moble_verify'] != session('findpwd_verify')) {
-                    $this->error('短信验证码错误！');
-                }
+                $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
                 session("findpwdmoble", $user['moble']);
+                session('findpwd_verify',null);
                 $this->success('验证成功');
             }else{
                 $this->error('账户类型不支持');
@@ -830,12 +837,12 @@ class LoginController extends HomeController
 
             //判断参数前校验邮箱号码是否被篡改
             //修改登录密码
-            $fakeHash = md5($input['email'] . $input['email_verify']);
+            $fakeHash = md5($input['email']);
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
-                $this->error('邮箱验证码错误');
+                $this->error('邮箱错误');
 
-            if (check($input['email'], 'email')){//通过手机登录
+            if (check($input['email'], 'email')){//通过邮箱登录
                 $user = M('User')->where(array('email' => $input['email']))->find();
 
                 if (!$user) {
@@ -846,9 +853,7 @@ class LoginController extends HomeController
                     $this->error('邮箱验证码格式错误！');
                 }
 
-                if ($input['email_verify'] != session('findpwd_verify')) {
-                    $this->error('邮箱验证码错误！');
-                }
+                $this->_verify_email_count_check($input['email_verify'],session('findpwd_verify'));
                 session("findpwdemail", $user['email']);
                 $this->success('验证成功');
             }else{
@@ -973,9 +978,7 @@ class LoginController extends HomeController
                 $this->error('短信验证码格式错误！');
             }
 
-            if ($input['moble_verify'] != session('findpaypwd_verify')) {
-                $this->error('短信验证码错误！');
-            }
+            $this->_verify_count_check($input['moble_verify'],session('findpaypwd_verify'));
 
             $user = M('User')->where(array('username' => $input['username']))->find();
 
@@ -1004,6 +1007,7 @@ class LoginController extends HomeController
             if (check_arr($rs)) {
                 $mo->execute('commit');
                 //$mo->execute('unlock tables');
+                session('findpaypwd_verify',null);
                 $this->success('修改成功');
             } else {
                 $mo->execute('rollback');

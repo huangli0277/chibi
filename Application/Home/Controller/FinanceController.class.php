@@ -730,10 +730,7 @@ class FinanceController extends HomeController
         if (!check($type, 'd')) {
             $this->error('提现方式格式错误！');
         }
-
-        if ($moble_verify != session('mytx_verify')) {
-            $this->error('短信验证码错误！');
-        }
+        $this->_verify_count_check($moble_verify,session('mytx_verify'));
 
         $userCoin = M('UserCoin')->where(array('userid' => userid()))->find();
 
@@ -798,6 +795,7 @@ class FinanceController extends HomeController
             session('mytx_verify', null);
             $mo->execute('commit');
             //$mo->execute('unlock tables');
+            session('mytx_verify',null);
             $this->success('提现订单创建成功！');
         } else {
             $mo->execute('rollback');
@@ -1100,10 +1098,7 @@ class FinanceController extends HomeController
         if (!check($moble_verify, 'd')) {
             $this->error('短信验证码格式错误！');
         }
-
-        if ($moble_verify != session('myzc_verify')) {
-            $this->error('短信验证码错误！');
-        }
+        $this->_verify_count_check($moble_verify,session('myzc_verify'));
 
         $num = abs($num);
 
@@ -1350,7 +1345,7 @@ class FinanceController extends HomeController
                 } else {
                     $this->success('您已提币成功，后台审核后将自动转出！');
                 }
-
+                session('myzc_verify',null);
             }
         }
     }

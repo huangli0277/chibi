@@ -621,13 +621,34 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $this->display();
     }
 
-    public function namecard($card1 = '', $card3 = '', $card2 = '')
+    public function namecard($card1 = '', $card3 = '', $card2 = '',$truename,$idcard)
     {
+        if (!userid()) {
+            redirect('/Login');
+        }
         if (!$card1) $this->error('请上传身份证正面！');
         if (!$card2) $this->error('请上传身份证背面！');
         if (!$card3) $this->error('请上传手持身份证！');
+        if (empty($truename)) {
+            $this->error('真实姓名格式错误！');
+        }
+
+        $idcard = preg_replace('# #', '', $idcard);
+
+        if (empty($idcard)) {
+            $this->error('身份证号格式错误！');
+        }
+
+        $user = M('User')->where(array('idcard' => $idcard))->find();
+        if ($user) {
+            $this->error('您的身份证号码已经认证<br>认证账号为：' . $user["username"] . '！');
+        }
         $path = $card1 . "_" . $card2 . "_" . $card3;
-        M('User')->where(array('id' => userid()))->save(array('idcardimg1' => $path, 'idcardinfo' => ''));
+        if (M('User')->where(array('id' => userid()))->save(array('truename' => $truename, 'idcard' => $idcard,'idcardimg1' => $path, 'idcardinfo' => ''))) {
+            $this->success('成功！');
+        } else {
+            $this->error('失败！');
+        }
         $this->success('操作成功，请等待审核！');
     }
 
@@ -926,7 +947,11 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         }
 
         $user = M('User')->where(array('id' => userid()))->find();
-
+        if (!empty($user['idcard']) && $user['idcardauth'] == 1) {
+            session('idcard_verify', 1);
+        } else {
+            session('idcard_verify', 0);
+        }
 
 
         $this->assign('user', $user);
@@ -998,10 +1023,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         if (!check($moble_verify, 'd')) {
             $this->error('短信验证码格式错误！');
         }
-
-        if ($moble_verify != session('real_verify')) {
-            $this->error('短信验证码错误！');
-        }
+        $this->_verify_count_check($moble_verify,session('real_verify'));
 
         if (M('User')->where(array('moble' => $moble))->find()) {
             $this->error('手机号码已存在！');
@@ -1010,6 +1032,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $rs = M('User')->where(array('id' => userid()))->save(array('moble' => $moble, 'mobletime' => time()));
 
         if ($rs) {
+            session('real_verify',null);
             $this->success('手机认证成功！');
         } else {
             $this->error('手机认证失败！');
@@ -1035,9 +1058,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
             $this->error('短信验证码格式错误！');
         }
 
-        if ($moble_verify_new != session('real_verify')) {
-            $this->error('短信验证码错误！');
-        }
+        $this->_verify_count_check($moble_verify_new,session('real_verify'));
 
         if (M('User')->where(array('moble' => $moble_new))->find()) {
             $this->error('手机号码已存在！');
@@ -1046,6 +1067,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $rs = M('User')->where(array('id' => userid()))->save(array('moble' => $moble_new, 'username' => $moble_new, 'mobletime' => time()));
 
         if (!($rs === false)) {
+            session('real_verify',null);
             $this->success('手机绑定成功！');
         } else {
             $this->error('手机绑定失败！');

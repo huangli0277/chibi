@@ -695,6 +695,7 @@ color: rgba(94,102,120,.7);
 .input-group-c .form-control{border-radius: 0; margin-right: -.01rem; width: 70%;}
 .input-group-c .input-group-addon{width: 15%; padding-left: 0; padding-right: 0;}
 .input-group-c .input-group-addon:last-child{border-radius: 0 .03rem .03rem 0;}
+.cinput-group-addon{height: .42rem; width: 17%;}
 
 .trading-buy-btn,.trading-sell-btn{color: #fff; height: .26rem; line-height: .26rem; padding: .05rem; display: block; border-radius: .03rem; text-align: center;}
 .trading-buy-btn{background: #f88184;}
@@ -1207,6 +1208,11 @@ color: rgba(94,102,120,.7);
 .coins-detail-cont-link li:nth-child(5) a:hover{background-position: left -3.09rem;}
 .coins-detail-cont-link li:nth-child(6) a:hover{background-position: left -3.81rem;}
 .coins-detail-cont-link li:nth-child(7) a:hover{background-position: left -4.52rem;}
+
+
+/*idcard*/
+.upload-m img{max-width: 300px; width: 90%;}
+.upload-m2 img{width: 3.15rem; height: 2rem;}
 
 
 /*---- flex实现 ----*/

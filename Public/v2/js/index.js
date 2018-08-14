@@ -34,6 +34,7 @@ var bjsIndex = (function(){
 		    }
 		    return array;
 		}
+		Object.defineProperty(Array.prototype, 'insertSort', {'enumerable': false});
 	}
 	bjsIndex.prototype.initIndex = function(){
 		//初始化首页

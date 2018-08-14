@@ -1,0 +1,190 @@
+<include file="Public:header"/>
+<div class="content">
+    <div class="clearfix window-wrap w1500 c2c-page">
+        <include file="User:left"/>
+        <div class="c2c-page-right pull-right">
+            <div class="c2c-cont">
+                <div class="c2c-cont-head clearfix">
+                    <h3 class="c2c-cont-head-title">
+                        <p>实名认证</p>
+                    </h3>
+                </div>
+                <div class="clearfix">
+                    <div class="default-form">
+                        <div class="form-item">
+                            <h5 class="form-label">姓名</h5>
+                            <input type="text" id="truename" class="form-input">
+                        </div>
+                        <div class="form-item">
+                            <h5 class="form-label">身份证号码</h5>
+                            <input type="text" id="idcard" class="form-input">
+                        </div>
+                        <div class="form-item">
+                            <ul class="flex-box align-top">
+                                <li>
+                                    <h5 class="form-label">身份证正面</h5>
+                                    <div class="upload-box">
+                                        <div class="upload-m upload-idcard"><img id="zhengmian" onclick="getElementById('inputfile1').click()" src="__PUBLIC__/m/images/idcard_1.jpg"></div>
+                                        <input type="hidden" id="card1" name="card1" value="{$card1}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="form-label">身份证背面</h5>
+                                    <div class="upload-box">
+                                        <div class="upload-m upload-idcard"><img id="beimian" onclick="getElementById('inputfile2').click()" src="__PUBLIC__/m/images/idcard_2.jpg"></div>
+                                        <input type="hidden" id="card2" name="card1" value="{$card2}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="form-label">手持身份证</h5>
+                                    <div class="upload-box">
+                                        <div class="upload-m upload-idcard2"><img id="shouchi" onclick="getElementById('inputfile3').click()" src="__PUBLIC__/m/images/idcard_3.jpg"></div>
+                                        <input type="hidden" id="card3" name="card1" value="{$card3}">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hide">
+                            <input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile1" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+                            <input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile2" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+                            <input type="file" accept="image/gif, image/jpeg, image/jpg, image/png" id="inputfile3" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+                        </div>
+                        <div class="form-item">
+                            <button class="default-form-submit pull-right" id="band_idcard" onclick="submit()">
+                                绑定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $('#band_idcard').on('click', function () {
+           
+        });
+    });
+    $("#inputfile1").change(function () {
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each($('#inputfile1')[0].files, function (i, file) {
+            data.append('upload_file' + i, file);
+        });
+        //发送数据
+        $.ajax({
+            url: '/ajax/imgbank',
+            type: 'POST',
+            data: data,
+            cache: false,
+            contentType: false,		//不可缺参数
+            processData: false,		//不可缺参数
+            success: function (data) {
+                if (data) {
+                    if(data=="error"){
+                        layer.msg('请选择正确的文件类型和大小！', {icon: 2});
+                        return false;
+                    }
+                    //$('#sdcard1').attr('src','/Upload/pay/' + data);
+                    $('#zhengmian').attr('src','/Upload/pay/' + data);
+                    $('#card1').val(data);
+                }
+            },
+            error: function () {
+                layer.msg('上传出错！', {icon: 2});
+            }
+        });
+
+    });
+
+    $("#inputfile2").change(function () {
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each($('#inputfile2')[0].files, function (i, file) {
+            data.append('upload_file' + i, file);
+        });
+        //发送数据
+        $.ajax({
+            url: '/ajax/imgbank',
+            type: 'POST',
+            data: data,
+            cache: false,
+            contentType: false,		//不可缺参数
+            processData: false,		//不可缺参数
+            success: function (data) {
+                if (data) {
+                    if(data=="error"){
+                        layer.msg('请选择正确的文件类型和大小！', {icon: 2});
+                        return false;
+                    }
+                    //$('#sdcard1').attr('src','/Upload/pay/' + data);
+                    $('#beimian').attr('src','/Upload/pay/' + data);
+                    $('#card2').val(data);
+                }
+            },
+            error: function () {
+                layer.msg('上传出错！', {icon: 2});
+            }
+        });
+
+    });
+
+    $("#inputfile3").change(function () {
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each($('#inputfile3')[0].files, function (i, file) {
+            data.append('upload_file' + i, file);
+        });
+        //发送数据
+        $.ajax({
+            url: '/ajax/imgbank',
+            type: 'POST',
+            data: data,
+            cache: false,
+            contentType: false,		//不可缺参数
+            processData: false,		//不可缺参数
+            success: function (data) {
+                if (data) {
+                    if(data=="error"){
+                        layer.msg('请选择正确的文件类型和大小！', {icon: 2});
+                        return false;
+                    }
+                    //$('#sdcard1').attr('src','/Upload/pay/' + data);
+                    $('#shouchi').attr('src','/Upload/pay/' + data);
+                    $('#card3').val(data);
+                }
+            },
+            error: function () {
+                layer.msg('上传出错！', {icon: 2});
+            }
+        });
+
+    });
+
+    function submit(){
+        $.post("/user/namecard.html", {
+            card1: $('#card1').val(),
+            card2: $('#card2').val(),
+            card3: $('#card3').val(),
+            truename: $('#truename').val(),
+            idcard: $('#idcard').val(),
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 2,time:1000},function () {
+                    window.location = '/User/uc';
+                });
+            } else {
+                layer.msg(data.info, {icon: 2});
+            }
+        }, "json");
+    };
+
+</script>
+
+<include file="Public:footer"/>

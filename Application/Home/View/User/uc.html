@@ -40,7 +40,14 @@
                     <h4 class="uc-unit-title">实名认证</h4>
                     <div class="clearfix uc-unit-cont">
                         <ul class="flex-box">
-                            <li class="flex-item-2"><span class="picon-success">实名认证</span></li>
+                            <li class="flex-item-2">
+                                <if condition="$Think.session.idcardauth neq 1">
+                                <span class="picon-warning">实名认证</span>
+                                    <else />
+                                <span class="picon-success">实名认证</span>
+                                </if>
+                                
+                            </li>
                             <li class="flex-item-4"><span
                                     class="">{$Think.session.userIdCardNumber|hideIdCardNumber}</span></li>
                             <li class="flex-item-4"><span>用于提币、找回密码、修改安全设置、等</span></li>
@@ -154,7 +161,7 @@
             <p class="c2c-auth-info1 tc">交易额超过单笔2,000 CNY或累计50,000 CNY需进行高级认证</p>
             <p class="c2c-auth-qrcode"><div class="tc" id="qrcode_div"></div></p>
             <p class="c2c-auth-msg padt20">请准备好本人身份证，并用微信扫码，每日仅限三次</p>
-            <p class="c2c-auth-info">如二维码过期请<a href="#" onclick="javascript: refreshToken();">刷新重试</a>；</p>
+            <p class="c2c-auth-info">如二维码过期请<a href="javascript:;" onclick="javascript: refreshToken();">刷新重试</a>；</p>
             <p class="c2c-auth-info">如微信无法访问，请尝试其他扫码方式</p>
         </div>
     </div>
@@ -183,8 +190,20 @@
 
     $(document).on('click','#gaojirenzheng-bnt',function(event){
         event.preventDefault();
-        $('#gaojirenzheng').removeClass('hide');
-        refreshToken();
+        layer.confirm('<span class="c00ffff">中国大陆用户请选择自助认证</span>，其他国家地区用户请选择人工认证。', {
+            btn: ['自助认证', '人工认证'] //可以无限个按钮
+            ,btnAlign: 'c'
+            ,maxWidth: 280
+            ,title: '认证方式'
+            ,btn2: function(index, layero){
+                layer.close(index);
+                window.location.href = "/User/idcardauth.html";
+            }
+        }, function(index, layero){
+            layer.close(index);
+            $('#gaojirenzheng').removeClass('hide');
+            refreshToken();
+        });        
     });
     $(document).on('click','.c2c-auth-close',function(event){
         event.preventDefault();

@@ -294,7 +294,7 @@ class VerifyController extends HomeController
 			session('findpwd_verify', $code);
             //手机号码和Code做MD5写入Session
             //防止发送短信后篡改用户手机，重置他人密码
-            session('modify_password_validation', md5($input['moble'].$code));
+            session('modify_password_validation', md5($input['moble']));
             $content = 'CC找密码，your code：' . $code;
 
 			if (send_moble($input['moble'], $content)) {
@@ -339,7 +339,7 @@ class VerifyController extends HomeController
             $code = rand(111111, 999999);
             session('findpwd_verify', $code);
             //邮箱码和Code做MD5写入Session
-            session('modify_password_validation', md5($input['email'].$code));
+            session('modify_password_validation', md5($input['email']));
             $content = 'CC找密码，your code：' . $code;
             $data = array("to"=>$input['email'], "subject"=>"找回密码验证码", "content"=>$content);
             if (SendEmail($data)) {

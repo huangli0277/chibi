@@ -94,10 +94,10 @@
 					<div class="wrap-dialog-sucess">
 						<div class="tc">
 							<p class="font5 bjs-color-white">温馨提示</p>
-							<p class="font42 lh1375 padt4">请准备好本人身份证，并点击下方图标进行认证 <span class="bjs-color-blue">每日仅限三次</span></p>
+							<p class="font42 lh1375 padt4">请准备好本人身份证，并点击下方按钮进行认证 <span class="bjs-color-blue">每日仅限三次</span></p>
 						</div>
 						<div class="wrap-dialog-submit">
-							<a href="#" onclick="refreshToken()" class="default-form-submit default-form-blue">开始认证</a>
+							<a href="javascript:;" onclick="refreshToken()" class="default-form-submit default-form-blue">开始认证</a>
 						</div>
 					</div>
 				</div>
@@ -115,11 +115,25 @@
 			home.initUc();
 		});
 		$(document).on('click','.my-links-shiming',function(){
-		    if({$Think.session.idcardauth} == 1){
+			if({$Think.session.idcardauth} == 1){
                 window.location.href = "/User/idcardauth.html";
-			}else{
-                $('#shiming-dialog').removeClass('hide');
-            }
+                return false;
+			}
+            
+			layer.confirm('<span class="bjs-color-blue">中国大陆用户请选择自助认证</span>，其他国家地区用户请选择人工认证。', {
+				btn: ['自助认证', '人工认证'] //可以无限个按钮
+				,btnAlign: 'c'
+				,maxWidth: 280
+				,title: '认证方式'
+				,btn2: function(index, layero){
+					layer.close(index);
+					window.location.href = "/User/idcardauth.html";
+				}
+			}, function(index, layero){
+				layer.close(index);
+				$('#shiming-dialog').removeClass('hide');
+			});
+		    
 		});
 
 		$(document).on('click','.wrap-dialog-bg',function(){
@@ -127,9 +141,12 @@
 		});
 
         function refreshToken() {
+        	layer.load();
+        	$('#shiming-dialog').addClass('hide');
             $.get("/User/auth", function (data) {
                 var face_url = "https://api.megvii.com/faceid/lite/do?token=" + data;
                 window.location.href = face_url;
+                layer.closeAll('loading');
             })
         }
 	</script>

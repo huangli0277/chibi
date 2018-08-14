@@ -217,6 +217,37 @@ class HomeController extends \Think\Controller
         echo '模块不存在！';
         die();
     }
+
+    //短信发送次数限制
+    public function _verify_count_check($code,$session_code){
+        $v_count = session('verify_count');
+        if($v_count >=5){
+            session(null);
+            $this->error('短信验证码失效！');
+        }
+
+        if ($code != $session_code) {
+            $v_count = $v_count+1;
+            session('verify_count',$v_count);
+            $this->error('短信验证码错误！');
+        }
+    }
+
+
+    //邮箱发送次数限制
+    public function _verify_email_count_check($code,$session_code){
+        $v_e_count = session('verify_email_count');
+        if($v_e_count >=5){
+            session(null);
+            $this->error('邮箱验证码失效！');
+        }
+
+        if ($code != $session_code) {
+            $v_e_count = $v_e_count+1;
+            session('verify_email_count',$v_e_count);
+            $this->error('邮箱验证码错误！');
+        }
+    }
 }
 
 ?>

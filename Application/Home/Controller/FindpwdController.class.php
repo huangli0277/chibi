@@ -108,14 +108,14 @@ class FindpwdController extends HomeController
             $input = I('post.');
             //判断参数前校验手机号码是否被篡改
             //修改支付密码
-            $fakeHash = md5($input['moble'] . $input['moble_verify']);
+            $fakeHash = md5($input['moble']);
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
-                $this->error('短信验证码错误');
+                $this->error('手机号码错误');
             if (M_ONLY == 0) {
-                if (!check_verify(strtoupper($input['verify']))) {
-                    $this->error('图形验证码错误!');
-                }
+//                if (!check_verify(strtoupper($input['verify']))) {
+//                    $this->error('图形验证码错误!');
+//                }
 
                 if (!check($input['username'], 'username')) {
                     $this->error('用户名格式错误！');
@@ -128,10 +128,7 @@ class FindpwdController extends HomeController
                 if (!check($input['moble_verify'], 'd')) {
                     $this->error('短信验证码格式错误！');
                 }
-
-                if ($input['moble_verify'] != session('findpwd_verify')) {
-                    $this->error('短信验证码错误！');
-                }
+                $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
 
                 $user = M('User')->where(array('username' => $input['username']))->find();
 
@@ -163,6 +160,7 @@ class FindpwdController extends HomeController
                 if (check_arr($rs)) {
                     $mo->execute('commit');
                     //$mo->execute('unlock tables');
+                    session('findpwd_verify',null);
                     $this->success('修改成功');
                 } else {
                     $mo->execute('rollback');
@@ -186,10 +184,9 @@ class FindpwdController extends HomeController
                     $this->error('短信验证码格式错误！');
                 }
 
-                if ($input['moble_verify'] != session('findpwd_verify')) {
-                    $this->error('短信验证码错误！');
-                }
+                $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
                 session("findpaypwdmoble", $user['moble']);
+                session('findpwd_verify',null);
                 $this->success('验证成功');
             }
 
@@ -286,9 +283,8 @@ class FindpwdController extends HomeController
                 $this->error('短信验证码格式错误！');
             }
 
-            if ($input['moble_verify'] != session('findpaypwd_verify')) {
-                $this->error('短信验证码错误！');
-            }
+            $this->_verify_count_check($input['moble_verify'],session('findpaypwd_verify'));
+
 
             $user = M('User')->where(array('username' => $input['username']))->find();
 
@@ -317,6 +313,7 @@ class FindpwdController extends HomeController
             if (check_arr($rs)) {
                 $mo->execute('commit');
                 //$mo->execute('unlock tables');
+                session('findpaypwd_verify',null);
                 $this->success('操作成功');
             } else {
                 $mo->execute('rollback');
