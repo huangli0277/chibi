@@ -240,6 +240,9 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .my-links .my-links4{background-image: url(../images/my-links4.png);}
 .my-links .my-links5{background-image: url(../images/my-links5.png);}
 .my-links .my-links6{background-image: url(../images/my-links6.png);}
+.my-links .my-links7{background-image: url(../images/my-links7.png); background-size: .79rem auto;}
+.my-links .my-links8{background-image: url(../images/my-links8.png); background-size: .7rem auto;}
+.my-links .my-links9{background-image: url(../images/my-links9.png); background-size: .54rem auto; background-position: 5px center;}
 .my-links li{border-bottom: 1px solid #242731;}
 .my-links li:last-child{border-bottom: none;}
 .my-links span{display: block; position: relative; font-size: .5rem;}
@@ -435,6 +438,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .order-pay-info{}
 .order-pay-info li{margin-bottom: .1rem; padding-top: .05rem; padding-bottom: .05rem;}
 .order-pay-info-title{color: #05e1e1; padding-left: .5rem; background: url(../images/warning-4.png) no-repeat left center / .4rem auto;}
+.order-pay-info-title2{padding-left: .5rem; background: url(../images/warning.png) no-repeat left center / .4rem auto;}
 
 .order-wrap-dialog-box{background-color: #414755;}
 .order-wrap-dialog-content{padding: 0;}
@@ -487,7 +491,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 
 /*---- complaint ----*/
 .upload-m{display: inline-block; width: 3.3rem; height: 2.53rem; background-color: #292e38; border-radius: .08rem; overflow: hidden; cursor: pointer; position: relative;}
-.upload-m img{width: 100%; height: 100%;}
+.upload-m img{width: 100%; height: 100%; opacity: .7;}
 .upload-idcard{width: 100%; height: 5.25rem;}
 .upload-idcard2{width: 100%; height: 8.78rem;}
 
@@ -718,3 +722,12 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .bot1{border-top: 1px solid #242731;}
 .bol1{border-left: 1px solid #2b2f39;}
 .hand{cursor: pointer;}
+
+
+/*---- select ----*/
+.intlTelInput-tel-box .intl-tel-input{width: 100%!important;}
+.selected-dial-code{padding-right: 15px!important; border-right: 1px solid #2c303b;}
+.intl-tel-input .selected-flag .iti-arrow{right: 5px!important;}
+.intlTelInput-tel{width: 100%; background: transparent; border: 1px solid #2c303b;}
+.intl-tel-input .country-list{background-color: #1f2029 !important; border-color: #343741 !important; border-radius: .08rem; -webkit-overflow-scrolling: touch;}
+.intl-tel-input .country-list .divider{border-color: #343741 !important;}

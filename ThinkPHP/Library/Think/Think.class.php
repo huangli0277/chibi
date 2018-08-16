@@ -41,8 +41,8 @@ class Think {
       //if(!APP_DEBUG && Storage::has($runtimefile)){
        //   Storage::load($runtimefile);
      // }else{
-          if(Storage::has($runtimefile))
-              Storage::unlink($runtimefile);
+//          if(Storage::has($runtimefile))
+//              Storage::unlink($runtimefile);
           $content =  '';
           // 读取应用模式
           $mode   =   include is_file(CONF_PATH.'core.php')?CONF_PATH.'core.php':MODE_PATH.APP_MODE.'.php';

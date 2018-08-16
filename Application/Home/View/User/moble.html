@@ -1,5 +1,6 @@
 <include file="Public:header" />
 <div class="content">
+    <link rel="stylesheet" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css">
 	<div class="clearfix window-wrap w1500 c2c-page">
 		<include file="User:left" />
 		<div class="c2c-page-right pull-right">
@@ -27,6 +28,11 @@
 						</div>
 						<div class="form-item">
 							<empty name="user.moble">
+								<script type="text/javascript">
+									$(function () {
+                                        new_moble();
+                                    });
+								</script>
 								<button class="default-form-submit pull-right" onclick="new_moble()">更换绑定</button>
 								<else /></empty>
 						</div>
@@ -36,13 +42,16 @@
 						<div class="form-item">
 							<h5 class="form-label">新手机号码</h5>
 							<input type="text" id="mobles_new"  style="display: none;">
-							<input type="text" id="moble_new" class="form-input">
+							<!-- <input type="text" id="moble_new" class="form-input"> -->
+							<input type="tel" class="intlTelInput-tel form-input" id="moble_new" placeholder="请输入手机号码">
 						</div>
+						<empty name="user.moble">
+							<else />
 						<div class="form-item">
 							<h5 class="form-label">当前手机号码</h5>
 							<input class="form-input" type="text" value="{$user.moble} (接收验证码)" readonly name="phone">
 						</div>
-
+						</empty>
 						<div class="form-item">
 							<h5 class="form-label">获取验证码</h5>
 							<div class="input-group input-group-r">
@@ -59,7 +68,27 @@
 	</div>
 </div>
 
-
+<script type="text/javascript" src="__PUBLIC__/v2/js/intl-tel-input/js/intlTelInput.js"></script>
+<script type="text/javascript">
+    //初始化国际号码选择
+    $("#moble_new").intlTelInput({
+        initialCountry: 'cn',
+        separateDialCode: true,
+        utilsScript: "__PUBLIC__/v2/js/intl-tel-input/js/utils.js"
+    });
+    $(document).on('click','.selected-flag',function(){
+        $('.country-list').width($('.intlTelInput-tel').outerWidth()-2);
+        $('.country-list .country-name').each(function(){
+            if(!$(this).attr('title')){
+                $(this).attr('title',$(this).text());
+            }
+        });
+    });
+    $(window).on('resize',function(){
+        $('.country-list').width($('.intlTelInput-tel').outerWidth()-2);
+    });
+  
+</script>
 <script>
 function new_moble() {
     $("#step2").removeClass('hide');
@@ -71,16 +100,18 @@ function send_moble_new(type) {
         return;
 	}
 	var moble      = "{$user.moble}";
-	var moble_new  = $("#moble_new").val();
+	//var moble_new  = $("#moble_new").val();
 	var mobles_new = $("#mobles_new").val();
+	var moble_new  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble_new').val();
 
-	if (moble_new == "" || moble_new == null) {
+	if ($('#moble_new').val() == "" || $('#moble_new').val() == null) {
 		layer.tips("请输入新手机号码", '#moble_new', {tips: 3});
 		return false;
 	}
 	if (moble == "" || moble == null) {
         moble = moble_new;
 	}
+	moble_new = moble_new.replace(/\s/,'');
     console.log(moble);
 	$.post("/Verify/real_qq3479015851.html", {
 		moble: moble,
@@ -117,10 +148,11 @@ function send_moble_new(type) {
 	}, "json");
 }
 function moble_news() {
-	var moble_new        = $("#moble_new").val();
+	//var moble_new        = $("#moble_new").val();
 	var mobles_new       = $("#mobles_new").val();
 	var moble_verify_new = $("#moble_verify_new").val();
-	if (moble_new == "" || moble_new == null) {
+	var moble_new  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble_new').val();
+	if ($('#moble_new').val() == "" || $('#moble_new').val() == null) {
 		layer.tips("请输入手机号码", '#moble_new', {tips: 3});
 		return false;
 	}
@@ -128,6 +160,7 @@ function moble_news() {
 		layer.tips("请输入短信验证码", '#moble_verify_new', {tips: 3});
 		return false;
 	}
+
 	$.post("/User/upmoble_qq3479015851.html", {
 		moble_new: moble_new,
 		mobles_new: mobles_new,

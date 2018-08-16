@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<title>重置用户信息</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">重置用户信息</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2">
+			<div id="form-page" class="default-form">
+				<ul class="uc-form">
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">请选择验证方式</span></p>
+						<div class="select-100" id="validate">
+							<select id="validate-select" class="form-input select3" name="pay">
+								<option value="0">请选择</option>
+								<option value="email">邮箱验证</option>
+								<option value="phone">短信验证</option>
+							</select>
+						</div>
+					</li>
+					<li class="wrap-form-item">
+						<p><span class="wrap-form-label">图形验证</span></p>
+						<div class="input-group input-group-code clearfix">
+							<input type="text" name="name[]" id="verify" class="form-control" placeholder="输入图形验证码"><span class="input-group-addon"><img id="login_verify_up" src="/Verify/code.html" title="换一张" onclick="this.src=this.src+'?t='+Math.random()"></span>
+						</div>
+					</li>
+					<li class="wrap-form-item">
+                        <p><span class="wrap-form-label">获取验证码</span></p>
+                        <div class="input-group input-group-r clearfix">
+                            <input id="moble_verify" class="form-control" type="text" name="name" placeholder="请输入验证码"><span class="input-group-addon font42" id="moble_reg_send" onclick="moble_reg('sms')">获取</span>
+                        </div>
+                    </li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">登录密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="password" name="name" placeholder="请输入登陆密码">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">确认密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="passwordConfirm" name="name" placeholder="再次输入密码">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">交易密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="paypassword" name="name" placeholder="请输入交易密码">
+					</li>
+					<li class="wrap-form-item">
+						<p class="clearfix"><span class="wrap-form-label">确认交易密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
+						<input class="form-input form-input-password" type="password" id="paypasswordConfirm" name="name" placeholder="再次输入交易密码">
+					</li>
+					<li class="wrap-form-item wrap-form-item-submit">
+						<button class="default-form-submit default-form-blue" id="reset_submit" onclick="reg_up();">重置</button>
+						<p class="clearfix wrap-form-msg user-agreement">
+                           <span class="picon-warning order-pay-info-title2 tl">提示： 必须重置用户信息才能进行交易！</span>
+                        </p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookies.2.2.0.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript">
+	var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initRegister();
+    });
+
+    function moble_reg(type) {
+        if($('#moble_reg_send').html() != '获取'){
+            return;
+        }
+        var moble  = $('#validate-select').val();
+        var mobles = $("#mobles").val();
+        var verify = $("#verify").val();
+        if (moble == 0 || moble == null) {
+            layer.tips("请选择验证方式", '#validate-select', {tips: 3});
+            return false;
+        }
+        if (verify == "" || verify == null) {
+            layer.tips("请输入图形验证码", '#verify', {tips: 3});
+            return false;
+        }
+        $.post("/login/real.html", {
+            moble: moble,
+            mobles: mobles,
+            type: type,
+            verify: verify,
+            token: ""
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon: 1});
+
+                $("#moble_verify").focus();
+                $('#moble').attr("disabled", "disabled");
+                $('#mobles').attr("disabled", "disabled");
+                var obj      = $('#moble_reg_send');
+                var wait     = 60;
+                var interval = setInterval(function () {
+                    obj.html(wait + "秒");
+                    wait--;
+                    if (wait < 0) {
+                        clearInterval(interval);
+                        obj.html('获取');
+                    }
+                    ;
+                }, 1000);
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+				});
+            }
+        }, "json");
+    }
+
+    function reg_up() {
+        var moble  = $('#validate-select').val();
+        var mobles = $("#mobles").val();
+        var verify = $("#verify").val();
+        var moble_verify = $("#moble_verify").val();
+        if (moble == 0 || moble == null) {
+            layer.tips("请选择验证方式", '#validate-select', {tips: 3});
+            return false;
+        }
+        if (verify == "" || verify == null) {
+            layer.tips("请输入图形验证码", '#verify', {tips: 3});
+            return false;
+        }
+        if (moble_verify == "" || moble_verify == null) {
+            layer.tips("请输入信息验证码", '#moble_verify', {tips: 3});
+            return false;
+        }
+
+        var password = $('#password').val();
+        var passwordConf = $('#passwordConfirm').val();
+        var paypassword = $('#paypassword').val();
+        var paypasswordConf = $('#paypasswordConfirm').val();
+        if (password == "" || password == null) {
+            layer.tips("请输入登录密码", '#password', {tips: 3});
+            return false;
+        }
+        if (passwordConf == "" || passwordConf == null) {
+            layer.tips("请再次输入登录密码", '#passwordConfirm', {tips: 3});
+            return false;
+        }
+        if(passwordConf != password){
+            layer.tips("请确认两次密码相同", '#passwordConfirm', {tips: 3});
+            $("#passwordConfirm").val('');
+            return false;
+		}
+		if (paypassword == "" || paypassword == null) {
+            layer.tips("请输入交易密码", '#paypassword', {tips: 3});
+            return false;
+        }
+        if (paypasswordConf == "" || paypasswordConf == null) {
+            layer.tips("请再次输入交易密码", '#paypasswordConfirm', {tips: 3});
+            return false;
+        }
+        if(paypasswordConf != paypassword){
+            layer.tips("请确认两次交易密码相同", '#paypasswordConfirm', {tips: 3});
+            $("#paypasswordConfirm").val('');
+            return false;
+		}
+		layer.load();
+        $.post("/login/upregister/", {
+            username:moble,
+            moble: moble,
+            mobles: mobles,
+            moble_verify: moble_verify,
+            password: hex_md5(password),
+            repassword: hex_md5(passwordConf),
+            paypassword: hex_md5(paypassword),
+            paypasswordConf: hex_md5(paypasswordConf),
+            token: ""
+        }, function (data) {
+        	layer.closeAll('loading');
+            if (data.status==1) {               
+                layer.msg(data.info, {icon: 1,time:2000},function(){
+                    window.location = '/Login/paypassword';
+				});
+            } else {
+                layer.msg(data.info, {icon: 2,time:2000},function(){
+                    if (data.url) {
+                        window.location = data.url;
+                    }
+				});
+            }
+        }, "json");
+    }
+
+</script>
+</body>
+</html>

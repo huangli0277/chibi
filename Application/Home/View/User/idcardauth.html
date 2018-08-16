@@ -176,11 +176,11 @@
             idcard: $('#idcard').val(),
         }, function (data) {
             if (data.status == 1) {
-                layer.msg(data.info, {icon: 2,time:1000},function () {
+                layer.msg(data.info, {icon: 1,time:1000},function () {
                     window.location = '/User/uc';
                 });
             } else {
-                layer.msg(data.info, {icon: 2});
+                layer.msg(data.info, {icon: 1});
             }
         }, "json");
     };

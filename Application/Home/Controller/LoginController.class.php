@@ -165,7 +165,7 @@ class LoginController extends HomeController
 
     public function check_moble($moble = 0)
     {
-
+        $moble = $this->_replace_china_mobile($moble);
         if (!check($moble, 'moble')) {
             $this->error('手机号码格式错误！');
         }
@@ -211,6 +211,7 @@ class LoginController extends HomeController
 
         $code = rand(111111, 999999);
         session('real_email_verify', $code);
+        session('verify#time', time());
         $content = 'CC注册，your code：' . $code;
         SendEmail(array('to'=>$email, 'subject'=>'CC注册', 'content'=>$content));//发送邮件
         session('register_email_validation', md5($email));
@@ -327,7 +328,7 @@ class LoginController extends HomeController
 
     public function check_pwdmoble($moble = 0)
     {
-
+        $moble = $this->_replace_china_mobile($moble);
         if (!check($moble, 'moble')) {
             $this->error('手机号码格式错误！');
         }
@@ -361,16 +362,17 @@ class LoginController extends HomeController
         if (!check($moble, 'moble')) {
             $this->error('手机号码格式错误！');
         }
-
+        $moble = $this->_replace_china_mobile($moble);
         if (M('User')->where(array('moble' => $moble))->find()) {
             $this->error('手机号码已存在！');
         }
 
         $code = rand(111111, 999999);
         session('real_verify', $code);
+        session('verify#time', time());
         $content = 'CC注册，your code：' . $code;
         //$sen = send_moble($moble, $content);
-        if (send_moble($moble, $content)) {
+        if (SendText($moble, $code, "reg")) {
             session('register_mobile_validation', md5($moble));
             if (MOBILE_CODE == 0) {
                 $this->success('目前是演示模式,请输入' . $code);
@@ -555,7 +557,8 @@ class LoginController extends HomeController
             }
 
             if (!$user && check($username, 'moble')) {
-                $user = M('User')->where(array('moble' => $username))->find();
+                $u =  $this->_replace_china_mobile($username);
+                $user = M('User')->where(array('moble' => $u))->find();
                 $remark = '通过手机号登录';
             }
 
@@ -565,6 +568,7 @@ class LoginController extends HomeController
             }
         } else {
             if (check($moble, 'moble')) {
+                $moble = $this->_replace_china_mobile($moble);
                 $user = M('User')->where(array('moble' => $moble))->find();
                 $remark = '通过手机号登录';
             }
@@ -715,10 +719,11 @@ class LoginController extends HomeController
         }
         if (IS_POST) {
             $input = I('post.');
-
+            $moble = $input['moble'];
+            $moble = $this->_replace_china_mobile($moble);
             //判断参数前校验手机号码是否被篡改
             //修改登录密码
-            $fakeHash = md5($input['moble']);
+            $fakeHash = md5($moble);
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
                 $this->error('手机号码错误');
@@ -804,11 +809,11 @@ class LoginController extends HomeController
 //            }
 
 
-            if(check($input['moble'], 'email')){//通过邮箱登陆
+            if(check($moble, 'email')){//通过邮箱登陆
 
             }
-            else if (check($input['moble'], 'moble')){//通过手机登录
-                $user = M('User')->where(array('moble' => $input['moble']))->find();
+            else if (check($moble, 'moble')){//通过手机登录
+                $user = M('User')->where(array('moble' => $moble))->find();
 
                 if (!$user) {
                     $this->error('不存在该手机号码');
@@ -819,7 +824,7 @@ class LoginController extends HomeController
                 }
 
                 $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
-                session("findpwdmoble", $user['moble']);
+                session("findpwdmoble", $moble);
                 session('findpwd_verify',null);
                 $this->success('验证成功');
             }else{
@@ -970,7 +975,8 @@ class LoginController extends HomeController
                 $this->error('用户名格式错误！');
             }
 
-            if (!check($input['moble'], 'moble')) {
+            $moble = $this->_replace_china_mobile($input['moble']);
+            if (!check($moble, 'moble')) {
                 $this->error('手机号码格式错误！');
             }
 
@@ -986,7 +992,7 @@ class LoginController extends HomeController
                 $this->error('用户名不存在！');
             }
 
-            if ($user['moble'] != $input['moble']) {
+            if ($user['moble'] != $moble) {
                 $this->error('用户名或手机号码错误！');
             }
 

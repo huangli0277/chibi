@@ -547,6 +547,71 @@ function SendEmail($data)
 }
 
 
+/*
+ * $type = reg 注册
+ * chg 修改手机
+ * fog 忘记密码
+ * cur 当前操作
+ */
+function SendText($cell, $code, $type)
+{
+    $sign = "bjs";
+
+    //识别境内境外
+    if ((strpos($cell, "0086") || strpos($cell, "086") || strpos($cell, "+86")) || !strpos($cell, "00"))
+        $dest = "china";
+    else
+        $dest = "foreign";
+
+    //模板识别
+    $template = "";
+    switch ($type){
+        case "reg":
+            if ($dest == "china") $template = "SMS_142148034";
+            else $template = "SMS_142151963";
+            break;
+        case "chg":
+            if ($dest == "china") $template = "SMS_142146990";
+            else $template = "SMS_142146995";
+            break;
+        case "fog":
+            if ($dest == "china") $template = "SMS_142146977";
+            else $template = "SMS_142146979";
+            break;
+        case "cur":
+            if ($dest == "china") $template = "SMS_142152010";
+            else $template = "SMS_142147072";
+            break;
+        default:
+            die();
+    }
+
+    $data = [];
+    $data['cell'] = $cell;
+    $data['code'] = $code;
+    $data['template'] = $template;
+    $data['sign'] = $sign;
+    $data['data'] = json_encode(array('code' => $code));
+
+    $ci = curl_init();
+    curl_setopt($ci, CURLOPT_URL, "http://service.bjs.bi:5000/bjs-messenger/text");
+//    curl_setopt($ci, CURLOPT_URL, "http://localhost:8080/text");
+
+    curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+    curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ci, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Accept: application/json',
+    ));
+    curl_setopt($ci, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_UNICODE));
+
+    $res = curl_exec($ci);
+    curl_close($ci);
+    return $res;
+}
+
+
 function send_moble($moble, $content)
 {
 
@@ -663,7 +728,7 @@ function check($data, $rule = NULL, $ext = NULL)
     $validate['truename'] = '/^[\\x{4e00}-\\x{9fa5}]{2,4}$/u';
     $validate['username'] = '/^[a-zA-Z]{1}[0-9a-zA-Z_]{5,15}$/';
     $validate['email'] = '/^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/';
-    $validate['moble'] = '/^(((1[0-9][0-9]{1})|159|153)+\\d{8})$/';
+    $validate['moble'] = '/^\d{10,20}$/';
     $validate['password'] = '/^[a-zA-Z0-9_\\@\\#\\$\\%\\^\\&\\*\\(\\)\\!\\,\\.\\?\\-\\+\\|\\=]{6,36}$/';
     $validate['xnb'] = '/^[a-zA-Z]$/';
 

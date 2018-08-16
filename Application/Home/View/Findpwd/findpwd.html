@@ -12,9 +12,14 @@
 				<div class="clearfix">
 					<div class="default-form">
 						<div class="form-item">
-							<h5 class="form-label">手机号</h5>
-							<input type="text" id="mobles" class="texts" style="display: none;">
-							<input type="text" id="moble" class="form-input" placeholder="请输入手机号码" onblur="check_moble()"/>
+							<h5 class="form-label">请选择验证方式</h5>
+							<div class="select-100" id="validate">
+								<select id="validate-select" class="form-input vhide select3" name="pay">
+									<option value="0">请选择</option>
+									<option value="email">邮箱验证</option>
+									<option value="phone">短信验证</option>
+								</select>
+							</div>
 						</div>
 						<div class="form-item">
 							<h5 class="form-label">图形验证码</h5>
@@ -26,7 +31,7 @@
 						<div class="form-item">
 							<h5 class="form-label">获取验证码</h5>
 							<div class="input-group input-group-r">
-								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入短信验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="moble_findpwd('sms')" href="javascript:;">发送短信验证码</a>
+								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="moble_findpwd('sms')" href="javascript:;">发送验证码</a>
 							</div>
 						</div>
 						<div class="form-item">
@@ -40,37 +45,20 @@
 </div>
 
 <script type="text/javascript">
-	function check_moble() {
-		var moble  = $('#moble').val();
-		var mobles = $('#mobles').val();
-		if (moble == "" || moble == null) {
-			layer.tips("请输入手机号", '#moble', {tips: 2});
-			return false;
-		}
-		$.post("/Login/check_pwdmoble.html", {
-			moble: moble,
-			mobles: mobles,
-			token: ""
-		}, function (data) {
-			if (data.status == 1) {
-				$('#reg_moble_new').html('发送短信验证码');
-			} else {
-				layer.tips(data.info, '#moble', {tips: 2});
-				return false;
-			}
-		}, 'json');
-	}
-
+	$('.select3').select2({
+        minimumResultsForSearch: -1,
+        dropdownAutoWidth: true
+    });
 
 	function moble_findpwd(type) {
-        if($('#reg_moble_new').html() != '发送短信验证码'){
+        if($('#reg_moble_new').html() != '发送验证码'){
             return;
         }
-		var moble  = $("#moble").val();
-		var mobles = $("#mobles").val();
-		var verify = $("#verify").val();
-		if (moble == "" || moble == null) {
-			layer.tips("请输入手机号码", '#moble', {tips: 2});
+		var verify = $("#verify").val();		
+		var moble  = $('#validate-select').val();
+		var mobles = $('#mobles').val();
+		if (moble == 0) {
+			layer.tips("请选择验证方式", '#validate', {tips: 2});
 			return false;
 		}
 		if (verify == "" || verify == null) {
@@ -87,7 +75,7 @@
 			if (data.status == 1) {
 				layer.msg(data.info, {icon: 1});
 				$("#moble_verify").focus();
-				$('#moble').attr("disabled", "disabled");
+				$('#validate-select').attr("disabled", "disabled");
 				$('#mobles').attr("disabled", "disabled");
 				var obj      = $('#reg_moble_new');
 				var wait     = 30;
@@ -115,13 +103,12 @@
 
 
 	function findpwd_up() {
-		var moble        = $("#moble").val();
-		var mobles       = $("#mobles").val();
+		var verify = $("#verify").val();		
+		var moble  = $('#validate-select').val();
+		var mobles = $('#mobles').val();
 		var moble_verify = $("#moble_verify").val();
-
-
-		if (moble == "" || moble == null) {
-			layer.tips("请输入手机号", '#moble', {tips: 2});
+		if (moble == 0) {
+			layer.tips("请选择验证方式", '#validate', {tips: 2});
 			return false;
 		}
 		if (moble_verify == "" || moble_verify == null) {
@@ -132,6 +119,7 @@
 		$.post("/Findpwd/findpwd.html", {
 			moble: moble,
 			mobles: mobles,
+			verify: verify,
 			moble_verify: moble_verify,
 			token: ""
 		}, function (data) {

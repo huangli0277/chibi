@@ -200,7 +200,7 @@ body{background: #181820; min-width: 1200px; color: #8b93a0; font-size: .16rem;}
 
 .header-top{background: #111019; color: #fff; font-size: 13px;}
 .topprice .topnum{color: #00ffff;}
-.topprice i{top: -1px; display: inline-block; position: relative; padding-left: 2px;}
+.topprice i{/*top: -1px;*/ display: inline-block; position: relative; padding-left: 2px;}
 .icon-arrow-up{color: #3CB595;}
 .icon-arrow-down{color: #ff6969;}
 .top-links a{color: #fff; display: block; height: 30px; line-height: 30px;}
@@ -1213,8 +1213,8 @@ color: rgba(94,102,120,.7);
 
 
 /*idcard*/
-.upload-m img{max-width: 300px; width: 90%;}
-.upload-m2 img{width: 3.15rem; height: 2rem;}
+.upload-m img{max-width: 300px; width: 90%; opacity: .7;}
+.upload-m2 img{width: 3.15rem; height: 2rem; opacity: .7;}
 
 
 /*log*/
@@ -1280,3 +1280,14 @@ input[disabled]{cursor: no-drop;}
 /*---- publics icon ----*/
 .picon-success{background: url(../images/success_fill.png) no-repeat left center / auto 100%; padding-left: .22rem; font-size: .13rem;}
 .picon-warning{background: url(../images/warning_fill.png) no-repeat left center / auto 100%; padding-left: .22rem; font-size: .13rem;}
+
+
+/*---- select ----*/
+.intl-tel-input{width: 100%!important;}
+.selected-dial-code{padding-right: 15px!important;}
+.intl-tel-input .selected-flag .iti-arrow{right: 5px!important;}
+.intlTelInput-tel{width: 100%;text-indent: 5px;background: transparent; border: 1px solid #2c303b;}
+.intl-tel-input .country-list .country-name{max-width: calc(100% - 80px); display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.intl-tel-input .country-list{background-color: #1b1c25!important; border-color: #2c303b!important;}
+.intl-tel-input .country-list .divider{border-color: #2c303b!important;}
+.intl-tel-input.separate-dial-code .selected-dial-code{border-right: 1px solid #2c303b;}

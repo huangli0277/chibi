@@ -139,7 +139,23 @@ class TradeController extends HomeController
                 $stmp = $sv['js_lt'];
             }
         }
+        $tpwdsetting = 0;
+        if(userid()){
+            $user = M('User')->where(array('id' => userid()))->find();
 
+            //每笔交易都需要输入交易密码
+            if ($user['tpwdsetting'] == 2) {
+                $tpwdsetting = 1;
+            }
+
+            //每次登录只输入一次交易密码
+            if ($user['tpwdsetting'] == 1) {
+                if (!session(userid() . 'tpwdsetting')) {
+                    $tpwdsetting = 1;
+                }
+            }
+        }
+        $this->assign('tpwdsetting',$tpwdsetting);
         $this->assign('stmp', $stmp);
         $this->assign('market', $market);
         $this->assign('xnb', explode('_', $market)[0]);

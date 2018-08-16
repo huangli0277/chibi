@@ -11,6 +11,8 @@ class FindpwdController extends HomeController
             $this->error('手机号码格式错误！');
         }
 
+        $moble = $this->_replace_china_mobile($moble);
+
         if (M('User')->where(array('moble' => $moble))->find()) {
             $this->error('手机号码已存在！');
         }
@@ -53,9 +55,10 @@ class FindpwdController extends HomeController
 
         $code = rand(111111, 999999);
         session('real_verify', $code);
+        session('verify#time', time());
         $content = 'CC，您正在找回密码，验证码是：' . $code;
 
-        if (send_moble($moble, $content)) {
+        if (SendText($moble, $code, 'fog')) {
             if (MOBILE_CODE == 0) {
                 $this->success('目前是演示模式,请输入' . $code);
             } else {
@@ -111,16 +114,17 @@ class FindpwdController extends HomeController
             $input = I('post.');
             //判断参数前校验手机号码是否被篡改
             //修改支付密码
-            $fakeHash = md5($input['moble']);
+            $moble = $this->_replace_china_mobile($input['moble']);
+            $fakeHash = md5($moble);
             $realHash = session('modify_password_validation');
             if ($fakeHash != $realHash)
                 $this->error('手机号码错误');
 
-            if (!check($input['moble'], 'moble')) {
+            if (!check($moble, 'moble')) {
                 $this->error('手机号码格式错误！');
             }
 
-            $user = M('User')->where(array('moble' => $input['moble'],'id' => session('userId')))->find();
+            $user = M('User')->where(array('moble' => $moble,'id' => session('userId')))->find();
 
             if (!$user) {
                 $this->error('不存在该手机号码');
@@ -172,8 +176,8 @@ class FindpwdController extends HomeController
             $this->error('确认新密码错误！');
         }
 
-
-        $user = M('User')->where(array('moble' => session('findpaypwdmoble')))->find();
+        $moble = $this->_replace_china_mobile(session('findpaypwdmoble'));
+        $user = M('User')->where(array('moble' => $moble))->find();
 
         if (!$user) {
             $this->error('不存在该手机号码');
@@ -220,7 +224,8 @@ class FindpwdController extends HomeController
                 $this->error('用户名格式错误！');
             }
 
-            if (!check($input['moble'], 'moble')) {
+            $moble = $this->_replace_china_mobile($input['moble']);
+            if (!check($moble, 'moble')) {
                 $this->error('手机号码格式错误！');
             }
 
@@ -237,7 +242,7 @@ class FindpwdController extends HomeController
                 $this->error('用户名不存在！');
             }
 
-            if ($user['moble'] != $input['moble']) {
+            if ($user['moble'] != $moble) {
                 $this->error('用户名或手机号码错误！');
             }
 

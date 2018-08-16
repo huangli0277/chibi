@@ -179,7 +179,12 @@ class HomeController extends \Think\Controller
         C('market_type', $market_type);
         C('coin_on', $coin_on);
 
+//        print_r($marketList);
+
         C($marketList);
+//        print_r($marketList['market']['cnut_cny']);
+//        echo D('Trade')->moni('cnut_cny');
+//        exit();
         $C = C();
 
         foreach ($C as $k => $v) {
@@ -220,6 +225,9 @@ class HomeController extends \Think\Controller
 
     //短信发送次数限制
     public function _verify_count_check($code,$session_code){
+        $_t = session('verify#time');
+        if ((time() - $_t) > 5 * 60)
+            $this->error("验证码已过期，请重新获取");
         $v_count = session('verify_count');
         if($v_count >=5){
             session(null);
@@ -236,6 +244,10 @@ class HomeController extends \Think\Controller
 
     //邮箱发送次数限制
     public function _verify_email_count_check($code,$session_code){
+        $_t = session('verify#time');
+        if ((time() - $_t) > 5 * 60)
+            $this->error("验证码已过期，请重新获取");
+
         $v_e_count = session('verify_email_count');
         if($v_e_count >=5){
             session(null);
@@ -246,6 +258,17 @@ class HomeController extends \Think\Controller
             $v_e_count = $v_e_count+1;
             session('verify_email_count',$v_e_count);
             $this->error('邮箱验证码错误！');
+        }
+    }
+
+    //截取掉手机号码前缀
+    public function _replace_china_mobile($mobile){
+        $len = strlen($mobile);
+        if($len > 5 && substr($mobile,0,4) === '0086'){
+            $len = $len-4;
+            return substr($mobile,4,$len);
+        }else{
+            return $mobile;
         }
     }
 }

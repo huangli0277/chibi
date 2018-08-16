@@ -6,6 +6,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<title>笔加索移动端注册</title>
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css">
 	<style type="text/css">
 
 	</style>
@@ -22,10 +23,13 @@
 				<ul class="wrap-form-list register-form-list bjs-tab-list active" id="register-phone-form">
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">手机号码</span></p>
-						<div class="input-group clearfix">
+                        <div class="clearfix intlTelInput-tel-box">
+                            <input type="tel" class="intlTelInput-tel form-input" id="moble" placeholder="请输入手机号码">
+                        </div>
+						<!-- <div class="input-group clearfix">
 							<span class="input-group-addon font42">+86</span><input type="text" class="form-control" id="moble" placeholder="请输入手机号码" onblur="check_moble()" >
 							<input type="text" id="mobles" style="display: none;">
-						</div>
+						</div> -->
 					</li>
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">登录密码</span> <a href="#" class="pull-right assets-eyes off"></a></p>
@@ -135,6 +139,16 @@
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/intl-tel-input/js/intlTelInput.js"></script>
+<script type="text/javascript">
+    //初始化国际号码选择
+    $("#moble").intlTelInput({
+        initialCountry: 'cn',
+        separateDialCode: true,
+        utilsScript: "__PUBLIC__/v2/js/intl-tel-input/js/utils.js"
+    });
+  
+</script>
 <script type="text/javascript">
     var home;
     $(document).ready(function(){
@@ -154,12 +168,13 @@
     }
 
     function check_moble() {
-        var moble  = $('#moble').val();
-        var mobles = $('#mobles').val();
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
+        var mobles = '';
         if (moble == "" || moble == null) {
             layer.tips("请输入手机号", '#moble', {tips: 1});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/check_moble.html", {
             moble: moble,
             mobles: mobles,
@@ -175,12 +190,13 @@
     }
 
     function new_sends() {
-        var moble  = $('#moble').val();
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = $('#mobles').val();
         if (moble == "" || moble == null) {
             layer.tips("请输入手机号", '#moble', {tips: 1});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/check_moble.html", {
             moble: moble,
             mobles: mobles,
@@ -198,7 +214,7 @@
         if($('#moble_reg_send').html() != '获取'){
             return false;
         }
-        var moble  = $("#moble").val();
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = $("#mobles").val();
         var verify = $("#verify").val();
         if (moble == "" || moble == null) {
@@ -209,6 +225,7 @@
             layer.tips("请输入图形验证码", '#verify', {tips: 1});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/real.html", {
             moble: moble,
             mobles: mobles,
@@ -309,7 +326,7 @@
         }, "json");
     }
     function reg_up() {
-        var moble        = $("#moble").val();
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles       = $("#mobles").val();
         var moble_verify = $("#moble_verify").val();
         var password     = $("#password").val();
@@ -341,6 +358,7 @@
             layer.tips("请勾选用户注册协议", '#regweb-tip', {tips: 1});
             return false;
         }
+        moble = moble.replace(/\s/,'');
 
         $.post("/login/upregister/", {
             username:moble,

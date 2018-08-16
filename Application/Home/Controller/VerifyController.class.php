@@ -38,9 +38,10 @@ class VerifyController extends HomeController
 
 		$code = rand(111111, 999999);
 		session('real_verify', $code);
+        session('verify#time', time());
 		$content = 'CC找密码，your code：' . $code;
 
-		if (send_moble($moble, $content)) {
+		if (SendText($moble, $code, 'fog')) {
 			$this->success('短信验证码已发送到你的手机，请查收');
 		}
 		else {
@@ -62,18 +63,19 @@ class VerifyController extends HomeController
 		if (!check($moble_new, 'moble')) {
 			$this->error('新手机号码格式错误！');
 		}
-		
-		
 
+        $moble = $this->_replace_china_mobile($moble);
+        $moble_new = $this->_replace_china_mobile($moble_new);
 		if (M('User')->where(array('moble' => $moble_new))->find()) {
 			$this->error('更换绑定的手机号码已经注册过账户！');
 		}
 
 		$code = rand(111111, 999999);
 		session('real_verify', $code);
+        session('verify#time', time());
 		$content = 'CC换手机，your code：' . $code;
 
-		if (send_moble($moble, $content)) {
+		if (SendText($moble, $code, 'chg')) {
 			
 			if(MOBILE_CODE ==0 ){
 				$this->success('目前是演示模式,请输入'.$code);
@@ -110,7 +112,7 @@ class VerifyController extends HomeController
 		session('real_moble',$code);
 		$content = '您正在进行手机操作，您的验证码是' . $code;
 
-		if (send_moble($moble,$content)) {
+		if (SendText($moble, $code, 'chg')) {
 			$this->success('短信验证码已发送到你的手机，请查收');
 		}
 		else {
@@ -132,9 +134,10 @@ class VerifyController extends HomeController
 
 		$code = rand(111111, 999999);
 		session('mytx_verify', $code);
+        session('verify#time', time());
 		$content = 'CC提币，your code：' . $code;
 
-		if (send_moble($moble, $content)) {
+		if (SendText($moble, $code, 'cur')) {
 			
 			if(MOBILE_CODE ==0 ){
 				$this->success('目前是演示模式,请输入'.$code);
@@ -239,8 +242,8 @@ class VerifyController extends HomeController
 			if (!check($input['username'], 'username')) {
 				$this->error('用户名格式错误！');
 			}
-
-			if (!check($input['moble'], 'moble')) {
+            $moble = $this->_replace_china_mobile($input['moble']);
+			if (!check($moble, 'moble')) {
 				$this->error('手机号码格式错误！');
 			}
 
@@ -250,15 +253,16 @@ class VerifyController extends HomeController
 				$this->error('用户名不存在！');
 			}
 
-			if ($user['moble'] != $input['moble']) {
+			if ($user['moble'] != $moble) {
 				$this->error('用户名或手机号码错误！');
 			}
 
 			$code = rand(111111, 999999);
 			session('findpwd_verify', $code);
+            session('verify#time', time());
 			$content = 'CC找密码，your code：' . $code;
 
-			if (send_moble($input['moble'], $content)) {
+			if (SendText($moble, $code, 'fog')) {
 				$this->success('短信验证码已发送到你的手机，请查收');
 			}
 			else {
@@ -279,12 +283,12 @@ class VerifyController extends HomeController
 				$this->error('图形验证码错误!');
 			}
 
-
-			if (!check($input['moble'], 'moble')) {
+            $moble = $this->_replace_china_mobile($input['moble']);
+			if (!check($moble, 'moble')) {
 				$this->error('手机号码格式错误！');
 			}
 
-			$user = M('User')->where(array('moble' => $input['moble']))->find();
+			$user = M('User')->where(array('moble' => $moble))->find();
 
 			if (!$user) {
 				$this->error('手机号码不存在！');
@@ -292,12 +296,13 @@ class VerifyController extends HomeController
 
 			$code = rand(111111, 999999);
 			session('findpwd_verify', $code);
+            session('verify#time', time());
             //手机号码和Code做MD5写入Session
             //防止发送短信后篡改用户手机，重置他人密码
-            session('modify_password_validation', md5($input['moble']));
+            session('modify_password_validation', md5($moble));
             $content = 'CC找密码，your code：' . $code;
 
-			if (send_moble($input['moble'], $content)) {
+			if (SendText($moble, $code, 'fog')) {
 
 				if(MOBILE_CODE ==0 ){
 					$this->success('目前是演示模式,请输入'.$code);
@@ -338,6 +343,7 @@ class VerifyController extends HomeController
 
             $code = rand(111111, 999999);
             session('findpwd_verify', $code);
+            session('verify#time', time());
             //邮箱码和Code做MD5写入Session
             session('modify_password_validation', md5($input['email']));
             $content = 'CC找密码，your code：' . $code;
@@ -371,7 +377,8 @@ class VerifyController extends HomeController
 			$this->error('用户名格式错误！');
 		}
 
-		if (!check($input['moble'], 'moble')) {
+        $moble = $this->_replace_china_mobile($input['moble']);
+		if (!check($moble, 'moble')) {
 			$this->error('手机号码格式错误！');
 		}
 
@@ -381,15 +388,16 @@ class VerifyController extends HomeController
 			$this->error('用户名不存在！');
 		}
 
-		if ($user['moble'] != $input['moble']) {
+		if ($user['moble'] != $moble) {
 			$this->error('用户名或手机号码错误！');
 		}
 
 		$code = rand(111111, 999999);
 		session('findpaypwd_verify', $code);
+        session('verify#time', time());
 		$content = 'CC找密码，your code：' . $code;
 
-		if (send_moble($input['moble'], $content)) {
+		if (SendText($moble, $code, 'fog')) {
 			$this->success('短信验证码已发送到你的手机，请查收');
 		}
 		else {
@@ -411,9 +419,10 @@ class VerifyController extends HomeController
 
 		$code = rand(111111, 999999);
 		session('myzc_verify', $code);
+        session('verify#time', time());
 		$content = 'CC提币，your code：' . $code;
 
-		if (send_moble($moble, $content)) {
+		if (SendText($moble, $code, 'cur')) {
 			if(MOBILE_CODE ==0 ){
 				$this->success('目前是演示模式,请输入'.$code);
 			}else{
@@ -442,7 +451,7 @@ class VerifyController extends HomeController
 		session('myzr_verify', $code);
 		$content = 'CC提币，your code：' . $code;
 
-		if (send_moble($moble, $content)) {
+		if (SendText($moble, $code, 'cur')) {
 			if(MOBILE_CODE ==0 ){
 				$this->success('目前是演示模式,请输入'.$code);
 			}else{

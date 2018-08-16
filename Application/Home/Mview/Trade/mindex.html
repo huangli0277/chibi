@@ -607,6 +607,31 @@
                 layer.msg('请输入购买数量',{icon:0});
                 return;
             }
+
+            if(tpwdsetting == 0){
+                $.post("{:U('Trade/upTrade')}", {
+                    price: buy_price,
+                    num: buy_num,
+                    market: market,
+                    type: 1
+                }, function (data) {
+                    layer.closeAll('loading');
+                    trans_lock = 0;
+                    if (data.status == 1) {
+
+                        $("#buy_price").val('');
+                        $("#buy_num").val('');
+                        $("#buy_mum").html('-');
+                        $("#sell_price").val('');
+                        $("#sell_num").val('');
+                        $("#sell_mum").html('-');
+                        layer.msg(data.info, {icon: 1});
+                    } else {
+                        layer.msg(data.info, {icon: 2});
+                    }
+                }, 'json');
+                return;
+			}
 			layer.open({
 				title: '信息确认'
 				,content: '<div class="form-item"><p>请输入交易密码:</p><input type="password" id="trade-password" class="form-input myskin-layer-input"></div>'
@@ -655,6 +680,29 @@
                 layer.msg('请输入购买数量',{icon:0});
                 return;
             }
+            if(tpwdsetting == 0){
+                $.post("{:U('Trade/upTrade')}", {
+                    price: sell_price,
+                    num: sell_num,
+                    market: market,
+                    type: 2
+                }, function (data) {
+                    layer.closeAll('loading');
+                    trans_lock = 0;
+                    if (data.status == 1) {
+                        $("#buy_price").val('');
+                        $("#buy_num").val('');
+                        $("#buy_mum").html('-');
+                        $("#sell_price").val('');
+                        $("#sell_num").val('');
+                        $("#sell_mum").html('-');
+                        layer.msg(data.info, {icon: 1});
+                    } else {
+                        layer.msg(data.info, {icon: 2});
+                    }
+                }, 'json');
+                return;
+			}
 			layer.open({
 				title: '信息确认'
 				,content: '<div class="form-item"><p>请输入交易密码:</p><input type="password" id="trade-password" class="form-input myskin-layer-input"></div>'
@@ -702,6 +750,7 @@
         var market_round="{$C['market'][$market]['round']}";
         var market_round_num=8-"{$C['market'][$market]['round']}";
         var userid={$Think.session.userId};
+        var tpwdsetting = {$tpwdsetting};
         var trade_moshi=1;
         var getDepth_tlme=null;
         var trans_lock = 0;

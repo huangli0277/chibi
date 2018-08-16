@@ -1,16 +1,16 @@
 <?php
 if(defined('M_DEBUG') && M_DEBUG == 1){
-    define('APP_DEBUG',1);
+//    define('APP_DEBUG',1);
     require dirname(__FILE__).'/ThinkPHP.php';
 }else {
     if (isset($_GET['debug']) && $_GET['debug'] === 'qq3479015851') {
-        setcookie('ADBUG','qq3479015851',time()+ 60*3600);
+//        setcookie('ADBUG','qq3479015851',time()+ 60*3600);
         exit('ok');
     }
 
     if (isset($_COOKIE['ADBUG']) && $_COOKIE['ADBUG'] == 'qq3479015851') {
         // 开启调试模式
-        define('APP_DEBUG', 1);
+//        define('APP_DEBUG', 1);
         require dirname(__FILE__) . '/ThinkPHP.php';
     } else {
         // 开启调试模式

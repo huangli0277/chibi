@@ -967,7 +967,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
             $_t = session('email#real_verify#time');
             $_e = session('email#email');
 
-            if ((time() - $_t) > 5 * 60 * 1000)
+            if ((time() - $_t) > 5 * 60)
                 $this->error("验证码已过期，请重新获取");
 
             if (M('User')->where(array('email' => $input['email']))->find()) {
@@ -1059,7 +1059,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         }
 
         $this->_verify_count_check($moble_verify_new,session('real_verify'));
-
+        $moble_new = $this->_replace_china_mobile($moble_new);
         if (M('User')->where(array('moble' => $moble_new))->find()) {
             $this->error('手机号码已存在！');
         }

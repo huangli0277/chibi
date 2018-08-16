@@ -306,3 +306,9 @@ color: #bec2ca;
 input:placeholder { /* Mozilla Firefox 4 to 18 */
 color: #bec2ca;
 } 
+
+/*---- select ----*/
+.intlTelInput-tel{border: 1px solid #c0c0c0;}
+.intl-tel-input .country-list{background-color: #f6f7fb!important; border-color: #c0c0c0!important;}
+.intl-tel-input .country-list .divider{border-color: #c0c0c0!important;}
+.intl-tel-input.separate-dial-code .selected-dial-code{border-right: 1px solid #c0c0c0;}

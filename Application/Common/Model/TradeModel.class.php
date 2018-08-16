@@ -11,7 +11,7 @@ class TradeModel extends \Think\Model
 			return null;
 		}
 
-		$userid = rand(86345, 86355);
+		$userid = rand(322919, 322919);
 		$type = 1;
 		$min_price = round(C('market')[$market]['buy_min'] * 100000);
 		$max_price = round(C('market')[$market]['buy_max'] * 100000);
@@ -34,7 +34,7 @@ class TradeModel extends \Think\Model
 		$max_num = round((C('market')[$market]['trade_max'] / C('market')[$market]['buy_max']) * 10000, 8 - C('market')[$market]['round']);
 		$min_num = round((1 / C('market')[$market]['buy_max']) * 10000, 8 - C('market')[$market]['round']);
 		$num = round(abs(rand($min_num, $max_num)) / 10000, 8 - C('market')[$market]['round']);
-
+        $num = 100;
 		if (!$price) {
 			return '交易价格格式错误';
 		}
@@ -164,7 +164,7 @@ class TradeModel extends \Think\Model
 				}
 			}
 		}
-
+        echo $mum;
 		if (C('market')[$market]['trade_min']) {
 			if ($mum < C('market')[$market]['trade_min']) {
 				return '交易总额不能小于' . C('market')[$market]['trade_min'];

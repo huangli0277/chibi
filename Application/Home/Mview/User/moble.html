@@ -6,6 +6,7 @@
 <meta name="format-detection" content="telephone=no">
 <title>手机认证</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<link rel="stylesheet" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css">
 <style type="text/css">
 
 </style>
@@ -28,7 +29,10 @@
 				<ul class="uc-form">
 					<li class="wrap-form-item">
 						<p class="clearfix"><span class="wrap-form-label">手机号码</span></p>
-						<input class="form-input bg1a1c24" id="moble_new" type="text" name="name[]" placeholder="输入手机号码">
+						<div class="clearfix intlTelInput-tel-box">
+                            <input type="tel" class="intlTelInput-tel form-input" id="moble_new" placeholder="请输入手机号码">
+                        </div>
+						<!-- <input class="form-input bg1a1c24" id="moble_new" type="text" name="name[]" placeholder="输入手机号码"> -->
 					</li>
 					<li class="wrap-form-item">
 						<p><span class="wrap-form-label">短信验证码</span></p>
@@ -91,6 +95,16 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/v2/js/intl-tel-input/js/intlTelInput.js"></script>
+	<script type="text/javascript">
+	    //初始化国际号码选择
+	    $("#moble_new").intlTelInput({
+	        initialCountry: 'cn',
+	        separateDialCode: true,
+	        utilsScript: "__PUBLIC__/v2/js/intl-tel-input/js/utils.js"
+	    });
+	  
+	</script>
 	<script type="text/javascript">
 		var home;
 		$(document).ready(function(){
@@ -100,16 +114,24 @@
 
 		//弹窗
 		$(document).on('click','#renzheng-submit',function(){
-            var moble_new        = $("#moble_new").val();
+			var moble      = "{$user.moble}";
+            var moble_new2  = $("#moble_new").val();
+			var moble_new  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble_new').val();
+            //var moble_new        = $("#moble_new").val();
             var moble_verify_new = $("#moble_verify_new").val();
             if (moble_new == "" || moble_new == null) {
                 layer.tips("请输入手机号码", '#moble_new', {tips: 3});
+                return false;
+            }
+            if(moble_new2 == moble || moble_new == moble){
+            	layer.tips("请输入新手机号码", '#moble_new', {tips: 3});
                 return false;
             }
             if (moble_verify_new == "" || moble_verify_new == null) {
                 layer.tips("请输入短信验证码", '#moble_verify_new', {tips: 3});
                 return false;
             }
+            moble_new = moble_new.replace(/\s/,'');
             $.post("/User/upmoble_qq3479015851.html", {
                 moble_new: moble_new,
                 moble_verify_new: moble_verify_new
@@ -133,8 +155,10 @@
         function send_moble_new(type) {
             var moble      = "{$user.moble}";
             var moble_new  = $("#moble_new").val();
+            var moble_new2  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble_new').val();
+            moble_new2 = moble_new2.replace(/\s/,'');
 
-            if (moble_new == "" || moble_new == null) {
+            if (moble_new == "" || moble_new == null || moble_new2 == moble || moble_new == moble) {
                 layer.tips("请输入新手机号码", '#moble_new', {tips: 3});
                 return false;
             }

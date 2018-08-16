@@ -1,5 +1,6 @@
 <include file="Public:header" xmlns="http://www.w3.org/1999/html"/>
 <div class="content">
+    <link rel="stylesheet" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css">
 	<div class="slide-unit register-logo">
 		<img src="__PUBLIC__/v2/images/register-1.jpg">
 	</div>
@@ -13,15 +14,7 @@
 				<div class="register-item">
 					<label>手机号码</label>
 					<div class="clearfix">
-						<div class="register-phone-select">
-							<select class="select2 vhide">
-								<option value="0" data-foo="bar1">+86</option>
-							</select>
-						</div>
-						<div class="register-phone-input">
-							<input type="text" id="mobles" style="display: none;">
-							<input type="text" id="moble" placeholder="请输入手机号码" onblur="check_moble()" />
-						</div>
+                        <input type="tel" class="intlTelInput-tel" id="moble" placeholder="请输入手机号码" onblur="check_moble()">
 					</div>
 				</div>
 
@@ -116,6 +109,27 @@
 	</div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/v2/js/intl-tel-input/js/intlTelInput.js"></script>
+<script type="text/javascript">
+    //初始化国际号码选择
+    $("#moble").intlTelInput({
+        initialCountry: 'cn',
+        separateDialCode: true,
+        utilsScript: "__PUBLIC__/v2/js/intl-tel-input/js/utils.js"
+    });
+    $(document).on('click','.selected-flag',function(){
+        $('.country-list').width($('.intlTelInput-tel').outerWidth()-2);
+        $('.country-list .country-name').each(function(){
+            if(!$(this).attr('title')){
+                $(this).attr('title',$(this).text());
+            }
+        });
+    });
+    $(window).on('resize',function(){
+        $('.country-list').width($('.intlTelInput-tel').outerWidth()-2);
+    });
+  
+</script>
 <script>
 	$(function () {
 		var register = new bjsIndex();
@@ -134,12 +148,13 @@
     }
 
     function check_moble() {
-        var moble  = $('#moble').val();
-        var mobles = $('#mobles').val();
-        if (moble == "" || moble == null) {
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
+        var mobles = '';
+        if ($('#moble').val() == "" || $('#moble').val() == null) {
             layer.tips("请输入手机号", '#moble', {tips: 2});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/check_moble.html", {
             moble: moble,
             mobles: mobles,
@@ -162,12 +177,13 @@
         $("#verify").focus();
     }
     function new_sends() {
-        var moble  = $('#moble').val();
-        var mobles = $('#mobles').val();
-        if (moble == "" || moble == null) {
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
+        var mobles = '';
+        if ($('#moble').val() == "" || $('#moble').val() == null) {
             layer.tips("请输入手机号", '#moble', {tips: 2});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/check_moble.html", {
             moble: moble,
             mobles: mobles,
@@ -185,10 +201,10 @@
         if($('#moble_reg_send').html() != '获取验证码'){
             return;
         }
-        var moble  = $("#moble").val();
+        var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = $("#mobles").val();
         var verify = $("#verify").val();
-        if (moble == "" || moble == null) {
+        if ($('#moble').val() == "" || $('#moble').val() == null) {
             layer.tips("请输入手机号码", '#moble', {tips: 2});
             return false;
         }
@@ -196,6 +212,7 @@
             layer.tips("请输入图形验证码", '#verify', {tips: 2});
             return false;
         }
+        moble = moble.replace(/\s/,'');
         $.post("/login/real.html", {
             moble: moble,
             mobles: mobles,
@@ -294,14 +311,14 @@
         }, "json");
 	}
     function reg_up() {
-        var moble        = $("#moble").val();
+        var moble        = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles       = $("#mobles").val();
         var moble_verify = $("#moble_verify").val();
         var password     = $("#password").val();
         var passwordConf = $("#passwordConfirm").val();
         var invit        = $("#invit").val();
 
-        if (moble == "" || moble == null) {
+        if ($('#moble').val() == "" || $('#moble').val() == null) {
             layer.tips("请输入手机号", '#moble', {tips: 2});
             return false;
         }
@@ -323,6 +340,9 @@
             layer.tips("请勾选用户注册协议", '#regweb-tip', {tips: 3});
             return false;
         }
+
+
+        moble = moble.replace(/\s/,'');
 
         $.post("/login/upregister/", {
             username:moble,
