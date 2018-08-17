@@ -14,7 +14,7 @@ if(defined('M_DEBUG') && M_DEBUG == 1){
         require dirname(__FILE__) . '/ThinkPHP.php';
     } else {
         // 开启调试模式
-        define('APP_DEBUG', 0);
+        define('APP_DEBUG', 1);
         try {
             require dirname(__FILE__) . '/ThinkPHP.php';
         } catch (\Exception $exception) {

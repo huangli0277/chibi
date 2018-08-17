@@ -17,7 +17,7 @@
 								<select id="validate-select" class="form-input vhide select3" name="pay">
 									<option value="0">请选择</option>
 									<option value="email">邮箱验证</option>
-									<option value="phone">短信验证</option>
+									<option value="sms">短信验证</option>
 								</select>
 							</div>
 						</div>
@@ -31,11 +31,11 @@
 						<div class="form-item">
 							<h5 class="form-label">获取验证码</h5>
 							<div class="input-group input-group-r">
-								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="moble_findpwd('sms')" href="javascript:;">发送验证码</a>
+								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="sendVerifyCode()" href="javascript:;">发送验证码</a>
 							</div>
 						</div>
 						<div class="form-item">
-							<input type="button" class="default-form-submit pull-right" onclick="findpwd_up();" value="找回登录密码">
+							<input type="button" class="default-form-submit pull-right" onclick="findpwd_up();" value="找回交易密码">
 						</div>
 					</div>
 				</div>
@@ -50,24 +50,27 @@
         dropdownAutoWidth: true
     });
 
-	function moble_findpwd(type) {
+	function sendVerifyCode(type) {
         if($('#reg_moble_new').html() != '发送验证码'){
             return;
         }
-		var verify = $("#verify").val();		
-		var moble  = $('#validate-select').val();
-		var mobles = $('#mobles').val();
-		if (moble == 0) {
-			layer.tips("请选择验证方式", '#validate', {tips: 2});
-			return false;
-		}
-		if (verify == "" || verify == null) {
-			layer.tips("请输入图形验证码", '#verify', {tips: 2});
-			return false;
-		}
-		$.post("/verify/moble_findpwd.html", {
-			moble: moble,
-			mobles: mobles,
+        var type = $('#validate-select option:selected').attr("value");
+        var verify = $("#verify").val();
+        if (verify == "" || verify == null) {
+            layer.tips("请输入图形验证码", '#verify', {tips: 2});
+            return false;
+        }
+        if(type != 'sms' && type != 'email'){
+            layer.tips("请选择验证类型", '#validate', {tips: 2});
+            return false;
+        }
+        var postUrl = "";
+        if(type == 'sms'){
+            postUrl = "/verify/moble_findpwd.html";
+        }else if(type == 'email'){
+            postUrl = "/verify/email_findpwd.html";
+        }
+		$.post(postUrl, {
 			type: type,
 			verify: verify,
 			token: ""
@@ -84,14 +87,14 @@
 					wait--;
 					if (wait < 0) {
 						clearInterval(interval);
-						$(".reloadverify").click();
+                        $("#verify_up").click();
 						$("#verify").val('');
 						obj.html('发送短信验证码');
 					}
 					;
 				}, 1000);
 			} else {
-				$(".reloadverify").click();
+                $("#verify_up").click();
 				layer.msg(data.info, {icon: 2,time:2000},function(){
                     if (data.url) {
                         window.location = data.url;
@@ -103,24 +106,15 @@
 
 
 	function findpwd_up() {
-		var verify = $("#verify").val();		
-		var moble  = $('#validate-select').val();
-		var mobles = $('#mobles').val();
 		var moble_verify = $("#moble_verify").val();
-		if (moble == 0) {
-			layer.tips("请选择验证方式", '#validate', {tips: 2});
-			return false;
-		}
 		if (moble_verify == "" || moble_verify == null) {
 			layer.tips("请输入验证码", '#moble_verify', {tips: 2});
 			return false;
 		}
-
+        var type = $('#validate-select option:selected').attr("value");
 		$.post("/Findpwd/findpwd.html", {
-			moble: moble,
-			mobles: mobles,
-			verify: verify,
 			moble_verify: moble_verify,
+            type: type,
 			token: ""
 		}, function (data) {
 			if (data.status == 1) {

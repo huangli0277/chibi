@@ -176,16 +176,17 @@ class UserController extends HomeController
 
         foreach ($CoinList as $k => $v) {
 
-
             if ($v['name'] == 'cny') {
                 $cny['ky'] = round($UserCoin[$v['name']], 2) * 1;
                 $cny['dj'] = round($UserCoin[$v['name'] . 'd'], 2) * 1;
                 $cny['zj'] = $cny['zj'] + $cny['ky'] + $cny['dj'];
             } else {
+                if($Market[C('market_type')[$v['name']]]['status'] != 1){
+                    continue;
+                }
                 $vsad = explode("_", $v['name']);
                 if ($Market[C('market_type')[$v['name']]]['new_price']) {
                     $jia = $Market[C('market_type')[$v['name']]]['new_price'];
-                    //echo $jia;
                 } else {
                     $jia = 1;
                 }
@@ -705,11 +706,18 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         }
     }
 
+    public function password_reset($moble_verify){
 
-    public function uppassword_qq3479015851($oldpassword = "", $newpassword = "", $repassword = "")
+    }
+
+    public function uppassword_qq3479015851($oldpassword = "", $newpassword = "", $repassword = "",$moble_verify)
     {
         if (!userid()) {
             $this->error('请先登录！');
+        }
+
+        if(empty($moble_verify)){
+            $this->error('请输入邮箱或短信验证码！');
         }
 
         if ($oldpassword == $newpassword) {
@@ -726,6 +734,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         if ($newpassword != $repassword) {
             $this->error('确认新密码错误！');
         }
+        $this->_verify_count_check($moble_verify,session('findpwd_verify'));
 
         $password = M('User')->where(array('id' => userid()))->getField('password');
 
@@ -742,6 +751,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $rs = M('User')->where(array('id' => userid()))->save(array('password' => $newpassword));
 
         if (!($rs === false)) {
+            session('findpwd_verify',null);
             $this->success('修改成功');
         } else {
             $this->error('修改失败');
@@ -764,12 +774,17 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
     }
 
 
-    public function uppaypassword_qq3479015851($oldpaypassword, $newpaypassword, $repaypassword)
+    public function uppaypassword_qq3479015851($oldpaypassword, $newpaypassword, $repaypassword,$verify_code)
     {
         if (!userid()) {
             $this->error('请先登录！');
         }
 
+        if(empty($verify_code)){
+            $this->error('验证码不能为空！');
+        }
+
+        $this->_verify_count_check($verify_code,session('findpaypwd_verify'));
 
         if (!check($oldpaypassword, 'password')) {
             $this->error('旧交易密码格式错误！');
@@ -796,6 +811,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $rs = M('User')->where(array('id' => userid()))->save(array('paypassword' => $newpaypassword));
 
         if (!($rs === false)) {
+            session('findpaypwd_verify',null);
             $this->success('修改成功');
         } else {
             $this->error('修改失败');

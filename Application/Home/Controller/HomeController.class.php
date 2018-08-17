@@ -179,12 +179,7 @@ class HomeController extends \Think\Controller
         C('market_type', $market_type);
         C('coin_on', $coin_on);
 
-//        print_r($marketList);
-
         C($marketList);
-//        print_r($marketList['market']['cnut_cny']);
-//        echo D('Trade')->moni('cnut_cny');
-//        exit();
         $C = C();
 
         foreach ($C as $k => $v) {

@@ -530,7 +530,7 @@ function ismobile()
 function SendEmail($data)
 {
     $ci = curl_init();
-    curl_setopt($ci, CURLOPT_URL, "http://v2.bjs.bi:5000/bjs-messager/mail");
+    curl_setopt($ci, CURLOPT_URL, "http://service.bjs.bi:5000/bjs-messenger/mail");
 
     curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
     curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
@@ -583,7 +583,7 @@ function SendText($cell, $code, $type)
             else $template = "SMS_142147072";
             break;
         default:
-            die();
+            return 0;
     }
 
     $data = [];
@@ -608,7 +608,7 @@ function SendText($cell, $code, $type)
 
     $res = curl_exec($ci);
     curl_close($ci);
-    return $res;
+    return 1;
 }
 
 

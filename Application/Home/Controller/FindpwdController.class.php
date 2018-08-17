@@ -114,28 +114,48 @@ class FindpwdController extends HomeController
             $input = I('post.');
             //判断参数前校验手机号码是否被篡改
             //修改支付密码
-            $moble = $this->_replace_china_mobile($input['moble']);
-            $fakeHash = md5($moble);
-            $realHash = session('modify_password_validation');
-            if ($fakeHash != $realHash)
-                $this->error('手机号码错误');
+            $type = $input['type'];
 
-            if (!check($moble, 'moble')) {
-                $this->error('手机号码格式错误！');
-            }
-
-            $user = M('User')->where(array('moble' => $moble,'id' => session('userId')))->find();
-
+            $user = M('User')->where(array('id' => userid()))->find();
             if (!$user) {
-                $this->error('不存在该手机号码');
+                $this->error('用户不存在');
             }
 
-            if (!check($input['moble_verify'], 'd')) {
-                $this->error('短信验证码格式错误！');
+            $moble = $user['moble'];
+            $email = $user['email'];
+            $realHash = session('modify_password_validation');
+            if($type == 'sms'){
+                $fakeHash = md5($moble);
+                if ($fakeHash != $realHash)
+                    $this->error('手机号码错误');
+
+                if (!check($moble, 'moble')) {
+                    $this->error('手机号码格式错误！');
+                }
+                if (!check($input['moble_verify'], 'd')) {
+                    $this->error('短信验证码格式错误！');
+                }
+            }else if($type == 'email'){
+                $fakeHash = md5($email);
+                if ($fakeHash != $realHash)
+                    $this->error('邮箱错误！');
+
+                if (!check($email, 'email')) {
+                    $this->error('邮箱格式错误！');
+                }
+                if (!check($input['moble_verify'], 'd')) {
+                    $this->error('邮箱验证码格式错误！');
+                }
+            }else{
+                $this->error('交易方式错误！');
             }
 
             $this->_verify_count_check($input['moble_verify'],session('findpwd_verify'));
-            session("findpaypwdmoble", $user['moble']);
+            if($type == 'sms'){
+                session("findpaypwdmoble", $moble);
+            }else if($type == 'email'){
+                session("findpaypwdemail", $email);
+            }
             session('findpwd_verify',null);
             $this->success('验证成功');
 
@@ -147,8 +167,7 @@ class FindpwdController extends HomeController
 
     public function findpwdconfirm()
     {
-
-        if (empty(session('findpaypwdmoble'))) {
+        if (empty(session('findpaypwdmoble')) && empty(session('findpaypwdemail'))) {
             redirect('/');
         }
 
@@ -157,9 +176,7 @@ class FindpwdController extends HomeController
 
     public function password_up($password = "", $repassword = "")
     {
-
-
-        if (empty(session('findpaypwdmoble'))) {
+        if (empty(session('findpaypwdmoble')) && empty(session('findpaypwdemail'))) {
             $this->error('请返回第一步重新操作！');
         }
 
@@ -176,13 +193,16 @@ class FindpwdController extends HomeController
             $this->error('确认新密码错误！');
         }
 
-        $moble = $this->_replace_china_mobile(session('findpaypwdmoble'));
-        $user = M('User')->where(array('moble' => $moble))->find();
-
-        if (!$user) {
-            $this->error('不存在该手机号码');
+        if(!empty(session('findpaypwdmoble'))){
+            $moble = $this->_replace_china_mobile(session('findpaypwdmoble'));
+            $user = M('User')->where(array('moble' => $moble))->find();
+        }else if(!empty(session('findpaypwdemail'))){
+            $user = M('User')->where(array('email' => session('findpaypwdemail')))->find();
         }
 
+        if (!$user) {
+            $this->error('用户不存在!');
+        }
 
         if ($user['password'] == $password) {
             $this->error('交易密码不能和登录密码一样');
@@ -191,11 +211,13 @@ class FindpwdController extends HomeController
         $mo = M();
         $mo->execute('set autocommit=0');
         //$mo->execute('lock tables qq3479015851_user write , qq3479015851_user_log write ');
-        $rs = $mo->table('qq3479015851_user')->where(array('moble' => $user['moble']))->save(array('paypassword' => $password));
+        $rs = $mo->table('qq3479015851_user')->where(array('id' => $user['id']))->save(array('paypassword' => $password));
 
         if (!($rs === false)) {
             $mo->execute('commit');
             //$mo->execute('unlock tables');
+            session('findpaypwdmoble',null);
+            session('findpaypwdemail',null);
             $this->success('操作成功');
         } else {
             $mo->execute('rollback');
@@ -206,11 +228,11 @@ class FindpwdController extends HomeController
 
     public function findpwdinfo()
     {
-
-        if (empty(session('findpaypwdmoble'))) {
+        if (empty(session('findpaypwdmoble')) && empty(session('findpaypwdemail'))) {
             redirect('/');
         }
         session('findpaypwdmoble', "");
+        session('findpaypwdemail', "");
         $this->display();
     }
 

@@ -270,10 +270,11 @@ class VerifyController extends HomeController
 			}
 		}
 	}
-	
-	
-	
-	
+
+
+    /**
+     * 找回密码时，发送短信验证码(未登录)
+     */
 	public function moble_findpwd()
 	{
 		if (IS_POST) {
@@ -283,15 +284,27 @@ class VerifyController extends HomeController
 				$this->error('图形验证码错误!');
 			}
 
-            $moble = $this->_replace_china_mobile($input['moble']);
-			if (!check($moble, 'moble')) {
-				$this->error('手机号码格式错误！');
-			}
-
-			$user = M('User')->where(array('moble' => $moble))->find();
-
-			if (!$user) {
-				$this->error('手机号码不存在！');
+            if (userid()) {
+                $user = M('User')->where(array('id' => userid()))->find();
+                if (!$user) {
+                    $this->error('用户名不存在！');
+                }
+                $moble = $user['moble'];
+                if(empty($moble)){
+                    $this->error('当前手机不可用！');
+                }
+                if (!check($moble, 'moble')) {
+                    $this->error('手机号码格式错误！');
+                }
+            }else{
+                $moble = $this->_replace_china_mobile($input['moble']);
+                if (!check($moble, 'moble')) {
+                    $this->error('手机号码格式错误！');
+                }
+                $user = M('User')->where(array('moble' => $moble))->find();
+                if (!$user) {
+                    $this->error('手机号码不存在！');
+                }
 			}
 
 			$code = rand(111111, 999999);
@@ -303,16 +316,11 @@ class VerifyController extends HomeController
             $content = 'CC找密码，your code：' . $code;
 
 			if (SendText($moble, $code, 'fog')) {
-
 				if(MOBILE_CODE ==0 ){
 					$this->success('目前是演示模式,请输入'.$code);
 				}else{
 					$this->success('短信验证码已发送到你的手机，请查收');
 				}
-				
-				
-				
-				
 			}
 			else {
 				$this->error('短信验证码发送失败，请重新点击发送2');
@@ -321,7 +329,9 @@ class VerifyController extends HomeController
 		}
 	}
 
-
+    /**
+     * 找回密码时，发送邮箱验证码(未登录)
+     */
     public function email_findpwd()
     {
         if (IS_POST) {
@@ -331,23 +341,39 @@ class VerifyController extends HomeController
                 $this->error('图形验证码错误!');
             }
 
-            if (!check($input['email'], 'email')) {
-                $this->error('邮箱格式错误！');
-            }
+            if (userid()) {
+                $user = M('User')->where(array('id' => userid()))->find();
+                if (!$user) {
+                    $this->error('用户不存在！');
+                }
+                $email = $user['email'];
+                if(empty($email)){
+                    $this->error('当前无可用邮箱！');
+                }
 
-            $user = M('User')->where(array('email' => $input['email']))->find();
+                if (!check($email, 'email')) {
+                    $this->error('邮箱格式错误！');
+                }
+            }else{
+                if (!check($input['email'], 'email')) {
+                    $this->error('邮箱格式错误！');
+                }
 
-            if (!$user) {
-                $this->error('邮箱账号不存在！');
-            }
+                $user = M('User')->where(array('email' => $input['email']))->find();
+
+                if (!$user) {
+                    $this->error('邮箱账号不存在！');
+                }
+                $email = $user['email'];
+			}
 
             $code = rand(111111, 999999);
             session('findpwd_verify', $code);
             session('verify#time', time());
             //邮箱码和Code做MD5写入Session
-            session('modify_password_validation', md5($input['email']));
+            session('modify_password_validation', md5($user['email']));
             $content = 'CC找密码，your code：' . $code;
-            $data = array("to"=>$input['email'], "subject"=>"找回密码验证码", "content"=>$content);
+            $data = array("to"=>$email, "subject"=>"找回密码验证码", "content"=>$content);
             if (SendEmail($data)) {
                 if(MOBILE_CODE ==0 ){
                     $this->success('目前是演示模式,请输入'.$code);
@@ -360,36 +386,30 @@ class VerifyController extends HomeController
             }
         }
     }
-	
-	
-	
-	
 
-	public function findpaypwd()
+    //当前登录用户手机找回支付密码时发送验证码
+	public function moble_send_findpaypwd()
 	{
+        if (!userid()) {
+            redirect('/Login');
+        }
+
 		$input = I('post.');
 
 		if (!check_verify(strtoupper($input['verify']))) {
 			$this->error('图形验证码错误!');
 		}
 
-		if (!check($input['username'], 'username')) {
-			$this->error('用户名格式错误！');
-		}
-
-        $moble = $this->_replace_china_mobile($input['moble']);
+        $user = M('User')->where(array('id' => userid()))->find();
+        if (!$user) {
+            $this->error('用户名不存在！');
+        }
+        $moble = $user['moble'];
+        if(empty($moble)){
+            $this->error('当前手机不可用！');
+        }
 		if (!check($moble, 'moble')) {
 			$this->error('手机号码格式错误！');
-		}
-
-		$user = M('User')->where(array('username' => $input['username']))->find();
-
-		if (!$user) {
-			$this->error('用户名不存在！');
-		}
-
-		if ($user['moble'] != $moble) {
-			$this->error('用户名或手机号码错误！');
 		}
 
 		$code = rand(111111, 999999);
@@ -398,12 +418,60 @@ class VerifyController extends HomeController
 		$content = 'CC找密码，your code：' . $code;
 
 		if (SendText($moble, $code, 'fog')) {
-			$this->success('短信验证码已发送到你的手机，请查收');
+            if(MOBILE_CODE ==0 ){
+                $this->success('目前是演示模式,请输入'.$code);
+            }else{
+                $this->success('短信验证码已发送到你的手机，请查收');
+            }
 		}
 		else {
 			$this->error('短信验证码发送失败，请重新点击发送');
 		}
 	}
+
+    //当前登录用户邮箱找回支付密码时发送验证码
+    public function email_send_findpaypwd()
+    {
+        if (!userid()) {
+            redirect('/Login');
+        }
+
+        $input = I('post.');
+
+        if (!check_verify(strtoupper($input['verify']))) {
+            $this->error('图形验证码错误!');
+        }
+
+        $user = M('User')->where(array('id' => userid()))->find();
+        if (!$user) {
+            $this->error('用户不存在！');
+        }
+        $email = $user['email'];
+        if(empty($email)){
+            $this->error('当前无可用邮箱！');
+        }
+
+        if (!check($email, 'email')) {
+            $this->error('邮箱格式错误！');
+        }
+
+        $code = rand(111111, 999999);
+        session('findpaypwd_verify', $code);
+        session('verify#time', time());
+        $content = '您正在进行邮箱找回支付密码，您的验证码是' . $code;
+        $data = array("to"=>$email, "subject"=>"找回支付密码验证码", "content"=>$content);
+        if (SendEmail($data)) {
+            if(MOBILE_CODE ==0 ){
+                $this->success('目前是演示模式,请输入'.$code);
+            }else{
+                $this->success('邮箱验证码已发送到你的邮箱，请前往查收');
+            }
+        }
+        else {
+            $this->error('邮箱验证码发送失败，请重新点击发送');
+        }
+    }
+
 
 	public function myzc()
 	{

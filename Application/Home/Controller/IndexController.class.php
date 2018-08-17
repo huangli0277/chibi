@@ -63,15 +63,16 @@ class IndexController extends HomeController
                 $Market[$v['name']] = $v;
             }
             foreach ($CoinList as $k => $v) {
-                if($Market[C('market_type')[$v['name']]]['status'] != 1){
-                    continue;
-                }
+
 
                 if ($v['name'] == 'cny') {
                     $ky = round($UserCoin[$v['name']], 2) * 1;//可用数量
                     $dj = round($UserCoin[$v['name'] . 'd'], 2) * 1;//冻结数量
                     $zj = $zj + $ky + $dj;//计算预估总资产
                 }else {
+                    if($Market[C('market_type')[$v['name']]]['status'] != 1){
+                        continue;
+                    }
                     if ($Market[C('market_type')[$v['name']]]['new_price']) {
                         $jia = $Market[C('market_type')[$v['name']]]['new_price'];
                     }else {

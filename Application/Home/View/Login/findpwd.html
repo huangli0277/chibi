@@ -141,14 +141,14 @@
 					wait--;
 					if (wait < 0) {
 						clearInterval(interval);
-						$(".reloadverify").click();
+                        $("#verify_up").click();
 						$("#verify").val('');
 						obj.html('获取验证码');
 					}
 					;
 				}, 1000);
 			} else {
-				$(".reloadverify").click();
+                $("#verify_up").click();
 				layer.msg(data.info, {icon: 2,time:2000},function(){
                     if (data.url) {
                         window.location = data.url;
@@ -196,14 +196,14 @@
                     wait--;
                     if (wait < 0) {
                         clearInterval(interval);
-                        $(".reloadverify").click();
+                        $("#verify_up").click();
                         $("#verify").val('');
                         obj.html('获取验证码');
                     }
                     ;
                 }, 1000);
             } else {
-                $(".reloadverify").click();
+                $("#verify_up").click();
                 layer.msg(data.info, {icon: 2,time:2000},function(){
                     if (data.url) {
                         window.location = data.url;
