@@ -34,6 +34,9 @@ class LoginController extends HomeController
                 redirect('/User');
             }
         }else{
+            if($_GET['invit']){
+                session('invit',$_GET['invit']);
+            }
             $this->display();
         }
     }
@@ -71,6 +74,7 @@ class LoginController extends HomeController
                 $this->error('登录密码格式错误！');
             }
         }
+        $moble = $this->_replace_china_mobile($moble);
         $username = $moble;
 
         if (!check($moble, 'moble')) {

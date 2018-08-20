@@ -89,8 +89,8 @@
 							<p>可用</p>
 							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['xnb']|NumToStr}</p>
 							<div class="my-asset-list-button text-nowrap">
-								<p class="text-nowrap padt4">总计(CNYT)</p>
-								<p class="text-nowrap padt2 bjs-color-white font42">{$vo['zhehe']|NumToStr}</p>
+								<p class="text-nowrap padt4">折合(CNYT)</p>
+								<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['zhehe']|NumToStr}</p>
 							</div>
 						</li>
 						<li>
@@ -103,8 +103,8 @@
 							<h4 class="my-asset-list-title">
 								<a href="/finance/asset_detail/coin/{$vo['name']}">财务记录</a>
 							</h4>
-							<p>折合(CNYT)</p>
-							<p class="my-asset-list-price text-nowrap bjs-color-white">{$vo['zhehe']|NumToStr}</p>
+							<p>总计</p>
+							<p class="text-nowrap padt2 bjs-color-white font42">{$vo['xnbz']|NumToStr}</p>
 							<div class="my-asset-list-button text-nowrap">
 								<p class="padt4 tr">
 									<eq name="vo.zr_jz" value='1'>

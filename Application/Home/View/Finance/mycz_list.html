@@ -36,7 +36,7 @@
 									<td>
 										<eq name="vo.tpl" value="买入">
 											<eq name="vo.status" value="1">
-												未付款<a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="cb94e50">我已付款</span> </a>
+												未付款<a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="cb94e50">我已付款</span> </a>
 											</eq>
 											<eq name="vo.status" value="2">
 												待卖家确认
@@ -44,10 +44,10 @@
 										</eq>
 										<eq name="vo.tpl" value="卖出">
 											<eq name="vo.status" value="1">
-												未付款<a  href="/Finance/mycz_q/id/{$vo.cid}" style="    color: #2674FF!important;"> <span class="cb94e50">我已收款</span> </a>
+												未付款<a  href="javascript:;" onclick="complete('{$vo.cid}')" style="    color: #2674FF!important;"> <span class="cb94e50">我已收款</span> </a>
 											</eq>
 											<eq name="vo.status" value="2">
-												已付款 <a  href="/Finance/mycz_q/id/{$vo.cid}"> <span class="c00ffff">我已收款 </span></a>
+												已付款 <a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="c00ffff">我已收款 </span></a>
 											</eq>
 										</eq>
 										<eq name="vo.status" value="99">
@@ -187,18 +187,48 @@ jQuery(document).ready(function($){
 });
 
     function cancel(id){
-//http://localhost/Finance/mycz_del/id/
-        lock = 1;
-        $.post("/Finance/mycz_del/id/"+id, {}, function (data) {
-            lock = 0;
-            if (data.status == 1) {
-                layer.msg(data.info, {icon: 1});
-                window.setTimeout("refreshPage()",1000);
-            } else {
-                layer.msg(data.info, {icon: 2});
+        layer.confirm('', {
+            btn: ['确定', '取消'] //可以无限个按钮
+            ,btnAlign: 'c'
+            ,maxWidth: 280
+            ,title: '确认取消?'
+            ,btn1: function(index, layero){
+                layer.close(index);
+                lock = 1;
+                $.post("/Finance/mycz_del/id/"+id, {}, function (data) {
+                    lock = 0;
+                    if (data.status == 1) {
+                        layer.msg(data.info, {icon: 1});
+                        window.setTimeout("refreshPage()",1000);
+                    } else {
+                        layer.msg(data.info, {icon: 2});
+                    }
+                }, "json");
             }
-        }, "json");
-	}
+        });
+    }
+
+    function complete(id){
+        layer.confirm('', {
+            btn: ['确定', '取消'] //可以无限个按钮
+            ,btnAlign: 'c'
+            ,maxWidth: 280
+            ,title: '确认已支付?'
+            ,btn1: function(index, layero){
+                layer.close(index);
+                lock = 1;
+                $.post("/Finance/mycz_q/id/"+id, {}, function (data) {
+                    lock = 0;
+                    if (data.status == 1) {
+                        layer.msg(data.info, {icon: 1});
+                        window.setTimeout("refreshPage()",1000);
+                    } else {
+                        layer.msg(data.info, {icon: 2});
+                    }
+                }, "json");
+            }
+        });
+    }
 	function refreshPage(){
 		window.location = "/Finance/mycz.html";
 	}
