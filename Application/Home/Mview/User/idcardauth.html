@@ -131,7 +131,7 @@
             });
             //发送数据
             $.ajax({
-                url: '/ajax/imgbank',
+                url: '/ajax/imgUser',
                 type: 'POST',
                 data: data,
                 cache: false,
@@ -144,7 +144,7 @@
                             return false;
                         }
                         //$('#sdcard1').attr('src','/Upload/pay/' + data);
-                        $('#zhengmian').attr('src','/Upload/pay/' + data);
+                        $('#zhengmian').attr('src','/Upload/idcard/' + data);
                         $('#card1').val(data);
                     }
                 },
@@ -164,7 +164,7 @@
             });
             //发送数据
             $.ajax({
-                url: '/ajax/imgbank',
+                url: '/ajax/imgUser',
                 type: 'POST',
                 data: data,
                 cache: false,
@@ -177,7 +177,7 @@
                             return false;
                         }
                         //$('#sdcard1').attr('src','/Upload/pay/' + data);
-                        $('#beimian').attr('src','/Upload/pay/' + data);
+                        $('#beimian').attr('src','/Upload/idcard/' + data);
                         $('#card2').val(data);
                     }
                 },
@@ -197,7 +197,7 @@
             });
             //发送数据
             $.ajax({
-                url: '/ajax/imgbank',
+                url: '/ajax/imgUser',
                 type: 'POST',
                 data: data,
                 cache: false,
@@ -210,7 +210,7 @@
                             return false;
                         }
                         //$('#sdcard1').attr('src','/Upload/pay/' + data);
-                        $('#shouchi').attr('src','/Upload/pay/' + data);
+                        $('#shouchi').attr('src','/Upload/idcard/' + data);
                         $('#card3').val(data);
                     }
                 },
