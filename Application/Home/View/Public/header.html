@@ -23,7 +23,7 @@
     <script type="text/javascript">
         var home;
         var resourcesPath = '__PUBLIC__/v2/';
-        var localPath = 'http://ws.bjs.bi:8080/award/';
+        var localPath = 'https://service.bjs.bi/award/';
         $(function() {
             home = new bjsIndex();
         });
@@ -86,16 +86,22 @@
                             <a href="{:U('Login/loginout')}">退出</a>
                         </li>
                         <li class="user-info pull-right">
-                            <a class="user-name" href="javascript:;"><span><em>{$Think.session.nickName}</em></span></a>
+                            <a class="user-name" href="/User"><span><em>{$Think.session.nickName}</em></span></a>
                             <div class="user-info-list">
                                 <div class="clearfix">
                                     <div class="user-info-item">
-                                        <h4>可用余额</h4>
-                                        <p><strong>{$userCoin_top['cny']}CNYT</strong></p>
+                                        <h4>当前等级：<span>VIP0</span></h4>
                                     </div>
                                     <div class="user-info-item">
-                                        <h4>委托冻结</h4>
-                                        <p><strong>{$userCoin_top['cnyd']}CNYT</strong></p>
+                                        <h4>当前交易费折扣：<strong>无</strong></h4>
+                                    </div>
+                                    <div class="user-info-item">
+                                        <h4>可用余额：</h4>
+                                        <p><strong>{$userCoin_top['cny']}</strong> CNYT</p>
+                                    </div>
+                                    <div class="user-info-item">
+                                        <h4>委托冻结：</h4>
+                                        <p><strong>{$userCoin_top['cnyd']}</strong> CNYT</p>
                                     </div>
                                 </div>
                             </div>

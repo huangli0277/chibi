@@ -345,6 +345,10 @@ function createQRcode($save_path, $qr_data = 'PHP QR Code :)', $qr_level = 'L', 
     }
 }
 
+function tousdt($price){
+    return round($price/7,2);
+}
+
 function NumToStr($num)
 {
     if (!$num) {
@@ -558,14 +562,33 @@ function SendText($cell, $code, $type)
     $sign = "bjs";
 
     //识别境内境外
-    if ((strpos($cell, "0086") || strpos($cell, "086") || strpos($cell, "+86")) || !strpos($cell, "00"))
-        $dest = "china";
-    else
+    if (strpos($cell, "00") === 0) {
         $dest = "foreign";
+    } else {
+        switch ($type){
+            case "reg":
+                send_moble($cell, "bjs注册，your code：".$code);
+                break;
+            case "chg":
+                send_moble($cell, "bjs修改手机，your code：".$code);
+                break;
+            case "cur":
+                send_moble($cell, "bjs当前操作，your code：".$code);
+                break;
+            case "fog":
+                send_moble($cell, "bjs找回密码，your code：".$code);
+                break;
+            default:
+                send_moble($cell, "bjs当前操作，your code：".$code);
+                break;
+        }
+        return 1;
+    }
+
 
     //模板识别
     $template = "";
-    switch ($type){
+    switch ($type) {
         case "reg":
             if ($dest == "china") $template = "SMS_142148034";
             else $template = "SMS_142151963";

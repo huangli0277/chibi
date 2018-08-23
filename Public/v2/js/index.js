@@ -1,6 +1,6 @@
 var bjsIndex = (function(){
 	var bjsIndex = function(){
-		this.localPath = typeof localPath === 'undefined' ? 'http://ws.bjs.bi:8080/award/' : localPath;
+		this.localPath = typeof localPath === 'undefined' ? 'https://service.bjs.bi/award/' : localPath;
 		this.resourcesPath = typeof resourcesPath === 'undefined' ? '' : resourcesPath;
 		this.indexUrl = {
 			day3: 'market/day3',
@@ -768,7 +768,7 @@ var bjsIndex = (function(){
 		});
 	}
 	bjsIndex.prototype.getStar = function(callback){
-		var _this = this;		
+		var _this = this;
 		_this.fetch(_this.localPath+_this.indexUrl.starGet,{userId:_this.userInfo.userId},'post','json',callback);
 	}
 	bjsIndex.prototype.addStar = function(cid,callback){
@@ -879,8 +879,21 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.getUserInfo = function(){
 		var info = {
-			userId: typeof userId == 'undefined' ? 'lvyong' : userId
+			userId: ''
 		};
+		$.ajax({
+			url: "/login/getuid/t/"+Math.ceil(Math.random()*1000000000000),
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			async: false,
+			success: function(result){
+				if(result.userid){
+					info.userId = result.userid;
+				}
+			}
+		});
+	    console.log(info)
 		return info;
 	}
 	bjsIndex.prototype.initSkin = function(){

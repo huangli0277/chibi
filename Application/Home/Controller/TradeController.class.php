@@ -376,10 +376,15 @@ class TradeController extends HomeController
             }
         }
         $user_coin = M('UserCoin')->where(array('userid' => userid()))->find();
-
+        $fee_discounts = M('FeeDiscount')->select();
+        $fee_discounts = array_column($fee_discounts, 'fee');
         if ($type == 1) {
             $trade_fee = C('market')[$market]['fee_buy'];
-
+            if($user['backstage_vip'] != 0){
+                $trade_fee = $trade_fee * (1 - $user['backstage_fee_discount']);
+            }else{
+                $trade_fee = $trade_fee * (1 - $fee_discounts[$user['vip']]);
+            }
             if ($trade_fee) {
                 $fee = round((($num * $price) / 100) * $trade_fee, 8);
                 $mum = round((($num * $price) / 100) * (100 + $trade_fee), 8);
@@ -393,7 +398,11 @@ class TradeController extends HomeController
             }
         } else if ($type == 2) {
             $trade_fee = C('market')[$market]['fee_sell'];
-
+            if($user['backstage_vip'] != 0){
+                $trade_fee = $trade_fee * (1 - $user['backstage_fee_discount']);
+            }else{
+                $trade_fee = $trade_fee * (1 - $fee_discounts[$user['vip']]);
+            }
             if ($trade_fee) {
                 $fee = round((($num * $price) / 100) * $trade_fee, 8);
                 $mum = round((($num * $price) / 100) * (100 - $trade_fee), 8);

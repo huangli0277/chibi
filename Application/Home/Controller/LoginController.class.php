@@ -37,6 +37,7 @@ class LoginController extends HomeController
             if($_GET['invit']){
                 session('invit',$_GET['invit']);
             }
+            $this->assign('invitCode', $_GET['invit']);//显示邀请码
             $this->display();
         }
     }

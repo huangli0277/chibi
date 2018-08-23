@@ -1583,6 +1583,22 @@ class FinanceController extends HomeController
         $this->display();
     }
 
+
+    public function zcdb(){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $where['userid'] = userid();
+        $Moble = M('LockCoin');
+        $count = $Moble->where($where)->count();
+        $Page = new \Think\Page($count, 10);
+        $show = $Page->show();
+        $list = $Moble->where($where)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $this->assign('list', $list);
+        $this->assign('page', $show);
+        $this->display();
+    }
+
 }
 
 ?>

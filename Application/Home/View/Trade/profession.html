@@ -344,7 +344,7 @@
                                         </div>
                                         <div class="my-tab-scroll-cont trade-profession-global-scroll-cont-d"
                                              id="my-tab-scroll-box-d">
-                                            <div id="selllist">
+                                            <div id="selllist" class="dialog-loading">
                                             </div>
                                             <!--最新价卖模板-->
                                             <script type="text/template" id="selllist-tmp">
@@ -371,7 +371,7 @@
                                         <div class="trade-profession-global-scroll-bob"></div>
                                         <div class="my-tab-scroll-cont trade-profession-global-scroll-cont-f"
                                              id="my-tab-scroll-box-f">
-                                            <div id="buylist">
+                                            <div id="buylist" class="dialog-loading">
                                             </div>
                                             <!--最新价买模板-->
                                             <script type="text/template" id="buylist-tmp">
@@ -424,7 +424,7 @@
                                         </div>
                                         <div class="my-tab-scroll-cont trade-profession-global-scroll-cont"
                                              id="my-tab-scroll-box-e">
-                                            <div>
+                                            <div id="orderlistLoading" class="dialog-loading">
                                                 <table class="c2c-table">
                                                     <thead>
                                                     <tr>
@@ -936,6 +936,7 @@
                     var tpl = $('#orderlist-tmp').html();
                     var _html = template(tpl, dataTmp);
                     $("#orderlist").html(_html);
+                    $('#orderlistLoading').removeClass('dialog-loading');
                 }
             }
         }
@@ -953,7 +954,7 @@
                             var tpl = $('#selllist-tmp').html();
                             _html = template(tpl, dataTmp);
                         }
-                        $("#selllist").html(_html);
+                        $("#selllist").html(_html).removeClass('dialog-loading');
                         home.refreshIScroll("my-tab-scroll-box-d");
                         _html = '';
                         if (data['depth']['buy']) {
@@ -963,7 +964,7 @@
                             var tpl = $('#buylist-tmp').html();
                             _html = template(tpl, dataTmp);
                         }
-                        $("#buylist").html(_html);
+                        $("#buylist").html(_html).removeClass('dialog-loading');
                         home.refreshIScroll("my-tab-scroll-box-f");
                     }
                 }

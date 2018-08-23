@@ -3,7 +3,7 @@ var bjsIndex = (function(){
 		this.init();
 	}
 	bjsIndex.prototype.init = function(){
-		this.localPath = typeof localPath === 'undefined' ? 'http://ws.bjs.bi:8080/award/' : localPath;
+		this.localPath = typeof localPath === 'undefined' ? 'https://service.bjs.bi/award/' : localPath;
 		this.indexUrl = {
 			starAdd: 'user/star/add',
 			starRemove: 'user/star/remove',

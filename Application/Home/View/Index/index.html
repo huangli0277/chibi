@@ -61,12 +61,12 @@
                             <ul class="clearfix bjs-tab-tr" data-id="{$vo.url}">
                                 <li><a href="/trade/index/market/{$vo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$vo.img}"/>{$vo.title}</span></a></li>
                                 <if condition="$vo['class'] eq 'red'">
-                                    <li><span class="icon-arrow-down">{$vo.new_price}</span><span class="bjs-tab-price">/￥{$vo.rmb}</span><span class="icon-arrow-down">↓</span></li>
+                                    <li><span class="icon-arrow-down">￥{$vo.new_price}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
                                     <li>{$vo.volume}</li>
                                     <li>{$vo.volumes}</li>
                                     <li><span class="icon-arrow-down {$vo.class}">{$vo.change}%</span></li>
                                     <else />
-                                    <li><span class="icon-arrow-up">{$vo.new_price}</span><span class="bjs-tab-price">/￥{$vo.rmb}</span><span class="icon-arrow-up">↑</span></li>
+                                    <li><span class="icon-arrow-up">￥{$vo.new_price}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
                                     <li>{$vo.volume}</li>
                                     <li>{$vo.volumes}</li>
                                     <li><span class="icon-arrow-up">{$vo.change}%</span></li>
@@ -86,12 +86,12 @@
                                 <ul class="clearfix bjs-tab-tr" data-id="{$voo.url}">
                                     <li><a href="/trade/index/market/{$voo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
                                     <if condition="$voo['class'] eq 'red'">
-                                        <li><span class="icon-arrow-down">{$voo.new_price}</span><span class="bjs-tab-price">/￥{$voo.rmb}</span><span class="icon-arrow-down">↓</span></li>
+                                        <li><span class="icon-arrow-down">￥{$voo.new_price}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-down {$voo.class}">{$voo.change}%</span></li>
                                         <else />
-                                        <li><span class="icon-arrow-up">{$voo.new_price}</span><span class="bjs-tab-price">/￥{$voo.rmb}</span><span class="icon-arrow-up">↑</span></li>
+                                        <li><span class="icon-arrow-up">￥{$voo.new_price}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-up">{$voo.change}%</span></li>
@@ -113,12 +113,12 @@
                                 <ul class="clearfix bjs-tab-tr" data-id="{$voo.url}">
                                     <li><a href="/trade/index/market/{$vo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
                                     <if condition="$voo['class'] eq 'red'">
-                                        <li><span class="icon-arrow-down">{$voo.new_price|NumToStr}</span><span class="bjs-tab-price">/￥{$voo.rmb}</span><span class="icon-arrow-down">↓</span></li>
+                                        <li><span class="icon-arrow-down">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-down {$voo.class}">{$voo.change}%</span></li>
                                         <else />
-                                        <li><span class="icon-arrow-up">{$voo.new_price|NumToStr}</span><span class="bjs-tab-price">/￥{$voo.rmb}</span><span class="icon-arrow-up">↑</span></li>
+                                        <li><span class="icon-arrow-up">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-up">{$voo.change}%</span></li>

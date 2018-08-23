@@ -642,8 +642,17 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
         $user = M('User')->where(array('idcard' => $idcard))->find();
         if ($user) {
-            $this->error('您的身份证号码已经认证<br>认证账号为：' . $user["username"] . '！');
+            if($user['id'] != userid()){
+                $this->error('您的身份证号码已经认证<br>认证账号为：' . $user["username"] . '！');
+            }
+        }else{
+            $user = M('User')->where(array('id' => userid()))->find();
         }
+
+        if($user['idcardauth'] == 1){
+            $this->error('当前账户已认证');
+        }
+
         $path = $card1 . "_" . $card2 . "_" . $card3;
         if (M('User')->where(array('id' => userid()))->save(array('truename' => $truename, 'idcard' => $idcard,'idcardimg1' => $path, 'idcardinfo' => ''))) {
             $this->success('成功！');

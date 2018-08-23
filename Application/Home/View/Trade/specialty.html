@@ -300,11 +300,11 @@ button,select {
 }
 
 #loading,.notify {
- position: absolute; top: 20%; width: 100%; font-size: 18px; text-align: center; z-index: 99;
+ position: absolute; margin-top: -40px; top: 50%; width: 100%; font-size: 18px; text-align: center; z-index: 99;
 }
 
 #loading .inner,.notify .inner {
- margin-top: -32px; line-height: 32px; display: inline-block; *display: inline; *zoom: 1; padding: 12px 24px; border: 1px solid #333; border-radius: 5px; background-color: rgba(10, 10, 10, 0.8);
+ line-height: 32px; display: inline-block; *display: inline; *zoom: 1;/* padding: 12px 24px; border: 1px solid #333; border-radius: 5px; background-color: rgba(10, 10, 10, 0.8);*/
 }
 
 .dark {
@@ -564,9 +564,9 @@ button,select {
  border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);
 }
 
-.light #loading .inner {
+/*.light #loading .inner {
  background-color: rgba(255, 255, 255, 0.8); border: 1px solid #CCC;
-}
+}*/
 
 .light .dropdown .t {
  border: 1px solid #ebecf1;
@@ -1252,6 +1252,10 @@ code {
 .hide {
  display: none;
 }
+/*---- loading ----*/
+.dialog-loading{position: relative; min-height: 80px; min-width: 80px; text-indent: -10000px;}
+.dialog-loading:after{content: ""; display: block; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,0) url(__PUBLIC__/m/images/load2.svg) no-repeat center center / 80px 80px;}
+
 </style>
 </head>
 <body>
@@ -1368,7 +1372,7 @@ code {
 						<li class="sep"></li>
 						<li>
 							已更新
-							<span id="change">12</span>
+							<span id="change">0</span>
 							秒
 							<span id="realtime_error" style="display: none">
 								in <abbr title="Realtime(WebSocket) connection failed. Orderbook update every 1 minute, Trades update every 10 seconds.">Slow Mode</abbr>
@@ -1380,7 +1384,7 @@ code {
 		</div>
 	</div>
 	<div id="loading">
-		<div class="inner">
+		<div class="inner dialog-loading">
 			<div class="text">Loading...</div>
 		</div>
 	</div>

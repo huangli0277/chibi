@@ -3367,7 +3367,7 @@ Zt.optgroup=Zt.option,Zt.tbody=Zt.tfoot=Zt.colgroup=Zt.caption=Zt.thead,Zt.th=Zt
                             var t, i, u;
                             if (io = arguments[0], Go = arguments[1], io) return go(io),
                             n();
-                            for (u = Go.reverse(), t = 0, i = u.length; i > t; t++) e = u[t],
+                            if (Go) for (u = Go.reverse(), t = 0, i = u.length; i > t; t++) e = u[t],
                             e.tid <= $n && (r = Be(e), ei.push(r));
                             bo = !0,
                             n(o)

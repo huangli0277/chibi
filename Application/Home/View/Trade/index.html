@@ -78,9 +78,9 @@
                                             <li>{{= coin_list[i].new_price }}</li>
                                             <li>
                                                 {{ if (coin_list[i].change > 0){ }}
-                                                <span class="icon-arrow-up">+{{= coin_list[i].change }}</span>
+                                                <span class="icon-arrow-up">+{{= coin_list[i].change }}%</span>
                                                 {{ } else if (coin_list[i].change < 0){ }}
-                                                <span class="icon-arrow-down">{{= coin_list[i].change }}</span>
+                                                <span class="icon-arrow-down">{{= coin_list[i].change }}%</span>
                                                 {{ } else { }}
                                                 <span class="c414755">{{= coin_list[i].change }}</span>
                                                 {{ } }}
@@ -549,7 +549,7 @@
                                         </div>
                                     </div>
                                     <div class="my-tab-scroll-cont my-tab-scroll-cont4" id="my-tab-scroll-box-4">
-                                        <div id="selllist">
+                                        <div id="selllist" class="dialog-loading">
                                         </div>
                                         <!--最新价卖模板-->
                                         <script type="text/template" id="selllist-tmp">
@@ -565,8 +565,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="c2c-table-item-3">{{= sellers[i][1]}}</li>
-                                                    <li class="c2c-table-item-4">{{= (sellers[i][0] *
-                                                        sellers[i][1]).toFixed(6) }}
+                                                    <li class="c2c-table-item-4">{{= (sellers[i][0] * sellers[i][1]).toFixed(6) }}
                                                     </li>
                                                     <li class="c2c-table-item-rect"></li>
                                                 </ul>
@@ -578,7 +577,7 @@
                                     <div class="my-tab-scroll-cont4-bob"></div>
 
                                     <div class="my-tab-scroll-cont my-tab-scroll-cont6" id="my-tab-scroll-box-6">
-                                        <div id="buylist">
+                                        <div id="buylist" class="dialog-loading">
                                         </div>
                                         <!--最新价买模板-->
                                         <script type="text/template" id="buylist-tmp">
@@ -594,8 +593,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="c2c-table-item-3">{{= buyers[i][1] }}</li>
-                                                    <li class="c2c-table-item-4">{{= (buyers[i][0] *
-                                                        buyers[i][1]).toFixed(6) }}
+                                                    <li class="c2c-table-item-4">{{= (buyers[i][0] * buyers[i][1]).toFixed(6) }}
                                                     </li>
                                                     <li class="c2c-table-item-rect"></li>
                                                 </ul>
@@ -631,7 +629,7 @@
                                         </table>
                                     </div>
                                     <div class="my-tab-scroll-cont my-tab-scroll-cont5">
-                                        <div>
+                                        <div id="orderlistLoading" class="dialog-loading">
                                             <table class="c2c-table">
                                                 <thead>
                                                 <tr>
@@ -1058,6 +1056,7 @@
                 var tpl = $('#orderlist-tmp').html();
                 var _html = template(tpl, dataTmp);
                 $("#orderlist").html(_html);
+                $('#orderlistLoading').removeClass('dialog-loading');
             }
         }
     }
@@ -1075,7 +1074,7 @@
                         var tpl = $('#selllist-tmp').html();
                         _html = template(tpl, dataTmp);
                     }
-                    $("#selllist").html(_html);
+                    $("#selllist").html(_html).removeClass('dialog-loading');
                     home.refreshIScroll("my-tab-scroll-box-4");
                     if (selllist_state) {
                         home.iscroll['my-tab-scroll-box-4'].scrollTo(0, home.iscroll['my-tab-scroll-box-4'].maxScrollY, 0);
@@ -1089,7 +1088,7 @@
                         var tpl = $('#buylist-tmp').html();
                         _html = template(tpl, dataTmp);
                     }
-                    $("#buylist").html(_html);
+                    $("#buylist").html(_html).removeClass('dialog-loading');;
                     home.refreshIScroll("my-tab-scroll-box-6");
                 }
             }
@@ -1512,7 +1511,7 @@
         $.getJSON("/login/getuid/t/" + Math.ceil(Math.random() * 1000000000000), function (result) {
             if (result.userid) {
                 name = result.userid;
-                userId = result.moble;
+                userId = result.userid;
                 home.userInfo.userId = userId;
                 isLogin = 1;
                 $("#username").html(result.nickName);

@@ -761,7 +761,7 @@ class AjaxController extends HomeController
 					$data['list'][$k]['title'] = str_replace("CNY","CNYT",$v['title']);
 					$data['list'][$k]['new_price'] = $v['new_price'];
                     $data['list'][$k]['main_coin'] = $v['main_coin'];
-                    $data['list'][$k]['change'] = $v['change'];
+                    $data['list'][$k]['change'] = round($v['change'],2);
 				}
 
 				$data['info']['img'] = C('market')[$market]['xnbimg'];

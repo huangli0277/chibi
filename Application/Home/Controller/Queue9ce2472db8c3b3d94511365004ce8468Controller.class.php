@@ -404,11 +404,13 @@ class Queue9ce2472db8c3b3d94511365004ce8468Controller extends HomeController
                     if (!$user) continue;
 
                     $to_num = substr($trans['input'], 74);//数量
-                    if ($coin == "btm" || $coin == "wicc") {
+                    if ($coin == "btm" || $coin == "wicc" || $coin == "esm") {
                         $num = $EthCommon->fromWei3($to_num);
-                    } else if ($coin == "esm") {
+                    }
+                    /*else if ($coin == "esm") {
                         $num = base_convert($to_num, 16, 10);
-                    } else {
+                    } */ //老百姓链小数点后无位,新百姓链小数点后八位,正常代币设置
+                    else {
                         $num = $EthCommon->fromWei($to_num);
                     }
 
