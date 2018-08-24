@@ -6,6 +6,9 @@
 <meta name="format-detection" content="telephone=no">
 <title>笔加索移动端首页</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/swiper.min.css">
 <style type="text/css">
 
@@ -124,8 +127,8 @@
 										</div>
 								</li>
 								<li class="tc">
-										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-										<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+									<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+									<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 								</li>
 								<li class="tr">
 										<if condition="$voo['class'] eq 'red'">
@@ -158,8 +161,8 @@
 											</div>
 									</li>
 									<li class="tc">
-											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+										<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 									</li>
 									<li class="tr">
 											<if condition="$voo['class'] eq 'red'">
@@ -192,8 +195,8 @@
 											</div>
 									</li>
 									<li class="tc">
-											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+										<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 									</li>
 									<li class="tr">
 											<if condition="$voo['class'] eq 'red'">

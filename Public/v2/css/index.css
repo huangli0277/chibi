@@ -85,47 +85,9 @@ input:-webkit-autofill:active {
     cursor: default;
 }
 .lang-option span {
-    margin-right: 3px;
-}
-.caret {
-    position: relative;
     display: inline-block;
-    width: 0;
-    height: 0;
-    margin: 0 -6px 0 4px;
     vertical-align: middle;
-    border-top: 4px dashed;
-        border-top-width: 4px;
-    border-right: 4px solid transparent;
-        border-right-width: 4px;
-    border-left: 4px solid transparent;
-        border-left-width: 4px;
-    border-width: 5px;
-    color: #d8dfe4;
-    transition: all 0.3s;
-}
-.top-dn .caret, .top-up .caret {
-    color: #8f9fa5;
-}
-.caret::before {
-    content: '';
-    position: absolute;
-    top: -7px;
-    left: -5px;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-top: 4px dashed;
-        border-top-width: 4px;
-    border-right: 4px solid transparent;
-        border-right-width: 4px;
-    border-left: 4px solid transparent;
-        border-left-width: 4px;
-    border-width: 5px;
-    color: #fff;
-}
-.lang-option .caret::before, #nickName .caret::before {
-    color: #09162e;
+    margin-top: -3px;
 }
 .login_lan .more-lan {
     position: absolute;
@@ -136,14 +98,14 @@ input:-webkit-autofill:active {
     transition: all 0.5s;
 }
 .login_lan .more-lan a {
-    background: #333a44;
-    color: #eee;
-    padding: 5px 20px;
-    text-align: center;
+    background: #1b1c25;
+    padding: 10px;
+    line-height: 1;
     display: block;
 }
-.lang-option:hover span {
-    color: #d45858;
+.lang-option .iti-flag{margin-right: 5px;}
+.login_lan .more-lan a:hover{
+    background-color: #232830;
 }
 .login_lan .lang-option:hover .more-lan{
     display: block;
@@ -207,7 +169,7 @@ body{background: #181820; min-width: 1200px; color: #8b93a0; font-size: .16rem;}
 .user_info_list .top-links a{padding: 25px 10px; color: #8b93a0;}
 .user_info_list .lang-option span{margin-right: 3px; display: block; padding: 25px 0;}
 .top-links-mobile{padding-left: 16px; background: url(../images/bjs-icon.png) no-repeat 0 -540px;}
-.style-white,.style-black{display: inline-block; width: 10px; height: 10px; vertical-align: middle; border: 1px solid #bababd; cursor: pointer; margin-left: 5px;}
+.style-white,.style-black{display: inline-block; width: 10px; height: 10px; vertical-align: middle; margin-top: -3px; border: 1px solid #bababd; cursor: pointer; margin-left: 5px;}
 .style-white{background: #fff;}
 .style-black{background: #242731;}
 
@@ -1222,7 +1184,7 @@ color: rgba(94,102,120,.7);
 
 
 /*suocang*/
-.suocang-item{display: inline-block; width: 100px;}
+.suocang-item{display: inline-block; width: 140px;}
 .new-form-input{height: .32rem; padding: .05rem;}
 .new-form-submit{width: auto; padding: .05rem .15rem; font-size: .16rem; margin: 0;}
 

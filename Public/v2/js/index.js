@@ -14,6 +14,7 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.init = function(){
 		this.initSkin();
+		this.initLanguage();
 		//全局通用
 		//$(window).resize(this.initFontSize);
 		//this.initFontSize();
@@ -938,6 +939,16 @@ var bjsIndex = (function(){
 				    skin: 'myskin'
 				});
 			}
+		});
+	}
+	bjsIndex.prototype.initLanguage = function(){
+		$(document).on('click','.lang-option a',function(){
+			var language = $(this).data('language');
+			if($.cookies.get('think_language') == language){
+				return false;
+			}
+			$.cookies.set('think_language',language,30);
+			window.location.reload();
 		});
 	}
 	bjsIndex.prototype.initProgress = function(callback){

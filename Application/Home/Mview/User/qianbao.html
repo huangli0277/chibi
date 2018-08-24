@@ -6,6 +6,9 @@
     <meta name="format-detection" content="telephone=no">
     <title>提币地址</title>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
     <style type="text/css">
 
     </style>
@@ -80,15 +83,15 @@
             <ul class="uc-form">
                 <li class="wrap-form-item">
                     <p class="clearfix"><span class="wrap-form-label">地址</span></p>
-                    <input class="form-input" id="qianbao_addr" type="text" name="name[]" placeholder="输入或粘贴地址">
+                    <input class="form-input bg1a1c24" id="qianbao_addr" type="text" name="name[]" placeholder="输入或粘贴地址">
                 </li>
                 <li class="wrap-form-item">
                     <p class="clearfix"><span class="wrap-form-label">备注</span></p>
-                    <input class="form-input" id="qianbao_name"  type="text" name="name[]" placeholder="填写备注">
+                    <input class="form-input bg1a1c24" id="qianbao_name"  type="text" name="name[]" placeholder="填写备注">
                 </li>
                 <li class="wrap-form-item">
                     <p class="clearfix"><span class="wrap-form-label">交易密码</span></p>
-                    <input class="form-input" id="qianbao_paypassword" type="password" name="name[]" placeholder="输入交易密码">
+                    <input class="form-input bg1a1c24" id="qianbao_paypassword" type="password" name="name[]" placeholder="输入交易密码">
                 </li>
                 <li class="wrap-form-item wrap-form-item-submit">
                     <button class="default-form-submit default-form-blue" id="add-biti-address-submit">确定</button>
@@ -127,6 +130,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">

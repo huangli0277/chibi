@@ -6,35 +6,31 @@
         <div class="bjs-tab-head">
             <ul class="window-wrap w1500 clearfix flex-box">
                 <li>
-                    <a class="active" href="javascript:;"><span>对CNYT交易区</span></a>
+                    <a class="active" href="javascript:;"><span>{$Think.Lang.V_INDEX_CNYT}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:;"><span>对USDT交易区</span></a>
+                    <a href="javascript:;"><span>{$Think.Lang.V_INDEX_USDT}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:;"><span>对BTC交易区</span></a>
+                    <a href="javascript:;"><span>{$Think.Lang.V_INDEX_BTC}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:;"><span>对ETH交易区</span></a>
+                    <a href="javascript:;"><span>{$Think.Lang.V_INDEX_ETH}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:;"><span>限时交易区</span></a>
+                    <a href="javascript:;"><span>{$Think.Lang.V_INDEX_TIME_LIMIT}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:;" class="localStorage-star"><span>我的自选区</span></a>
+                    <a href="javascript:;" class="localStorage-star"><span>{$Think.Lang.V_INDEX_COIN_STAR}</span></a>
                 </li>
             </ul>
         </div>
         <div class="bjs-search">
             <div class="window-wrap w1500 clearfix">
                 <div class="bjs-tab-tr clearfix">
-                    <div class="bjs-notice pull-left">
-                        <div class="bjs-notice-icon pull-left"><span>公告:</span> </div>
-                        <div class="bjs-notice-list pull-left"><p>已经完成EOSDAC主网切换并开放秒充秒提功能</p></div>
-                        <div class="bjs-notice-more pull-left"><a href="#">查看更多...</a></div>
-                    </div>
+
                     <div class="bjs-search-box pull-right">
-                        <input type="text" name="keywords" placeholder="搜索CNYT交易区">
+                        <input type="text" name="keywords" placeholder="{$Think.Lang.V_INDEX_COIN_SEARCH}">
                     </div>
                 </div>
             </div>
@@ -111,7 +107,7 @@
                         <volist name="lists" id="voo">
                             <eq name="voo.main_coin" value="2">
                                 <ul class="clearfix bjs-tab-tr" data-id="{$voo.url}">
-                                    <li><a href="/trade/index/market/{$vo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
+                                    <li><a href="/trade/index/market/{$voo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
                                     <if condition="$voo['class'] eq 'red'">
                                         <li><span class="icon-arrow-down">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
                                         <li>{$voo.volume}</li>

@@ -6,6 +6,9 @@
 	<meta name="format-detection" content="telephone=no">
 	<title>提币</title>
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
 	<style type="text/css">
 
 	</style>
@@ -23,19 +26,19 @@
 		</div>
 	</div>
 	<div class="content content2 bg1f2029">
-		<div class="my-asset-cont">
+		<div class="pad5">
 			<h3 class="font5 padt4">可用</h3>
 			<p class="padt2 bjs-color-white font62"><span class="tibi-amount">{$user_coin[$xnb]|Num}</span> <span class="tibi-name">{$coin_list[$xnb]['title']}</span></p>
 			<div class="padt4"></div>
 			<ul class="wrap-form-list padt2">
 				<li class="wrap-form-item">
 					<p class="clearfix"><span class="wrap-form-label">地址</span> <a class="pull-right lh1375 font42" href="/user/qianbao?coin={$coin_list[$xnb]['name']}">地址选择</a></p>
-					<input class="form-input" id="cnyout_bank" type="text" name="name[]" placeholder="输入或粘贴地址">
+					<input class="form-input bg1a1c24" id="cnyout_bank" type="text" name="name[]" placeholder="输入或粘贴地址">
 				</li>
 				<li class="wrap-form-item">
 					<p><span class="wrap-form-label">数量</span></p>
 					<div class="wrap-form-group">
-						<input type="text" id="cnyout_num" name="name[]" class="form-input" placeholder="输入数量">
+						<input type="text" id="cnyout_num" name="name[]" class="form-input bg1a1c24" placeholder="输入数量">
 						<div class="wrap-form-group-addon padt4">
 							<span class="font42 mr2 pull-left">{$coin_list[$xnb]['title']}</span>
 							<span class="hand bol1 font42 padl2 pull-left mr2" id="all-amount">全部</span>
@@ -123,14 +126,12 @@
 					<li class="wrap-form-item">
 						<p><span class="wrap-form-label bjs-color-white">{$moble}(接收验证码)</span></p>
 						<div class="input-group input-group-r clearfix">
-							<input type="text" name="name[]" class="form-control" id="cnyout_moble_verify" placeholder="请输入短信验证码"><span class="input-group-addon"  onclick="send_moble_coinout('sms')" id="reg_moble_new">发送</span>
+							<input type="text" name="name[]" class="form-control bg1a1c24" id="cnyout_moble_verify" placeholder="请输入短信验证码"><span class="input-group-addon"  onclick="send_moble_coinout('sms')" id="reg_moble_new">发送</span>
 						</div>
 					</li>
 					<li class="wrap-form-item">
 						<p><span class="wrap-form-label bjs-color-white">交易密码</span></p>
-						<div class="input-group input-group-r clearfix">
-							<input type="text" id="cnyout_paypassword" name="name[]" class="form-control" placeholder="输入交易密码">
-						</div>
+						<input type="text" id="cnyout_paypassword" name="name[]" class="form-input bg1a1c24" placeholder="输入交易密码">
 					</li>
 					<!--<li class="wrap-form-item">-->
 						<!--<p><span class="wrap-form-label bjs-color-white">77***1275@qq.com</span></p>-->
@@ -154,6 +155,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
@@ -211,10 +213,11 @@
         if($('#reg_moble_new').html() != '发送'){
             return;
         }
-
+        layer.load();
         $.post("{:U('Verify/myzc')}", {
             type: type,
         }, function (data) {
+            layer.closeAll('loading');
             if (data.status == 1) {
                 layer.msg(data.info, {icon: 1});
                 $(".step5").hide();

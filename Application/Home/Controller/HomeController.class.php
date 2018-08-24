@@ -64,8 +64,23 @@ class HomeController extends \Think\Controller
             $userCoin_top['cny'] = round($userCoin_top['cny'], 2);
             $userCoin_top['cnyd'] = round($userCoin_top['cnyd'], 2);
             $userCoin_top['allcny'] = round($userCoin_top['cny'] + $userCoin_top['cnyd'], 2);
+            $user = M('User')->field('vip')->where(array('id' => userid()))->find();
+            $fee_discounts = M('FeeDiscount')->select();
+            $fee_discounts = array_column($fee_discounts, 'fee');
+            $this->assign('uservip',['vipdengji'=>$user['vip'],'fee_discounts'=>$fee_discounts[$user['vip']] * 1?(($fee_discounts[$user['vip']] * 100).'%'):'无']);
             $this->assign('userCoin_top', $userCoin_top);
         }
+
+        $hui = S('hui');
+        if(empty($hui)){
+            $hui = M('Auto')->where(array('aid' => 1))->find();
+            $hui = $hui['hui'];
+            S('hui',$hui,3600);
+        }
+        $this->assign('hui', $hui);
+
+
+
 
         if (isset($_GET['invit'])) {
             session('invit', $_GET['invit']);

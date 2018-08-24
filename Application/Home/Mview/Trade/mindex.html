@@ -8,6 +8,9 @@
     <title>笔加索移动端交易</title>
     <script src="__PUBLIC__/v2/js/template.js"></script>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
     <style type="text/css">
 
     </style>
@@ -434,15 +437,22 @@
     <div class="content content2">
         <div class="pay-market">
             <h3 class="clearfix text-nowrap pay-market-title">
-                <span class="pull-left pay-market-title-price1 bjs-color-up">-</span>
+                <span class="pull-left pay-market-title-price1 bjs-color-up">￥-</span>
                 <span class="pull-right pay-market-title-price2 font42">
-						<span class="pull-left">高 <em class="bjs-color-white" id="market_max_price">-</em></span>
-						<span class="pull-left ml5">低 <em class="bjs-color-white" id="market_min_price">-</em></span>
-					</span>
+                    <span class="pull-left">高 <em class="bjs-color-white" id="market_max_price">-</em></span>
+                    <span class="pull-left ml5">低 <em class="bjs-color-white" id="market_min_price">-</em></span>
+                </span>
             </h3>
             <div class="clearfix text-nowrap pay-market-title2 font42">
-                <span class="pull-left pay-market-title2-price"><em class="bjs-color-up"
-                                                                    id="market_change">-%</em></span>
+                <span class="pull-left">
+                    <span class="pay-market-title2-price2">
+                        <em id="market_change2"></em>
+                    </span>
+                    <span class="pay-market-title2-price ml3">
+                        <em class="bjs-color-up" id="market_change">-%</em>
+                    </span>
+
+                </span>
                 <span class="pull-right">24H量 <em class="bjs-color-white" id="market_volume">-</em></span>
             </div>
         </div>
@@ -555,6 +565,7 @@
 <script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script type="text/javascript">
@@ -605,14 +616,20 @@
         if (data['info']['change']) {
             $('#market_change').removeClass('bjs-color-up');
             $('#market_change').removeClass('bjs-color-down');
+            $('.pay-market-title-price1').removeClass('bjs-color-up');
+            $('.pay-new-price').removeClass('bjs-color-up');
             if (data['info']['change'] > 0) {
                 $('#market_change').addClass('bjs-color-up');
+                $('.pay-market-title-price1').addClass('bjs-color-up');
+                $('.pay-new-price').addClass('bjs-color-up');
             } else {
                 $('#market_change').addClass('bjs-color-down');
+                $('.pay-market-title-price1').addClass('bjs-color-down');
+                $('.pay-new-price').addClass('bjs-color-down');
             }
-            $("#market_change").html(data['info']['change'] + "%");
+            $("#market_change").html(data['info']['change'].toFixed(2) + "%");
         } else {
-            $("#market_change").html(data['info']['change'] + "%");
+            $("#market_change").html(data['info']['change'].toFixed(2) + "%");
         }
     }
 </script>
@@ -804,6 +821,7 @@
     var trade_moshi = 1;
     var getDepth_tlme = null;
     var trans_lock = 0;
+    var hui = {$hui};
     var is_slide = true;//是否主动滑动
     function myFunction() {
         $("#buy_mum").html(($('#buy_num').val() * $('#buy_best_price').val()).toFixed(8) * 1);
@@ -847,7 +865,7 @@
                     boxElement.scrollTop = boxElement.scrollHeight - boxElement.clientHeight;
                     console.log(data['depth']['sell'][sellk - 1][0]);
                     var cnyt = $("#cny_num").html();//获取有多少cnyt
-                    $(".maxmum-buy").html((cnyt / data['depth']['sell'][sellk - 1][0]).toFixed(4));//赋值可以购买多少币
+                    $(".maxmum-buy").html((cnyt / (data['depth']['sell'][sellk - 1][0] * 1.002) ).toFixed(4));//赋值可以购买多少币
                     $('#buy_price').val(data['depth']['sell'][sellk - 1][0]);//将最低卖出价赋值到购买价格
                     $('#sell_price').val(data['depth']['buy'][0][0]);//将最高买入价赋值到卖出价格
                     is_slide = false;
@@ -878,7 +896,8 @@
             if (data['getJsonTop']) {
 
                 $(".pay-new-price").html(data['getJsonTop']['new_price']);//赋值最新成交价
-                $(".pay-market-title-price1").html(data['getJsonTop']['new_price']);//赋值详情页最新成交价
+                $(".pay-market-title-price1").html('￥'+data['getJsonTop']['new_price']);//赋值详情页最新成交价
+                $('#market_change2').html('$'+(data['getJsonTop']['new_price'] / hui).toFixed(2));//计算折算美元
                 // $("#cnentermoney1").html(data['getJsonTop']['new_price']);
             }
         }
@@ -905,7 +924,7 @@
                     $("#cny_num").html(data['usercoin']['cny'].toFixed(2));
                     var buy_price = $("#buy_price").val();
                     if (buy_price > 0) {
-                        $('.maxmum-buy').html((data['usercoin']['cny'] / buy_price * 1.002).toFixed(2));
+                        $('.maxmum-buy').html((data['usercoin']['cny'] / (buy_price * 1.002)).toFixed(4));
                     } else {
                         $('.maxmum-buy').html('0.00');
                     }
@@ -984,7 +1003,7 @@
         console.log(buyprice);
         //计算可以购买多少币
         if (buyprice && !isNaN(buyprice) && buyprice != null && buyprice.toString().split(".") != null) {
-            $('.maxmum-buy').html((cny_num / buyprice * 1.002).toFixed(4));
+            $('.maxmum-buy').html((cny_num / (buyprice * 1.002)).toFixed(4));
         } else {
             $('.maxmum-buy').html(0.00);
         }
@@ -1032,7 +1051,7 @@
             $('#buy_price').val($(_this).html());
             var maxNum = '';
             if ($("#cny_num").html() > 0) {
-                maxNum = toNum(($("#cny_num").html() / $('#buy_price').val() * 1.002), market_round_num);
+                maxNum = toNum(($("#cny_num").html() / ($('#buy_price').val() * 1.002)), market_round_num);
                 $(".maxmum-buy").html(maxNum);
             }
             $("#buy_num").val(maxNum);

@@ -78,4 +78,8 @@ class TaskController extends HomeController
         $this->display();
     }
 
+    public function settings(){    
+        $this->display();
+    }
+
 }

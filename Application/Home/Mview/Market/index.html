@@ -6,9 +6,12 @@
 	<meta name="format-detection" content="telephone=no">
 	<title>笔加索移动端市场</title>
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
-<style type="text/css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
+	<style type="text/css">
 
-</style>
+	</style>
 </head>
 <body>
 	<div class="wrap">
@@ -65,8 +68,8 @@
 											</div>
 									</li>
 									<li class="tc">
-											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+										<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 									</li>
 									<li class="tr">
 											<if condition="$voo['class'] eq 'red'">
@@ -99,8 +102,8 @@
 											</div>
 									</li>
 									<li class="tc">
-											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+										<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 									</li>
 									<li class="tr">
 											<if condition="$voo['class'] eq 'red'">
@@ -133,8 +136,8 @@
 											</div>
 									</li>
 									<li class="tc">
-											<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
-											<!--<p class="bi-list-tbody-tr-price3">¥5846.32</p>-->
+										<p class="bi-list-tbody-tr-price2">¥{$voo.new_price}</p>
+										<p class="bi-list-tbody-tr-price3">${$voo.new_price|tousdt|NumToStr}</p>
 									</li>
 									<li class="tr">
 											<if condition="$voo['class'] eq 'red'">
@@ -176,6 +179,7 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 	<script type="text/javascript">
 		var home;

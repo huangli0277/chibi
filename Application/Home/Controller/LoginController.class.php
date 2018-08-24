@@ -642,7 +642,8 @@ class LoginController extends HomeController
             }
             session('qq3479015851_already', 0);
 
-            $this->success('登录成功！');
+//            $this->success('登录成功！');
+            $this->success(L('WELCOME'));
         } else {
             session('qq3479015851_already', 0);
             //$mo->execute('rollback');

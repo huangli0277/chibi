@@ -14,6 +14,7 @@ var bjsIndex = (function(){
 		this._resizeWindow();
 		this._initSkin();
 		this._initInputFocus();
+		this._initFirstVisit();
 		if($('.copy-btn')[0]){
 			this._initClipboard();
 		}
@@ -63,8 +64,38 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.initMy = function(){
 		var _this = this;
+		_this.resourcesPath = '/Public/m/';
+		var state = false;
 		$(document).on('click','.my-heade-skin',function(){
+			if(state){
+				return false;
+			}
+			state = true;
 			$(this).toggleClass('moon sun');
+			var skin = $.cookies.get('skin');
+			if(skin !== 'white'){
+				$.cookies.set('skin','white',{expires: 30,path: "/"});
+				var link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = _this.resourcesPath + 'css/white.css';
+				link.id = 'style-white';
+				$('head').append(link);				
+				layer.config({
+				    extend: '', //加载您的扩展样式
+				    skin: ''
+				});
+			}else{
+				$.cookies.set('skin','black',{expires: 30,path: "/"});
+				$('#style-white').remove();
+				layer.config({
+				    extend: 'myskin/style.css', //加载您的扩展样式
+				    skin: 'myskin'
+				});
+			}
+			setTimeout(function(){
+				state = false;
+			},600);
 		});
 		/*$(document).on('click','.my-heade-logout',function(event){
 			event.preventDefault();
@@ -94,6 +125,37 @@ var bjsIndex = (function(){
 	bjsIndex.prototype.initUc = function(){
 		var _this = this;
 		this._initBack();
+	}
+	bjsIndex.prototype.initSettings = function(){
+		var _this = this;
+		this._initBack();
+
+		$(document).on('click','.my-links-skin',function(){
+			$('#skin-box').addClass('right-show');
+		});
+		$(document).on('click','.my-links-language',function(){
+			$('#language-box').addClass('right-show');
+		});
+		$(document).on('click','.asset-detail-filter-box-bg',function(){
+			$('.asset-detail-filter-box.right-show').removeClass('right-show');
+		});
+		$(document).on('click','.asset-detail-filter-box-cont a',function(event){
+			event.preventDefault();
+			var state = $(this).data('state');
+			var cookies = $(this).data('cookies');
+			var callback = $(this).data('callback');
+			if(state != -1 && $.cookies.get(cookies) != state){
+				$.cookies.set(cookies,state,30);
+				$('.'+callback).find('em').text($(this).text());
+				if(cookies == 'skin'){
+					_this._initSkin();
+				}else if(cookies == 'think_language'){
+					window.location.reload();
+				}
+			}
+			$('.asset-detail-filter-box.right-show').removeClass('right-show');
+		});
+
 	}
 	bjsIndex.prototype.initArticle = function(){
 		var _this = this;
@@ -517,14 +579,53 @@ var bjsIndex = (function(){
 			$('#'+id).addClass('active').siblings('.active').removeClass('active');
 		});
 	}
-	bjsIndex.prototype._initSkin = function(){
+	bjsIndex.prototype._initFirstVisit = function(){
 		var _this = this;
-		if(typeof layer != 'undefined'){
-			layer.config({
-			    extend: 'myskin/style.css', //加载您的扩展样式
-			    skin: 'myskin'
+		if(!$.cookies.get('skin')){
+			layer.open({
+				title: '笔加索提示您'
+				,maxWidth: 280
+				,content: '尊敬的游客，您现在访问的是中文站，如果需要设置其他语言，请前往设置。'
+				,btn: ['设置','不需要']
+				,btnAlign: 'c'
+				,yes: function(index,layero){
+					window.location.href = '/task/settings';
+					$.cookies.set('skin','black');
+					$.cookies.set('think_language','zh-cn');
+				}
+				,btn2: function(){
+					$.cookies.set('skin','black');
+					$.cookies.set('think_language','zh-cn');
+				}
 			});
 		}
+	}
+	bjsIndex.prototype._initSkin = function(){
+		var _this = this;		
+		_this.resourcesPath = '/Public/m/';
+		var skin = $.cookies.get('skin') || 'black';
+
+		if(skin !== 'white'){
+			$('#style-white').remove();
+			if(typeof layer != 'undefined'){
+				layer.config({
+				    extend: 'myskin/style.css', //加载您的扩展样式
+				    skin: 'myskin'
+				});
+			}
+		}else if(!$('#style-white')[0]){
+			$.cookies.set('skin','white',{expires: 30,path: "/"});
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = _this.resourcesPath + 'css/white.css';
+			link.id = 'style-white';
+			$('head').append(link);				
+			layer.config({
+			    extend: '', //加载您的扩展样式
+			    skin: ''
+			});
+		}	
 	}
 	bjsIndex.prototype._initInputFocus = function(){		
 		$('input[type="password"],input[type="text"],input[type="number"],input[type="email"],input[type="phone"]').on('focus',function(){

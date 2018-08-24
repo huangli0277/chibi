@@ -14,6 +14,7 @@
     <title>{:C('web_title')}</title>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/jquery.bxslider.css" />
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css" />
     <if condition="$_COOKIE['skin'] eq 'white'">
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/white.css" id='style-white'>
     </if>
@@ -39,7 +40,7 @@
                 </ul>
                 <ul class="pull-right login_lan">
                     <li class="style-box">
-                        <span>皮肤</span>
+                        <span>{$Think.Lang.V_HEADER_SKIN}</span>
                         <span class="style-white"></span>
                         <span class="style-black"></span>
                     </li>
@@ -51,13 +52,14 @@
                             <h3>扫码下载 APP</h3>
                             <img src="images/app-code.png" alt="gate.io APP">
                         </div>
-                    </li>
-                    <li class="lang-option">
-                        <span><img src="images/language.png"></span>
-                        <div class="more-lan">
-                            <a href="#"><img src="images/language.png"></a>
-                        </div>
                     </li>-->
+                    <li class="lang-option">
+                        <div class="text-nowrap"><span class="iti-flag cn"></span>中文</div>
+                        <div class="more-lan">
+                            <a class="text-nowrap" href="javascript:;" data-language="zh-cn"><span class="iti-flag cn"></span>中文</a>
+                            <a class="text-nowrap" href="javascript:;" data-language="en-us"><span class="iti-flag gb"></span>English</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -68,39 +70,40 @@
                 </div>
                 <div class="pull-right">
                     <ul class="header-menus pull-left">
-                        <li><a href="/"><span>首页</span></a></li>
+                        <li><a href="/"><span>{$Think.Lang.V_HEADER_FIRSTPAGE}</span></a></li>
+
                         <li class="menu-list">
-                            <a href="#"><span>币币交易</span></a>
+                            <a href="#"><span>{$Think.Lang.V_HEADER_EXCHANGE}</span></a>
                                 <ul class="menu-list-show menu-list-bi" id="menu_list_json">
                                 </ul>
                         </li>
-                        <li><a href="/Finance/mycz.html"><span>C2C交易</span></a></li>
-                        <li><a href="/User"><span>用户中心</span></a></li>
-                        <li><a href="/User/token_apply"><span>上币申请</span></a></li>
-                        <li><a href="/Article/index/id/20.html"><span>资讯中心</span></a></li>
+                        <li><a href="/Finance/mycz.html"><span>{$Think.Lang.V_HEADER_C2C}</span></a></li>
+                        <li><a href="/User"><span>{$Think.Lang.V_HEADER_USERCENTER}</span></a></li>
+                        <li><a href="/User/token_apply"><span>{$Think.Lang.V_HEADER_TOKEN_APPLY}</span></a></li>
+                        <li><a href="/Article/index/id/20.html"><span>{$Think.Lang.V_HEADER_ARTICLE}</span></a></li>
                     </ul>
 
                     <gt name="Think.session.userId" value="0">
                     <ul class="pull-right user_info_list login_lan">
                         <li class="login-out pull-right">
-                            <a href="{:U('Login/loginout')}">退出</a>
+                            <a href="{:U('Login/loginout')}">{$Think.Lang.V_HEADER_EXIT}</a>
                         </li>
                         <li class="user-info pull-right">
                             <a class="user-name" href="/User"><span><em>{$Think.session.nickName}</em></span></a>
                             <div class="user-info-list">
                                 <div class="clearfix">
                                     <div class="user-info-item">
-                                        <h4>当前等级：<span>VIP0</span></h4>
+                                        <h4>{$Think.Lang.V_HEADER_LEVEL}<span>VIP{$uservip['vipdengji']}</span></h4>
                                     </div>
                                     <div class="user-info-item">
-                                        <h4>当前交易费折扣：<strong>无</strong></h4>
+                                        <h4>{$Think.Lang.V_HEADER_DISCOUNT}<strong>{$uservip['fee_discounts']}</strong></h4>
                                     </div>
                                     <div class="user-info-item">
-                                        <h4>可用余额：</h4>
+                                        <h4>{$Think.Lang.V_HEADER_BALANCE}</h4>
                                         <p><strong>{$userCoin_top['cny']}</strong> CNYT</p>
                                     </div>
                                     <div class="user-info-item">
-                                        <h4>委托冻结：</h4>
+                                        <h4>{$Think.Lang.V_HEADER_COMMISSION_FREEZE}</h4>
                                         <p><strong>{$userCoin_top['cnyd']}</strong> CNYT</p>
                                     </div>
                                 </div>
@@ -111,10 +114,10 @@
                         <else/> <!-- 登陆前 -->
                     <ul class="header-login pull-left">
                         <li class="pull-right">
-                            <a href="{:U('Login/register')}" id="registerBtn"><span>注册</span></a>
+                            <a href="{:U('Login/register')}" id="registerBtn"><span>{$Think.Lang.V_HEADER_REGISTER}</span></a>
                         </li>
                             <li class="pull-right">
-                                <a href="/Login/index.html" id="loginBtn"><span>登陆</span></a>
+                                <a href="/Login/index.html" id="loginBtn"><span>{$Think.Lang.V_HEADER_LOGIN}</span></a>
                             </li>
                     </ul>
                     </gt>

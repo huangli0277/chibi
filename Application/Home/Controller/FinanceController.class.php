@@ -1594,9 +1594,74 @@ class FinanceController extends HomeController
         $Page = new \Think\Page($count, 10);
         $show = $Page->show();
         $list = $Moble->where($where)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        $where=['status'=>1,
+            [['name'=>'eth_cny'],
+                ['name'=>'cnut_cny'],
+                '_logic'=>'OR']];
+        $Market = M('Market')->where($where)->select();
+        foreach ($Market as $key => $value){
+            $Market[$value['name']]=$value;
+        }
+        foreach ($list as $key => $value){
+            $list[$key]['shouyi']="￥".round($value['mum_profit'],2)." ≈ ".round($value['mum_profit']/$Market[$value['currency_profit'].'_cny']['new_price'],4).$value['currency_profit'];
+        }
+        $this->assign('Market', $Market);
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->display();
+    }
+
+    public function zcdb_submit(){
+        if (!userid()) {
+            $this->error('请先登录！');
+        }
+        $now_time=time();
+        $num = intval($_POST['num']);
+        $day = intval($_POST['day']);
+        if($num <= 0){
+            $this->error('请输入500或500倍数的锁仓数量');
+        }
+        if($num%500 != 0){
+            $this->error('请输入500或500倍数的锁仓数量');
+        }
+        $UserCoin = M('UserCoin')->where(array('userid' => userid()))->find();
+        if($UserCoin['cnut']<$num){
+            $this->error('CNUT数量不足');
+        }
+        $days=[90=>0.15,180=>0.4,360=>1];
+        if(!array_key_exists($day,$days)){
+            $this->error('数据错误');
+        }
+        $rate = $days[$day];
+        $where=['status'=>1,'name'=>'cnut_cny'];
+        $Market = M('Market')->where($where)->find();
+        $start_time = $now_time;
+        $end_time = strtotime('+'.$day.'day');
+        $add=[
+            'userid'=>userid(),
+            'currency_lock'=>'cnut',
+            'num_lock'=>$num,
+            'value_lock'=>$num * $Market['new_price'],
+            'currency_profit'=>'eth',
+            'mum_profit'=>$num * $Market['new_price'] * $days[$day],
+            'proportion'=>$days[$day],
+            'start_time'=>$start_time,
+            'end_time'=>$end_time,
+            'length_day'=>$day
+        ];
+        $mo = M();
+        $mo->execute('set autocommit=0');
+        $rs = array();
+        $rs[] = $mo->table('qq3479015851_user_coin')->where(array('userid' => userid()))->setDec('cnut', $num);;
+        $rs[] = $mo->table('qq3479015851_lock_coin')->add($add);
+        if (check_arr($rs)) {
+            $mo->execute('commit');
+            $this->success('锁仓成功！');
+        }else{
+            $mo->execute('rollback');
+            $this->error('锁仓失败');
+        }
     }
 
 }

@@ -67,7 +67,9 @@ body{background-color: #ebecf1; color: #343942;}
 .introduce-title,
 .introduce-title3,
 .order-detail-warning h4,
+.user-info-item h4 span,
 .bjs-news-title span{color: #6f7889;}
+
 
 .order-detail-txt{color: #171820;}
 
@@ -120,6 +122,8 @@ body{background-color: #ebecf1; color: #343942;}
 .user-info-list,
 .header-menus a.active{background-color: #f2f3f7; color: #00b6b7;}
 
+.login_lan .more-lan a{background-color: #f2f3f7;}
+
 .home-logo{background-image: url(../images/logo-white.png);}
 
 .join-btn{background-image: url(../images/join-white.png);}
@@ -143,6 +147,7 @@ body{background-color: #ebecf1; color: #343942;}
 .c2c-menu-left h3{color: #171820; border-color: #ebecf1;}
 
 .c2c-menu-left ul a:hover,
+.login_lan .more-lan a:hover,
 .c2c-menu-left ul a.active{background-color: #e0e1e7; color: #444;}
 
 .uc-unit-title,
@@ -170,6 +175,8 @@ body{background-color: #ebecf1; color: #343942;}
 .c2c-menu,
 .link-list span,
 .c2c-app-qrcoe,
+.user-info-list,
+.user-info-item,
 .c2c-cont-head-title p{border-color: #d1d4db;}
 
 .trade-profession-global-scroll-bob,

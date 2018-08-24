@@ -5,7 +5,7 @@
 			<div class="article-left article-detail-left">
 				<div class="article-title">
 					<h3 class="article-detail-title clearfix">
-						{$data.title} <span class="pull-right article-detail-title-time"><span class="article-list-time">发布时间：{$data.addtime|date="Y-m-d H:i:s",###}</span><span class="article-num">阅读：{$data.hits}</span></span>
+						{$data.title} <span class="pull-right article-detail-title-time"><span class="article-list-time">{$Think.Lang.V_ARTICLE_UPDATE_TIME}{$data.addtime|date="Y-m-d H:i:s",###}</span><span class="article-num">{$Think.Lang.V_ARTICLE_READ_COUNT}{$data.hits}</span></span>
 					</h3>
 				</div>
 				<div class="article-tab-cont">
@@ -13,7 +13,7 @@
 					</div>
 					<div class="article-detail-foot clearfix">
 						<p class="link-list pull-right">
-							快来分享到：
+							{$Think.Lang.V_ARTICLE_SHARE}
 							<a href="#" class="link-wb"></a>
 							<a href="#" class="link-qq"></a>
 							<a href="#" class="link-wx"></a>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="article-left article-detail-right">
 				<div class="article-title">
-					<h3>热门文章</h3>
+					<h3>{$Think.Lang.V_ARTICLE_HOT}</h3>
 				</div>
 				<div class="article-list">
 					<volist name="hotlist" id="vo">
@@ -36,7 +36,7 @@
 								<p class="article-list-txt">
 									<a href="{:U('Article/detail','id='.$vo['id'])}">{$vo.brief}</a>
 								</p>
-								<p><span class="article-list-time">更新时间：{$vo.addtime|addtime}</span><span class="article-num">阅读：{$vo.hits}</span></p>
+								<p><span class="article-list-time">{$Think.Lang.V_ARTICLE_UPDATE_TIME}{$vo.addtime|addtime}</span><span class="article-num">{$Think.Lang.V_ARTICLE_READ_COUNT}{$vo.hits}</span></p>
 							</dd>
 						</dl>
 					</volist>

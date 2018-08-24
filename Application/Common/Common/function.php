@@ -346,7 +346,21 @@ function createQRcode($save_path, $qr_data = 'PHP QR Code :)', $qr_level = 'L', 
 }
 
 function tousdt($price){
-    return round($price/7,2);
+    $hui = S('hui');
+    if(empty($hui)){
+        $hui = M('Auto')->where(array('aid' => 1))->find();
+        $hui = $hui['hui'];
+        S('hui',$hui,3600);
+    }
+    $usdt = $price/$hui;
+    if($price > 0.1){
+        return round($usdt,2);
+    }else if($price > 0.001){
+        return round($usdt,4);
+    }else{
+        return round($usdt,8);
+    }
+
 }
 
 function NumToStr($num)

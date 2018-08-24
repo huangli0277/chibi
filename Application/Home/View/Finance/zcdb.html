@@ -31,24 +31,28 @@
 								<div class="form-item">
 									<div class="padt10"></div>
 									<ul class="flex-box align-top">
-										<li class="flex-item-2">
-											<div class="tl">锁仓币种：<span>BTC</span></div>
+										<li class="flex-item-1">
+											<div class="tl">锁仓币种：<span>CNUT</span></div>
 										</li>
 										<li class="flex-item-2">
 											<div class="tl">锁仓时长：
 												<div class="select-100 suocang-item select-h32">
 													<select id="choose-pay" class="form-input new-form-input vhide select3" name="pay">
-														<option value="30">30天</option>
-														<option value="180">180天</option>
+														<option rate="0.15" value="90">90天</option>
+														<option rate="0.40" value="180">180天</option>
+														<option rate="1" value="360">360天</option>
 													</select>
 												</div>
 											</div>
 										</li>
 										<li class="flex-item-2">
-											<div class="tl">锁仓数量：<input type="text" class="form-input new-form-input suocang-item"></div>
+											<div class="tl">锁仓数量：
+												<input id="num"  type="text" placeholder="500或500的倍数" onkeyup="mykeyup(this)" class="form-input new-form-input suocang-item">
+												<span id="profit" class="font12 hide"></span>
+											</div>
 										</li>
 										<li>
-											<button class="default-form-submit new-form-submit">确定</button>
+											<button id="submit" class="default-form-submit new-form-submit">确定</button>
 										</li>
 									</ul>
 									<p class="p-line"></p>
@@ -75,27 +79,29 @@
 						<table class="c2c-table">
 							<thead>
 							<tr>
-								<th style="width: 15%;">锁仓币种</th>
-								<th style="width: 14%;">锁仓数量</th>
-								<th style="width: 30%;">锁仓时长</th>
-								<th style="width: 26%;">开始时间</th>
+								<th style="width: 10%;">锁仓币种</th>
+								<th style="width: 15%;">锁仓数量</th>
+								<th style="width: 15%;">锁仓时长</th>
+								<th style="width: 20%;">锁仓收益</th>
+								<th style="width: 20%;">开始时间</th>
 								<th style="width: 15%;">结束时间</th>
-								<th style="width: 15%;">状态</th>
+								<th style="width: 10%;">状态</th>
 							</tr>
 							</thead>
 							<tbody>
 							<volist name="list" id="vo">
 								<tr>
-									<td>{$vo.currency}</td>
-									<td>{$vo['num']|NumToStr}</td>
-									<td>180天</td>
+									<td>{$vo.currency_lock}</td>
+									<td>{$vo['num_lock']|NumToStr}</td>
+									<td>{$vo['length_day']}天</td>
+									<td>{$vo['shouyi']}</td>
 									<td>{$vo.start_time|addtime}</td>
 									<td>{$vo.end_time|addtime}</td>
 									<td>
-										<eq name="vo.status" value="2">
-											已锁定
+										<eq name="vo.status" value="1">
+											锁仓中
 										<else/>
-											待审核
+											已结算
 										</eq>
 									</td>
 								</tr>
@@ -111,7 +117,27 @@
 <script src="/Public/v2/js/select2.min.js"></script>
 <link href="/Public/v2/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript">
+	var currency_lock_new_price = {$Market['cnut_cny']['new_price']};
+	var currency_profit_new_price = {$Market['eth_cny']['new_price']};
 	$(function(){
+        $('#choose-pay').change(function(){
+
+            var num = parseInt($('#num').val());
+            if(num>0){
+                if(num%500 !== 0){
+                    $('#profit').html('请输入500或500倍数');
+                    $('#profit').removeClass('hide');
+                    return;
+				}
+                var day = $('#choose-pay option:selected').val();
+                var rate = $('#choose-pay option:selected').attr('rate')*1;
+                var ETH = (num * currency_lock_new_price * rate / currency_profit_new_price).toFixed(4);
+				$('#profit').html('收益'+rate*100+"%,≈"+ETH+"ETH");
+                $('#profit').removeClass('hide');
+			}else{
+                $('#profit').addClass('hide');
+			}
+        })
         function formatState(state){
             //console.log(state.element)
             var img = $(state.element).data('img');
@@ -133,7 +159,60 @@
             minimumResultsForSearch: -1,
             templateResult: formatState
         });
+
+        $("#submit").click(function(){
+            var num = parseInt($('#num').val());
+            var day = $('#choose-pay option:selected').val();
+            if(!day){
+                layer.msg('输入错误', {icon: 2});
+                return;
+            }
+            if(num<=0 || num%500!=0){
+                layer.msg('请输入500或500倍数的锁仓数量', {icon: 2});
+                return;
+            }
+            layer.confirm('锁仓币种：CNUT<br>锁仓时长：'+day+'天<br>锁仓数量：'+num,
+				{btn:['确定锁仓','取消'],title:'请确认'},
+				function(index){
+					layer.close(index);
+					$.post("{:U('Finance/zcdb_submit')}", {
+						num:num,
+						day:day
+					}, function (data) {
+						layer.closeAll('loading');
+						trans_lock = 0;
+						if (data.status == 1) {
+							layer.msg(data.info, {icon: 1,time:600},function () {
+								window.location = '/Finance/zcdb.html';
+							});
+						} else {
+							layer.msg(data.info, {icon: 2});
+						}
+					}, 'json');
+				},function(){
+					return;
+				}
+            );
+		})
 	});
+
+    function mykeyup(_this){
+        var num = _this.value;
+        if(num>0){
+            if(num%500 !== 0){
+                $('#profit').html('请输入500或500倍数');
+                $('#profit').removeClass('hide');
+                return;
+            }
+            var day = $('#choose-pay option:selected').val();
+            var rate = $('#choose-pay option:selected').attr('rate')*1;
+            var ETH = (num * currency_lock_new_price * rate / currency_profit_new_price).toFixed(4);
+            $('#profit').html('收益'+rate*100+"%,≈"+ETH+"ETH");
+            $('#profit').removeClass('hide');
+        }else{
+            $('#profit').addClass('hide');
+		}
+	}
 
     $("#coin-select").change(function () {
         var coin = $("#coin-select option:selected").val();

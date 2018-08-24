@@ -6,6 +6,9 @@
 <meta name="format-detection" content="telephone=no">
 <title>笔加索移动端个人中心</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
 <style type="text/css">
 
 </style>
@@ -15,7 +18,7 @@
 		<div class="header">
 			<div class="header-content">
 				<div class="clearfix my-heade tc">
-					<span class="my-heade-skin moon"></span>
+					<span class="my-heade-skin <if condition="$_COOKIE['skin'] eq 'white'">sun<else/>moon</if>"></span>
 					<h3 class="my-heade-text">个人中心</h3>
 					<a href="/Login/loginout.html" class="my-heade-logout"></a>
 				</div>
@@ -57,6 +60,9 @@
 					</li>
 					<li>
 						<a class="my-links7" href="/task/index.html"><span>最新活动</span></a>
+					</li>
+					<li>
+						<a class="my-settings" href="/task/settings.html"><span>系统设置</span></a>
 					</li>
 				</ul>
 			</div>

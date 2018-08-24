@@ -2,8 +2,8 @@
 <script src="__PUBLIC__/Home/js/datepicker.min.js"></script>
 <div class="autobox">
     <div class="now">
-        <a href="/" class="orange">首页</a> &gt;
-        <a href="/game/" class="orange">应用中心</a> &gt; 分红中心
+        <a href="/" class="orange">{$Think.Lang.V_HEADER_FIRSTPAGE}</a> &gt;
+        <a href="/game/" class="orange">{$Think.Lang.V_SHARE_APP_CENTER}</a> &gt; {$Think.Lang.V_SHARE_SHARE_CENTER}
     </div>
     <div class="assets_center clear po_re zin70">
         <!--左侧菜单-->
@@ -11,13 +11,13 @@
         <!--右侧内容-->
         <div class="assets_content w900 right bg_w">
             <div class="safe_center clear" style="padding-left: 0px; border-bottom: 2px solid #e55600;">
-                <h1 style="margin-top: 0px; margin-bottom: 15px; line-height: 15px;">分红中心</h1>
+                <h1 style="margin-top: 0px; margin-bottom: 15px; line-height: 15px;">{$Think.Lang.V_SHARE_SHARE_CENTER}</h1>
             </div>
             <div class="sj" style="top: 40px; left: 60px;"></div>
 
 <notempty name="prompt_text">
                     <div class="mytips">
-                        <h6 style="color: #ff8000;">温馨提示</h6>
+                        <h6 style="color: #ff8000;">{$Think.Lang.V_SHARE_WARN}</h6>
                         {$prompt_text}
                     </div>
                 </notempty> <br>
@@ -29,10 +29,10 @@
                                 <table class="f_table" id="investLog_content">
                                     <thead>
                                     <tr>
-                                        <th id="sublist-grid_c0">币种</th>
-                                        <th id="sublist-grid_c1">全站总额</th>
-                                        <th id="sublist-grid_c2">我的资产</th>
-                                        <th id="sublist-grid_c3">持有比例</th>
+                                        <th id="sublist-grid_c0">{$Think.Lang.V_SHARE_COIN_TYPE}</th>
+                                        <th id="sublist-grid_c1">{$Think.Lang.V_SHARE_ALL_COIN}</th>
+                                        <th id="sublist-grid_c2">{$Think.Lang.V_SHARE_MY_COIN}</th>
+                                        <th id="sublist-grid_c3">{$Think.Lang.V_SHARE_MY_COIN_PROPORTION}</th>
                                     </tr>
                                     </thead>
                                     <tbody>

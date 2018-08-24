@@ -8,7 +8,7 @@
 <style type="text/css">
 body,a{color: #6f798b;}
 .k-line-select {
- position: absolute; right: 0px; top: 0; z-index: 1; width: 100%; background: #1f2029; padding-bottom: 6px;
+ position: absolute; right: 0px; top: 0; z-index: 1; width: 100%; padding-bottom: 6px;
 }
 
 .k-line-select .out {
@@ -31,14 +31,6 @@ body,a{color: #6f798b;}
  height: 400px; margin: 0 -15px
 }
 
-.k-line-select a {
-}
-
-.k-line-select a:hover,.k-line-select .cur {
-	border-bottom: .02rem solid #05e1e1;
-	color: #05e1e1;
-}
-
 .bcur {
  background-color: #000003;
 }
@@ -48,6 +40,23 @@ body,a{color: #6f798b;}
 .flex-box{display: -webkit-flex; display: flex; align-items: center;}
 .flex-box .flex-item-1{flex-grow: 1; width: 0;}
 </style>
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <style type="text/css">
+    	.k-line-select{background: #fff;}
+    	.k-line-select a:hover, .k-line-select .cur{
+    		border-bottom: .02rem solid #00bdbd;
+			color: #00bdbd;
+    	}
+    </style>
+    <else />
+    <style type="text/css">
+    	.k-line-select{background: #1f2029;}
+    	.k-line-select a:hover, .k-line-select .cur{
+    		border-bottom: .02rem solid #05e1e1;
+			color: #05e1e1;
+    	}
+    </style>
+</if>
 </head>
 <body style="margin: 0px auto;">
 	<div class="k-line-select">
@@ -68,7 +77,8 @@ body,a{color: #6f798b;}
 			var window_height=$(window).height();
 			var data_time=$.cookies.get('chart_time_name');
 			var goa=null;
-			$.cookies.set('chart_theme','black');
+			var skin = $.cookies.get('skin') || 'black';
+			$.cookies.set('chart_theme',skin);
 			
 			document.getElementById('paint_chart').style.height=$(window).height()+"px";
 			$(window).resize(function(){

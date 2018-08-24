@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>系统设置</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<div class="header-content">
+				<div class="clearfix search-slide-box">
+					<a href="#" class="search-slide-back pull-left"></a>
+					<div class="pull-right search-input-box">
+						<p class="order-header tc">系统设置</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content content2 bg1f2029">
+			<div class="my-links padt4">
+				<ul class="padt4">
+					<li>
+						<a class="my-links-skin" href="javascript:;">
+							<span>皮肤设置
+								<em>
+									<if condition="$_COOKIE['skin'] eq 'white'">
+									亮色
+									<else />
+									暗色
+									</if>
+								</em>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="my-links-language" href="javascript:;">
+							<span>语言设置
+								<em>
+									<if condition="$_COOKIE['think_language'] eq 'zh-cn'">
+									中文
+									<else />
+									English
+									</if>
+								</em>
+							</span>
+						</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="padt4"></div>
+		</div>
+		<!-- 弹窗 -->
+		<div class="asset-detail-filter-box" id="skin-box">
+			<div class="asset-detail-filter-box-bg"></div>
+			<div class="asset-detail-filter-box-cont">
+				<ul class="tc">
+					<li>
+						<a href="#" data-state="white" data-cookies="skin" data-callback="my-links-skin">亮色</a>
+					</li>
+					<li>
+						<a href="#" data-state="black" data-cookies="skin" data-callback="my-links-skin">暗色</a>
+					</li>
+					<li class="asset-detail-filter-box-cancel">
+						<a href="#" data-state="-1">取消</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="asset-detail-filter-box" id="language-box">
+			<div class="asset-detail-filter-box-bg"></div>
+			<div class="asset-detail-filter-box-cont">
+				<ul class="tc">
+					<li>
+						<a href="#" data-state="zh-cn" data-cookies="think_language" data-callback="my-links-language">中文</a>
+					</li>
+					<li>
+						<a href="#" data-state="en-us" data-cookies="think_language" data-callback="my-links-language">English</a>
+					</li>
+					<li class="asset-detail-filter-box-cancel">
+						<a href="#" data-state="-1">取消</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+	<script type="text/javascript">
+		var home;
+		$(document).ready(function(){
+			home = new bjsIndex();
+			home.initSettings();
+		});
+	</script>
+</body>
+</html>
