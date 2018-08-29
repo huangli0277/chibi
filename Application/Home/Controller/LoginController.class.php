@@ -1030,6 +1030,35 @@ class LoginController extends HomeController
         }
     }
 
+    /**
+     * 验证谷歌
+     */
+    public function verifyGoogle($google_code = null)
+    {
+        if (!userid()) {
+            $this->error('您还未登陆');
+        }
+
+        if($google_code){
+            $user = M('User')->where(array('id' => userid()))->find();
+            if($user['ga']) {
+                $ga = new \Common\Ext\GoogleAuthenticator();
+                if($ga->verifyCode($user['ga'], $google_code, 1)){
+                    session('google',1);
+                    $this->success('验证成功');
+                }else{
+                    $this->error('验证码错误');
+                }
+            }else{
+                $this->error('您还没有绑定谷歌认证器，请先绑定');
+            }
+        }else{
+            $this->error('请输入谷歌验证码');
+        }
+
+
+    }
+
 
 }
 

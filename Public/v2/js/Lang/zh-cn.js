@@ -1,0 +1,19 @@
+var lange = {};
+lange.ALL_OK = '确定';
+lange.ALL_CANCEL = '取消';
+lange.ALL_CANCEL_CONFIRM = '确认取消?';
+
+lange.FINANCE_BANK_CHANGEFILE = '请选择正确的文件类型和大小！';
+lange.FINANCE_BANK_UPLOADERROR = '上传出错！';
+lange.FINANCE_MYCZ_ACCOUNT = '账户：';
+lange.FINANCE_MYCZ_COPY_SUCCESS = '复制成功';
+lange.FINANCE_MYCZ_TIP_INPUT_NUM = '请输入数字';
+lange.FINANCE_MYCZ_TIP_INPUT_NUM2 = '最低买入500.0CNYT';
+lange.FINANCE_MYCZ_TIP_INPUT_NUM3 = '买入CNYT需为100的倍数';
+lange.FINANCE_MYCZ_TIP_INPUT_NUM4 = '最低卖出500.0CNYT';
+lange.FINANCE_MYCZ_TIP_INPUT_NUM5 = '卖出CNYT需为100的倍数';
+lange.FINANCE_MYCZ_CHOOSE_PAYTYPE = '请选择交易方式';
+lange.FINANCE_MYCZ_CHOOSE_BUYNUM = '请输入买入量';
+lange.FINANCE_MYCZ_CHOOSE_SELLNUM = '请输入卖出量'
+lange.FINANCE_MYCZ_LOADING = '加载中,请勿重复点击...';
+lange.ALL_PAY_CONFIRM = '确认已支付?';

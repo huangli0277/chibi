@@ -93,7 +93,7 @@
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
 
-	<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js?v=2018082701"></script>
 
 	<script type="text/javascript">
 		var home;
@@ -117,14 +117,13 @@
 		        text: "http://{$_SERVER['HTTP_HOST']}/Login/register.html?invit={$user['invit']}", //任意内容
 		        src: '__PUBLIC__/v2/images/qrcode_w.PNG',
 		        imgWidth: 60,
-		        imgHeight: 60
+		        imgHeight: 60,
+		        callback: callback
 		    });
-		    function callback(){
-	            var src = $('#qrcode_div canvas')[0].toDataURL("image/png");
-	            $('#qrcode-download').attr('href',src);
+		    function callback(c){
+	            var src = c.toDataURL("image/png");
 	            $('#qrcode_div').html('<img src="'+src+'" />');
 	        }
-	        setTimeout(callback,2000);
 	    }
 	    createCanvas();
 	</script>

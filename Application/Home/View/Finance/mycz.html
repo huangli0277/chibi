@@ -5,25 +5,25 @@
 		<li>
 			<a class="c2c-menu-link active" href="#">
 				<span class="c2c-menu-txt-1">CNYT/CNY</span>
-				<span class="c2c-menu-txt-2">CNYT/人民币</span>
+				<span class="c2c-menu-txt-2">{$Think.Lang.V_FINANCE_MYCZ_CNYT}</span>
 			</a>
 		</li>
 		<li>
 			<a class="c2c-menu-link" href="#">
 				<span class="c2c-menu-txt-1">USDT/CNY</span>
-				<span class="c2c-menu-txt-2">CNYT/人民币</span>
+				<span class="c2c-menu-txt-2">{$Think.Lang.V_FINANCE_MYCZ_USDT}</span>
 			</a>
 		</li>
 		<li>
 			<a class="c2c-menu-link" href="#">
 				<span class="c2c-menu-txt-1">BTC/CNY</span>
-				<span class="c2c-menu-txt-2">CNYT/人民币</span>
+				<span class="c2c-menu-txt-2">{$Think.Lang.V_FINANCE_MYCZ_BTC}</span>
 			</a>
 		</li>
 		<li>
 			<a class="c2c-menu-link" href="#">
 				<span class="c2c-menu-txt-1">ETH/CNY</span>
-				<span class="c2c-menu-txt-2">CNYT/人民币</span>
+				<span class="c2c-menu-txt-2">{$Think.Lang.V_FINANCE_MYCZ_ETH}</span>
 			</a>
 		</li>
 	</ul>
@@ -42,56 +42,56 @@
 		<!--</div>-->
 		<div class="c2c-trading clearfix">
 			<div class="trading-buy pull-left">
-				<h4 class="trading-box-title"><span>买入CNYT<span class="fontnormal"> (CNYT余额<span class="c03ad6f">{$user_coin.cny}</span>)</span></span></h4>
-				<p class="trading-box-list trading-box-list2">买入估价 CNY   <span class="cb94e50">1.0 CNYT</span></p>
-				<p class="input-group trading-box-list"><span class="input-group-addon">买入量CNYT</span><input class="form-control" id="cnyin_num" type="text" name="num" onBlur="jnum(this.value,1)"></p>
-				<p class="input-group trading-box-list"><span class="input-group-addon">金额CNY</span><input class="form-control" id="pric" type="text" name="name[]" readonly="readonly"></p>
+				<h4 class="trading-box-title"><span>{$Think.Lang.V_FINANCE_MYCZ_BUY_CNYT}<span class="fontnormal"> ({$Think.Lang.V_FINANCE_MYCZ_BUY_BALANCE}<span class="c03ad6f">{$user_coin.cny}</span>)</span></span></h4>
+				<p class="trading-box-list trading-box-list2">{$Think.Lang.V_FINANCE_MYCZ_BUY_PRICE}<span class="cb94e50">1.0 CNYT</span></p>
+				<p class="input-group trading-box-list"><span class="input-group-addon">{$Think.Lang.V_FINANCE_MYCZ_BUY_NUM}</span><input class="form-control" id="cnyin_num" type="text" name="num" onBlur="jnum(this.value,1)"></p>
+				<p class="input-group trading-box-list"><span class="input-group-addon">{$Think.Lang.V_FINANCE_MYCZ_BUY_AMOUNT}</span><input class="form-control" id="pric" type="text" name="name[]" readonly="readonly"></p>
 				<p class="trading-box-list trading-box-list2">
-					<span class="pay-type">支付方式</span>
+					<span class="pay-type">{$Think.Lang.V_FINANCE_MYCZ_BUY_PAY_TYPE}</span>
 					<span>
-								<label class="pay-zfb"><input type="radio" name="cnyin_type" value="alipay" class="hide"><span>支付宝</span></label>
-								<label class="pay-wx"><input type="radio" name="cnyin_type" value="weixin" class="hide"><span>微信</span></label>
-								<label class="pay-card"><input type="radio" name="cnyin_type" value="bank" class="hide"><span>银行卡转账</span></label>(<span class="c00ffff">必须本人支付</span>)
+								<label class="pay-zfb"><input type="radio" name="cnyin_type" value="alipay" class="hide"><span>{$Think.Lang.V_ALL_ALIPAY}</span></label>
+								<label class="pay-wx"><input type="radio" name="cnyin_type" value="weixin" class="hide"><span>{$Think.Lang.V_ALL_WECHAT}</span></label>
+								<label class="pay-card"><input type="radio" name="cnyin_type" value="bank" class="hide"><span>{$Think.Lang.V_ALL_BANK_CARD}</span></label>(<span class="c00ffff">{$Think.Lang.V_FINANCE_MYCZ_BUY_PAY_SELF}</span>)
 								<!--<a href="#">《交易须知》</a>-->
 							</span>
 				</p>
-				<p class="trading-box-list"><a class="trading-buy-btn" href="#" onClick="cnyin_up()">买入（CNY-CNYT）</a></p>
+				<p class="trading-box-list"><a class="trading-buy-btn" href="#" onClick="cnyin_up()">{$Think.Lang.V_FINANCE_MYCZ_BUY_COMMIT}</a></p>
 			</div>
 			<div class="trading-sell pull-right">
 				<h4 class="trading-box-title">
-					<span>卖出CNY <span class="fontnormal"> (CNYT余额<span class="c03ad6f">{$user_coin.cny}</span>)</span></span>
+					<span>{$Think.Lang.V_FINANCE_MYCZ_SELL_CNY} <span class="fontnormal"> ({$Think.Lang.V_FINANCE_MYCZ_BUY_BALANCE}<span class="c03ad6f">{$user_coin.cny}</span>)</span></span>
 					<span class="pull-right trading-box-title-right">
 								<!--<a href="#">CNYT充值</a>-->
 								<!--<a href="#">CNYT提现</a>-->
 							</span>
 				</h4>
-				<p class="trading-box-list trading-box-list2">卖出估价 CNY   <span class="c03ad6f">0.995 CNYT</span></p>
-				<p class="input-group trading-box-list"><span class="input-group-addon">卖出量CNYT</span><input class="form-control" type="text" name="num" id="cnyin_num1" onBlur="jnum(this.value,2)"></p>
-				<p class="input-group trading-box-list"><span class="input-group-addon">金额CNY</span><input class="form-control" type="text" id="prir" name="name[]" readonly="readonly"></p>
+				<p class="trading-box-list trading-box-list2">{$Think.Lang.V_FINANCE_MYCZ_SELL_PRICE}  <span class="c03ad6f">0.995 CNYT</span></p>
+				<p class="input-group trading-box-list"><span class="input-group-addon">{$Think.Lang.V_FINANCE_MYCZ_SELL_NUM}</span><input class="form-control" type="text" name="num" id="cnyin_num1" onBlur="jnum(this.value,2)"></p>
+				<p class="input-group trading-box-list"><span class="input-group-addon">{$Think.Lang.V_FINANCE_MYCZ_BUY_AMOUNT}</span><input class="form-control" type="text" id="prir" name="name[]" readonly="readonly"></p>
 				<p class="trading-box-list trading-box-list2">
-					<span class="pay-type">支付方式</span>
+					<span class="pay-type">{$Think.Lang.V_FINANCE_MYCZ_BUY_PAY_TYPE}</span>
 					<span>
-								<label class="pay-zfb"><input type="radio" name="cnyin_type1" value="alipay" class="hide"><span>支付宝</span></label>
-								<label class="pay-wx"><input type="radio" name="cnyin_type1" value="weixin" class="hide"><span>微信</span></label>
-								<label class="pay-card"><input type="radio" name="cnyin_type1" value="bank" class="hide"><span>银行卡转账</span></label>(<span class="c00ffff">必须本人支付</span>)
+								<label class="pay-zfb"><input type="radio" name="cnyin_type1" value="alipay" class="hide"><span>{$Think.Lang.V_ALL_ALIPAY}</span></label>
+								<label class="pay-wx"><input type="radio" name="cnyin_type1" value="weixin" class="hide"><span>{$Think.Lang.V_ALL_WECHAT}</span></label>
+								<label class="pay-card"><input type="radio" name="cnyin_type1" value="bank" class="hide"><span>{$Think.Lang.V_ALL_BANK_CARD}</span></label>(<span class="c00ffff">{$Think.Lang.V_FINANCE_MYCZ_BUY_PAY_SELF}</span>)
 								<!--<a href="#">《交易须知》</a>-->
 							</span>
 				</p>
-				<p class="trading-box-list"><a class="trading-sell-btn" href="#" onClick="cnyin_up(1)">卖出（CNYT-CNY）</a></p>
+				<p class="trading-box-list"><a class="trading-sell-btn" href="#" onClick="cnyin_up(1)">{$Think.Lang.V_FINANCE_MYCZ_SELL_COMMIT}</a></p>
 			</div>
 		</div>
 		<div class="c2c-order">
-			<h4 class="c2c-order-title c2c-table-title"><a class="active" href="#">我的订单</a></h4>
+			<h4 class="c2c-order-title c2c-table-title"><a class="active" href="#">{$Think.Lang.V_FINANCE_MYCZ_USER_BILL}</a></h4>
 			<div class="c2c-order-table">
 				<table class="c2c-table">
 					<thead>
 					<tr>
-						<th>订单ID</th>
-						<th>类型</th>
-						<th>数量</th>
-						<th>转账金额</th>
-						<th>建立时间</th>
-						<th  class="option">状态</th>
+						<th>{$Think.Lang.V_FINANCE_MYCZ_BILL_ID}</th>
+						<th>{$Think.Lang.V_FINANCE_MYCZ_BILL_TYPE}</th>
+						<th>{$Think.Lang.V_FINANCE_MYCZ_BILL_NUM}</th>
+						<th>{$Think.Lang.V_FINANCE_MYCZ_BILL_AMOUNT}</th>
+						<th>{$Think.Lang.V_FINANCE_MYCZ_BILL_CREATETIME}</th>
+						<th  class="option">{$Think.Lang.V_FINANCE_MYCZ_BILL_STATUS}</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -105,29 +105,29 @@
 							<td>
 								<eq name="vo.tpl" value="买入">
 									<eq name="vo.status" value="1">
-										未付款<a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="cb94e50">我已付款</span> </a>
+										{$Think.Lang.V_FINANCE_MYCZ_BILL_PAY_WAIT}<a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="cb94e50">{$Think.Lang.V_FINANCE_MYCZ_BILL_PAY_COMPLETE}</span> </a>
 									</eq>
 									<eq name="vo.status" value="2">
-										待卖家确认
+										{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLER_WAIT}
 									</eq>
 								</eq>
 								<eq name="vo.tpl" value="卖出">
 									<eq name="vo.status" value="1">
-										未付款<a  href="javascript:;" onclick="complete('{$vo.cid}')" style="    color: #2674FF!important;"> <span class="cb94e50">我已收款</span> </a>
+										{$Think.Lang.V_FINANCE_MYCZ_BILL_PAY_WAIT}<a  href="javascript:;" onclick="complete('{$vo.cid}')" style="    color: #2674FF!important;"> <span class="cb94e50">{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLER_COMPLETE}</span> </a>
 									</eq>
 									<eq name="vo.status" value="2">
-										已付款 <a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="c00ffff">我已收款 </span></a>
+										{$Think.Lang.V_FINANCE_MYCZ_BILL_PAY_OVER} <a  href="javascript:;" onclick="complete('{$vo.cid}')"> <span class="c00ffff">{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLER_COMPLETE} </span></a>
 									</eq>
 								</eq>
 								<eq name="vo.status" value="99">
-									<span class="c00ffff">交易成功</span>
+									<span class="c00ffff">{$Think.Lang.V_FINANCE_MYCZ_BILL_TRADE_SUCCESS}</span>
 								</eq>
 								<eq name="vo.status" value="0">
-									<span class="c414755">交易取消</span>
+									<span class="c414755">{$Think.Lang.V_FINANCE_MYCZ_BILL_TRADE_CHANCEL}</span>
 								</eq>
 								<eq name="vo.pp" value="1">
 									<eq name="vo.tpl" value="买入">
-										<a href="javascript:;" onclick="cancel('{$vo.cid}')"><span class="c414755">取消</span></a>
+										<a href="javascript:;" onclick="cancel('{$vo.cid}')"><span class="c414755">{$Think.Lang.V_FINANCE_MYCZ_BILL_CHANCEL}</span></a>
 									</eq>
 								</eq>
 							</td>
@@ -140,29 +140,32 @@
 						<tr class="order-detail-list hide">
 							<td colspan="6">
 								<div class="order-detail-box tl">
-									<h3>请选择以下方式给卖家付款</h3>
+									<h3>{$Think.Lang.V_FINANCE_MYCZ_BILL_CHOOSE_PAY_TYPE}</h3>
 									<ul class="order-detail-box-list clearfix">
 										<eq name="vo.kaihu" value="支付宝">
 											<li>
 												<div class="order-detail-box-item order-detail-pay-zfb">
-													<h4 class="order-detail-head">支付宝支付</h4>
+													<h4 class="order-detail-head">{$Think.Lang.V_FINANCE_BANK_ALI_PAY}</h4>
 													<div class="order-detail-cont">
-														<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
-														<p>支付宝账号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
-														<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
-														<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
-														<p>订单ID：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
-														<p>请及时核对卖家信息是否一致</p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLERNAME}<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">{$Think.Lang.V_ALL_COPY}</span></p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_ALIACCOUNT}<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">{$Think.Lang.V_ALL_COPY}</span></p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_PAY_AMOUNT}<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">{$Think.Lang.V_ALL_COPY}</span></p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_CONTACT}<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">{$Think.Lang.V_ALL_COPY}</span></p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_ID2}<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">{$Think.Lang.V_ALL_COPY}</span></p>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_CHECK_SELLER_INFO}</p>
 														<p></p>
-														<p><a href="#">卖家收款码 ></a></p>
-														<div class="order-detail-qrcode order-detail-qrcode-zfb" data-img="/Upload/public/{$vo.img}"></div>
+														<p><a href="#">{$Think.Lang.V_FINANCE_MYCZ_SELLER_QR}  &gt;</a></p>
+														<div class="order-detail-qrcode order-detail-qrcode-zfb" data-img="/Upload/public/{$vo.img}">
+															<p>支付宝收款码</p>
+															<p>立即查看</p>
+														</div>
 													</div>
 												</div>
 												<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
 													<div class="order-detail-warning">
-														<h4>此订单已关闭</h4>
-														<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
-														<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+														<h4>{$Think.Lang.V_FINANCE_MYCZ_ORDER_CLOSE}</h4>
+														<p>{$Think.Lang.V_FINANCE_MYCZ_ORDER_TIP}</p>
+														<p><a href="#" class="order-detail-warning-close">{$Think.Lang.V_FINANCE_MYCZ_ORDER_I_KNOW}</a></p>
 													</div>
 												</if>
 											</li>
@@ -170,53 +173,56 @@
 											<eq name="vo.kaihu" value="微信">
 												<li>
 													<div class="order-detail-box-item order-detail-pay-wx">
-														<h4 class="order-detail-head">微信支付</h4>
+														<h4 class="order-detail-head">{$Think.Lang.V_FINANCE_BANK_WECHAT_PAY}</h4>
 														<div class="order-detail-cont">
-															<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
-															<p>微信账号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
-															<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
-															<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
-															<p>订单ID：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
-															<p>请及时核对卖家信息是否一致</p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLERNAME}<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_WECHATACCOUNT}<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_PAY_AMOUNT}<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_CONTACT}<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_ID2}：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_CHECK_SELLER_INFO}</p>
 															<p></p>
-															<p><a href="#">卖家收款码 ></a></p>
-															<div class="order-detail-qrcode order-detail-qrcode-wx" data-img="/Upload/public/{$vo.img}"></div>
+															<p><a href="#">{$Think.Lang.V_FINANCE_MYCZ_SELLER_QR} &gt;</a></p>
+															<div class="order-detail-qrcode order-detail-qrcode-wx" data-img="/Upload/public/{$vo.img}">
+																<p>微信收款码</p>
+																<p>立即查看</p>
+															</div>
 														</div>
 													</div>
 													<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
 														<div class="order-detail-warning">
-															<h4>此订单已关闭</h4>
-															<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
-															<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+															<h4>{$Think.Lang.V_FINANCE_MYCZ_ORDER_CLOSE}</h4>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_ORDER_TIP}</p>
+															<p><a href="#" class="order-detail-warning-close">{$Think.Lang.V_FINANCE_MYCZ_ORDER_I_KNOW}</a></p>
 														</div>
 													</if>
 												</li>
 												<else/>
 												<li>
 													<div class="order-detail-box-item order-detail-pay-card">
-														<h4 class="order-detail-head">银行卡转账</h4>
+														<h4 class="order-detail-head">{$Think.Lang.V_FINANCE_MYCZ_BILL_BANKPAY}</h4>
 														<div class="order-detail-cont">
-															<p>卖家姓名：<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">复制</span></p>
-															<p>银行名：<span class="order-detail-txt">{$vo.kaihu}</span>  <span class="copy-btn" data-clipboard-text="{$vo.kaihu}">复制</span></p>
-															<p>银行卡号：<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">复制</span></p>
-															<p>付款金额：<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">复制</span></p>
-															<p>联系方式：<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">复制</span></p>
-															<p>备注：<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">复制</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_SELLERNAME}<span class="order-detail-txt">{$vo.truename}</span>   <span class="copy-btn" data-clipboard-text="{$vo.truename}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BANK_NAME}<span class="order-detail-txt">{$vo.kaihu}</span>  <span class="copy-btn" data-clipboard-text="{$vo.kaihu}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BANK_NO}<span class="order-detail-txt">{$vo.username}</span>  <span class="copy-btn" data-clipboard-text="{$vo.username}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_PAY_AMOUNT}<span class="order-detail-txt">{$vo.pri}</span>  <span class="copy-btn" data-clipboard-text="{$vo.pri}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_BILL_CONTACT}<span class="order-detail-txt">{$vo.min}</span>  <span class="copy-btn" data-clipboard-text="{$vo.min}">{$Think.Lang.V_ALL_COPY}</span></p>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_REMARK}<span class="order-detail-txt">{$vo.cid}</span>  <span class="copy-btn" data-clipboard-text="{$vo.cid}">{$Think.Lang.V_ALL_COPY}</span></p>
 														</div>
 													</div>
 
 													<if condition="($vo['status'] eq 99) OR ($vo['status'] eq 0) ">
 														<div class="order-detail-warning">
-															<h4>此订单已关闭</h4>
-															<p>切勿再次给卖家付款。当前信息仅供浏览。</p>
-															<p><a href="#" class="order-detail-warning-close">知道了</a></p>
+															<h4>{$Think.Lang.V_FINANCE_MYCZ_ORDER_CLOSE}</h4>
+															<p>{$Think.Lang.V_FINANCE_MYCZ_ORDER_TIP}</p>
+															<p><a href="#" class="order-detail-warning-close">{$Think.Lang.V_FINANCE_MYCZ_ORDER_I_KNOW}</a></p>
 														</div>
 													</if>
 												</li>
 											</eq>
 										</eq>
 									</ul>
-									<p>非自动扣款，请本人付款成功后点击“我已付款”，<span class="cb94e50">未付款并点击“我已付款”，经核实，将会暂停账号功能（转账时切勿备注“比特币”，“虚拟币”等信息，否则禁止C2C交易）</span></p>
+									<p>{$Think.Lang.V_FINANCE_MYCZ_ORDER_WARN}</p>
 								</div>
 							</td>
 						</tr>
@@ -225,7 +231,7 @@
 					</volist>
 					</tbody>
 				</table>
-				<div style="float:right; "><a href="/Finance/mycz_list">更多...</a></div>
+				<div style="float:right; "><a href="/Finance/mycz_list">{$Think.Lang.V_ALL_MORE}</a></div>
 			</div>
 		</div>
 		<!--<div class="c2c-order">-->
@@ -326,9 +332,7 @@ jQuery(document).ready(function($){
 			input.value = tits ; // 修改文本框的内容
 		  input.select(); // 选中文本
 		  document.execCommand("copy"); // 执行浏览器复制命令
-			layer.msg("账户："+tits+" 复制成功", {icon: 1});
-
-
+			layer.msg(lange.FINANCE_MYCZ_ACCOUNT+tits+lange.FINANCE_MYCZ_COPY_SUCCESS, {icon: 1});
 	});
 	// $('.copys1').click(function() {
 	// 	var tits = $(this).prev().html();
@@ -372,29 +376,29 @@ jQuery(document).ready(function($){
         var ival = parseInt(num);
 		if(tpl==1){
             if(isNaN(ival)){
-                layer.tips('请输入数字', '#cnyin_num', {tips: 3});
+                layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM, '#cnyin_num', {tips: 3});
                 return false;
             }
 			if(num<500){
-				layer.tips('最低买入500.0CNYT', '#cnyin_num', {tips: 3});
+				layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM2, '#cnyin_num', {tips: 3});
 				return false;
 			}
 			if(num%100){
-				layer.tips('买入CNYT需为100的倍数', '#cnyin_num', {tips: 3});
+				layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM3, '#cnyin_num', {tips: 3});
 				return false;
 			}
 			$("#pric").attr("value",num*1+" CNY");
 		}else{
             if(isNaN(ival)){
-                layer.tips('请输入数字', '#cnyin_num1', {tips: 3});
+                layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM, '#cnyin_num1', {tips: 3});
                 return false;
             }
 			if(num<500){
-				layer.tips('最低卖出500.0CNYT', '#cnyin_num1', {tips: 3});
+				layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM4, '#cnyin_num1', {tips: 3});
 				return false;
 			}
 			if(num%100){
-				layer.tips('卖出CNYT需为100的倍数', '#cnyin_num1', {tips: 3});
+				layer.tips(lange.FINANCE_MYCZ_TIP_INPUT_NUM5, '#cnyin_num1', {tips: 3});
 				return false;
 			}
 			var nums = num *0.995;
@@ -412,11 +416,11 @@ jQuery(document).ready(function($){
                 return false;
             }
 			if (type == "" || type == null) {
-				layer.tips('请选择交易方式', '.pay-type:eq(1)', {tips: 2});
+				layer.tips(lange.FINANCE_MYCZ_CHOOSE_PAYTYPE, '.pay-type:eq(1)', {tips: 2});
 				return false;
 			}
 			if (num == "" || num == null) {
-				layer.tips('请输入卖出量', '#cnyin_num1', {tips: 2});
+				layer.tips(lange.FINANCE_MYCZ_CHOOSE_SELLNUM, '#cnyin_num1', {tips: 2});
 				return false;
 			} else {
 			   // num = num + $('#random').html();
@@ -429,11 +433,11 @@ jQuery(document).ready(function($){
                 return false;
             }
 			if (!type || type == "" || type == null) {
-				layer.tips('请选择交易方式', '.pay-type:eq(0)', {tips: 2});
+				layer.tips(lange.FINANCE_MYCZ_CHOOSE_PAYTYPE, '.pay-type:eq(0)', {tips: 2});
 				return false;
 			}
 			if (num == "" || num == null) {
-				layer.tips('请输入买入量', '#cnyin_num', {tips: 2});
+				layer.tips(lange.FINANCE_MYCZ_CHOOSE_BUYNUM, '#cnyin_num', {tips: 2});
 				return false;
 			} else {
 			   // num = num + $('#random').html();
@@ -441,7 +445,7 @@ jQuery(document).ready(function($){
 			var tpl = 1;
 		}
 	    if(lock){
-		    layer.msg('加载中,请勿重复点击...');
+		    layer.msg(lange.FINANCE_MYCZ_LOADING);
 		    return;
 	    }
 	    lock = 1;
@@ -463,10 +467,10 @@ jQuery(document).ready(function($){
 
     function cancel(id){
         layer.confirm('', {
-            btn: ['确定', '取消'] //可以无限个按钮
+            btn: [lange.ALL_OK, lange.ALL_CANCEL] //可以无限个按钮
             ,btnAlign: 'c'
             ,maxWidth: 280
-            ,title: '确认取消?'
+            ,title: lange.ALL_CANCEL_CONFIRM
             ,btn1: function(index, layero){
                 layer.close(index);
                 lock = 1;
@@ -485,10 +489,10 @@ jQuery(document).ready(function($){
 
 	function complete(id){
         layer.confirm('', {
-            btn: ['确定', '取消'] //可以无限个按钮
+            btn: [lange.ALL_OK, lange.ALL_CANCEL] //可以无限个按钮
             ,btnAlign: 'c'
             ,maxWidth: 280
-            ,title: '确认已支付?'
+            ,title: lange.ALL_PAY_CONFIRM
             ,btn1: function(index, layero){
                 layer.close(index);
                 lock = 1;

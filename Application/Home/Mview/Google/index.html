@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>笔加索移动端登录</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+    <if condition="$_COOKIE['skin'] eq 'white'">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+    </if>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-form login-form-head">
+        <div class="login-form-cont">
+            <a href="/" class="login-link-home"></a>
+            <ul class="wrap-form-list">
+                <li class="wrap-form-item">
+                    <p><span class="wrap-form-label">谷歌验证</span></p>
+                    <input type="text" id="google_codes" class="" style="display: none;">
+                    <input class="form-input" type="text" id="google_code" placeholder="请输入谷歌验证码" value="">
+                </li>
+                <li class="wrap-form-item wrap-form-item-submit padt4">
+                    <button class="default-form-submit default-form-blue" onclick="footer_login();">确定</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
+<script type="text/javascript">
+    var home;
+    $(document).ready(function(){
+        home = new bjsIndex();
+        home.initLogin();
+    });
+
+    function footer_login() {
+        var google_code = $("#google_code").val();
+        if (google_code == "" || google_code == null) {
+            alert
+            layer.tips('请输入谷歌验证码', '#google_code', {tips: 1});
+            return false;
+        }
+        $.post("/login/verifyGoogle/", {
+            google_code:google_code,
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon:1,time:2000},function(){
+                    window.location = "/Index";
+                });
+            } else {
+                layer.msg(data.info, {icon:2,time:2000},function(){
+                    $("#login_verify_up").click();
+                });
+            }
+        }, "json");
+    }
+    $(function(){
+        //submit 事件
+        $('.register-form').on('keyup','input',function(e){
+            if(e.keyCode == 13){
+                $('.default-form-submit').click();
+            }
+        });
+    });
+</script>
+</body>
+</html>

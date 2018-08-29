@@ -52,9 +52,13 @@
                                     class="">{$Think.session.userIdCardNumber|hideIdCardNumber}</span></li>
                             <li class="flex-item-4"><span>用于提币、找回密码、修改安全设置、等</span></li>
                             <li class="flex-item-2 tr">
-                                <if condition="$Think.session.idcardauth neq 1">
-                                <a class="uc-btn" href="#" id="gaojirenzheng-bnt">去认证</a>
-                                    <else />
+                                <if condition="$Think.session.idcardauth eq 0">
+                                    <if condition="$Think.session.idcardimg eq '' ">
+                                        <a class="uc-btn" href="#" id="gaojirenzheng-bnt">去认证</a>
+                                        <else />
+                                        已上传，等待审核
+                                    </if>
+                                <else />
                                 已认证
                                 </if>
                             </li>

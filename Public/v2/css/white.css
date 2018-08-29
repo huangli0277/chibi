@@ -10,6 +10,7 @@ body{background-color: #ebecf1; color: #343942;}
 .login_lan .more-lan a,
 .bjs-aboutUs-cont,
 .bjs-aboutUs-foot,
+.bjs-copyright-cont,
 .page-right{background-color: #ebecf1;}
 
 .c2c-table,
@@ -25,6 +26,7 @@ body{background-color: #ebecf1; color: #343942;}
 .bjs-aboutUs-foot li a.active,
 .bjs-tab-trading:hover{color: #00b6b7; border-color: #00b6b7;}
 
+
 .curr-base:hover,
 .bjs-tab-title span,
 .bjs-tab-title em,
@@ -32,6 +34,10 @@ body{background-color: #ebecf1; color: #343942;}
 .uc-btn,
 .menu-list-show li:hover > a,
 .c2c-menu-txt-2,
+.c2c-promotion-title-new,
+.c2c-app-title,
+.new-bi-logo-title,
+.new-bi-logo-title2 span,
 .vote-title-link:hover{color: #00b6b7;}
 
 .bjs-news-btn-left,
@@ -76,6 +82,7 @@ body{background-color: #ebecf1; color: #343942;}
 .cc6ccd8{color: #566778;}
 
 .vote-bi-add,
+.join-btn,
 .bjs-news-title span:after{background-color: #00b6b7;}
 
 .bjs-news-cont,
@@ -95,6 +102,7 @@ body{background-color: #ebecf1; color: #343942;}
 
 .pages a,
 .pages span,
+.new-bi-logo-title2,
 .bjs-news-cont li h4{color: #343942;}
 
 
@@ -126,7 +134,7 @@ body{background-color: #ebecf1; color: #343942;}
 
 .home-logo{background-image: url(../images/logo-white.png);}
 
-.join-btn{background-image: url(../images/join-white.png);}
+.join-btn{color: #fff;}
 
 .bjs-logo-cont{background-color: #fafafa; background-image: url(../images/bjs-2-white.jpg);}
 
@@ -218,6 +226,8 @@ body{background-color: #ebecf1; color: #343942;}
 .c2c-cont-head-link,
 .register-form-submit{background-color: #fff; color: #343942; border-color: #fff;}
 
+.default-form-blue{background-color: #00b2bd; color: #fff;}
+
 .my-tab-scroll .c2c-table th,
 .bjs-tab-title,
 .input-group .form-control[readonly],
@@ -278,15 +288,12 @@ body{background-color: #ebecf1; color: #343942;}
 .introduce-title2 .introduce-main1{background-image: url(../images/introduce-main1-white.png);}
 .introduce-title2 .introduce-main2{background-image: url(../images/introduce-main2-white.png);}
 
-.order-detail-qrcode-wx{background: url(../images/qrcode-wx-white.png);}
-.order-detail-qrcode-zfb{background: url(../images/qrcode-zfb-white.png);}
+.order-detail-qrcode{background: url(../images/qrcode-bg-white.png);}
 
+.login-logo,
+.reset-password-logo,
+.new-bi-logo,
 .register-logo{background-image: url(../images/register-1-white.jpg);}
-.login-logo{background-image: url(../images/login-1-white.jpg);}
-.reset-password-logo{background-image: url(../images/reset-password-1-white.jpg);}
-.c2c-promotion-title{background-image: url(../images/c2c-promotion-white.jpg);}
-.new-bi-logo{background-image: url(../images/new-1-white.jpg);}
-.c2c-app-title{background-image: url(../images/app-1-white.png);}
 
 /*.trade-page-content{border-top-color: transparent;}*/
 .trade-page-content{border-top: none;}

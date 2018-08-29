@@ -43,8 +43,13 @@
             foreground: "#000000", //二维码的前景色
             src: '__PUBLIC__/v2/images/qrcode_w.PNG',
             imgWidth: 40,
-            imgHeight: 40
+            imgHeight: 40,
+            callback： callback
         });
+        function callback(c){
+            var src = c.toDataURL("image/png");
+            $('#qrcode_div').html('<img src="'+src+'" />');
+        }
     });
     function refreshToken() {
         $.get("/User/auth", function (data) {
@@ -59,8 +64,13 @@
                 foreground: "#000000", //二维码的前景色
                 src: '__PUBLIC__/v2/images/qrcode_w.PNG',
                 imgWidth: 40,
-                imgHeight: 40
+                imgHeight: 40,
+                callback： callback
             });
+            function callback(c){
+                var src = c.toDataURL("image/png");
+                $('#qrcode_div').html('<img src="'+src+'" />');
+            }
         })
     }
 </script>

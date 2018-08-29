@@ -538,6 +538,8 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         session('userIdCardNumber', $user['idcard']);
         session('email', $user['email']);
         session('idcardauth', $user['idcardauth']);
+        session('idcardimg', null);
+        session('idcardimg', $user['idcardimg1']);
         session('nickname', $user['nickname']);
         if (!empty($user['idcard']) && $user['idcardauth'] == 1) {
             session('idcard_verify', 1);
@@ -1408,6 +1410,61 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
 
     public function install()
     {
+    }
+
+    public function googleauth(){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $user = M('User')->where(array('id' => userid()))->find();
+        $is_ga = ($user['ga'] ? 1 : 0);
+        $this->assign('is_ga', $is_ga);
+        if (!$is_ga) {
+            $ga = new \Common\Ext\GoogleAuthenticator();
+            if(session('secret')){
+                $secret = session('secret');
+            }else{
+                $secret = $ga->createSecret();
+                session('secret', $secret);
+            }
+            $qrCodeUrl = $ga->getQRCodeGoogleUrl(rawurlencode($user['username']."  -  ".date('Y-m-d h:i:s')), $secret,'BJS');
+            $this->assign('qrCodeUrl', $qrCodeUrl);
+            $this->assign('Asecret', $secret);
+        }
+
+
+
+        $this->display();
+    }
+
+    /**
+     * 绑定谷歌认证器
+     */
+    public function bind_google($code = null){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $user = M('User')->where(array('id' => userid()))->find();
+        if($user['ga']){
+            $this->error('验证器已绑定！');
+        }
+        if($code){
+            $secret = session('secret');
+
+            if (!$secret) {
+                $this->error('验证码已经失效,请刷新网页!');
+            }
+            $ga = new \Common\Ext\GoogleAuthenticator();
+            if($ga->verifyCode($secret, $code, 1)){
+                M('User')->where(array('id' => userid()))->save(['ga'=>$secret]);
+                session('secret', null);
+                $this->success('验证成功！');
+            }else{
+                $this->error('验证码不正确！');
+            }
+        }else{
+            $this->error('验证码不能为空！');
+        }
     }
 
 }

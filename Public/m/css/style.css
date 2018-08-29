@@ -3,7 +3,7 @@ body,dl,dd,ul,ol,h1,h2,h3,h4,h5,h6,pre,p,fieldset,input,textarea,blockquote{marg
 ul,ol,input,textarea,fieldset,th,td{padding: 0;}
 fieldset,img,abbr,acronym{border: 0;}
 ol,ul{list-style: none;}
-input,textarea{border-width: 1px;outline: none;}
+input,textarea{border-width: 1px;outline: none;box-shadow: none;-webkit-appearance: none;}
 address,caption,cite,code,dfn,em,strong,th,var,i{font-weight: normal;font-style: normal;}
 table{border-collapse: collapse;border-spacing: 0;}
 h1,h2,h3,h4,h5,h6{font-weight: normal;font-size: 100%;}
@@ -84,6 +84,7 @@ input{
 .tl{text-align: left;}
 .tc{text-align: center;}
 .tr{text-align: right;}
+.ovh{overflow: hidden;}
 .text-overflow{overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .text-nowrap{white-space: nowrap;}
 
@@ -178,7 +179,6 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .c2c-page-tab-cont-title{background-color: #1b1c24; padding: .32rem .2rem; border-radius: .08rem; font-size: .5rem;}
 .c2c-page-tab-cont-title em{color: #dbdfe6; font-weight: normal;}
 .market-order-list ul{border-bottom: 1px solid #292e38; padding-top: .42rem; padding-bottom: .05rem;}
-.market-order{background-color: #1f2029;}
 .market-order-name,
 .market-order-type,
 .market-order-price{color: #dbdfe6; font-size: .5rem;}
@@ -207,7 +207,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .bjs-search-show{display: none;}
 .market-search{padding-top: .28rem;}
 .market-search .market-search-btn{width: 20%; color: #dbdfe6; font-size: .62rem; height: 1rem; line-height: 1rem;}
-.market-search .market-search-input{width: 80%; padding: 0 .25rem; height: 1rem; line-height: 1rem; font-size: .5rem;}
+.market-search .market-search-input{width: 80%; padding: 0 1.25rem 0 .25rem; height: 1rem; line-height: 1rem; background: transparent url(../images/search.png) no-repeat 98% center / .6rem auto; text-align: center;}
 
 
 /*---- my ----*/
@@ -253,6 +253,9 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .my-links .my-links-shiming{background-image: url(../images/icon-renzheng2.png); background-size: 1rem auto;}
 .my-links .my-links-uc6{background-image: url(../images/icon-password.png); background-size: 1rem auto;}
 
+.my-links .my-links-skin{background-image: url(../images/my-links-skin.png); background-size: .76rem auto;}
+.my-links .my-links-language{background-image: url(../images/my-links-language.png); background-size: .76rem auto;}
+
 .my-asset-head{padding: .05rem .42rem;}
 .my-asset-title{padding: .2rem;}
 .my-asset-money{font-size: .84rem; color: #dbdfe6; padding: .2rem;}
@@ -275,10 +278,10 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .asset-detail-filter-btn{font-size: .42rem; padding: .25rem .4rem .25rem .25rem; margin-top: -.15rem; cursor: pointer; background: url(../images/arr-b.png) no-repeat right center / .3rem auto;}
 .asset-detail-filter-box{position: fixed; left: 100%; top: 0; width: 100%; height: 100%; z-index: 9;}
 .asset-detail-filter-box.right-show{left: 0;}
-.asset-detail-filter-box-bg{position: absolute; left: -200%; top: 0; height: 100%; width: 100%; background-color: rgba(0,0,0,.8); z-index: -1; cursor: pointer;}
+.asset-detail-filter-box-bg{position: absolute; left: 0; top: 0; height: 100%; width: 100%; background-color: rgba(0,0,0,.8); z-index: -1; cursor: pointer;}
 .asset-detail-filter-box-cont{height: 100%; width: 48%; margin-left: 100%; background-color: #292e38; position: relative; overflow: auto; -webkit-overflow-scrolling: touch;}
-.right-show .asset-detail-filter-box-bg{left: 0; transition-duration: .2s;}
-.right-show .asset-detail-filter-box-cont{margin-left: 52%; transition-duration: .2s;}
+.right-show .asset-detail-filter-box-bg{left: 52%; margin-left: -100%; transition-duration: .2s; transition-property: left;}
+.right-show .asset-detail-filter-box-cont{margin-left: 52%; transition-duration: .2s; transition-property: margin;}
 .asset-detail-filter-box-cont ul{position: absolute; width: 100%; left: 0; top: 50%; transform: translateY(-50%);}
 .asset-detail-filter-box-cont li{padding: .42rem 0;}
 .asset-detail-filter-box-cont .asset-detail-filter-box-cancel{padding-top: 2rem;}
@@ -325,7 +328,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .search-slide-box{padding-top: .3rem;}
 .search-slide-back{width: 1.25rem; background: transparent url(../images/back.png) no-repeat left center / .75rem auto; height: 1rem;}
 .search-input-box{width: calc(100% - 1.25rem);}
-.search-input-box input{text-align: center; background: transparent url(../images/search.png) no-repeat right center / .75rem auto; border: none; height: 1rem; width: 100%; color: #dbdfe6; padding-right: 1.25rem; box-sizing: border-box;}
+.search-input-box input{text-align: center; background: transparent url(../images/search.png) no-repeat 98% center / .6rem auto; border: 1px solid #2c303b; border-radius: .08rem; height: 1rem; width: 100%; color: #dbdfe6; padding: 0 1.25rem 0 .25rem; box-sizing: border-box;}
 
 
 /*---- pay-market ----*/
@@ -463,7 +466,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .promotion-title2{font-size: .8rem; padding-bottom: 1.5rem;}
 .promotion-cont{padding-bottom: 3rem;}
 .promotion-code{font-size: .62rem; padding-bottom: 2.4rem;}
-.promotion-copy-btn.bjs-btn{border: none; padding: .1rem .2rem; vertical-align: top;}
+.promotion-copy-btn.bjs-btn{border: none; padding: .1rem .2rem; vertical-align: middle;}
 .promotion-foot{padding-bottom: .55rem;}
 .promotion-foot p{padding-bottom: .15rem;}
 .promotion-submit{padding: 0 .42rem;}
@@ -519,7 +522,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .add-address{background: url(../images/add-address.png) no-repeat right center / .66rem auto; height: .8rem;}
 .tibi-list-img{width: .66rem; height: .66rem; margin-right: .2rem; margin-top: -.08rem;}
 .tibi-list a{padding-left: 0;}
-.tibi-address-text{display: inline-block; max-width: calc(100% - 1.8rem);}
+.tibi-address-text{display: inline-block; max-width: calc(100% - 1.8rem); vertical-align: middle;}
 
 
 /*---- payment ----*/
@@ -593,6 +596,9 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .flex-table-tr{padding: .2rem 0;}
 
 
+/*---- qrcode ----*/
+.qrcode_div{display: inline-block; padding: 5px; background: #fff;}
+
 
 /*---- flex实现 ----*/
 .flex-box{display: -webkit-flex; display: flex; align-items: center;}
@@ -621,7 +627,7 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .input-group-code .input-group-addon{border-radius: .08rem; margin-right: 0; width: 35%; float: right; padding: 0;}
 .input-group-code .input-group-addon img{width: 100%; height: 100%; border-radius: .08rem}
 .input-group-code .form-control{border-radius: .08rem; width: 62%; float: left;}
-.form-input{background-color: transparent; border: 1px solid #2c303b; box-sizing: border-box; border-radius: .08rem; vertical-align: top; color: #6f798b; width: 100%; height: 1.25rem; padding: .25rem .15rem; line-height: .68rem;}
+.form-input{background-color: transparent; box-shadow: none; border: 1px solid #2c303b; box-sizing: border-box; border-radius: .08rem; vertical-align: top; color: #6f798b; width: 100%; height: 1.25rem; padding: .25rem .15rem; line-height: .68rem;}
 .input-group .form-control[readonly],
 .form-input[readonly]{background: #232430;}
 .input-group.active .input-group-addon{border-color: #4d5462;}

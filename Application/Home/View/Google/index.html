@@ -1,0 +1,46 @@
+<include file="Public:header" />
+
+
+<div class="content">
+    <div class="slide-unit login-logo">
+        谷歌验证
+    </div>
+    <div class="register-box">
+        <div class="register-form">
+            <div id="register-phone-form" class="register-list active">
+                <div class="register-item">
+                    <input type="text" id="google_code"  placeholder="请输入谷歌验证码" value=""/>
+                </div>
+                <div class="register-item tc login-form-item clearfix">
+                    <p><a class="default-form-submit" href="javascript:;" onclick="footer_login();">确定</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/v2/js/md5.js"></script>
+
+<script>
+    function footer_login() {
+        var google_code = $("#google_code").val();
+        if (google_code == "" || google_code == null) {
+            layer.tips('请输入谷歌验证码', '#google_code', {tips: 2});
+            return false;
+        }
+        $.post("/login/verifyGoogle/", {
+            google_code:google_code
+        }, function (data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {icon:1,time:2000},function(){
+                    window.location = "/Index";
+                });
+            } else {
+                layer.msg(data.info, {icon:2,time:2000},function(){
+                    $("#login_verify_up").click();
+                });
+            }
+        }, "json");
+    }
+</script>
+<include file="Public:footer" />

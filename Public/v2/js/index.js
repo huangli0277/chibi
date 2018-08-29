@@ -932,7 +932,7 @@ var bjsIndex = (function(){
 				    skin: ''
 				});
 			}else{
-				$.cookies.set('skin','',{expires: 30,path: "/"});
+				$.cookies.set('skin','black',{expires: 30,path: "/"});
 				$('#style-white').remove();
 				layer.config({
 				    extend: 'myskin/style.css', //加载您的扩展样式

@@ -125,6 +125,16 @@ function userid($username = NULL, $type = 'username')
         }
     } else {
         $userid = session('userId');
+        if(CONTROLLER_NAME != 'Login' && CONTROLLER_NAME != 'Google') {
+            if ($userid) {
+                $user_info = M('User')->where(['id' => $userid])->find();
+                if ($user_info['ga']) {
+                    if (!session('google')) {
+                        redirect('/Google');
+                    }
+                }
+            }
+        }
     }
 
     return $userid ? $userid : NULL;
@@ -144,6 +154,49 @@ function username($id = NULL, $type = 'id')
     }
 
     return $username ? $username : NULL;
+}
+
+
+/**
+ * 判断活动是否已开通
+ * @param $userid
+ * @param $filed
+ * @return bool
+ */
+function check_activity($userid,$filed){
+    $activity = M('activity')->where(['userid'=>$userid])->find();
+    if(empty($activity)){
+        M('activity')->add(['userid'=>$userid]);
+        return false;
+    }
+    if($activity[$filed] == 1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/**
+ * 开通活动
+ * @param $userid
+ * @param $filed
+ * @param $require
+ */
+function open_activity($userid,$filed,$require){
+    if(check_activity($userid,$filed)){
+        return true;
+    }else{
+        $activity_info = M('activity')->where(['userid'=>$userid])->find();
+        if($activity_info['integral'] >= $require){
+            $save=['integral'=>$activity_info['integral']-$require,
+                $filed=>1];
+            M('activity')->where(['userid'=>$userid])->save($save);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 function check_dirfile()
@@ -548,7 +601,7 @@ function ismobile()
 function SendEmail($data)
 {
     $ci = curl_init();
-    curl_setopt($ci, CURLOPT_URL, "http://service.bjs.bi:5000/bjs-messenger/mail");
+    curl_setopt($ci, CURLOPT_URL, "https://service.bjs.bi/bjs-messenger/mail");
 
     curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
     curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
@@ -631,7 +684,7 @@ function SendText($cell, $code, $type)
     $data['data'] = json_encode(array('code' => $code));
 
     $ci = curl_init();
-    curl_setopt($ci, CURLOPT_URL, "http://service.bjs.bi:5000/bjs-messenger/text");
+    curl_setopt($ci, CURLOPT_URL, "https://service.bjs.bi/bjs-messenger/text");
 //    curl_setopt($ci, CURLOPT_URL, "http://localhost:8080/text");
 
     curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);

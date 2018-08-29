@@ -66,6 +66,12 @@ var bjsIndex = (function(){
 		var _this = this;
 		_this.resourcesPath = '/Public/m/';
 		var state = false;
+		var skin = $.cookies.get('skin');
+		if(skin !== 'white'){
+			$('.my-heade-skin').removeClass('sun').addClass('moon');
+		}else{
+			$('.my-heade-skin').removeClass('moon').addClass('sun');
+		}
 		$(document).on('click','.my-heade-skin',function(){
 			if(state){
 				return false;

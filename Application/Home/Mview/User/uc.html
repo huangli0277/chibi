@@ -58,21 +58,28 @@
 							</span>
 						</a>
 					</li>
-					<!--<li>-->
-						<!--<a class="my-links-uc3" href="../../../../Public/m/template/uc-google.html"><span>谷歌认证 <em class="bjs-color-up">已开启</em></span></a>-->
-					<!--</li>-->
+					<li>
+						<a class="my-links-uc3" href="/User/googleauth.html"><span>谷歌认证 <em class="bjs-color-up">已开启</em></span></a>
+					</li>
 					<li>
 						<a class="my-links-shiming" href="javascript:;">
 							<span>实名认证
-								<neq  name="Think.session.idcardauth" value="1">
-									<em class="bjs-color-down">
+								<eq  name="Think.session.idcardauth" value="0">
+									<eq  name="Think.session.idcardimg" value="">
+										<em class="bjs-color-down">
 										未认证
-									</em>
+										</em>
+									<else />
+										<em class="bjs-color-down">
+										已上传，待审核
+
+										</em>
+									</eq>
 								<else />
 									<em class="bjs-color-up">
 										已认证
 									</em>
-								</neq>
+								</eq>
 							</span>
 						</a>
 					</li>
@@ -123,7 +130,9 @@
                 window.location.href = "/User/idcardauth.html";
                 return false;
 			}
-            
+            if('{$Think.session.idcardimg}' != ''){
+                return;
+			}
 			layer.confirm('<span class="bjs-color-blue">中国大陆用户请选择自助认证</span>，其他国家地区用户请选择人工认证。', {
 				btn: ['自助认证', '人工认证'] //可以无限个按钮
 				,btnAlign: 'c'

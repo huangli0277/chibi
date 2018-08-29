@@ -18,6 +18,7 @@
     <if condition="$_COOKIE['skin'] eq 'white'">
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/white.css" id='style-white'>
     </if>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/Lang/{$_COOKIE['think_language']}.js"></script>
     <style type="text/css">
 
     </style>
@@ -54,7 +55,7 @@
                         </div>
                     </li>-->
                     <li class="lang-option">
-                        <div class="text-nowrap"><span class="iti-flag cn"></span>中文</div>
+                        <div class="text-nowrap"><span class="iti-flag {$Think.Lang.V_HEADER_LANGUAGE}"></span>{$Think.Lang.V_HEADER_LANGUAGE_TXT}</div>
                         <div class="more-lan">
                             <a class="text-nowrap" href="javascript:;" data-language="zh-cn"><span class="iti-flag cn"></span>中文</a>
                             <a class="text-nowrap" href="javascript:;" data-language="en-us"><span class="iti-flag gb"></span>English</a>

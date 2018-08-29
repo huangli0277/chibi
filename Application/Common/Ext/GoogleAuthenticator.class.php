@@ -40,7 +40,7 @@ class GoogleAuthenticator
 
 	public function getQRCodeGoogleUrl($name, $secret, $title = NULL)
 	{
-		return 'otpauth://totp/' . $name . '?secret=' . $secret;
+		return 'otpauth://totp/' . $name . '?secret=' . $secret."&issuer=".$title;
 	}
 
 	public function verifyCode($secret, $code, $discrepancy = 1, $currentTimeSlice = NULL)

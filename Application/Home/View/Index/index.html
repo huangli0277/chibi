@@ -40,61 +40,61 @@
                 <div class="bjs-tab-table">
                     <div class="bjs-tab-thead">
                         <ul class="clearfix bjs-tab-tr">
-                            <li><span class="curr-base">币种对<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
-                            <li><span class="curr-base">价格<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
-                            <li><span class="curr-base">24小时交易量<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
-                            <li><span class="curr-base">24小时成交额<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
-                            <li><span class="curr-base">日涨跌<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
-                            <li><span>价格趋势(3日)</span></li>
+                            <li><span class="curr-base">{$Think.Lang.V_INDEX_COIN_PAIR}<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
+                            <li><span class="curr-base">{$Think.Lang.V_INDEX_COIN_PRICE}<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
+                            <li><span class="curr-base">{$Think.Lang.V_INDEX_COIN_24_COUNT}<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
+                            <li><span class="curr-base">{$Think.Lang.V_INDEX_COIN_24_COIN}<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
+                            <li><span class="curr-base">{$Think.Lang.V_INDEX_UPSDOWNS}<em class="bjs-sort-up"></em><em class="bjs-sort-down"></em></span></li>
+                            <li><span>{$Think.Lang.V_INDEX_UPSDOWNS_3DAY}</span></li>
                             <li></li>
                             <li><span class="bjs-star star-cur"></span></li>
                         </ul>
                     </div>
-                    <div class="bjs-tab-title"><span>主区</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_main.html" target="_blank">主区介绍</a></div>
+                    <div class="bjs-tab-title"><span>{$Think.Lang.V_INDEX_MAIN_AREA}</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_main.html" target="_blank">{$Think.Lang.V_INDEX_MAIN_AREA_INTRODUCE}</a></div>
                     <div class="bjs-tab-tbody">
                         <volist name="lists" id="vo">
                             <eq name="vo.main_coin" value="1">
                             <ul class="clearfix bjs-tab-tr" data-id="{$vo.url}">
                                 <li><a href="/trade/index/market/{$vo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$vo.img}"/>{$vo.title}</span></a></li>
                                 <if condition="$vo['class'] eq 'red'">
-                                    <li><span class="icon-arrow-down">￥{$vo.new_price}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
+                                    <li><span class="icon-arrow-down">￥{$vo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-down">↓</span></li>
                                     <li>{$vo.volume}</li>
                                     <li>{$vo.volumes}</li>
                                     <li><span class="icon-arrow-down {$vo.class}">{$vo.change}%</span></li>
                                     <else />
-                                    <li><span class="icon-arrow-up">￥{$vo.new_price}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
+                                    <li><span class="icon-arrow-up">￥{$vo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$vo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-up">↑</span></li>
                                     <li>{$vo.volume}</li>
                                     <li>{$vo.volumes}</li>
                                     <li><span class="icon-arrow-up">{$vo.change}%</span></li>
                                 </if>
                                 <li><canvas width="200" height="40"></canvas></li>
-                                <li><a class="bjs-tab-trading" href="/trade/index/market/{$vo.url}">交易</a>
-                                    <a class="bjs-tab-trading" href="/trade/profession/market/{$vo.url}/profession.html">K线</a></li>
+                                <li><a class="bjs-tab-trading" href="/trade/index/market/{$vo.url}">{$Think.Lang.V_INDEX_TRANSACTION}</a>
+                                    <a class="bjs-tab-trading" href="/trade/profession/market/{$vo.url}/profession.html">{$Think.Lang.V_INDEX_K_LINE}</a></li>
                                 <li><span class="bjs-star star-cur"></span></li>
                             </ul>
                             </eq>
                         </volist>
                     </div>
-                    <div class="bjs-tab-title"><span>创新区</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_new.html" target="_blank">创新区介绍</a></div>
+                    <div class="bjs-tab-title"><span>{$Think.Lang.V_INDEX_NEW_AREA}</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_new.html" target="_blank">{$Think.Lang.V_INDEX_NEW_AREA_INTRODUCE}</a></div>
                     <div class="bjs-tab-tbody">
                         <volist name="lists" id="voo">
                             <eq name="voo.main_coin" value="0">
                                 <ul class="clearfix bjs-tab-tr" data-id="{$voo.url}">
                                     <li><a href="/trade/index/market/{$voo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
                                     <if condition="$voo['class'] eq 'red'">
-                                        <li><span class="icon-arrow-down">￥{$voo.new_price}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
+                                        <li><span class="icon-arrow-down">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-down">↓</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-down {$voo.class}">{$voo.change}%</span></li>
                                         <else />
-                                        <li><span class="icon-arrow-up">￥{$voo.new_price}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
+                                        <li><span class="icon-arrow-up">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-up">↑</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-up">{$voo.change}%</span></li>
                                     </if>
                                     <li><canvas width="200" height="40"></canvas></li>
-                                    <li><a class="bjs-tab-trading" href="/trade/index/market/{$voo.url}">交易</a>
-                                        <a class="bjs-tab-trading" href="/trade/profession/market/{$voo.url}/profession.html">K线</a></li>
+                                    <li><a class="bjs-tab-trading" href="/trade/index/market/{$voo.url}">{$Think.Lang.V_INDEX_TRANSACTION}</a>
+                                        <a class="bjs-tab-trading" href="/trade/profession/market/{$voo.url}/profession.html">{$Think.Lang.V_INDEX_K_LINE}</a></li>
                                     <li><span class="bjs-star star-cur"></span></li>
                                 </ul>
                             </eq>
@@ -102,26 +102,26 @@
                     </div>
 
 
-                    <div class="bjs-tab-title"><span>实验区</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_experiment.html" target="_blank">实验区介绍</a></div>
+                    <div class="bjs-tab-title"><span>{$Think.Lang.V_INDEX_EXPERIMENT_AREA}</span><a class="pull-right vote-title-link index-link-to-introduce" href="/Finance/introduce_experiment.html" target="_blank">{$Think.Lang.V_INDEX_EXPERIMENT_AREA_INTRODUCE}</a></div>
                     <div class="bjs-tab-tbody">
                         <volist name="lists" id="voo">
                             <eq name="voo.main_coin" value="2">
                                 <ul class="clearfix bjs-tab-tr" data-id="{$voo.url}">
                                     <li><a href="/trade/index/market/{$voo.url}"><span class="bjs-bi-icon"><img src="/Upload/coin/{$voo.img}"/>{$voo.title}</span></a></li>
                                     <if condition="$voo['class'] eq 'red'">
-                                        <li><span class="icon-arrow-down">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-down">↓</span></li>
+                                        <li><span class="icon-arrow-down">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-down">↓</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-down {$voo.class}">{$voo.change}%</span></li>
                                         <else />
-                                        <li><span class="icon-arrow-up">￥{$voo.new_price|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt} </span><span class="icon-arrow-up">↑</span></li>
+                                        <li><span class="icon-arrow-up">￥{$voo.new_price|NumToStr|NumToStr}</span><span class="bjs-tab-price"> ≈ ${$voo.new_price|tousdt|NumToStr} </span><span class="icon-arrow-up">↑</span></li>
                                         <li>{$voo.volume}</li>
                                         <li>{$voo.volumes}</li>
                                         <li><span class="icon-arrow-up">{$voo.change}%</span></li>
                                     </if>
                                     <li><canvas width="200" height="40"></canvas></li>
-                                    <li><a class="bjs-tab-trading" href="/trade/index/market/{$voo.url}">交易</a>
-                                        <a class="bjs-tab-trading" href="/trade/profession/market/{$voo.url}/profession.html">K线</a></li>
+                                    <li><a class="bjs-tab-trading" href="/trade/index/market/{$voo.url}">{$Think.Lang.V_INDEX_TRANSACTION}</a>
+                                        <a class="bjs-tab-trading" href="/trade/profession/market/{$voo.url}/profession.html">{$Think.Lang.V_INDEX_K_LINE}</a></li>
                                     <li><span class="bjs-star star-cur"></span></li>
                                 </ul>
                             </eq>
@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="content-unit bjs-news">
-        <h3 class="bjs-news-title"><span>最新动态</span></h3>
+        <h3 class="bjs-news-title"><span>{$Think.Lang.V_INDEX_NEW_MESSAGE}</span></h3>
         <div class="bjs-news-cont">
             <div class="window-wrap w1500 bjs-news-slide-box">
                 <div class="bjs-news-slide">
@@ -162,32 +162,13 @@
         </div>
         <div class="bjs-logo-cont">
             <img src="__PUBLIC__/v2/images/bjs-2.jpg">
-            <a class="join-btn" href="/Login/index.html"></a>
+            <a class="join-btn" href="/Login/index.html">立即加入</a>
         </div>
     </div>
     <div class="content-unit bjs-features">
         <div class="bjs-features-cont">
             <div class="window-wrap w1500">
-                <ul class="bjs-features-list clearfix">
-                    <li class="feature-1">
-                        <div></div>
-                        <h3>全托管</h3>
-                        <h4>笔加索为您提供全方位的托管服务<br/>让您省心便捷</h4>
-                        <p>-</p>
-                    </li>
-                    <li class="feature-2">
-                        <div></div>
-                        <h3>有保障</h3>
-                        <h4>笔加索拥有非常资深的技术实力团队<br/>保障您的各项需求</h4>
-                        <p>-</p>
-                    </li>
-                    <li class="feature-3">
-                        <div></div>
-                        <h3>更放心</h3>
-                        <h4>您的每一笔交易，都会有笔加索全程护驾<br/>让您交易更放心</h4>
-                        <p>-</p>
-                    </li>
-                </ul>
+                {$Think.Lang.V_INDEX_TEAM_INFO}
             </div>
         </div>
     </div>

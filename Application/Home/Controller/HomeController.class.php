@@ -58,17 +58,18 @@ class HomeController extends \Think\Controller
 
         //C('coin_menu_qq3479015851',array('CNY','BTC','ETH'));
 
-
-        if (userid()) {
-            $userCoin_top = M('UserCoin')->where(array('userid' => userid()))->find();
-            $userCoin_top['cny'] = round($userCoin_top['cny'], 2);
-            $userCoin_top['cnyd'] = round($userCoin_top['cnyd'], 2);
-            $userCoin_top['allcny'] = round($userCoin_top['cny'] + $userCoin_top['cnyd'], 2);
-            $user = M('User')->field('vip')->where(array('id' => userid()))->find();
-            $fee_discounts = M('FeeDiscount')->select();
-            $fee_discounts = array_column($fee_discounts, 'fee');
-            $this->assign('uservip',['vipdengji'=>$user['vip'],'fee_discounts'=>$fee_discounts[$user['vip']] * 1?(($fee_discounts[$user['vip']] * 100).'%'):'无']);
-            $this->assign('userCoin_top', $userCoin_top);
+        if(CONTROLLER_NAME != 'Google') {
+            if (userid()) {
+                $userCoin_top = M('UserCoin')->where(array('userid' => userid()))->find();
+                $userCoin_top['cny'] = round($userCoin_top['cny'], 2);
+                $userCoin_top['cnyd'] = round($userCoin_top['cnyd'], 2);
+                $userCoin_top['allcny'] = round($userCoin_top['cny'] + $userCoin_top['cnyd'], 2);
+                $user = M('User')->field('vip')->where(array('id' => userid()))->find();
+                $fee_discounts = M('FeeDiscount')->select();
+                $fee_discounts = array_column($fee_discounts, 'fee');
+                $this->assign('uservip', ['vipdengji' => $user['vip'], 'fee_discounts' => $fee_discounts[$user['vip']] * 1 ? (($fee_discounts[$user['vip']] * 100) . '%') : '0%']);
+                $this->assign('userCoin_top', $userCoin_top);
+            }
         }
 
         $hui = S('hui');

@@ -198,7 +198,10 @@
                         <div class="">
                             <ul class="flex-box">
                                 <li>
-                                    <h4 class="bjs-color-up pay-new-price">0</h4>
+                                    <span class="bjs-color-up pay-new-price">0</span>
+                                    &nbsp;
+                                    <em id="market_change1" style="color: #6f798b"></em>
+
                                     <!--<p class="pay-new-price2">≈120251.45 cny</p>-->
                                 </li>
                                 <li class="tr">
@@ -898,7 +901,7 @@
                 $(".pay-new-price").html(data['getJsonTop']['new_price']);//赋值最新成交价
                 $(".pay-market-title-price1").html('￥'+data['getJsonTop']['new_price']);//赋值详情页最新成交价
                 $('#market_change2').html('$'+(data['getJsonTop']['new_price'] / hui).toFixed(2));//计算折算美元
-                // $("#cnentermoney1").html(data['getJsonTop']['new_price']);
+                $('#market_change1').html('$'+(data['getJsonTop']['new_price'] / hui).toFixed(2));//计算折算美元
             }
         }
     }

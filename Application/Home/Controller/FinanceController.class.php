@@ -1070,15 +1070,17 @@ class FinanceController extends HomeController
         $Page->setConfig('next', '下一页');
         $show = $Page->show();
 
-
-        $list = $Model->where($where)->order('id asc')->field('id,username,moble,addtime,invit_1')->limit($Page->firstRow . ',' . $Page->listRows)->select();
-
+        if(C('DEFAULT_V_LAYER') == 'Mview'){
+            $list = $Model->where($where)->order('id asc')->field('id,username,moble,addtime,invit_1,idcardauth')->select();
+        }else {
+            $list = $Model->where($where)->order('id asc')->field('id,username,moble,addtime,invit_1,idcardauth')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        }
         foreach ($list as $k => $v) {
-            $list[$k]['invits'] = M('User')->where(array('invit_1' => $v['id']))->order('id asc')->field('id,username,moble,addtime,invit_1')->select();
+            $list[$k]['invits'] = M('User')->where(array('invit_1' => $v['id']))->order('id asc')->field('id,username,moble,addtime,invit_1,idcardauth')->select();
             $list[$k]['invitss'] = count($list[$k]['invits']);
 
             foreach ($list[$k]['invits'] as $kk => $vv) {
-                $list[$k]['invits'][$kk]['invits'] = M('User')->where(array('invit_1' => $vv['id']))->order('id asc')->field('id,username,moble,addtime,invit_1')->select();
+                $list[$k]['invits'][$kk]['invits'] = M('User')->where(array('invit_1' => $vv['id']))->order('id asc')->field('id,username,moble,addtime,invit_1,idcardauth')->select();
                 $list[$k]['invits'][$kk]['invitss'] = count($list[$k]['invits'][$kk]['invits']);
             }
         }
@@ -1585,31 +1587,89 @@ class FinanceController extends HomeController
 
 
     public function zcdb(){
+        $now_time = time();
         if (!userid()) {
             redirect('/Login');
+        }
+
+
+        if(check_activity(userid(),'zcdb')){
+            $is_activity=1;
+        }else{
+            $is_activity=0;
         }
         $where['userid'] = userid();
         $Moble = M('LockCoin');
         $count = $Moble->where($where)->count();
         $Page = new \Think\Page($count, 10);
         $show = $Page->show();
+        $zcdb_set = M('LockSet')->where(array('id' => 1))->find();
+        $list=[];
+        foreach (json_decode($zcdb_set['parameter'],true) as $key => $value){
+            $list[]=['length_day'=>$key,'proportion'=>$value];
+        }
+        $zcdb_set['list'] = $list;
         $list = $Moble->where($where)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
 
         $where=['status'=>1,
             [['name'=>'eth_cny'],
-                ['name'=>'cnut_cny'],
+                ['name'=>$zcdb_set['currency'].'_cny'],
                 '_logic'=>'OR']];
         $Market = M('Market')->where($where)->select();
         foreach ($Market as $key => $value){
             $Market[$value['name']]=$value;
         }
         foreach ($list as $key => $value){
-            $list[$key]['shouyi']="￥".round($value['mum_profit'],2)." ≈ ".round($value['mum_profit']/$Market[$value['currency_profit'].'_cny']['new_price'],4).$value['currency_profit'];
+            if($value['status']==3){
+                $list[$key]['shouyi'] = $value['num_profit'].$value['currency_profit'];
+            }else{
+                $list[$key]['shouyi']="￥".round($value['mum_profit'],2)." ≈ ".round($value['mum_profit']/$Market[$value['currency_profit'].'_cny']['new_price'],4).$value['currency_profit'];
+            }
+            if($value['status'] == 1){
+                if($now_time > $value['end_time']){
+                    $status = 1;
+                }else{
+                    $status = 0;
+                }
+            }else{
+                $status = $value['status'];
+            }
+            $status_texts=['对标中','对标结束','已申请，待审核','已结算'];
+            $list[$key]['status_text']=$status_texts[$status];
+            $list[$key]['status']=$status;
         }
-        $this->assign('Market', $Market);
+        $userCoin = M('UserCoin')->where(array('userid' => userid()))->find();
+        $currency_lock_num = $userCoin[$zcdb_set['currency']];
+        $this->assign('currency_lock_num', floatval($currency_lock_num));
+        $this->assign('zcdb_set', $zcdb_set);
+        $this->assign('currency_lock_new_price', $Market[$zcdb_set['currency'].'_cny']['new_price']);
+        $this->assign('currency_profit_new_price',$Market['eth_cny']['new_price']);
         $this->assign('list', $list);
+        $this->assign('is_activity', $is_activity);
         $this->assign('page', $show);
         $this->display();
+    }
+
+    /**
+     * 开通资产对标活动
+     */
+    public function open_activity($type=null){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        switch ($type){
+            case 'lock':
+                $filed = 'zcdb';
+                $set = M('LockSet')->where(['id'=>1])->find();
+                break;
+            default:
+                return;
+        }
+        if(open_activity(userid(),$filed,$set['threshold'])){
+            $this->success('开通成功！');
+        }else{
+            $this->error('开通，积分不足');
+        }
     }
 
     public function zcdb_submit(){
@@ -1625,26 +1685,36 @@ class FinanceController extends HomeController
         if($num%500 != 0){
             $this->error('请输入500或500倍数的锁仓数量');
         }
+        $zcdb_set = M('LockSet')->where(array('id' => 1))->find();
         $UserCoin = M('UserCoin')->where(array('userid' => userid()))->find();
-        if($UserCoin['cnut']<$num){
-            $this->error('CNUT数量不足');
+        if($UserCoin[$zcdb_set['currency']]<$num){
+            $this->error($zcdb_set['currency'].'数量不足');
         }
-        $days=[90=>0.15,180=>0.4,360=>1];
+        $days=[];
+        foreach (json_decode($zcdb_set['parameter'],true) as $key => $value){
+            $days[$key]=$value;
+        }
+//        $days=[90=>0.15,180=>0.4,360=>1];
         if(!array_key_exists($day,$days)){
             $this->error('数据错误');
         }
-        $rate = $days[$day];
-        $where=['status'=>1,'name'=>'cnut_cny'];
-        $Market = M('Market')->where($where)->find();
+        $where=['status'=>1,
+            [['name'=>'eth_cny'],
+                ['name'=>$zcdb_set['currency'].'_cny'],
+                '_logic'=>'OR']];
+        $Market = M('Market')->where($where)->select();
+        foreach ($Market as $key => $value){
+            $Market[$value['name']]=$value;
+        }
         $start_time = $now_time;
         $end_time = strtotime('+'.$day.'day');
         $add=[
             'userid'=>userid(),
-            'currency_lock'=>'cnut',
+            'currency_lock'=>$zcdb_set['currency'],
             'num_lock'=>$num,
-            'value_lock'=>$num * $Market['new_price'],
+            'value_lock'=>$num * $Market[$zcdb_set['currency'].'_cny']['new_price'],
             'currency_profit'=>'eth',
-            'mum_profit'=>$num * $Market['new_price'] * $days[$day],
+            'mum_profit'=>$num * $Market[$zcdb_set['currency'].'_cny']['new_price'] * $days[$day],
             'proportion'=>$days[$day],
             'start_time'=>$start_time,
             'end_time'=>$end_time,
@@ -1653,7 +1723,7 @@ class FinanceController extends HomeController
         $mo = M();
         $mo->execute('set autocommit=0');
         $rs = array();
-        $rs[] = $mo->table('qq3479015851_user_coin')->where(array('userid' => userid()))->setDec('cnut', $num);;
+        $rs[] = $mo->table('qq3479015851_user_coin')->where(array('userid' => userid()))->setDec($zcdb_set['currency'], $num);;
         $rs[] = $mo->table('qq3479015851_lock_coin')->add($add);
         if (check_arr($rs)) {
             $mo->execute('commit');
@@ -1661,6 +1731,25 @@ class FinanceController extends HomeController
         }else{
             $mo->execute('rollback');
             $this->error('锁仓失败');
+        }
+    }
+
+    /**
+     * 申请结算
+     */
+    public function apply_settle($id=null){
+        if (!userid()) {
+            $this->error('请先登录！');
+        }
+        if($id){
+            $info = M('LockCoin')->where(['id'=>$id,'userid'=>userid(),'status'=>1,'end_time'=>['lt',time()]])->find();
+            if(empty($info)){
+                $this->error('数据错误');
+            }
+            M('LockCoin')->where(['id'=>$id])->save(['status'=>2]);
+            $this->success('申请成功！');
+        }else{
+            $this->error('数据错误');
         }
     }
 

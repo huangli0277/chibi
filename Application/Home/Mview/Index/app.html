@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>APP下载</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="header-content">
+                <div class="clearfix search-slide-box">
+                    <a href="#" class="search-slide-back pull-left"></a>
+                    <div class="pull-right search-input-box">
+                        <p class="order-header tc">APP下载</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content content2 bg1f2029">
+            <div class="pad5">
+                <div class="padt4"></div>
+                <ul class="flex-box tc padt2">
+                    <li>
+                        <div class="qrcode_div" id="qrcode_div_ios"></div>
+                        <a href="https://fir.im/bjsios" class="app-ios-btn db font5 padt4">IOS下载</a>
+                    </li>
+                    <li>
+                        <div class="qrcode_div" id="qrcode_div_android"></div>
+                        <a href="https://fir.im/bjsbi" class="app-android-btn db font5 padt4">Android下载</a>
+                    </li>
+                </ul>
+                <div class="padt2"></div>
+            </div>
+            <div class="pad5 lh1375">
+                <h3 class="font5 padt4 bjs-color-blue">IOS9用户安装指南</h3>
+                <p class="font42 padt2">由于IOS9的安全机制，首次安装笔加索 APP的用户需要进入系统“设置”</p>
+                <p class="font42">选择“通用”——“描述文件”/“设备管理”</p>
+                <p class="font42">选择“一个英文的公司名称.”，设置为信任</p>
+                <p class="font42">点击“信任”完成验证</p>
+                <p class="font5 padt4 bjs-color-blue">IOS用户App Store安装指南</p>
+                <p class="font42 padt2">App Store下载需要AppleID所属 国家/区域 为中国以外的地区 参考链接</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js?v=2018082701"></script>
+
+    <script type="text/javascript">
+        $('#qrcode_div_ios').qrcode({
+            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+            text: 'https://fir.im/bjsios', //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+            width: 120, //二维码的宽度
+            height: 120,
+            background: "#ffffff", //二维码的后景色
+            foreground: "#000000", //二维码的前景色
+            src: '/Public/v2/images/qrcode_w.PNG',
+            imgWidth: 40,
+            imgHeight: 40,
+            callback: callback
+        });
+        $('#qrcode_div_android').qrcode({
+            render: "canvas", //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+            text: 'https://fir.im/bjsbi', //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+            width: 120, //二维码的宽度
+            height: 120,
+            background: "#ffffff", //二维码的后景色
+            foreground: "#000000", //二维码的前景色
+            src: '/Public/v2/images/qrcode_w.PNG',
+            imgWidth: 40,
+            imgHeight: 40,
+            callback: callback
+        });
+        function callback(c){
+            var src = c.toDataURL("image/png");
+            $(c).parent().html('<img src="'+src+'" />');
+        }
+        var home;
+        $(document).ready(function(){
+            home = new bjsIndex();
+            home._initBack();
+        });
+    </script>
+</body>
+</html>
