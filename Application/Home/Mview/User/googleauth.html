@@ -6,6 +6,9 @@
 <meta name="format-detection" content="telephone=no">
 <title>谷歌认证绑定</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/style.css">
+<if condition="$_COOKIE['skin'] eq 'white'">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/m/css/white.css" id='style-white'>
+</if>
 <style type="text/css">
 
 </style>
@@ -23,44 +26,59 @@
 			</div>
 		</div>
 		<div class="content content2 bg1f2029">
-			<div class="pad5">
-				<h3 class="bjs-color-white font5 padt4">1.下载谷歌验证器APP</h3>
-				<p class="padt2"></p>
-				<p class="padt4 lh1375">iOS用户登录App Store搜索“Authenticator”下载。</p>
-				<p class="lh1375">安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。</p>
-				<p class="padt2"></p>
-				<div class="clearfix padt4">
-					<a href="#" class="au-apple-btn pull-left"></a>
-					<a href="#" class="au-google-btn pull-right"></a>
+			<eq name="is_ga" value="0">
+				<div class="weibangding">
+					<div class="pad5">
+						<h3 class="bjs-color-white font5 padt4">1.下载谷歌验证器APP</h3>
+						<p class="padt2"></p>
+						<p class="padt4 lh1375">iOS用户登录App Store搜索“Authenticator”下载。</p>
+						<p class="lh1375">安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。</p>
+						<p class="padt2"></p>
+						<div class="clearfix padt4">
+							<a href="#" class="au-apple-btn pull-left"></a>
+							<a href="#" class="au-google-btn pull-right"></a>
+						</div>
+						<p class="padt2"></p>
+						<p class="padt4"></p>
+					</div>
+					<p class="google-authenticator-separated"></p>
+					<div class="pad5">
+						<h3 class="bjs-color-white font5 padt4">2.添加密钥并备份</h3>
+						<p class="padt2"></p>
+						<p class="padt4">打开谷歌验证器，输入下述密钥添加验证令牌。</p>
+						<p class="padt4 lh1375">密钥</p>
+						<p class="text-nowrap"><span class="bjs-color-white font5">{$Asecret}</span> <button class="copy-btn bjs-btn default-form-cancel" data-clipboard-text="{$Asecret}">复制</button></p>
+						<p class="padt2"></p>
+						<p class="padt4"></p>
+					</div>
+					<p class="google-authenticator-separated"></p>
+					<div class="pad5">
+						<p class="padt4">
+							<button class="default-form-submit default-form-blue" id="form-page-submit">绑定</button>
+						</p>
+					</div>
+					<div class="padt4"></div>
 				</div>
-				<p class="padt2"></p>
-				<p class="padt4"></p>
-			</div>
-			<p class="google-authenticator-separated"></p>
-			<div class="pad5">
-				<h3 class="bjs-color-white font5 padt4">2.添加密钥并备份</h3>
-				<p class="padt2"></p>
-				<p class="padt4">打开谷歌验证器，输入下述密钥添加验证令牌。</p>
-				<p class="padt4 lh1375">密钥</p>
-				<p class="text-nowrap"><span class="bjs-color-white font5">{$Asecret}</span> <button class="copy-btn bjs-btn default-form-cancel" data-clipboard-text="{$Asecret}">复制</button></p>
-				<p class="padt2"></p>
-				<p class="padt4"></p>
-			</div>
-			<p class="google-authenticator-separated"></p>
-			<div class="pad5">
-				<h3 class="bjs-color-white font5 padt4">3.输入验证码</h3>
-				<p class="padt2"></p>
-				<p class="padt4">输入谷歌验证器中6位验证码</p>
-				<p class="padt4"><input type="text" name="name[]" class="form-input" placeholder="输入谷歌验证码"></p>
-				<p class="padt4"></p>
-				<p class="padt4"></p>
-				<p class="padt4">
-					<button class="default-form-submit default-form-blue" id="form-page-submit">绑定</button>
-				</p>
-			</div>
-			<div class="padt4"></div>
+			</eq>
+			<eq name="is_ga" value="1">
+				<div class="yibangding pad5">
+					<p class="clearfix padt2">
+						<span class="wrap-form-label">已绑定</span>
+						<label class="pull-right off-open">
+							<eq name="ga_open" value="1">
+								<input checked="" onchange="myChange(this)" class="hide" type="checkbox"  name="name[]">
+							</eq>
+							<eq name="ga_open" value="0">
+								<input onchange="myChange(this)" class="hide" type="checkbox"  name="name[]">
+							</eq>
+							<span class="show-text show-text-en font5"></span>
+						</label>
+					</p>
+				</div>
+			</eq>
 		</div>
 		<!-- 弹窗 -->
+		<eq name="is_ga" value="0">
 		<div id="anquan-dialog" class="wrap-dialog hide">
 			<div class="wrap-dialog-bg"></div>
 			<div class="wrap-dialog-box">
@@ -70,21 +88,25 @@
 					<p class="padt4">若未收到邮箱，请检查邮箱垃圾箱</p>
 					<p class="padt4"></p>
 					<ul class="wrap-form-list wrap-form-list2 padt4">
+						<neq name="moble" value="">
 						<li class="wrap-form-item">
-							<p><span class="wrap-form-label bjs-color-white">151*****419</span></p>
+							<p><span class="wrap-form-label bjs-color-white">{$moble|hideCell}</span></p>
 							<div class="input-group input-group-r clearfix">
-								<input type="text" name="name[]" class="form-control" placeholder="输入手机验证"><span class="input-group-addon">发送</span>
+								<input type="text" name="name[]" id="moble_code" class="form-control" placeholder="输入手机验证码"><span class="input-group-addon" id="moble_send" onclick="moble_send()">发送</span>
 							</div>
 						</li>
+						</neq>
+						<neq name="email" value="">
 						<li class="wrap-form-item">
-							<p><span class="wrap-form-label bjs-color-white">77***1275@qq.com</span></p>
+							<p><span class="wrap-form-label bjs-color-white">{$email|hideIdCardNumber}</span></p>
 							<div class="input-group input-group-r clearfix">
-								<input type="text" name="name[]" class="form-control" placeholder="输入邮箱验证"><span class="input-group-addon">发送</span>
+								<input type="text" name="name[]" id="email_code" class="form-control" placeholder="输入邮箱验证码"><span class="input-group-addon" id="email_send" onclick="email_send()">发送</span>
 							</div>
 						</li>
+						</neq>
 						<li class="wrap-form-item">
 							<p><span class="wrap-form-label bjs-color-white">谷歌验证码</span></p>
-							<input class="form-input" type="text" name="name[]" placeholder="输入谷歌验证码">
+							<input class="form-input" id="Google_code" type="text" name="name[]" placeholder="输入谷歌验证码">
 						</li>
 						<li>
 							<button class="default-form-submit default-form-blue" id="anquan-form-submit">确认</button>
@@ -93,6 +115,46 @@
 				</div>
 			</div>
 		</div>
+		</eq>
+		<eq name="is_ga" value="1">
+		<div id="open-dialog" class="wrap-dialog hide">
+			<div class="wrap-dialog-bg"></div>
+			<div class="wrap-dialog-box">
+				<div class="wrap-dialog-content">
+					<span class="wrap-dialog-close hand"></span>
+					<h3 class="bjs-color-white font5">安全验证</h3>
+					<p class="padt4">若未收到邮箱，请检查邮箱垃圾箱</p>
+					<p class="padt4"></p>
+					<ul class="wrap-form-list wrap-form-list2 padt4">
+						<neq name="moble" value="">
+							<li class="wrap-form-item">
+								<p><span class="wrap-form-label bjs-color-white">{$moble|hideCell}</span></p>
+								<div class="input-group input-group-r clearfix">
+									<input type="text" name="name[]" id="moble_code_o" class="form-control" placeholder="输入手机验证码"><span class="input-group-addon" id="moble_send_o" onclick="moble_send_o()">发送</span>
+								</div>
+							</li>
+						</neq>
+						<neq name="email" value="">
+							<li class="wrap-form-item">
+								<p><span class="wrap-form-label bjs-color-white">{$email|hideIdCardNumber}</span></p>
+								<div class="input-group input-group-r clearfix">
+									<input type="text" name="name[]" id="email_code_o" class="form-control" placeholder="输入邮箱验证码"><span class="input-group-addon" id="email_send_o" onclick="email_send_o()">发送</span>
+								</div>
+							</li>
+						</neq>
+						<li class="wrap-form-item">
+							<p><span class="wrap-form-label bjs-color-white">谷歌验证码</span></p>
+							<input class="form-input" id="Google_code_o" type="text" name="name[]" placeholder="输入谷歌验证码">
+						</li>
+						<li>
+							<button class="default-form-submit default-form-blue" id="anquan-form-submit_o">确定</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</eq>
+		<eq name="is_ga" value="0">
 		<div id="result-dialog" class="wrap-dialog hide">
 			<div class="wrap-dialog-bg"></div>
 			<div class="wrap-dialog-box">
@@ -118,11 +180,13 @@
 				</div>
 			</div>
 		</div>
+		</eq>
 	</div>
 	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/fastClick.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/layer/layer.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/clipboard.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/m/js/jquery.cookies.2.2.0.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/m/js/index.js"></script>
 	<script type="text/javascript">
 		var home;
@@ -130,6 +194,94 @@
 			home = new bjsIndex();
 			home.initUc();
 		});
+
+		function myChange(obj){
+            obj.checked = !obj.checked;
+            $('#open-dialog').removeClass('hide');
+		}
+
+        function moble_send_o(){
+            if($('#moble_send_o').html() != '发送'){
+                return;
+            }
+            $.post("/User/send_msg.html", {
+                type:'message'
+            }, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+
+
+                    var obj      = $('#moble_send_o');
+                    var wait     = 60;
+                    var interval = setInterval(function () {
+                        obj.html(wait + "秒");
+                        wait--;
+                        if (wait < 0) {
+                            clearInterval(interval);
+                            obj.html('发送');
+                        }
+                        ;
+                    }, 1000);
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                }
+            }, "json");
+        }
+
+        function email_send_o(){
+            if($('#email_send_o').html() != '发送'){
+                return;
+            }
+            $.post("/User/send_msg.html", {
+                type:'email'
+            }, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+
+
+                    var obj      = $('#email_send_o');
+                    var wait     = 60;
+                    var interval = setInterval(function () {
+                        obj.html(wait + "秒");
+                        wait--;
+                        if (wait < 0) {
+                            clearInterval(interval);
+                            obj.html('发送');
+                        }
+                        ;
+                    }, 1000);
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                }
+            }, "json");
+        }
+
+        $(document).on('click','#anquan-form-submit_o',function(){
+            var google_code = $('#Google_code_o').val();
+            var moble_code = $('#moble_code_o').val();
+            var email_code = $('#email_code_o').val();
+            if (google_code == "" || google_code == null) {
+                layer.tips('请输入谷歌验证码', '#Google_code_o', {tips: 1});
+                return false;
+            }
+            var type = {$ga_open};
+            type = type == 0?1:0;
+            $.post("/User/open_google.html", {
+                google_code:google_code,
+                moble_code:moble_code,
+                email_code:email_code,
+				type:type
+            }, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1,time:600},function () {
+                        window.location = '/User/googleauth.html';
+                    });
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                    // $('#result-dialog').removeClass('hide').find('.wrap-dialog-error').removeClass('hide');
+                }
+            }, "json");
+        });
 
 		//打开安全验证窗口
 		$(document).on('click','#form-page-submit',function(){
@@ -141,13 +293,90 @@
 		});
 		//关闭安全验证窗口、打开验证结果窗口
 		$(document).on('click','#anquan-form-submit',function(){
-			$('#anquan-dialog').addClass('hide');
-			$('#result-dialog').removeClass('hide').find('.wrap-dialog-'+(Math.random() > 0.5 ? 'sucess':'error')).removeClass('hide');
+			var google_code = $('#Google_code').val();
+            var moble_code = $('#moble_code').val();
+            var email_code = $('#email_code').val();
+            if (google_code == "" || google_code == null) {
+                layer.tips('请输入谷歌验证码', '#Google_code', {tips: 1});
+                return false;
+            }
+            $.post("/User/bind_google.html", {
+                google_code:google_code,
+            	moble_code:moble_code,
+                email_code:email_code,
+            }, function (data) {
+                if (data.status == 1) {
+                    $('#anquan-dialog').addClass('hide');
+                    $('#result-dialog').removeClass('hide').find('.wrap-dialog-sucess').removeClass('hide');
+                    layer.msg(data.info, {icon: 1,time:600},function () {
+                        window.location = '/User/googleauth.html';
+                    });
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                    // $('#result-dialog').removeClass('hide').find('.wrap-dialog-error').removeClass('hide');
+                }
+            }, "json");
 		});
 		//关闭验证结果窗口
 		$(document).on('click','#result-page-ok,#result-page-no',function(){
 			$('#result-dialog').addClass('hide').find('.wrap-dialog-sucess,.wrap-dialog-error').addClass('hide');
 		});
+
+		function moble_send(){
+            if($('#moble_send').html() != '发送'){
+                return;
+            }
+            $.post("/User/send_msg.html", {
+                type:'message'
+			}, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+
+
+                    var obj      = $('#moble_send');
+                    var wait     = 60;
+                    var interval = setInterval(function () {
+                        obj.html(wait + "秒");
+                        wait--;
+                        if (wait < 0) {
+                            clearInterval(interval);
+                            obj.html('发送');
+                        }
+                        ;
+                    }, 1000);
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                }
+            }, "json");
+		}
+
+		function email_send(){
+            if($('#email_send').html() != '发送'){
+                return;
+            }
+            $.post("/User/send_msg.html", {
+                type:'email'
+            }, function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+
+
+                    var obj      = $('#email_send');
+                    var wait     = 60;
+                    var interval = setInterval(function () {
+                        obj.html(wait + "秒");
+                        wait--;
+                        if (wait < 0) {
+                            clearInterval(interval);
+                            obj.html('发送');
+                        }
+                        ;
+                    }, 1000);
+                } else {
+                    layer.msg(data.info, {icon:2,time:2000});
+                }
+            }, "json");
+		}
 	</script>
 </body>
 </html>

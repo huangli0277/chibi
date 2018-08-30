@@ -701,6 +701,8 @@ html,body,.wrap{position: absolute; height: 100%; width: 100%; overflow: hidden;
 .off-open .show-text{position: relative;}
 .off-open .show-text:before{content: "关闭"; display: block; color: #414755; padding-right: .15rem;}
 .off-open :checked + .show-text:before{content: "开启"; color: #00f8f8;}
+.off-open .show-text-en:before{content: "Off";}
+.off-open :checked + .show-text-en:before{content: "Open";}
 
 
 /*---- property ----*/

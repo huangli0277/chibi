@@ -3,30 +3,30 @@
 
 <div class="content">
 	<div class="slide-unit login-logo">
-		欢迎登录
+		{$Think.Lang.V_LOGIN_INDEX_1}
 	</div>
 	<div class="register-box">
 		<div class="register-form">
 			<div id="register-phone-form" class="register-list active">
 				<div class="register-item">
-					<label>账号</label>
+					<label>{$Think.Lang.V_LOGIN_INDEX_2}</label>
 					<input type="text" id="login_mobles" class="texts" style="display: none;">
-					<input type="text" id="login_moble"  placeholder="请输入登录账号" value=""/>
+					<input type="text" id="login_moble"  placeholder="{$Think.Lang.V_LOGIN_INDEX_3}" value=""/>
 				</div>
 				<div class="register-item">
-					<label>密码</label>
-					<input id="login_password" type="password" placeholder="请输入登录密码">
+					<label>{$Think.Lang.V_LOGIN_INDEX_4}</label>
+					<input id="login_password" type="password" placeholder="{$Think.Lang.V_LOGIN_INDEX_5}">
 				</div>
 				<div class="register-item register-code">
-					<label>验证码</label>
-					<p><input name="name[]" type="text" id="login_verify" placeholder="输入验证码"><img id="login_verify_up" src="/Verify/code.html"
-							 title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34">
+					<label>{$Think.Lang.V_LOGIN_INDEX_6}</label>
+					<p><input name="name[]" type="text" id="login_verify" placeholder="{$Think.Lang.V_LOGIN_INDEX_7}"><img id="login_verify_up" src="/Verify/code.html"
+							 title="{$Think.Lang.V_LOGIN_INDEX_8}" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34">
 					</p>
 				</div>
 				<div class="register-item tc login-form-item clearfix">
-					<p><a class="default-form-submit" href="javascript:;" onclick="footer_login();">登录</a></p>
-					<a href="/Login/findpwd.html" class="login-forgot-password">忘记密码</a>
-					<a class="login-registration" href="/Login/register.html">免费注册</a>
+					<p><a class="default-form-submit" href="javascript:;" onclick="footer_login();">{$Think.Lang.V_LOGIN_INDEX_9}</a></p>
+					<a href="/Login/findpwd.html" class="login-forgot-password">{$Think.Lang.V_LOGIN_INDEX_10}</a>
+					<a class="login-registration" href="/Login/register.html">{$Think.Lang.V_LOGIN_INDEX_11}</a>
 				</div>
 			</div>
 
@@ -44,15 +44,15 @@
         var verify = $("#login_verify").val();
         if (moble == "" || moble == null) {
             alert
-            layer.tips('请输入登录账号', '#login_moble', {tips: 2});
+            layer.tips(lange.LOGIN_INDEX_1, '#login_moble', {tips: 2});
             return false;
         }
         if (password == "" || password == null) {
-            layer.tips('请输入登录密码', '#login_password', {tips: 2});
+            layer.tips(lange.LOGIN_INDEX_2, '#login_password', {tips: 2});
             return false;
         }
         if (verify == "" || verify == null) {
-            layer.tips('请输入验证码', '#login_verify', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_6, '#login_verify', {tips: 2});
             return false;
         }
         $.post("/login/submit/", {

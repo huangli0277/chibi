@@ -1,11 +1,11 @@
 <?php
+
 namespace Org\Util;
 class EthPayLocal extends EthCommon
 {
 
 
-
-    function __construct($host, $port = "80",$version,$caiwu)
+    function __construct($host, $port = "80", $version, $caiwu)
     {
         $this->host = $host;
         $this->port = $port;
@@ -35,6 +35,78 @@ class EthPayLocal extends EthCommon
         }
     }
 
+    function eth_ercGetBalance($account, $contract)
+    {
+        $data_base = "0x70a08231";//70a08231
+        $to_data = substr($account, 2);
+        $data_base .= "000000000000000000000000" . $to_data;
+        $dst = array('to' => $contract, 'data' => $data_base);
+        $params = array(
+            $dst,
+            "latest"
+        );
+
+        $data = $this->request("eth_call", $params);
+        if (empty($data['error']) && !empty($data['result'])) {
+            return $data['result'];//返回eth数量，自己做四舍五入处理
+        } else {
+            return $data['error']['message'];
+        }
+    }
+
+    function eth_ercDoTransaction($zhuan)
+    {
+        $from = $zhuan['fromaddress'];
+        $to = $zhuan['toaddress'];
+        $heyue = $zhuan['token'];//合约地址
+        $password = COIN_KEY;//解锁密码
+        //$value = "0x9184e72a";
+        $value = $this->toWei($zhuan['amount']);
+        if ($zhuan['type'] == "esm" || $zhuan['type'] == "wicc") {
+            $value = $this->toWei3($zhuan['amount']);
+        }
+        if ($zhuan['type'] == "esm1") {
+            $value = '0x'.base_convert($zhuan['amount'], 10, 16);
+        }
+        //$gas = $this->eth_estimateGas($from, $heyue, $value);//16进制 消耗的gas 0x5209
+        //$gas = base_convert("50000", 10, 16);
+        //$gas = "0x" . $gas;
+        //echo $gas;die();
+        //$gasPrice = $this->eth_gasPrice();//价格 0x430e23400
+        $status = $this->personal_unlockAccount($from, $password);//解锁
+        if (!$status) {
+            return '解锁失败';
+        }
+        $data_base = "0xa9059cbb";//70a08231
+        $to_data = substr($to, 2);
+        $data_base .= "000000000000000000000000" . $to_data;
+        $value_data = substr($value, 2);
+        $v = str_pad($value_data, 64, 0, STR_PAD_LEFT);
+        //echo $v;
+        //die();
+        $data_base .= $v;
+        $params = array(
+            "from" => $from,
+            "to" => $heyue,
+            "data" => $data_base,
+        );
+
+        $data = $this->request("eth_sendTransaction", [$params]);
+        return json_encode($data);
+    }
+
+    function eth_accounts()
+    {
+        $params = [];
+
+        $data = $this->request(__FUNCTION__, $params);
+        if (empty($data['error']) && !empty($data['result'])) {
+            return $data['result'];//返回eth数量，自己做四舍五入处理
+        } else {
+            return $data['error']['message'];
+        }
+    }
+
     /**
      * 转账以太坊 coinpay
      * @author qiuphp2
@@ -42,42 +114,42 @@ class EthPayLocal extends EthCommon
      */
     function eth_sendTransaction($array)
     {
-        $from = $this->caiwu;
+        $from = $array["fromaddress"];
         $to = $array["toaddress"];
         $value = $this->toWei($array["amount"]);
         //如果不是16进制 转化为16进制
         //$gas = $this->eth_estimateGas($from, $to, $value);//16进制 消耗的gas 0x5209
-        $gas = "0xea60";//16进制 消耗的gas 0x5209
-        $gasPrice = $this->eth_gasPrice();//价格 0x430e23400
+        //$gas = "0xea60";//16进制 消耗的gas 0x5209
+        //$gasPrice = $this->eth_gasPrice();//价格 0x430e23400
         //$password = $data["user_id"];//解锁密码
         $password = COIN_KEY;//解锁密码
         $status = $this->personal_unlockAccount($from, $password);//解锁
         if (!$status) {
             //@SaveLog('EthPayLocal', "personal_unlockAccount_解锁失败", _FUNCTION__);
-			//return "personal_unlockAccount_解锁失败";
-			$data['error']['message'] = "personal_unlockAccount_解锁失败";
-			return json_encode($data);
-           return false;
+            //return "personal_unlockAccount_解锁失败";
+            $data['error']['message'] = "personal_unlockAccount_解锁失败";
+            return json_encode($data);
+            return false;
         }
         $params = array(
             "from" => $from,
             "to" => $to,
-            "gas" => $gas,//$gas,//2100
-            "gasPrice " => $gasPrice,//18000000000
+            //"gas" => $gas,//$gas,//2100
+            //"gasPrice " => $gasPrice,//18000000000
             "value" => $value,//2441406250
-            "data" => "",
+            //"data" => "",
         );
         $data = $this->request(__FUNCTION__, [$params]);
-		return json_encode($data);
+        return json_encode($data);
         //@SaveLog('EthPayLocal', "eth_sendTransaction_" . json_encode($data), _FUNCTION__);
         //var_dump($data);
         if (empty($data['error']) && !empty($data['result'])) {
-			//echo  "eth_success_" . $data['result'];
-           // @SaveLog('EthPayLocal', "eth_success_" . $data['result'], _FUNCTION__);
-          //  return $data['result'];//转账之后，生成HASH
-			return $data['result'];
+            //echo  "eth_success_" . $data['result'];
+            // @SaveLog('EthPayLocal', "eth_success_" . $data['result'], _FUNCTION__);
+            //  return $data['result'];//转账之后，生成HASH
+            return $data['result'];
         } else {
-			return json_encode($data);
+            return json_encode($data);
             //@SaveLog('EthPayLocal', "eth_error_" . $data['error']['message'], _FUNCTION__);
             return false;
             //return $data['error']['message'];
@@ -93,22 +165,22 @@ class EthPayLocal extends EthCommon
         $ucinsert = $params = array();
         $n = $this->request("eth_blockNumber", $params);
         $number = $n['result'];
-		$nums = base_convert($number, 16, 10);
-		$isk = 1;
-		$ucinsert = array();
-		$ps = 5; 
-		if($oldnum>0 && $nums>0){
-			$ps = $nums - $oldnum;
-			if($ps > 6){
-				$ps = 6;
-				$nums = $oldnum +5;
-			}else{
-				$ps = 5; 
-			}
-		}
-		//$nums = 5353843;
+        $nums = base_convert($number, 16, 10);
+        $isk = 1;
+        $ucinsert = array();
+        $ps = 5;
+        if ($oldnum > 0 && $nums > 0) {
+            $ps = $nums - $oldnum;
+            if ($ps > 6) {
+                $ps = 6;
+                $nums = $oldnum + 5;
+            } else {
+                $ps = 5;
+            }
+        }
+        //$nums = 5353843;
         for ($i = 1; $i < $ps; $i++) {
-			//echo $nums - $i ."<br>";
+            //echo $nums - $i ."<br>";
             $np = '0x' . base_convert($nums - $i, 10, 16);
             $params = array(
                 $np,
@@ -117,22 +189,22 @@ class EthPayLocal extends EthCommon
             $data = $this->request("eth_getBlockByNumber", $params);
             if (isset($data["result"]) && isset($data["result"]["transactions"])) {
                 foreach ($data["result"]["transactions"] as $k => $t) {
-					$bs = base_convert($t["value"], 16, 10);
-					$b = $this->fromWei2($bs);
-					$ucinsert[$isk]["number"] = $b;
-					$ucinsert[$isk]["hash"] = $t["hash"];
-					$ucinsert[$isk]["from"] = $t["from"];
-					$ucinsert[$isk]["to"] = $t["to"];
-					$ucinsert[$isk]["input"] = $t["input"];
-					$isk ++;
+                    $bs = base_convert($t["value"], 16, 10);
+                    $b = $this->fromWei2($bs);
+                    $ucinsert[$isk]["number"] = $b;
+                    $ucinsert[$isk]["hash"] = $t["hash"];
+                    $ucinsert[$isk]["from"] = $t["from"];
+                    $ucinsert[$isk]["to"] = $t["to"];
+                    $ucinsert[$isk]["input"] = $t["input"];
+                    $isk++;
                 }
 
             } else {
                 continue;
             }
         }
-		$ucinsert[0]["block"] = $nums;
-		$ucinsert[0]["num"] = $ps;
+        $ucinsert[0]["block"] = $nums;
+        $ucinsert[0]["num"] = $ps;
         return $ucinsert;
     }
 
@@ -147,43 +219,43 @@ class EthPayLocal extends EthCommon
                 $np,
                 true
             );
-           // @SaveLog('EthPay', "TotalNumber" . $number - $i, _FUNCTION__);
+            // @SaveLog('EthPay', "TotalNumber" . $number - $i, _FUNCTION__);
             $data = $this->request("eth_getBlockByNumber", $params);
             if (isset($data["result"]) && isset($data["result"]["transactions"])) {
-               // $config = Config::get('database');
+                // $config = Config::get('database');
                 //$this->connection = Db::connect($config['AccessData']);
                 foreach ($data["result"]["transactions"] as $k => $t) {
                     //$uc = $this->connection->table('user_coin')->where('tx', $t["hash"])->find();
-					echo $t["to"]."<br>";
+                    echo $t["to"] . "<br>";
                     if (isset($uc["id"])) {
                         continue;
                     } else {
-                       // $tc = $this->connection->table('user_token')->where('token_account', $t["to"])->find();
+                        // $tc = $this->connection->table('user_token')->where('token_account', $t["to"])->find();
                         if (isset($tc["user_id"])) {
                             //@SaveLog('EthPayLocal', "Number" . $number - $i, _FUNCTION__);
-                           // @SaveLog('EthPayLocal', "EthInCrontab" . json_encode($data["result"]["transactions"][$k]), _FUNCTION__);
+                            // @SaveLog('EthPayLocal', "EthInCrontab" . json_encode($data["result"]["transactions"][$k]), _FUNCTION__);
                             $b = base_convert($t["value"], 16, 10);
                             $b = $this->fromWei2($b);
                             //$mod = new \app\model\Common();
                             //$mod::startTrans();
-                          //  try {
-                                //$this->connection->table("user_token")->where('id', $tc["id"])->setInc("token_balance", $b);
-                                //插入
-                                $ucinsert["user_id"] = $tc["user_id"];
-                                $ucinsert["number"] = $b;
-                                $ucinsert["tx"] = $t["hash"];
-                                $ucinsert["token_out"] = $t["from"];
-                                $ucinsert["status"] = 2;
-                                $ucinsert["operate_id"] = 1;
-                                $ucinsert["income"] = 1;
-                                $ucinsert["token_type"] = 2;
-                                $ucinsert["time"] = time();
-                                $ucinsert["ip"] = $_SERVER["SERVER_ADDR"];
-                                //$this->connection->table("user_coin")->insert($ucinsert);
-                         //   } catch (\Exception $e) {
-                                // 回滚事务
-                                //$mod::rollback();
-                        //    }
+                            //  try {
+                            //$this->connection->table("user_token")->where('id', $tc["id"])->setInc("token_balance", $b);
+                            //插入
+                            $ucinsert["user_id"] = $tc["user_id"];
+                            $ucinsert["number"] = $b;
+                            $ucinsert["tx"] = $t["hash"];
+                            $ucinsert["token_out"] = $t["from"];
+                            $ucinsert["status"] = 2;
+                            $ucinsert["operate_id"] = 1;
+                            $ucinsert["income"] = 1;
+                            $ucinsert["token_type"] = 2;
+                            $ucinsert["time"] = time();
+                            $ucinsert["ip"] = $_SERVER["SERVER_ADDR"];
+                            //$this->connection->table("user_coin")->insert($ucinsert);
+                            //   } catch (\Exception $e) {
+                            // 回滚事务
+                            //$mod::rollback();
+                            //    }
                             //echo $this->connection->table("user_token")->getLastSql();
                         } else {
                             continue;
@@ -337,17 +409,17 @@ class EthPayLocal extends EthCommon
      * @author qiuphp2
      * @since 2017-9-15
      */
-  function eth_ercsendTransaction($zhuan)
+    function eth_ercsendTransaction($zhuan)
     {
         $from = $this->caiwu;//转出地址0.000000000000001014
-		$to = $zhuan['toaddress'];
-       $heyue = $zhuan['token'];//合约地址
+        $to = $zhuan['toaddress'];
+        $heyue = $zhuan['token'];//合约地址
         $password = COIN_KEY;//解锁密码
         //$value = "0x9184e72a";
-          $value = $this->toWei($zhuan['amount']);
-		if($zhuan['type']=="btm"){
-          $value = $this->toWei3($zhuan['amount']);
-		}
+        $value = $this->toWei($zhuan['amount']);
+        if ($zhuan['type'] == "btm" || $zhuan['type'] == "esm" || $zhuan['type'] == "wicc") {
+            $value = $this->toWei3($zhuan['amount']);
+        }
         //$gas = $this->eth_estimateGas($from, $heyue, $value);//16进制 消耗的gas 0x5209
         $gas = base_convert("50000", 10, 16);
         $gas = "0x" . $gas;
@@ -375,7 +447,7 @@ class EthPayLocal extends EthCommon
         );
 
         $data = $this->request("eth_sendTransaction", [$params]);
-		return json_encode($data);
+        return json_encode($data);
         if (empty($data['error']) && !empty($data['result'])) {
             return $data;//转账之后，生成HASH
         } else {
@@ -463,7 +535,7 @@ class EthPayLocal extends EthCommon
             $password,
         );
         $data = $this->request(__FUNCTION__, $params);
-		//return json_encode($data);
+        //return json_encode($data);
         if (empty($data['error']) && !empty($data['result'])) {
             //@SaveLog('EthPay', "account" . $data['result'], "personal_newAccount");
             return $data['result'];//新生成的账号公钥

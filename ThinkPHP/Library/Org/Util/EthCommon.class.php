@@ -6,7 +6,7 @@ class EthCommon
     protected $host, $port, $version;
     protected $id = 0;
     public $base = "1000000000000000000";//1e18 wei  基本单位
-	//高精度函数参考http://www.jb51.net/article/80726.htm 
+    //高精度函数参考http://www.jb51.net/article/80726.htm
 
     /**
      * 构造函数
@@ -59,7 +59,7 @@ class EthCommon
             $error = curl_errno($ch);
             //echo $error;
             curl_close($ch);
-			return false;
+            return false;
             //throw new Exception("curl出错，错误码:$error");
         }
     }
@@ -72,7 +72,7 @@ class EthCommon
      */
     function fromWei($weiNumber)
     {
-		 $tenNumber = base_convert($weiNumber, 16, 10);
+        $tenNumber = base_convert($weiNumber, 16, 10);
         //echo $tenNumber."<br/>";
         $ethNumber = bcdiv($tenNumber,$this->base,8);
         return $ethNumber;
@@ -85,8 +85,8 @@ class EthCommon
     }
     function fromWei3($weiNumber)
     {
- 		 $tenNumber = base_convert($weiNumber, 16, 10);
-       //echo $tenNumber."<br/>";
+        $tenNumber = base_convert($weiNumber, 16, 10);
+        //echo $tenNumber."<br/>";
         $ethNumber = bcdiv($tenNumber,100000000,8);
         return $ethNumber;
     }
@@ -101,7 +101,7 @@ class EthCommon
     {
         //echo "ethNumber".$ethNumber;
         //echo "base".$this->base;
-		$tenNumer=bcmul($ethNumber,$this->base);//高精度浮点数相乘
+        $tenNumer=bcmul($ethNumber,$this->base);//高精度浮点数相乘
         //echo $tenNumer;die();
 
         $weiNumber = base_convert($tenNumer, 10, 16);
@@ -111,7 +111,7 @@ class EthCommon
     {
         //echo "ethNumber".$ethNumber;
         //echo "base".$this->base;
-		$tenNumer=bcmul($ethNumber,100000000);//高精度浮点数相乘
+        $tenNumer=bcmul($ethNumber,100000000);//高精度浮点数相乘
         //echo $tenNumer;die();
 
         $weiNumber = base_convert($tenNumer, 10, 16);

@@ -24,6 +24,8 @@ body{background-color: #ebecf1; color: #343942;}
 .register-head .active,
 .bjs-aboutUs-foot li a:hover,
 .bjs-aboutUs-foot li a.active,
+.default-btn,
+.default-btn a,
 .bjs-tab-trading:hover{color: #00b6b7; border-color: #00b6b7;}
 
 
@@ -38,6 +40,7 @@ body{background-color: #ebecf1; color: #343942;}
 .c2c-app-title,
 .new-bi-logo-title,
 .new-bi-logo-title2 span,
+.c05e1e1,
 .vote-title-link:hover{color: #00b6b7;}
 
 .bjs-news-btn-left,
@@ -122,6 +125,7 @@ body{background-color: #ebecf1; color: #343942;}
 .verification-code-btn a,
 .c2c-table .c2c-edit-btn,
 .tpwd .trading-input-group.input-group .form-control,
+.tpwd .input-group-r.input-group .form-control,
 .bjs-search-box input{border-color: #c0c0c0; color: #343942;}
 
 .header-menus > li:hover > a,
@@ -150,6 +154,7 @@ body{background-color: #ebecf1; color: #343942;}
 .tpwd .trading-input-group.input-group .form-control,
 .trade-page .bjs-tab-tbody .bjs-tab-tr:nth-child(2n+1),
 .log-body-1 > .flex-table-tr:nth-child(2n),
+.tpwd .input-group-r.input-group .form-control,
 .c2c-menu-unit{background-color: #f6f7fb;}
 
 .c2c-menu-left h3{color: #171820; border-color: #ebecf1;}

@@ -9,18 +9,18 @@
 		<div class="register-form">
 			<div id="register-phone-form" class="register-list active">
 				<div class="register-item">
-					<label>新密码</label>
-					<input type="password" id="password"  placeholder="请输入新密码"/>
+					<label>{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_1}</label>
+					<input type="password" id="password"  placeholder="{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_2}"/>
 				</div>
 				<div class="register-item">
-					<label>确认密码</label>
-					<input type="password" id="repassword"  placeholder="请输入确认新密码"/>
+					<label>{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_3}</label>
+					<input type="password" id="repassword"  placeholder="{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_4}"/>
 				</div>
 				<div class="register-item tc reset-password-form-item clearfix">
-					<a class="reset-password-form-submit" href="javascript:;" onclick="password_up();">下一步</a>
+					<a class="reset-password-form-submit" href="javascript:;" onclick="password_up();">{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_5}</a>
 				</div>
 			</div>
-			<div class="register-form-info tc">重置登录密码后24小时内禁止提币。</div>
+			<div class="register-form-info tc">{$Think.Lang.V_LOGIN_FINDPWDCONFIRM_6}</div>
 		</div>
 	</div>
 </div>
@@ -34,15 +34,15 @@
 
 
 		if (password == "" || password == null) {
-			layer.tips("请输入新密码", '#password', {tips: 3});
+			layer.tips(lange.LOGIN_FINDPWDCONFIRM_1, '#password', {tips: 3});
 			return false;
 		}
 		if (repassword == "" || repassword == null) {
-			layer.tips("请输入确认密码", '#repassword', {tips: 3});
+			layer.tips(lange.LOGIN_FINDPWDCONFIRM_2, '#repassword', {tips: 3});
 			return false;
 		}
 		if (password != repassword) {
-			layer.tips("确认密码错误", '#repassword', {tips: 3});
+			layer.tips(lange.LOGIN_FINDPWDCONFIRM_3, '#repassword', {tips: 3});
 			return false;
 		}
 

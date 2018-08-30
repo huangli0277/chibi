@@ -161,7 +161,11 @@ class View {
         }elseif(false === strpos($template, $depr)){
             $template = CONTROLLER_NAME . $depr . $template;
         }
-        $file   =   THEME_PATH.$template.C('TMPL_TEMPLATE_SUFFIX');
+        $lng = cookie('think_language');
+        if (strnatcasecmp($lng, 'en-us') === 0 && (strnatcasecmp($template, "Trade/index") === 0 || strnatcasecmp($template, "Trade/profession") === 0 || strnatcasecmp($template, "Trade/specialty") === 0))
+            $file   =   THEME_PATH.$template.'_en'.C('TMPL_TEMPLATE_SUFFIX');
+        else
+            $file   =   THEME_PATH.$template.C('TMPL_TEMPLATE_SUFFIX');
         if(C('TMPL_LOAD_DEFAULTTHEME') && THEME_NAME != C('DEFAULT_THEME') && !is_file($file)){
             // 找不到当前主题模板的时候定位默认主题中的模板
             $file   =   dirname(THEME_PATH).'/'.C('DEFAULT_THEME').'/'.$template.C('TMPL_TEMPLATE_SUFFIX');

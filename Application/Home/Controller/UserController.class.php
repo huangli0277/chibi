@@ -213,7 +213,7 @@ class UserController extends HomeController
         }
 
         $where['status'] = array('eq', 1);
-        $where['userid'] = userid();
+        $where['_query'] ='userid='.userid().'&peerid='.userid().'&_logic=or';
 
         if ($market) {
             $where['market'] = $market;
@@ -541,6 +541,8 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         session('idcardimg', null);
         session('idcardimg', $user['idcardimg1']);
         session('nickname', $user['nickname']);
+        session('ga', $user['ga']?1:0);
+        session('ga_open', $user['ga_open']);
         if (!empty($user['idcard']) && $user['idcardauth'] == 1) {
             session('idcard_verify', 1);
         } else {
@@ -1419,6 +1421,8 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         $user = M('User')->where(array('id' => userid()))->find();
         $is_ga = ($user['ga'] ? 1 : 0);
         $this->assign('is_ga', $is_ga);
+        $ga_open = ($user['ga_open'] ? 1 : 0);
+        $this->assign('ga_open', $ga_open);
         if (!$is_ga) {
             $ga = new \Common\Ext\GoogleAuthenticator();
             if(session('secret')){
@@ -1431,6 +1435,12 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
             $this->assign('qrCodeUrl', $qrCodeUrl);
             $this->assign('Asecret', $secret);
         }
+        if($user['moble']){
+            $this->assign('moble',$user['moble']);
+        }
+        if($user['email']){
+            $this->assign('email',$user['email']);
+        }
 
 
 
@@ -1440,7 +1450,7 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
     /**
      * 绑定谷歌认证器
      */
-    public function bind_google($code = null){
+    public function bind_google($google_code = null ,$moble_code=null ,$email_code=null){
         if (!userid()) {
             redirect('/Login');
         }
@@ -1448,17 +1458,121 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         if($user['ga']){
             $this->error('验证器已绑定！');
         }
-        if($code){
+        if($google_code){
+
+            if($user['moble']){
+                if($moble_code != session('google_code_moble_verify')){
+                    $this->error('手机验证码错误');
+                }
+            }
+            if($user['email']){
+                if($email_code != session('google_code_email_verify')){
+                    $this->error('邮箱验证码错误');
+                }
+            }
+
             $secret = session('secret');
 
             if (!$secret) {
                 $this->error('验证码已经失效,请刷新网页!');
             }
             $ga = new \Common\Ext\GoogleAuthenticator();
-            if($ga->verifyCode($secret, $code, 1)){
-                M('User')->where(array('id' => userid()))->save(['ga'=>$secret]);
+            if($ga->verifyCode($secret, $google_code, 1)){
+                M('User')->where(array('id' => userid()))->save(['ga'=>$secret,'ga_open'=>1]);
                 session('secret', null);
-                $this->success('验证成功！');
+                session('google_code_moble_verify',null);
+                session('google_code_email_verify',null);
+                $this->success('认证成功！');
+            }else{
+                $this->error('验证码不正确！');
+            }
+        }else{
+            $this->error('验证码不能为空！');
+        }
+    }
+
+    public function send_msg($type=null){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $user = M('User')->where(array('id' => userid()))->find();
+        $code = rand(111111, 999999);
+        switch ($type){
+            case 'message':
+                if($user['moble']){
+                    if(SendText($user['moble'], $code, "cur")){
+                        session('google_code_moble_verify', $code);
+                        if (MOBILE_CODE == 0) {
+                            $this->success('目前是演示模式,短信验证码请输入' . $code);
+                        } else {
+                            $this->success('验证码已发送');
+                        }
+                    }
+                }else{
+                    $this->error('手机号未绑定！');
+                }
+                break;
+            case 'email':
+                if($user['email']){
+                    $content = 'CC认证器绑定，your code：' . $code;
+                    SendEmail(array('to'=>$user['email'], 'subject'=>'CC认证器绑定', 'content'=>$content));//发送邮件
+                    session('google_code_email_verify', $code);
+                    if (MOBILE_CODE == 0) {
+                        $this->success('目前是演示模式,邮箱验证码请输入' . $code);
+                    } else {
+                        $this->success('邮件已发送');
+                    }
+                }else{
+                    $this->error('邮箱地址未绑定！');
+                }
+                break;
+            default:
+                $this->error('参数错误！');
+        }
+    }
+
+    /**
+     * 开启/关闭谷歌验证
+     */
+    public function open_google($google_code = null ,$moble_code=null ,$email_code=null ,$type = null){
+        if (!userid()) {
+            redirect('/Login');
+        }
+        $user = M('User')->where(array('id' => userid()))->find();
+        if(empty($user)){
+            $this->error('参数错误');
+        }
+        if(!$user['ga']){
+            $this->error('请先绑定谷歌认证器，后再操作');
+        }
+        if(!in_array($type,[1,0])){
+            $this->error('参数错误');
+        }
+        if($user['ga_open'] == $type){
+            $this->success('操作成功');
+        }
+        if($google_code){
+
+            if($user['moble']){
+                if($moble_code != session('google_code_moble_verify')){
+                    $this->error('手机验证码错误');
+                }
+            }
+            if($user['email']){
+                if($email_code != session('google_code_email_verify')){
+                    $this->error('邮箱验证码错误');
+                }
+            }
+
+
+
+            $ga = new \Common\Ext\GoogleAuthenticator();
+            if($ga->verifyCode($user['ga'], $google_code, 1)){
+                M('User')->where(array('id' => userid()))->save(['ga_open'=>$type]);
+                session('google_code_moble_verify',null);
+                session('google_code_email_verify',null);
+                session('google',null);
+                $this->success('操作成功！');
             }else{
                 $this->error('验证码不正确！');
             }

@@ -251,6 +251,7 @@ function T($template='',$layer=''){
     }elseif('/' != $depr){
         $file   =   substr_count($file,'/')>1 ? substr_replace($file,$depr,strrpos($file,'/'),1) : str_replace('/', $depr, $file);
     }
+
     return $baseUrl.($theme?$theme.'/':'').$file.C('TMPL_TEMPLATE_SUFFIX');
 }
 
@@ -1463,8 +1464,10 @@ function get_client_ip($type = 0,$adv=false) {
         }elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ip     =   $_SERVER['REMOTE_ADDR'];
         }
-    }elseif (isset($_SERVER['REMOTE_ADDR'])) {
-        $ip     =   $_SERVER['REMOTE_ADDR'];
+    }elseif (isset($_SERVER['HTTP_X_CONNECTING_IP'])) {
+        $ip     =   $_SERVER['HTTP_X_CONNECTING_IP'];
+    }elseif (isset($_SERVER['REMOTE_ADDR'])){
+        $ip = $_SERVER['REMOTE_ADDR'];
     }
     // IP地址合法验证
     $long = sprintf("%u",ip2long($ip));

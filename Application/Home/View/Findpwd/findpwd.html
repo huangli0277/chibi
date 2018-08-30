@@ -6,36 +6,36 @@
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
 					<h3 class="c2c-cont-head-title">
-						<p>找回交易密码</p>
+						<p>{$Think.Lang.V_FINDPWD_FINDPWD_1}</p>
 					</h3>
 				</div>
 				<div class="clearfix">
 					<div class="default-form">
 						<div class="form-item">
-							<h5 class="form-label">请选择验证方式</h5>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWD_2}</h5>
 							<div class="select-100" id="validate">
 								<select id="validate-select" class="form-input vhide select3" name="pay">
-									<option value="0">请选择</option>
-									<option value="email">邮箱验证</option>
-									<option value="sms">短信验证</option>
+									<option value="0">{$Think.Lang.V_FINDPWD_FINDPWD_3}</option>
+									<option value="email">{$Think.Lang.V_FINDPWD_FINDPWD_4}</option>
+									<option value="sms">{$Think.Lang.V_FINDPWD_FINDPWD_5}</option>
 								</select>
 							</div>
 						</div>
 						<div class="form-item">
-							<h5 class="form-label">图形验证码</h5>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWD_6}</h5>
 							<div class="input-group input-group-r">
 								<input type="text" id="verify" value="" class="form-control form-input"/>
-								<img id="verify_up" class="cinput-group-addon tc" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34">
+								<img id="verify_up" class="cinput-group-addon tc" src="{:U('Verify/code')}" title="{$Think.Lang.V_FINDPWD_FINDPWD_7}" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34">
 							</div>
 						</div>
 						<div class="form-item">
-							<h5 class="form-label">获取验证码</h5>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWD_8}</h5>
 							<div class="input-group input-group-r">
-								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="请输入验证码"><a class="input-group-addon tc" id="reg_moble_new" onclick="sendVerifyCode()" href="javascript:;">发送验证码</a>
+								<input class="form-control form-input" id="moble_verify"  type="text" name="code" placeholder="{$Think.Lang.V_FINDPWD_FINDPWD_9}"><a class="input-group-addon tc" id="reg_moble_new" onclick="sendVerifyCode()" href="javascript:;">{$Think.Lang.V_FINDPWD_FINDPWD_10}</a>
 							</div>
 						</div>
 						<div class="form-item">
-							<input type="button" class="default-form-submit pull-right" onclick="findpwd_up();" value="找回交易密码">
+							<input type="button" class="default-form-submit pull-right" onclick="findpwd_up();" value="{$Think.Lang.V_FINDPWD_FINDPWD_11}">
 						</div>
 					</div>
 				</div>
@@ -51,17 +51,17 @@
     });
 
 	function sendVerifyCode(type) {
-        if($('#reg_moble_new').html() != '发送验证码'){
+        if($('#reg_moble_new').html() != lange.FINDPWD_FINDPWD_1){
             return;
         }
         var type = $('#validate-select option:selected').attr("value");
         var verify = $("#verify").val();
         if (verify == "" || verify == null) {
-            layer.tips("请输入图形验证码", '#verify', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_2, '#verify', {tips: 2});
             return false;
         }
         if(type != 'sms' && type != 'email'){
-            layer.tips("请选择验证类型", '#validate', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_3, '#validate', {tips: 2});
             return false;
         }
         var postUrl = "";
@@ -83,13 +83,13 @@
 				var obj      = $('#reg_moble_new');
 				var wait     = 30;
 				var interval = setInterval(function () {
-					obj.html("" + wait + "秒可再次发送");
+					obj.html("" + wait + lange.FINANCE_OUT_SENDSMS2);
 					wait--;
 					if (wait < 0) {
 						clearInterval(interval);
                         $("#verify_up").click();
 						$("#verify").val('');
-						obj.html('发送短信验证码');
+						obj.html(lange.FINDPWD_FINDPWD_5);
 					}
 					;
 				}, 1000);
@@ -108,7 +108,7 @@
 	function findpwd_up() {
 		var moble_verify = $("#moble_verify").val();
 		if (moble_verify == "" || moble_verify == null) {
-			layer.tips("请输入验证码", '#moble_verify', {tips: 2});
+			layer.tips(lange.FINDPWD_FINDPWD_6, '#moble_verify', {tips: 2});
 			return false;
 		}
         var type = $('#validate-select option:selected').attr("value");

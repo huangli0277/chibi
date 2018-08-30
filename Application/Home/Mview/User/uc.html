@@ -59,7 +59,19 @@
 						</a>
 					</li>
 					<li>
-						<a class="my-links-uc3" href="/User/googleauth.html"><span>谷歌认证 <em class="bjs-color-up">已开启</em></span></a>
+						<a class="my-links-uc3" href="/User/googleauth.html">
+							<span>谷歌认证
+								<eq name="Think.session.ga" value="1">
+									<eq name="Think.session.ga_open" value="1">
+										<em class="bjs-color-up">已开启</em>
+									<else/>
+										<em class="bjs-color-down">已关闭</em>
+									</eq>
+								<else/>
+									<em class="bjs-color-down">未认证</em>
+								</eq>
+							</span>
+						</a>
 					</li>
 					<li>
 						<a class="my-links-shiming" href="javascript:;">

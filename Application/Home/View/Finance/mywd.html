@@ -6,15 +6,15 @@
 		<div class="c2c-page-right pull-right">
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
-					<h3 class="c2c-cont-head-title">我的推荐</h3>
+					<h3 class="c2c-cont-head-title">{$Think.Lang.V_FINANCE_RECOMMENDATION_MY_DECO}</h3>
 				</div>
 				<div style="margin-top:0;" class="tixian-jilu-list c2c-table flex-table">
 					<div class="flex-table-head">
 						<ul class="flex-box text-nowrap">
-							<li>下家类型</li>
-							<li class="tc">用户名</li>
-							<li class="tc flex-item-2">注册时间</li>
-							<li class="tr">是否认证</li>
+							<li>{$Think.Lang.V_FINANCE_RECOMMENDATION_SUCCESSOR_TYPE}</li>
+							<li class="tc">{$Think.Lang.V_FINANCE_RECOMMENDATION_SUCCESSOR_NAME}</li>
+							<li class="tc flex-item-2">{$Think.Lang.V_FINANCE_RECOMMENDATION_REGISTER_TIME}</li>
+							<li class="tr">{$Think.Lang.V_FINANCE_RECOMMENDATION_IS_CERTIFICATION}</li>
 						</ul>
 					</div>
 					<div class="flex-table-body log-body-1">
@@ -22,14 +22,14 @@
 						<volist name="list" id="v">
 						<div class="flex-table-tr">
 							<ul class="flex-box text-nowrap">
-								<li class="add-btn"><span class="log-add-btn-1">一级下家({$v.invitss})</span></li>
+								<li class="add-btn"><span class="log-add-btn-1">{$Think.Lang.V_FINANCE_RECOMMENDATION_INVITSS}({$v.invitss})</span></li>
 								<li class="tc">{$v.username|substr_replace='****',3,6}</li>
 								<li class="tc flex-item-2">{$v.addtime|addtime}</li>
 								<li class="tr">
 									<empty name="v.idcardauth">
-										未认证
+										{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_NO}
 									<else />
-										已认证
+										{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_ALREADY}
 									</empty>
 								</li>
 							</ul>
@@ -39,14 +39,14 @@
 									<volist name="v['invits']" id="vv">
 										<div class="flex-table-tr">
 									<ul class="flex-box text-nowrap">
-										<li class="add-btn"><span class="log-add-btn-2">二级下家({$vv.invitss})</span></li>
+										<li class="add-btn"><span class="log-add-btn-2">{$Think.Lang.V_FINANCE_RECOMMENDATION_INVITSS2}({$vv.invitss})</span></li>
 										<li class="tc">{$vv.username|substr_replace='****',3,6}</li>
 										<li class="tc flex-item-2">{$vv.addtime|addtime}</li>
 										<li class="tr">
 											<empty name="vv.idcardauth">
-												未认证
+												{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_NO}
 												<else />
-												已认证
+												{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_ALREADY}
 											</empty>
 										</li>
 									</ul>
@@ -56,14 +56,14 @@
 											<volist name="vv['invits']" id="vvv">
 												<div class="flex-table-tr">
 													<ul class="flex-box text-nowrap">
-														<li class="add-btn"><span class="log-add-btn-3">三级下家</span></li>
+														<li class="add-btn"><span class="log-add-btn-3">{$Think.Lang.V_FINANCE_RECOMMENDATION_INVITSS3}</span></li>
 														<li class="tc">{$vvv.username|substr_replace='****',3,6}</li>
 														<li class="tc flex-item-2">{$vvv.addtime|addtime}</li>
 														<li class="tr">
 															<empty name="vv.idcardauth">
-																未认证
+																{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_NO}
 																<else />
-																已认证
+																{$Think.Lang.V_FINANCE_RECOMMENDATION_AUTH_ALREADY}
 															</empty>
 														</li>
 													</ul>

@@ -7,7 +7,7 @@
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
 					<h3 class="c2c-cont-head-title">
-						<p><img src="__UPLOAD__/coin/{$coin_list[$xnb]['img']}" alt="" class="icon-bi"/> 提现
+						<p><img src="__UPLOAD__/coin/{$coin_list[$xnb]['img']}" alt="" class="icon-bi"/> {$Think.Lang.V_FINANCE_WITHDRAW}
 							<select name="type" id="coin-select" class="select4 vhide" style="width:250px;">
 							<volist name="coin_list" id="vo">
 								<eq name="xnb" value="$key">
@@ -24,13 +24,13 @@
 						<div class="tixian-form">
 							<div class="default-form">
 								<div class="form-item">
-									<h5 class="form-label">转出地址</h5>
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_WITHDRAW_ADDRESS}</h5>
 									<select id="cnyout_bank" class="select3 vhide">
-										<option value="">--选择提现地址--</option>
+										<option value="">{$Think.Lang.V_FINANCE_WITHDRAW_ADDRESS_CHOOSE}</option>
 										<volist name="userQianbaoList" id="vo">
 											<option value="{$vo.addr}" <eq name="vo['addr']" value="$addr">selected</eq>>{$vo.name}</option>
 										</volist>
-										<option value="tianjia" data-select-coin="{$coin_list[$xnb]['name']}">新添加一个提现地址</option>
+										<option value="tianjia" data-select-coin="{$coin_list[$xnb]['name']}">{$Think.Lang.V_FINANCE_WITHDRAW_ADDRESS_ADD}</option>
 									</select>
 									<!--<div class="clearfix">-->
 										<!--<div class="pull-left" style="width: 75%; margin-right: -1px;">-->
@@ -45,18 +45,18 @@
 
 								</div>
 								<div class="form-item">
-									<h5 class="form-label">转出数量 <p class="pull-right form-item-msg">可用：<span class="cc6ccd8">{$user_coin[$xnb]|Num} </span>      限额：200.00000000</p></h5>
-									<input id="cnyout_num" class="form-input" type="text" name="name" maxlength="12"><span class="font12">转出手续费{$coin_list[$xnb]['zc_fee']}个，最少转出{$coin_list[$xnb]['zc_min']}个</span>
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_WITHDRAW_NUM} <p class="pull-right form-item-msg">{$Think.Lang.V_FINANCE_CAN_USE_COUNT}<span class="cc6ccd8">{$user_coin[$xnb]|Num} </span>{$Think.Lang.V_FINANCE_CAN_USE_QUOTA}</p></h5>
+									<input id="cnyout_num" class="form-input" type="text" name="name" maxlength="12"><span class="font12">{$Think.Lang.V_FINANCE_OUT_NUM_FEE1}{$coin_list[$xnb]['zc_fee']}{$Think.Lang.V_FINANCE_OUT_NUM_FEE2}{$coin_list[$xnb]['zc_min']}{$Think.Lang.V_FINANCE_OUT_NUM_FEE3}</span>
 								</div>
 								<div class="form-item">
-									<h5 class="form-label">短信验证码,{$moble}(接收验证码)</h5>
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_OUT_SMS_1}{$moble}{$Think.Lang.V_FINANCE_OUT_SMS_2}</h5>
 									<div class="input-group input-group-r">
-										<input class="form-control" type="text" name="name" id="cnyout_moble_verify" placeholder="请输入短信验证码"><a onclick="send_moble_coinout('sms')" id="reg_moble_new" class="input-group-addon tc">发送短信验证码</a>
+										<input class="form-control" type="text" name="name" id="cnyout_moble_verify" placeholder="{$Think.Lang.V_FINANCE_OUT_SMS_TIP_INPUT}"><a onclick="send_moble_coinout('sms')" id="reg_moble_new" class="input-group-addon tc">{$Think.Lang.V_FINANCE_OUT_SMS_SEND}</a>
 									</div>
 								</div>
 								<div class="form-item">
-									<h5 class="form-label">交易密码</h5>
-									<input type="password" class="form-input" id="cnyout_paypassword"  placeholder="输入交易密码" value=""><span class="font12"><a href="/findpwd/findpwd">忘记密码?</a></span>
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_OUT_PAY_PASSWORD}</h5>
+									<input type="password" class="form-input" id="cnyout_paypassword"  placeholder="{$Think.Lang.V_FINANCE_OUT_PAY_PASSWORD_TIP_INPUT}" value=""><span class="font12"><a href="/findpwd/findpwd">{$Think.Lang.V_FINANCE_OUT_PAY_PASSWORD_FORGET}?</a></span>
 								</div>
 								<!--<div class="form-item">-->
 									<!--<h5 class="form-label">介绍</h5>-->
@@ -67,37 +67,37 @@
 
 
 									<empty name="zc_jz">
-										<a class="default-form-submit" href="javascript:;"  onclick="coinout_up()">立即转出</a>
+										<a class="default-form-submit" href="javascript:;"  onclick="coinout_up()">{$Think.Lang.V_FINANCE_OUT_COIN_OUT}</a>
 										<else/>
 										<a class="default-form-submit" href="javascript:;" >{$zc_jz}</a>
 									</empty>
 								</div>
 							</div>
 							<div class="tixian-form-info">
-								<h4>温馨提示</h4>
+								<h4>{$Think.Lang.V_SHARE_WARN}</h4>
 								<ul>
-									<li>最小提币数量为：0.01 {$coin_list[$xnb]['title']}。</li>
-									<li>为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系</li>
-									<li>请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</li>
+									<li>{$Think.Lang.V_FINANCE_OUT_TIPS_INFO1} {$coin_list[$xnb]['title']}。</li>
+									<li>{$Think.Lang.V_FINANCE_OUT_TIPS_INFO2}</li>
+									<li>{$Think.Lang.V_FINANCE_OUT_TIPS_INFO3}</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="tixian-jilu-list">
 						<h3 class="c2c-cont-head-title pull-left">
-							最近提币记录
+							{$Think.Lang.V_FINANCE_OUT_COIN_TITLE}
 						</h3>
 						<div class="c2c-order">
 							<div class="c2c-order-table">
 								<table class="c2c-table">
 									<thead>
 									<tr>
-										<th>转出时间</th>
-										<th>转出币种</th>
-										<th>转出数量</th>
-										<th>手续费</th>
-										<th>到账数量</th>
-										<th>状态</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE1}</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE2}</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE3}</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE4}</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE5}</th>
+										<th>{$Think.Lang.V_FINANCE_OUT_LIST_TITLE6}</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -111,9 +111,9 @@
 											<td>{$vo['mum']|NumToStr}</td>
 											<td>
 												<eq name="vo.status" value="1">
-													<span class="c00ffff">成功</span>
+													<span class="c00ffff">{$Think.Lang.V_FINANCE_OUT_SUCCESS}</span>
 													<else/>
-													<span class="cb94e50">等待处理,还需要{$vo.status|abs}个确认</span>
+													<span class="cb94e50">{$Think.Lang.V_FINANCE_OUT_CONFIRM} {$vo.status|abs} {$Think.Lang.V_FINANCE_OUT_CONFIRM2}</span>
 												</eq>
 											</td>
 										</tr>
@@ -181,7 +181,7 @@
 	});
 
 	function send_moble_coinout(type) {
-        if($('#reg_moble_new').html() != '发送短信验证码'){
+        if($('#reg_moble_new').html() != lange.FINANCE_OUT_SENDSMS){
             return;
         }
 
@@ -197,11 +197,11 @@
 				var obj      = $('#reg_moble_new');
 				var wait     = 60;
 				var interval = setInterval(function () {
-					obj.html(wait + "秒可再次发送");
+					obj.html(wait + lange.FINANCE_OUT_SENDSMS2);
 					wait--;
 					if (wait < 0) {
 						clearInterval(interval);
-                        obj.html('发送短信验证码');
+                        obj.html(lange.FINANCE_OUT_SENDSMS3);
 					}
 					;
 				}, 1000);
@@ -221,31 +221,31 @@
 		var bank         = $('#cnyout_bank option:selected').val();
 		var coin         = $('#coin-select option:selected').val();
 		if (moble_verify == "" || moble_verify == null) {
-			layer.msg('请输入短信验证码', {
+			layer.msg(lange.FINANCE_OUT_CHECK1, {
 				icon: 2
 			});
 			return false;
 		}
 		if (num == "" || num == null) {
-			layer.tips('请输入转出数量', '#cnyout_num', {
+			layer.tips(lange.FINANCE_OUT_CHECK2, '#cnyout_num', {
 				tips: 2
 			});
 			return false;
 		}
 		if (bank == "" || bank == null) {
-			layer.tips('请选择转出地址', '#cnyout_bank', {
+			layer.tips(lange.FINANCE_OUT_CHECK3, '#cnyout_bank', {
 				tips: 2
 			});
 			return false;
 		}
 		if (paypassword == "" || paypassword == null) {
-			layer.tips('请输入交易密码', '#cnyout_paypassword', {
+			layer.tips(lange.FINANCE_OUT_CHECK4, '#cnyout_paypassword', {
 				tips: 2
 			});
 			return false;
 		}
 		if (coin == "" || coin == null) {
-			layer.tips('请选择币种', '#coin-select', {
+			layer.tips(lange.FINANCE_OUT_CHECK5, '#coin-select', {
 				tips: 2
 			});
 			return false;
@@ -255,7 +255,7 @@
 		if(goole == 1){
 			layer.ready(function () {
 				layer.prompt({
-					title: '输入谷歌验证码，并确认',
+					title: lange.FINANCE_OUT_CHECK6,
 					formType: 1
 				}, function (val) {
 					if (val) {
@@ -291,7 +291,7 @@
 			});
 		}else{
             if(lock){
-                layer.msg('加载中,请勿重复点击...');
+                layer.msg(lange.FINANCE_OUT_LOADING);
                 return;
             }
             lock = 1;

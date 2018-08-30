@@ -8,7 +8,7 @@
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
 					<h3 class="c2c-cont-head-title">
-					<p><img src="__UPLOAD__/coin/{$coin_list[$xnb]['img']}" alt="" class="icon-bi"/> 转入
+					<p><img src="__UPLOAD__/coin/{$coin_list[$xnb]['img']}" alt="" class="icon-bi"/> {$Think.Lang.V_FINANCE_MYZR_1}
 						<select name="type" id="coin-select" class="select2 vhide" style="width:250px;">
 							<volist name="coin_list" id="vo">
 								<eq name="xnb" value="$key">
@@ -25,37 +25,37 @@
 						<div class="tixian-form">
 							<div class="default-form">
 								<div class="form-item">
-									<h5 class="form-label">钱包名称</h5>
-									<input class="form-input" type="text" value="{$coin_list[$xnb]['title']}" name="name" placeholder="输入提币地址">
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_MYZR_2}</h5>
+									<input class="form-input" type="text" value="{$coin_list[$xnb]['title']}" name="name" placeholder="{$Think.Lang.V_FINANCE_MYZR_2_2}">
 								</div>
 								<div class="form-item">
-									<h5 class="form-label">钱包地址，转入即赠{$coin_list[$xnb]['zr_zs']}%</h5>
-									<input class="form-input" type="text" value="{$qianbao}" readonly name="name" placeholder="输入提币地址">
+									<h5 class="form-label">{$Think.Lang.V_FINANCE_MYZR_3}{$coin_list[$xnb]['zr_zs']}%</h5>
+									<input class="form-input" type="text" value="{$qianbao}" readonly name="name" placeholder="{$Think.Lang.V_FINANCE_MYZR_2_2}">
 
 								</div>
 							</div>
 							<div class="tixian-form-info">
-								<h4>温馨提示</h4>
+								<h4>{$Think.Lang.V_FINANCE_MYZR_4}</h4>
 								<ul>
-									<li>为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系</li>
-									<li>请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</li>
+									<li>{$Think.Lang.V_FINANCE_MYZR_5}</li>
+									<li>{$Think.Lang.V_FINANCE_MYZR_6}</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="tixian-jilu-list">
 						<h3 class="c2c-cont-head-title">
-							最近转入记录
+							{$Think.Lang.V_FINANCE_MYZR_7}
 						</h3>
 						<table class="c2c-table">
 							<thead>
 							<tr>
-								<th style="width: 15%;">转入时间</th>
-								<th style="width: 30%;">转入币种</th>
-								<th style="width: 14%;">转入数量</th>
-								<th style="width: 26%;">转入赠送</th>
-								<th style="width: 15%;">到账数量</th>
-								<th style="width: 15%;">状态</th>
+								<th style="width: 15%;">{$Think.Lang.V_FINANCE_MYZR_8}</th>
+								<th style="width: 30%;">{$Think.Lang.V_FINANCE_MYZR_9}</th>
+								<th style="width: 14%;">{$Think.Lang.V_FINANCE_MYZR_10}</th>
+								<th style="width: 26%;">{$Think.Lang.V_FINANCE_MYZR_11}</th>
+								<th style="width: 15%;">{$Think.Lang.V_FINANCE_MYZR_12}</th>
+								<th style="width: 15%;">{$Think.Lang.V_FINANCE_MYZR_13}</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -68,9 +68,9 @@
 									<td>{$vo['mum']|NumToStr}</td>
 									<td>
 										<eq name="vo.status" value="1">
-											转入成功
+											{$Think.Lang.V_FINANCE_MYZR_14}
 											<else/>
-											等待处理,还需要{$vo.status|abs}个确认
+											{$Think.Lang.V_FINANCE_MYZR_15}{$vo.status|abs}{$Think.Lang.V_FINANCE_MYZR_16}
 										</eq>
 									</td>
 								</tr>

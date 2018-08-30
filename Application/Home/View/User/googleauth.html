@@ -9,49 +9,127 @@
 								<p>谷歌验证器绑定</p>
 							</h3>
 						</div>
-						<div class="clearfix authenticator-box tc">
+						<eq name="is_ga" value="0">
+						<div class="clearfix authenticator-box tc weibangding">
 							<p class="authenticator-info">谷歌验证器是一款动态口令工具，工作原理类似短信动态验证。绑定后每30s生成一个动态验证码，</p>
 							<p class="authenticator-info">验证码可用于登录、提现、修改安全设置等操作的安全验证。</p>
-							<eq name="is_ga" value="0">
+
 							<div class="authenticator-center">
 								<h4 class="authenticator-title uc-unit-title">1.下载谷歌验证器APP</h4>
 								<p class="authenticator-info">iOS用户登录App Store搜索“Authenticator”下载。</p>
 								<p class="authenticator-info">安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。</p>
 								<div class="authenticator-info padt20">
-									<a href="#" class="btn-toggle">
+									<a href="javascript:;" target="_blank" class="btn-toggle">
 										<img class="toggle-show" src="__PUBLIC__/v2/images/apple-btn.png">
-										<img class="toggle-hide" src="__PUBLIC__/v2/images/apple-btn-active.png">
+										<!-- <img class="toggle-hide" src="__PUBLIC__/v2/images/apple-btn-active.png"> -->
 									</a>
-									<a href="#" class="btn-toggle">
+									<a href="javascript:;" target="_blank" class="btn-toggle">
 										<img class="toggle-show" src="__PUBLIC__/v2/images/google-btn.png">
-										<img class="toggle-hide" src="__PUBLIC__/v2/images/google-btn-active.png">
+										<!-- <img class="toggle-hide" src="__PUBLIC__/v2/images/google-btn-active.png"> -->
 									</a>
 								</div>
 								<h4 class="authenticator-title uc-unit-title">2.在谷歌验证器中添加密钥并备份</h4>
 								<p class="authenticator-info">打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。</p>
 								<p class="authenticator-info c05e1e1">密钥用于手机更换或遗失时找回谷歌验证器，绑定前请务必将下述密钥备份保存。</p>
 								<div class="authenticator-info padt20">
-									<div id="invit_qrcode"></div>
+									<div id="invit_qrcode" class="canvas-qrcode"></div>
 								</div>
 								<div class="input-group input-group-c padt20">
 									<span class="input-group-addon tc">密钥</span><input class="form-control form-input" id="google-key" type="text" name="name" readonly="" value="{$Asecret}" ><span class="input-group-addon tc copy-btn" data-clipboard-target="#google-key" >复制</span>
 								</div>
-								<h4 class="authenticator-title uc-unit-title">3.输入谷歌验证器中6位验证码</h4>
+								<!-- <h4 class="authenticator-title uc-unit-title">3.输入谷歌验证器中6位验证码</h4> -->
 								<div class="authenticator-center">
-									<div class="padt10"><input type="text" name="code" id="code" class="form-input" placeholder="谷歌验证码"></div>
-									<div class="padt10"><button class="default-form-submit" onclick="Submit()">绑定</button></div>
+									<!-- <div class="padt10"><input type="text" name="code" id="code" class="form-input" placeholder="谷歌验证码"></div> -->
+									<div class="padt20"><button class="default-form-submit" onclick="showDialog()">绑定</button></div>
 								</div>
 							</div>
-								<else/>
+
 								<div class="authenticator-center">
 									<h4 class="authenticator-title uc-unit-title">验证器已绑定</h4>
 								</div>
-							</eq>
+
 						</div>
+						<else/>
+						<div class="yibangding">
+							<div class="clearfix">
+								<div class="default-form" id="step1">
+									<div class="form-item">
+										<h5 class="form-label">您的账户已绑定谷歌验证</h5>
+									</div>
+									<eq name="ga_open" value="1">
+										<button class="default-form-submit pull-right" onclick="showGoogle(this,'关闭')">关闭</button>
+										<else/>
+										<button class="default-form-submit pull-right " onclick="showGoogle(this,'开启')">开启</button>
+									</eq>
+								</div>
+
+								<div class="default-form hide" id="step3">
+									<neq name="moble" value="">
+									<div class="form-item">
+										<h5 class="form-label">当前手机号码</h5>
+										<input class="form-input" type="text" value="{$moble|hideCell} (接收验证码)" readonly="" name="phone">
+									</div>
+									<div class="form-item">
+										<h5 class="form-label">获取验证码</h5>
+										<div class="input-group input-group-r">
+											<input class="form-control form-input" id="moble_code_o" type="text" name="code" placeholder="请输入短信验证码"><a class="input-group-addon tc" id="send_code_phone_new" onclick="sendCode_new(this,'message')" href="javascript:;">发送验证码</a>
+										</div>
+									</div>
+									</neq>
+									<neq name="email" value="">
+									<div class="form-item">
+										<h5 class="form-label">当前邮箱地址</h5>
+										<input class="form-input" type="text" value="{$email|hideIdCardNumber} (接收验证码)" readonly="" name="email">
+									</div>
+									<div class="form-item">
+										<h5 class="form-label">获取验证码</h5>
+										<div class="input-group input-group-r">
+											<input class="form-control form-input" id="email_code_o" type="text" name="code" placeholder="请输入邮箱验证码"><a class="input-group-addon tc" id="send_code_email_new" onclick="sendCode_new(this,'email')" href="javascript:;">发送验证码</a>
+										</div>
+									</div>
+									</neq>
+									<div class="form-item">
+										<h5 class="form-label">输入谷歌验证码</h5>
+										<input class="form-input" id="Google_code_o" type="text" placeholder="请输入谷歌验证码" name="google">
+									</div>
+									<div class="form-item">
+										<button class="default-form-submit pull-right" id="submit_google" onclick="submit_google()">确定</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						</eq>
 					</div>
 				</div>
 	</div>
-	<div class="content">
+</div>
+<script type="text/template" id="dialog">
+	<ul class="tpwd" style="width:360px">
+		<neq name="moble" value="">
+        <li>
+        	<h5 class="form-label">手机验证码</h5>
+            <p class="input-group input-group-r">
+                <input type="text" id="moble_code" name="paypassword" placeholder="请输入手机验证码" class="form-control form-input"><a class="input-group-addon tc" id="send_code_phone" onclick="sendCode(this,'message');" href="javascript:;">发送</a>
+            </p>
+        </li>
+		</neq>
+		<neq name="email" value="">
+        <li class="padt10">
+        	<h5 class="form-label">邮箱验证码</h5>
+            <p class="input-group input-group-r">
+                <input type="text" id="email_code" name="paypassword" placeholder="请输入邮箱验证码" class="form-control form-input"><a class="input-group-addon tc" id="send_code_email" onclick="sendCode(this,'email');" href="javascript:;">发送</a>
+            </p>
+        </li>
+		</neq>
+
+        <li class="padt10">
+        	<h5 class="form-label">谷歌验证码</h5>
+            <p class="input-group trading-input-group">
+                <input type="text" id="Google_code" name="paypassword" placeholder="请输入谷歌验证码" class="form-control form-control-tl">
+            </p>
+        </li>
+    </ul>
+</script>
 <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.cookies.2.2.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/v2/layer/layer.js"></script>
@@ -59,13 +137,12 @@
 <script type="text/javascript" src="__PUBLIC__/v2/js/clipboard.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/v2/js/jquery.qrcode.min.js"></script>
 <script type="text/javascript">
-    console.log(2)
     $('#invit_qrcode').qrcode({
         render: "canvas", //table方式
         width: 160, //二维码的宽度
         height: 160,
         text: '{$qrCodeUrl}', //任意内容
-        src: '',
+        src: '/Public/v2/images/qrcode_w.PNG',
         imgWidth: 60,
         imgHeight: 60,
 		callback: function () {
@@ -74,34 +151,164 @@
     }); //任意字符串
 var home = new bjsIndex();
 home.initGoogleAuthenticator();
+function showDialog(){
+	layer.open({
+		title: '请验证您的身份'
+		,maxWidth: 600
+		,content: $('#dialog').html(),
+		yes: function(index,layeroi){
+			Submit();
+		}
+	})
+}
 
-function Submit(){
-	var code = $('#code').val();
-	if(!code){
-        layer.msg('请输入验证码', {icon: 2});
-        return;
-	}
-    layer.confirm('是否确认绑定谷歌验证器',
-        {btn:['确认','取消'],title:'请确认'},
-        function(index){
-            layer.close(index);
-            $.post("{:U('User/bind_google')}", {
-                code:code.trim()
-            }, function (data) {
-                layer.closeAll('loading');
-                // trans_lock = 0;
-                if (data.status == 1) {
-                    layer.msg(data.info, {icon: 1,time:600},function () {
-                        window.location = '/User/googleauth.html';
-                    });
-                } else {
-                    layer.msg(data.info, {icon: 2});
-                }
-            }, 'json');
-        },function(){
-            return;
+function showGoogle(obj,txt){
+	$(obj).addClass('hide');
+	$('#step3').removeClass('hide');
+	$('#submit_google').text(txt);
+}
+
+function submit_google(){
+    var google_code = $('#Google_code_o').val();
+    var moble_code = $('#moble_code_o').val();
+    var email_code = $('#email_code_o').val();
+    if (google_code == "" || google_code == null) {
+        layer.tips('请输入谷歌验证码', '#Google_code', {tips: 1});
+        return false;
+    }
+    var type = {$ga_open};
+    type = type == 0?1:0;
+    $.post("/User/open_google.html", {
+        google_code:google_code,
+        moble_code:moble_code,
+        email_code:email_code,
+        type:type
+    }, function (data) {
+        if (data.status == 1) {
+            layer.msg(data.info, {icon: 1,time:600},function () {
+                window.location = '/User/googleauth.html';
+            });
+        } else {
+            layer.msg(data.info, {icon:2,time:2000});
+            // $('#result-dialog').removeClass('hide').find('.wrap-dialog-error').removeClass('hide');
         }
-    );
+    }, "json");
+}
+
+function sendCode(obj,state){
+	var $this = $(obj);
+	var url = '';
+	switch(state){
+		case 'message': url = '/User/send_msg.html'; break;
+		case 'email': url = '/User/send_msg.html'; break;
+		default: break;
+	}
+	if($this.text() != '发送'){
+		return false;
+	}
+	layer.load();
+	$.ajax({
+		url: url,
+		data: {
+		    type:state
+		},
+		type: 'post',
+		dataType: 'json',
+		success: function(data){
+            if (data.status == 1) {
+                layer.closeAll('loading');
+                layer.tips(data.info,$this, {icon: 1});
+                var timer = null;
+                var txt = 60;
+                $this.text(txt+'秒');
+                timer = setInterval(function(){
+                    txt --;
+                    if(txt <= 0){
+                        clearInterval(timer);
+                        $this.text('发送');
+                    }
+                    $this.text(txt+'秒');
+                },1000);
+			}else{
+                layer.closeAll('loading');
+                layer.tips(data.info,$this, {icon: 1});
+			}
+
+		},
+		error: function(){
+			layer.closeAll('loading');
+		}
+	});
+}
+
+function sendCode_new(obj,state){
+	var $this = $(obj);
+	var url = '';
+	switch(state){
+		case 'message': url = '/User/send_msg.html'; break;
+		case 'email': url = '/User/send_msg.html'; break;
+		default: break;
+	}
+	if($this.text() != '发送验证码'){
+		return false;
+	}
+	layer.load();
+	$.ajax({
+		url: url,
+		data: {
+			type:state
+		},
+		type: 'post',
+		dataType: 'json',
+		success: function(data){
+			if (data.status == 1) {
+				layer.closeAll('loading');
+				layer.tips(data.info,$this, {icon: 1});
+				var timer = null;
+				var txt = 60;
+				$this.text(txt+'秒');
+				timer = setInterval(function(){
+					txt --;
+					if(txt <= 0){
+						clearInterval(timer);
+						$this.text('发送验证码');
+					}
+					$this.text(txt+'秒');
+				},1000);
+			}else{
+				layer.closeAll('loading');
+				layer.tips(data.info,$this, {icon: 1});
+			}
+
+		},
+		error: function(){
+			layer.closeAll('loading');
+		}
+	});
+}
+function Submit(){
+	var moble_code = $('#moble_code').val();
+	var email_code = $('#email_code').val();
+	var google_code = $('#Google_code').val();
+    if (google_code == "" || google_code == null) {
+        layer.tips('请输入谷歌验证码', '#Google_code', {tips: 1});
+        return false;
+    }
+    $.post("{:U('User/bind_google')}", {
+        google_code:google_code,
+        moble_code:moble_code,
+        email_code:email_code
+    }, function (data) {
+        layer.closeAll('loading');
+        // trans_lock = 0;
+        if (data.status == 1) {
+            layer.msg(data.info, {icon: 1,time:600},function () {
+                window.location = '/User/googleauth.html';
+            });
+        } else {
+            layer.msg(data.info, {icon: 2});
+        }
+    }, 'json');
 }
 </script>
 <include file="Public:footer" />

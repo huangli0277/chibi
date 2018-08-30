@@ -6,22 +6,22 @@
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
 					<h3 class="c2c-cont-head-title">
-						<p>找回交易密码</p>
+						<p>{$Think.Lang.V_FINDPWD_FINDPWD_1}</p>
 					</h3>
 				</div>
 				<div class="clearfix">
 					<div class="default-form">
 						<div class="form-item">
-							<h5 class="form-label">新交易密码</h5>
-							<input type="password" id="password" class="form-input" placeholder="请输入新交易密码"/>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_1}</h5>
+							<input type="password" id="password" class="form-input" placeholder="{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_2}"/>
 						</div>
 						<div class="form-item">
-							<h5 class="form-label">确认交易密码</h5>
-							<input type="password" id="repassword" class="form-input" placeholder="请输入确认交易密码"/>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_3}</h5>
+							<input type="password" id="repassword" class="form-input" placeholder="{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_4}"/>
 						</div>
 						<div class="form-item">
-							<h5 class="form-label">确认交易密码</h5>
-							<input type="button" class="default-form-submit pull-right" value="下一步" onclick="password_up();"/>
+							<h5 class="form-label">{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_5}</h5>
+							<input type="button" class="default-form-submit pull-right" value="{$Think.Lang.V_FINDPWD_FINDPWDCONFIRM_6}" onclick="password_up();"/>
 						</div>
 					</div>
 				</div>
@@ -40,15 +40,15 @@
 		var repassword = $("#repassword").val();
 
 		if (password == "" || password == null) {
-			layer.tips("请输入新密码", '#password', {tips: 3});
+			layer.tips(lange.FINDPWD_FINDPWDCONFIRM_1, '#password', {tips: 3});
 			return false;
 		}
 		if (repassword == "" || repassword == null) {
-			layer.tips("请输入确认密码", '#repassword', {tips: 3});
+			layer.tips(lange.FINDPWD_FINDPWDCONFIRM_2, '#repassword', {tips: 3});
 			return false;
 		}
 		if (password != repassword) {
-			layer.tips("确认密码错误", '#repassword', {tips: 3});
+			layer.tips(lange.FINDPWD_FINDPWDCONFIRM_3, '#repassword', {tips: 3});
 			return false;
 		}
 

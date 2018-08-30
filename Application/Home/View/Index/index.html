@@ -176,6 +176,18 @@
 <script type="text/javascript">
     $(function () {
         home.initIndex();
+
+        var title = '笔加索提示您';
+        var str = '<div class="lh15 font3"><h3 class="cc7cce6 font17">诚邀做市商加盟合作</h3>'
+            +'<p class="padt10">根据笔加索战略规划及发展需要，特邀请有实力的做市商加盟合作，达到以下条件之一可申请做市商，做市商享受相应交易手续费优惠以及享受笔加索社区生态发展的更多权益。</p>'
+            +'<p class="padt10">条件一：在笔加索平台账户总资产价值大于等于50万CNYT且锁仓CNUT大于等于20万可享受交易手续60%的优惠。</p>'
+            +'<p class="padt10">条件二：在笔加索平台账户总资产价值大于等于100万CNYT且锁仓CNUT大于等于50万可享受交易手续100%的优惠即零手续费。</p>'
+            +'<p class="padt10">联系人QQ：3299889202，名额有限，欲报从速！</p>'
+            +'<p class="cc7cce6 tc padt20 font17">笔加索运营团队</p></div>';
+        var btn = '我已了解以上风险';
+        var maxWidth = 600;
+        var cookie = 'bjsNotice';
+        home.initNotice(title,str,btn,maxWidth,cookie);
     })
 </script>
 <include file="Public:footer"/>

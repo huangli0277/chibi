@@ -1668,7 +1668,7 @@ class FinanceController extends HomeController
         if(open_activity(userid(),$filed,$set['threshold'])){
             $this->success('开通成功！');
         }else{
-            $this->error('开通，积分不足');
+            $this->error('开通失败，积分不足');
         }
     }
 

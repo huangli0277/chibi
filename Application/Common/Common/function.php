@@ -128,7 +128,7 @@ function userid($username = NULL, $type = 'username')
         if(CONTROLLER_NAME != 'Login' && CONTROLLER_NAME != 'Google') {
             if ($userid) {
                 $user_info = M('User')->where(['id' => $userid])->find();
-                if ($user_info['ga']) {
+                if ($user_info['ga'] && $user_info['ga_open'] == 1) {
                     if (!session('google')) {
                         redirect('/Google');
                     }

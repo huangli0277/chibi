@@ -21,30 +21,30 @@
 <div class="autobox" id="reg-step4" style="position:absolute;left:50%;margin-left:-600px;">
 	<div class="login_step">
 		<ul class="order clear">
-			<li><i class="order_1"></i>用户注册<div class="order_line"></div></li>
-			<li><i class="order_2"></i>设置交易密码<div class="order_line"></div></li>
-			<li><i class="order_3"></i>实名认证<div class="order_line"></div></li>
-			<li class="orange"><i class="order_4_1"></i>成功</li>
+			<li><i class="order_1"></i>{$Think.Lang.V_LOGIN_REGISTER2_1}<div class="order_line"></div></li>
+			<li><i class="order_2"></i>{$Think.Lang.V_LOGIN_REGISTER2_2}<div class="order_line"></div></li>
+			<li><i class="order_3"></i>{$Think.Lang.V_LOGIN_REGISTER2_3}<div class="order_line"></div></li>
+			<li class="orange"><i class="order_4_1"></i>{$Think.Lang.V_FINANCE_OUT_SUCCESS}</li>
 		</ul>
 	</div>
 	<div class="reg_box1">
 		<div class="reg_su">
-			<div class="reg_su_title" style="color:#fff">恭喜您，已经注册成功！</div>
+			<div class="reg_su_title" style="color:#fff">{$Think.Lang.V_LOGIN_REGISTER4_1}</div>
 
 			<div class="reg_info">
 				<ul>
-					<li>用户名：<span id="reg-email">{$user.username}</span></li>
-					<li>认证姓名：<span id="reg-name">{$user.truename}</span></li>
-					<li>证件号码：<span id="reg-id_number">{$user.idcard}</span></li>
+					<li>{$Think.Lang.V_LOGIN_REGISTER4_2}<span id="reg-email">{$user.username}</span></li>
+					<li>{$Think.Lang.V_LOGIN_REGISTER4_3}<span id="reg-name">{$user.truename}</span></li>
+					<li>{$Think.Lang.V_LOGIN_REGISTER4_4}<span id="reg-id_number">{$user.idcard}</span></li>
 				</ul>
 				<div class="auto_btn marb15">
-					<a href="/" class="center">去交易</a>
+					<a href="/" class="center">{$Think.Lang.V_LOGIN_REGISTER4_5}</a>
 					<div class="right_side"></div>
 				</div>
 				<div class="reg_otherlink" style="color:#fff">
-					您还可以：
-					<a href="{:U('User/moble')}" target="_blank">绑定手机</a>　
-					<a href="{:U('Finance/mycz')}" target="_blank">充值</a>
+					{$Think.Lang.V_LOGIN_REGISTER4_6}
+					<a href="{:U('User/moble')}" target="_blank">{$Think.Lang.V_LOGIN_REGISTER4_7}</a>　
+					<a href="{:U('Finance/mycz')}" target="_blank">{$Think.Lang.V_LOGIN_REGISTER4_8}</a>
 				</div>
 			</div>
 		</div>
@@ -58,28 +58,7 @@
 
 
 <div class="autobox" style="margin-bottom: 30px">
-	<ul class="safety_tips_ul clear">
-		<li>
-			<div class="safety_img safety_img_1"></div>
-			<h4>系统可靠</h4>
-			<p>银行级用户数据加密、动态身份验证，多级风险识别控制，保障交易安全</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_2"></div>
-			<h4>资金安全</h4>
-			<p>钱包多层加密，离线存储于银行保险柜，资金第三方托管，确保安全</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_3"></div>
-			<h4>快捷方便</h4>
-			<p>充值即时、提现迅速，每秒万单的高性能交易引擎，保证一切快捷方便</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_4"></div>
-			<h4>服务专业</h4>
-			<p>专业的客服团队，400电话和24小时在线QQ，VIP一对一专业服务</p>
-		</li>
-	</ul>
+	{$Think.Lang.V_LOGIN_REGISTER2_11}
 </div>
 <script>
 	$('input').focus(function(){
@@ -125,7 +104,7 @@
 			return false;
 		}*/
 		if(idcard==""||idcard==null){
-			formMsg('idcard', 0, '请输入身份证号');
+			formMsg('idcard', 0, lange.LOGIN_REGISTER3_2);
 			return false;
 		}
 

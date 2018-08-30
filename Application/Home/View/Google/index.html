@@ -36,9 +36,7 @@
                     window.location = "/Index";
                 });
             } else {
-                layer.msg(data.info, {icon:2,time:2000},function(){
-                    $("#login_verify_up").click();
-                });
+                layer.msg(data.info, {icon:2,time:2000});
             }
         }, "json");
     }

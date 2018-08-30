@@ -21,31 +21,31 @@
 <div class="autobox" id="reg-step2" style="position:absolute;left:50%;margin-left:-600px;">
 	<div class="login_step">
 		<ul class="order clear">
-			<li><i class="order_1"></i>用户注册<div class="order_line"></div></li>
-			<li class="orange"><i class="order_2_1"></i>设置交易密码<div class="order_line"></div></li>
-			<li><i class="order_3"></i>实名认证<div class="order_line"></div></li>
-			<li><i class="order_4"></i>成功</li>
+			<li><i class="order_1"></i>{$Think.Lang.V_LOGIN_REGISTER2_1}<div class="order_line"></div></li>
+			<li class="orange"><i class="order_2_1"></i>{$Think.Lang.V_LOGIN_REGISTER2_2}<div class="order_line"></div></li>
+			<li><i class="order_3"></i>{$Think.Lang.V_LOGIN_REGISTER2_3}<div class="order_line"></div></li>
+			<li><i class="order_4"></i>{$Think.Lang.V_FINANCE_OUT_SUCCESS}</li>
 		</ul>
 	</div>
 	<div class="reg_box1" >
 		<div class="reg_wrap pt47">
-			<div class="reg_warning"><span>为保障您的资金安全，请设置交易密码，请务必牢记</span></div>
+			<div class="reg_warning"><span>{$Think.Lang.V_LOGIN_REGISTER2_5}</span></div>
 
 			<div class="reg_input_box reg-fb">
-				<div class="reg_title">交易密码：</div>
+				<div class="reg_title">{$Think.Lang.V_LOGIN_REGISTER2_6}</div>
 				<input type="password" id="paypassword" value="" />
-				<div id="paypassword-msg" style="display:none;" class="form_explain" data-explain="请输入交易密码，不能与登录密码相同<em></em>">请输入交易密码，不能与登录密码相同<em></em></div>
+				<div id="paypassword-msg" style="display:none;" class="form_explain" data-explain="{$Think.Lang.V_LOGIN_REGISTER2_7}<em></em>">{$Think.Lang.V_LOGIN_REGISTER2_7}<em></em></div>
 			</div>
 			<div class="reg_input_box reg-fb">
-				<div class="reg_title">重复交易密码：</div>
+				<div class="reg_title">{$Think.Lang.V_LOGIN_REGISTER2_8}</div>
 				<input type="password" id="repaypassword" value="" />
-				<div id="repaypassword-msg" class="form_explain" style="display: none;" data-explain="重复输入交易密码，两次需要一致<em></em>">重复输入交易密码，两次需要一致<em></em></div>
+				<div id="repaypassword-msg" class="form_explain" style="display: none;" data-explain="{$Think.Lang.V_LOGIN_REGISTER2_9}<em></em>">{$Think.Lang.V_LOGIN_REGISTER2_9}<em></em></div>
 			</div>
 			<br/>
 
 			<div class="reg_button_box" style="width:300px;">
 				
-				<input type="button" value="下一步" onclick="Update();"/>
+				<input type="button" value="{$Think.Lang.V_LOGIN_REGISTER2_10}" onclick="Update();"/>
 
 			</div>
 		</div>
@@ -59,28 +59,7 @@
 
 
 <div class="autobox" style="margin-bottom: 30px">
-	<ul class="safety_tips_ul clear">
-		<li>
-			<div class="safety_img safety_img_1"></div>
-			<h4>系统可靠</h4>
-			<p>银行级用户数据加密、动态身份验证，多级风险识别控制，保障交易安全</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_2"></div>
-			<h4>资金安全</h4>
-			<p>钱包多层加密，离线存储于银行保险柜，资金第三方托管，确保安全</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_3"></div>
-			<h4>快捷方便</h4>
-			<p>充值即时、提现迅速，每秒万单的高性能交易引擎，保证一切快捷方便</p>
-		</li>
-		<li>
-			<div class="safety_img safety_img_4"></div>
-			<h4>服务专业</h4>
-			<p>专业的客服团队，400电话和24小时在线QQ，VIP一对一专业服务</p>
-		</li>
-	</ul>
+	{$Think.Lang.V_LOGIN_REGISTER2_11}
 </div>
 <script type="text/javascript" src="__PUBLIC__/m/js/md5.js"></script>
 <script>
@@ -122,15 +101,15 @@
 		var repaypassword=$("#repaypassword").val();
 		
 		if(paypassword==""||paypassword==null){
-			formMsg('paypassword', 0, '请输入交易密码');
+			formMsg('paypassword', 0, lange.LOGIN_PAYPASSWORD_1);
 			return false;
 		}
 		if(repaypassword==""||repaypassword==null){
-			formMsg('repaypassword', 0, '请输入确认密码');
+			formMsg('repaypassword', 0, lange.LOGIN_PAYPASSWORD_2);
 			return false;
 		}
 		if(paypassword!=repaypassword){
-			formMsg('repaypassword', 0, '确认密码错误');
+			formMsg('repaypassword', 0, lange.LOGIN_PAYPASSWORD_3);
 			return false;
 		}
 

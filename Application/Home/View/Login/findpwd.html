@@ -2,43 +2,43 @@
 
 <div class="content">
 	<div class="slide-unit reset-password-logo">
-		重置登录密码
+		{$Think.Lang.V_LOGIN_FINDPWD_1}
 	</div>
 	<div class="register-box">
 		<div class="register-form">
 			<div id="register-phone-form" class="register-list active">
 				<div class="register-item">
-					<label>账号</label>
+					<label>{$Think.Lang.V_LOGIN_FINDPWD_2}</label>
 					<input type="text" id="mobles" class="texts" style="display: none;">
-					<input type="text" id="moble"  placeholder="请输入登录账号" onblur="check_count()"/>
+					<input type="text" id="moble"  placeholder="{$Think.Lang.V_LOGIN_FINDPWD_3}" onblur="check_count()"/>
 				</div>
 				<div class="register-item">
-					<label>获取验证码</label>
+					<label>{$Think.Lang.V_LOGIN_FINDPWD_4}</label>
 					<div class="clearfix">
 						<div class="register-phone-select">
-							<img id="verify_up" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
+							<img id="verify_up" src="{:U('Verify/code')}" title="{$Think.Lang.V_LOGIN_FINDPWD_5}" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
 						</div>
 						<div class="clearfix register-phone-input">
 							<div class="register-code-input">
-								<input id="verify" type="text" name="phone" placeholder="输入图形验证码" />
+								<input id="verify" type="text" name="phone" placeholder="{$Think.Lang.V_LOGIN_FINDPWD_6}" />
 							</div>
 							<div class="register-code-btn">
-								<a class="register-phone-code-btn" id="reg_moble" href="javascript:;" onclick="sendVerifyCode()">获取验证码</a>
+								<a class="register-phone-code-btn" id="reg_moble" href="javascript:;" onclick="sendVerifyCode()">{$Think.Lang.V_LOGIN_FINDPWD_7}</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="register-item">
-					<label>验证码</label>
-					<input id="moble_verify" type="text" name="name" placeholder="输入验证码" />
+					<label>{$Think.Lang.V_LOGIN_FINDPWD_8}</label>
+					<input id="moble_verify" type="text" name="name" placeholder="{$Think.Lang.V_LOGIN_FINDPWD_9}" />
 				</div>
 
 				<div class="register-item tc reset-password-form-item clearfix">
-					<a class="reset-password-form-submit" href="#" onclick="findpwd_up();">提交</a>
+					<a class="reset-password-form-submit" href="#" onclick="findpwd_up();">{$Think.Lang.V_LOGIN_FINDPWD_10}</a>
 				</div>
 			</div>
-			<div class="register-form-info tc">重置登录密码后24小时内禁止提币。</div>
+			<div class="register-form-info tc">{$Think.Lang.V_LOGIN_FINDPWD_11}</div>
 		</div>
 	</div>
 </div>
@@ -50,7 +50,7 @@
 		var moble  = $('#moble').val();
 		var mobles = $('#mobles').val();
 		if (moble == "" || moble == null) {
-			layer.tips("请输入账号", '#moble', {tips: 2});
+			layer.tips(lange.LOGIN_FINDPWD_1, '#moble', {tips: 2});
 			return false;
 		}
         if (regMoble.test(moble))//手机
@@ -63,7 +63,7 @@
             }, function (data) {
                 layer.closeAll('loading');
                 if (data.status == 1) {
-                    $('#reg_moble').html('获取验证码');
+                    $('#reg_moble').html(lange.LOGIN_FINDPWD_2);
                 } else {
                     layer.tips(data.info, '#moble', {tips: 2});
                     return false;
@@ -78,14 +78,14 @@
             }, function (data) {
                 layer.closeAll('loading');
                 if (data.status == 1) {
-                    $('#reg_moble').html('获取验证码');
+                    $('#reg_moble').html(lange.LOGIN_FINDPWD_2);
                 } else {
                     layer.tips(data.info, '#moble', {tips: 2});
                     return false;
                 }
             }, 'json');
 		}else{
-            layer.tips("账户类型不支持", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_4, '#moble', {tips: 2});
             return false;
 		}
 	}
@@ -100,24 +100,24 @@
         {
             email_send();
         }else{
-            layer.tips("请输入账号", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_1, '#moble', {tips: 2});
             return false;
 		}
 	}
 
 	function moble_send() {
-        if($('#reg_moble').html() != '获取验证码'){
+        if($('#reg_moble').html() != lange.LOGIN_FINDPWD_6){
             return;
         }
 		var moble  = $("#moble").val();
 		var mobles = $("#mobles").val();
 		var verify = $("#verify").val();
 		if (moble == "" || moble == null) {
-			layer.tips("请输入手机号码", '#moble', {tips: 2});
+			layer.tips(lange.LOGIN_FINDPWD_1, '#moble', {tips: 2});
 			return false;
 		}
 		if (verify == "" || verify == null) {
-			layer.tips("请输入图形验证码", '#verify', {tips: 2});
+			layer.tips(lange.LOGIN_FINDPWD_4, '#verify', {tips: 2});
 			return false;
 		}
 		$.post("/verify/moble_findpwd.html", {
@@ -137,13 +137,13 @@
 				var obj      = $('#reg_moble');
 				var wait     = 30;
 				var interval = setInterval(function () {
-					obj.html("" + wait + "秒可再次发送");
+					obj.html("" + wait + lange.FINANCE_OUT_SENDSMS2);
 					wait--;
 					if (wait < 0) {
 						clearInterval(interval);
                         $("#verify_up").click();
 						$("#verify").val('');
-						obj.html('获取验证码');
+						obj.html(lange.LOGIN_FINDPWD_2);
 					}
 					;
 				}, 1000);
@@ -161,18 +161,18 @@
 
 
     function email_send() {
-        if($('#reg_moble').html() != '获取验证码'){
+        if($('#reg_moble').html() != lange.LOGIN_FINDPWD_2){
             return;
         }
         var email  = $("#moble").val();
         var mobles = $("#mobles").val();
         var verify = $("#verify").val();
         if (moble == "" || moble == null) {
-            layer.tips("请输入邮箱", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_12, '#moble', {tips: 2});
             return false;
         }
         if (verify == "" || verify == null) {
-            layer.tips("请输入图形验证码", '#verify', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_2, '#verify', {tips: 2});
             return false;
         }
         $.post("/verify/email_findpwd.html", {
@@ -192,13 +192,13 @@
                 var obj      = $('#reg_moble');
                 var wait     = 30;
                 var interval = setInterval(function () {
-                    obj.html("" + wait + "秒可再次发送");
+                    obj.html("" + wait + lange.FINANCE_OUT_SENDSMS2);
                     wait--;
                     if (wait < 0) {
                         clearInterval(interval);
                         $("#verify_up").click();
                         $("#verify").val('');
-                        obj.html('获取验证码');
+                        obj.html(lange.LOGIN_FINDPWD_2);
                     }
                     ;
                 }, 1000);
@@ -222,11 +222,11 @@
         if (regMoble.test(account))//手机
         {
             if (moble == "" || moble == null) {
-                layer.tips("请输入手机号", '#moble', {tips: 2});
+                layer.tips(lange.LOGIN_FINDPAYPWD_1, '#moble', {tips: 2});
                 return false;
             }
             if (moble_verify == "" || moble_verify == null) {
-                layer.tips("请输入验证码", '#moble_verify', {tips: 2});
+                layer.tips(lange.FINDPWD_FINDPWD_6, '#moble_verify', {tips: 2});
                 return false;
             }
             layer.load();
@@ -253,11 +253,11 @@
         else if(emailreg.test(account))//邮箱
         {
             if (moble == "" || moble == null) {
-                layer.tips("请输入邮箱", '#moble', {tips: 2});
+                layer.tips(lange.LOGIN_FINDPWD_12, '#moble', {tips: 2});
                 return false;
             }
             if (moble_verify == "" || moble_verify == null) {
-                layer.tips("请输入验证码", '#moble_verify', {tips: 2});
+                layer.tips(lange.FINDPWD_FINDPWD_6, '#moble_verify', {tips: 2});
                 return false;
             }
             layer.load();
@@ -282,7 +282,7 @@
                 layer.closeAll('loading');
             }, "json");
         }else{
-            layer.tips("不支持的账号", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_13, '#moble', {tips: 2});
             return false;
         }
 	}

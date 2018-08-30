@@ -2,109 +2,109 @@
 <div class="content">
     <link rel="stylesheet" href="__PUBLIC__/v2/js/intl-tel-input/css/intlTelInput.css">
 	<div class="slide-unit register-logo">
-		欢迎注册
+		{$Think.Lang.V_LOGIN_REGISTER_1}
 	</div>
 	<div class="register-box">
 		<div class="register-head">
-			<a href="#" id="register-phone" class="active">手机注册</a>
-			<a href="#" id="register-email">邮箱注册</a>
+			<a href="#" id="register-phone" class="active">{$Think.Lang.V_LOGIN_REGISTER_2}</a>
+			<a href="#" id="register-email">{$Think.Lang.V_LOGIN_REGISTER_3}</a>
 		</div>
 		<div class="register-form">
 			<div id="register-phone-form" class="register-list active">
 				<div class="register-item">
-					<label>手机号码</label>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_4}</label>
 					<div class="clearfix">
-                        <input type="tel" class="intlTelInput-tel" id="moble" placeholder="请输入手机号码" onblur="check_moble()">
+                        <input type="tel" class="intlTelInput-tel" id="moble" placeholder="{$Think.Lang.V_LOGIN_REGISTER_5}" onblur="check_moble()">
 					</div>
 				</div>
 
 				<div class="register-item">
-					<label>获取验证码</label>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_6}</label>
 					<div class="clearfix">
 						<div class="register-phone-select">
-							<img id="verify_up" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
+							<img id="verify_up" src="{:U('Verify/code')}" title="{$Think.Lang.V_LOGIN_REGISTER_7}" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
 						</div>
 						<div class="clearfix register-phone-input">
 							<div class="register-code-input">
-								<input type="text" id="verify" name="phone" placeholder="输入图形验证码" />
+								<input type="text" id="verify" name="phone" placeholder="{$Think.Lang.V_LOGIN_REGISTER_8}" />
 							</div>
 							<div class="register-code-btn">
-								<a class="register-phone-code-btn" href="javascript:;" id="moble_reg_send" onclick="moble_reg('sms')">获取验证码</a>
+								<a class="register-phone-code-btn" href="javascript:;" id="moble_reg_send" onclick="moble_reg('sms')">{$Think.Lang.V_LOGIN_REGISTER_9}</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="register-item">
-					<label>短信验证码</label>
-					<input id="moble_verify" type="text" name="name" placeholder="请输入验证码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_10}</label>
+					<input id="moble_verify" type="text" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_11}" />
 				</div>
 				<div class="register-item">
-					<label>登录密码</label>
-					<input type="password" id="password" name="name" placeholder="请输入登陆密码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_12}</label>
+					<input type="password" id="password" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_13}" />
 				</div>
 				<div class="register-item">
-					<label>确认密码</label>
-					<input type="password" id="passwordConfirm" name="name" placeholder="再次输入密码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_14}</label>
+					<input type="password" id="passwordConfirm" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_15}" />
 				</div>
 				<div class="register-item">
-					<label>邀请码（选填）</label>
-					<input id="invit" type="text" value="{$invitCode}" name="name" placeholder="输入邀请码"/>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_16}</label>
+					<input id="invit" type="text" value="{$invitCode}" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_17}"/>
 				</div>
 				<div class="register-item tc register-agreement">
 					<!--<span  id="regweb">我已阅读并同意《<a href="javascript:;" onclick="regWeb();">用户协议</a>》</span>-->
-					<label><input type="checkbox" name="name" class="hide" id="regweb"><span id="regweb-tip">我已阅读并同意</span></label>《<a href="javascript:;" onclick="regWeb();">用户协议</a>》
+					<label><input type="checkbox" name="name" class="hide" id="regweb"><span id="regweb-tip">{$Think.Lang.V_LOGIN_REGISTER_18}</span></label>《<a href="javascript:;" onclick="regWeb();">{$Think.Lang.V_LOGIN_REGISTER_19}</a>》
 				</div>
 				<div class="register-item tc">
-					<a class="register-form-submit disabled-submit-btn" onclick="reg_up();" href="#">注册</a>
+					<a class="register-form-submit disabled-submit-btn" onclick="reg_up();" href="#">{$Think.Lang.V_LOGIN_REGISTER_20}</a>
 				</div>
 			</div>
 			<div id="register-email-form" class="register-list">
 				<div class="register-item">
-					<label>邮箱</label>
-					<input type="text" id="email" name="email" placeholder="输入邮箱" onblur="check_email()"/>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_21}</label>
+					<input type="text" id="email" name="email" placeholder="{$Think.Lang.V_LOGIN_REGISTER_22}" onblur="check_email()"/>
 					<span id="reg_mail" class="" style="position: absolute; left: 190px;top: 2px;"></span>
 				</div>
 				<div class="register-item">
-					<label>获取验证码</label>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_6}</label>
 					<div class="clearfix">
 						<div class="register-phone-select">
-							<img id="verifyUpEmail" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
+							<img id="verifyUpEmail" src="{:U('Verify/code')}" title="{$Think.Lang.V_LOGIN_REGISTER_7}" onclick="this.src=this.src+'?t='+Math.random()" width="100" height="34"/>
 						</div>
 						<div class="clearfix register-phone-input">
 							<div class="register-code-input">
-								<input type="text" id="verifyEmail" name="phone" placeholder="输入图形验证码" />
+								<input type="text" id="verifyEmail" name="phone" placeholder="{$Think.Lang.V_LOGIN_REGISTER_8}" />
 							</div>
 							<div class="register-code-btn">
-								<a class="register-phone-code-btn" href="javascript:;" id="email_reg_send" onclick="email_reg_code('mail')">获取验证码</a>
+								<a class="register-phone-code-btn" href="javascript:;" id="email_reg_send" onclick="email_reg_code('mail')">{$Think.Lang.V_LOGIN_REGISTER_9}</a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="register-item">
-					<label>邮箱验证码</label>
-					<input id="email_verify" type="text" name="name" placeholder="请输入验证码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_23}</label>
+					<input id="email_verify" type="text" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_11}" />
 				</div>
 				<div class="register-item">
-					<label>登录密码</label>
-					<input type="password" id="passwordEmail" name="name" placeholder="输入密码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_12}</label>
+					<input type="password" id="passwordEmail" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_13}" />
 				</div>
 				<div class="register-item">
-					<label>确认密码</label>
-					<input type="password" id="passwordConfirmEmail" name="name" placeholder="再次输入密码" />
+					<label>{$Think.Lang.V_LOGIN_REGISTER_14}</label>
+					<input type="password" id="passwordConfirmEmail" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_15}" />
 				</div>
 				<div class="register-item">
-					<label>邀请码（选填）</label>
-					<input type="text" id="invitEmail" value="{$invitCode}" name="name" placeholder="输入邀请码"/>
+					<label>{$Think.Lang.V_LOGIN_REGISTER_16}</label>
+					<input type="text" id="invitEmail" value="{$invitCode}" name="name" placeholder="{$Think.Lang.V_LOGIN_REGISTER_17}"/>
 				</div>
 				<div class="register-item tc register-agreement">
-					<label><input type="checkbox" name="name" class="hide" id="regEmail"><span id="regEmail-tip">我已阅读并同意</span></label>《<a href="javascript:;" onclick="regWeb();">用户协议</a>》
+					<label><input type="checkbox" name="name" class="hide" id="regEmail"><span id="regEmail-tip">{$Think.Lang.V_LOGIN_REGISTER_18}</span></label>《<a href="javascript:;" onclick="regWeb();">{$Think.Lang.V_LOGIN_REGISTER_19}</a>》
 				</div>
 				<div class="register-item tc">
-					<a class="register-form-submit disabled-submit-btn" onclick="email_reg_up();" href="#">注册</a>
+					<a class="register-form-submit disabled-submit-btn" onclick="email_reg_up();" href="#">{$Think.Lang.V_LOGIN_REGISTER_20}</a>
 				</div>
 			</div>
-			<div class="register-form-info tc">国籍信息注册后不可修改，请务必如实选择。  验证邮箱可能会被误判为垃圾邮箱，请注意查收。 <br/> 请妥善保存您的bjs.bi账号已经登陆密码。  请勿和其他网站使用相同的登陆密码。</div>
+			<div class="register-form-info tc">{$Think.Lang.V_LOGIN_REGISTER_24}</div>
 		</div>
 	</div>
 </div>
@@ -142,7 +142,7 @@
             type: 2,
             skin: 'layui-layer-rim', // 边框
             area: ['800px', '600px'], // 宽高
-            title: '用户注册协议', // 标题
+            title: lange.LOGIN_REGISTER_1, // 标题
             content: "{:U('Login/webreg')}"
         });
     }
@@ -151,7 +151,7 @@
         var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = '';
         if ($('#moble').val() == "" || $('#moble').val() == null) {
-            layer.tips("请输入手机号", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPAYPWD_1, '#moble', {tips: 2});
             return false;
         }
         moble = moble.replace(/\s/,'');
@@ -180,7 +180,7 @@
         var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = '';
         if ($('#moble').val() == "" || $('#moble').val() == null) {
-            layer.tips("请输入手机号", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPAYPWD_1, '#moble', {tips: 2});
             return false;
         }
         moble = moble.replace(/\s/,'');
@@ -198,18 +198,18 @@
         }, 'json');
     }
     function moble_reg(type) {
-        if($('#moble_reg_send').html() != '获取验证码'){
+        if($('#moble_reg_send').html() != lange.LOGIN_FINDPWD_6){
             return;
         }
         var moble  = '00'+$('.selected-dial-code').text().replace('\+','')+$('#moble').val();
         var mobles = $("#mobles").val();
         var verify = $("#verify").val();
         if ($('#moble').val() == "" || $('#moble').val() == null) {
-            layer.tips("请输入手机号码", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPAYPWD_1, '#moble', {tips: 2});
             return false;
         }
         if (verify == "" || verify == null) {
-            layer.tips("请输入图形验证码", '#verify', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_2, '#verify', {tips: 2});
             return false;
         }
         moble = moble.replace(/\s/,'');
@@ -229,11 +229,11 @@
                 var obj      = $('#moble_reg_send');
                 var wait     = 60;
                 var interval = setInterval(function () {
-                    obj.html(wait + "秒后可再发送");
+                    obj.html(wait + lange.FINANCE_OUT_SENDSMS2);
                     wait--;
                     if (wait < 0) {
                         clearInterval(interval);
-                        obj.html('获取验证码');
+                        obj.html(lange.LOGIN_FINDPWD_2);
                     }
                     ;
                 }, 1000);
@@ -250,7 +250,7 @@
     function check_email(){
         var email  = $('#email').val();
         if (email == "" || email == null) {
-            layer.tips("请输入邮箱", '#email', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_12, '#email', {tips: 2});
             return false;
         }
         $.post("/login/check_mail.html", {
@@ -267,17 +267,17 @@
 	}
 
     function email_reg_code(type){
-        if($('#email_reg_send').html() != '获取验证码'){
+        if($('#email_reg_send').html() != lange.LOGIN_FINDPWD_2){
             return;
         }
         var email  = $("#email").val();
         var verifyEmail = $("#verifyEmail").val();
         if (email == "" || email == null) {
-            layer.tips("请输入邮箱", '#email', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_12, '#email', {tips: 2});
             return false;
         }
         if (verifyEmail == "" || verifyEmail == null) {
-            layer.tips("请输入图形验证码", '#verifyEmail', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_2, '#verifyEmail', {tips: 2});
             return false;
         }
         $.post("/login/real_mail.html", {
@@ -293,11 +293,11 @@
                 var obj      = $('#email_reg_send');
                 var wait     = 60;
                 var interval = setInterval(function () {
-                    obj.html(wait + "秒后可发送");
+                    obj.html(wait + lange.FINANCE_OUT_SENDSMS2);
                     wait--;
                     if (wait < 0) {
                         clearInterval(interval);
-                        obj.html('获取验证码');
+                        obj.html(lange.LOGIN_FINDPWD_2);
                     }
                     ;
                 }, 1000);
@@ -319,25 +319,25 @@
         var invit        = $("#invit").val();
 
         if ($('#moble').val() == "" || $('#moble').val() == null) {
-            layer.tips("请输入手机号", '#moble', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPAYPWD_1, '#moble', {tips: 2});
             return false;
         }
         if (moble_verify == "" || moble_verify == null) {
-            layer.tips("请输入验证码", '#moble_verify', {tips: 2});
+            layer.tips(lange.FINDPWD_FINDPWD_6, '#moble_verify', {tips: 2});
             return false;
         }
         if (password == "" || password == null) {
-            layer.tips("请输入密码", '#password', {tips: 2});
+            layer.tips(lange.LOGIN_REGISTER_5, '#password', {tips: 2});
             return false;
         }
         if(passwordConf != password){
-            layer.tips("请确认两次密码相同", '#password', {tips: 2});
+            layer.tips(lange.LOGIN_REGISTER_6, '#password', {tips: 2});
             $("#password").val('');
             $("#passwordConfirm").val('');
             return false;
 		}
         if (!$("#regweb").is(':checked')) {
-            layer.tips("请勾选用户注册协议", '#regweb-tip', {tips: 3});
+            layer.tips(lange.LOGIN_REGISTER_7, '#regweb-tip', {tips: 3});
             return false;
         }
 
@@ -378,26 +378,26 @@
         var invit        = $("#invitEmail").val();
 
         if (email == "" || email == null) {
-            layer.tips("请输入邮箱", '#email', {tips: 2});
+            layer.tips(lange.LOGIN_FINDPWD_12, '#email', {tips: 2});
             return false;
         }
 
         if (email_verify == "" || email_verify == null) {
-            layer.tips("请输入邮箱验证码", '#email_verify', {tips: 2});
+            layer.tips(lange.LOGIN_REGISTER_8, '#email_verify', {tips: 2});
             return false;
         }
         if (password == "" || password == null) {
-            layer.tips("请输入密码", '#passwordEmail', {tips: 2});
+            layer.tips(lange.LOGIN_REGISTER_5, '#passwordEmail', {tips: 2});
             return false;
         }
         if(passwordConf != password){
-            layer.tips("请确认两次密码相同", '#passwordEmail', {tips: 2});
+            layer.tips(lange.LOGIN_REGISTER_6, '#passwordEmail', {tips: 2});
             $("#passwordEmail").val('');
             $("#passwordConfirmEmail").val('');
             return false;
         }
         if (!$("#regEmail").is(':checked')) {
-            layer.tips("请勾选用户注册协议", '#regEmail-tip', {tips: 3});
+            layer.tips(lange.LOGIN_REGISTER_7, '#regEmail-tip', {tips: 3});
             return false;
         }
 

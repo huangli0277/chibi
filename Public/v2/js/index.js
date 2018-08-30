@@ -951,6 +951,25 @@ var bjsIndex = (function(){
 			window.location.reload();
 		});
 	}
+	bjsIndex.prototype.initNotice = function(title,str,btn,maxWidth,cookie){
+		var bjsNotice = $.cookies.get(cookie);
+		if(!bjsNotice){
+			layer.closeAll();
+			setTimeout(function(){
+				layer.open({
+					maxWidth: maxWidth
+					,title: title
+					,content: str
+					,btn: btn
+					,btnAlign: 'c'
+					,yes: function(index){
+						layer.close(index);
+						$.cookies.set(cookie,1,30);
+					}
+				});
+			},100);
+		}
+	}
 	bjsIndex.prototype.initProgress = function(callback){
 		if(!$('.bjs-progress')[0]){
 			return false;

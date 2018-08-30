@@ -134,7 +134,7 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.initSettings = function(){
 		var _this = this;
-		this._initBack();
+		this._initBack(null,'reload');
 
 		$(document).on('click','.my-links-skin',function(){
 			$('#skin-box').addClass('right-show');
@@ -469,12 +469,23 @@ var bjsIndex = (function(){
 		var _this = this;
 		_this._fetch(_this.localPath+_this.indexUrl.starRemove,{userId:userId,coinType:cid},'post','json',callback);
 	}
-	bjsIndex.prototype._initBack = function(el){
-		var back = ( el ? el + ' ' : '' ) + '.search-slide-back';
-		$(document).on('click',back,function(event){
-			event.preventDefault();
-			window.history.back();
-		});
+	bjsIndex.prototype._initBack = function(el,reload){
+			var url = document.referrer;
+			if(url.search(/\?/) > 0){
+				url += '&random='+((Math.random()*100)>>0);
+			}else{
+				url += '?random='+((Math.random()*100)>>0);
+			}
+			var back = ( el ? el + ' ' : '' ) + '.search-slide-back';
+			$(document).on('click',back,function(event){
+				event.preventDefault();
+				if(reload){
+					window.location.href = url;
+				}else{
+					window.history.back();
+				}
+			});
+
 	}
 	bjsIndex.prototype._initClipboard = function(){
 		//复制到剪贴板
@@ -640,6 +651,25 @@ var bjsIndex = (function(){
     			this.scrollIntoViewIfNeeded();
     		}.bind(this),300);
 		});
+	}
+	bjsIndex.prototype._initNotice = function(title,str,btn,maxWidth,cookie){
+		var bjsNotice = $.cookies.get(cookie);
+		if(!bjsNotice){
+			layer.closeAll();
+			setTimeout(function(){
+				layer.open({
+					maxWidth: maxWidth
+					,title: title
+					,content: str
+					,btn: btn
+					,btnAlign: 'c'
+					,yes: function(index){
+						layer.close(index);
+						$.cookies.set(cookie,1,30);
+					}
+				});
+			},100);
+		}
 	}
 	bjsIndex.prototype._initProgress = function(callback){
 		if(!$('.bjs-progress')[0]){

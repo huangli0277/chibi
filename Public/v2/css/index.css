@@ -558,6 +558,7 @@ color: rgba(94,102,120,.7);
 .tpwd label{}
 .tpwd label input[type="radio"]{vertical-align: middle;}
 .tpwd .trading-input-group.input-group{margin-top: 10px;}
+.tpwd .input-group-r.input-group .form-control,
 .tpwd .trading-input-group.input-group .form-control{border-color: #35383e; background-color: #1b1c25;}
 
 .page-left{width: 24%; background: #171820;}
@@ -1007,7 +1008,7 @@ color: rgba(94,102,120,.7);
 .complaint-wrap .complaint-prompt{font-size: .2rem;}
 .complaint-wrap .complaint-info{color: #09c8c8;}
 .complaint-upload-box{height: 2rem;}
-.default-btn{border-radius: .03rem; padding: .04rem .08rem; color: #fff; display: inline-block; line-height: 1; background: #181820; border: 1px solid #8b93a0; cursor: pointer; display: inline-block;}
+.default-btn{border-radius: .03rem; padding: .04rem .08rem; color: #fff; display: inline-block; line-height: 1; background: transparent; border: 1px solid #8b93a0; cursor: pointer; display: inline-block;}
 
 /*---- tixian ----*/
 .c2c-cont-head-title p{border-bottom: .02rem solid #2c303b; padding-bottom: .1rem; margin-bottom: .25rem; font-size: .18rem;}
@@ -1080,10 +1081,10 @@ color: rgba(94,102,120,.7);
 
 .btn-toggle{display: inline-block; width: 1.6rem; height: .42rem; margin-right: .2rem;}
 .btn-toggle img{max-width: 100%;}
-.toggle-show{display: inline-block;}
+/*.toggle-show{display: inline-block;}
 .toggle-hide{display: none;}
 .btn-toggle:hover .toggle-show{display: none;}
-.btn-toggle:hover .toggle-hide{display: inline-block;}
+.btn-toggle:hover .toggle-hide{display: inline-block;}*/
 .authenticator-center{width: 50%; margin: 0 auto;}
 .authenticator-title{padding-top: .35rem;}
 .authenticator-info{font-size: .14rem; line-height: 1.5; margin-bottom: .05rem;}
@@ -1260,6 +1261,7 @@ color: rgba(94,102,120,.7);
 .ml10{margin-left: .1rem;}
 .dblb{display: inline-block;}
 input[disabled]{cursor: no-drop;}
+.canvas-qrcode canvas{padding: 5px; background-color: #fff;}
 
 /*---- publics icon ----*/
 .picon-success{background: url(../images/success_fill.png) no-repeat left center / auto 100%; padding-left: .22rem; font-size: .13rem;}

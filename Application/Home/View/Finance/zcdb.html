@@ -8,7 +8,7 @@
 			<div class="c2c-cont">
 				<div class="c2c-cont-head clearfix">
 					<h3 class="c2c-cont-head-title pull-left">
-						资产对标
+						{$Think.Lang.V_FINANCE_ZCDB_1}
 						<!--<h3 class="c2c-cont-head-title pull-left">-->
 
 						<!--</h3>-->
@@ -25,7 +25,7 @@
 					<!--</p>-->
 						<label class="c2c-off-open">
 							<input type="checkbox" name="name[]" value="0" class="hide" disabled="disabled">
-							<span class="pull-right fontnormal">资产对标</span>
+							<span class="pull-right fontnormal">{$Think.Lang.V_FINANCE_ZCDB_1}</span>
 						</label>
 					</h3>
 
@@ -39,27 +39,27 @@
 									<div class="weikaitong-box">
 										<ul class="flex-box align-top font14 text-nowrap">
 											<li class="flex-item-2">
-												<div class="tl">锁仓币种：<span>{$zcdb_set.currency|strtoupper}<span class="font12">(可用{$zcdb_set.currency}：{$currency_lock_num})</span></span></div>
+												<div class="tl">{$Think.Lang.V_FINANCE_ZCDB_2}<span>{$zcdb_set.currency|strtoupper}<span class="font12">({$Think.Lang.V_FINANCE_ZCDB_3}{$zcdb_set.currency}：{$currency_lock_num})</span></span></div>
 											</li>
 											<li class="flex-item-2">
-												<div class="tl">锁仓时长：
+												<div class="tl">{$Think.Lang.V_FINANCE_ZCDB_4}
 													<div class="select-100 suocang-item select-h32">
 														<select id="choose-pay" class="form-input new-form-input vhide select3" name="pay">
 															<volist name="zcdb_set.list" id="vo">
-																<option rate="{$vo.proportion}" value="{$vo.length_day}">{$vo.length_day}天</option>
+																<option rate="{$vo.proportion}" value="{$vo.length_day}">{$vo.length_day}{$Think.Lang.V_FINANCE_ZCDB_5}</option>
 															</volist>
 														</select>
 													</div>
 												</div>
 											</li>
 											<li class="flex-item-3">
-												<div class="tl">锁仓数量：
+												<div class="tl">{$Think.Lang.V_FINANCE_ZCDB_6}
 													<input id="num"  type="text" placeholder="500或500的倍数" onkeyup="mykeyup(this)" class="form-input new-form-input suocang-item">
 													<span id="profit" class="font12 hide"></span>
 												</div>
 											</li>
 											<li class="tr">
-												<button id="submit" class="default-form-submit new-form-submit dblb">确定</button>
+												<button id="submit" class="default-form-submit new-form-submit dblb">{$Think.Lang.V_FINANCE_ZCDB_7}</button>
 											</li>
 										</ul>
 										<eq name="is_activity" value="0">
@@ -75,10 +75,10 @@
 								<!--</div>-->
 							</div>
 							<div class="tixian-form-info">
-								<h4>对标说明</h4>
+								<h4>{$Think.Lang.V_FINANCE_ZCDB_8}</h4>
 								<ul>
-									<li>为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系</li>
-									<li>请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</li>
+									<li>{$Think.Lang.V_FINANCE_ZCDB_9}</li>
+									<li>{$Think.Lang.V_FINANCE_ZCDB_10}</li>
 								</ul>
 							</div>
 						</div>
@@ -86,19 +86,19 @@
 					<eq name="is_activity" value="1">
 					<div class="tixian-jilu-list">
 						<h3 class="c2c-cont-head-title">
-							锁仓记录
+							{$Think.Lang.V_FINANCE_ZCDB_11}
 						</h3>
 						<table class="c2c-table">
 							<thead>
 							<tr>
-								<th style="width: 10%;">对标币种</th>
-								<th style="width: 10%;">对标数量</th>
-								<th style="width: 10%;">对标时长</th>
-								<th style="width: 20%;">对标收益</th>
-								<th style="width: 15%;">开始时间</th>
-								<th style="width: 15%;">结束时间</th>
-								<th style="width: 10%;">状态</th>
-								<th style="width: 10%;">操作</th>
+								<th style="width: 10%;">{$Think.Lang.V_FINANCE_ZCDB_12}</th>
+								<th style="width: 10%;">{$Think.Lang.V_FINANCE_ZCDB_13}</th>
+								<th style="width: 10%;">{$Think.Lang.V_FINANCE_ZCDB_14}</th>
+								<th style="width: 20%;">{$Think.Lang.V_FINANCE_ZCDB_15}</th>
+								<th style="width: 15%;">{$Think.Lang.V_FINANCE_ZCDB_16}</th>
+								<th style="width: 15%;">{$Think.Lang.V_FINANCE_ZCDB_17}</th>
+								<th style="width: 10%;">{$Think.Lang.V_FINANCE_ZCDB_18}</th>
+								<th style="width: 10%;">{$Think.Lang.V_FINANCE_ZCDB_19}</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -106,14 +106,14 @@
 								<tr>
 									<td>{$vo.currency_lock}</td>
 									<td>{$vo['num_lock']|NumToStr}</td>
-									<td>{$vo['length_day']}天</td>
+									<td>{$vo['length_day']}{$Think.Lang.V_FINANCE_ZCDB_5}</td>
 									<td>{$vo['shouyi']}</td>
 									<td>{$vo.start_time|addtime}</td>
 									<td>{$vo.end_time|addtime}</td>
 									<td>{$vo.status_text}</td>
 									<td>
 										<eq name="vo.status" value="1">
-											<a class="apply" style="color: #00ffff"  href="{:U('Finance/apply_settle',array('id'=>$vo['id']))}">申请结算</a>
+											<a class="apply" style="color: #00ffff"  href="{:U('Finance/apply_settle',array('id'=>$vo['id']))}">{$Think.Lang.V_FINANCE_ZCDB_20}</a>
 										</eq>
 									</td>
 								</tr>
@@ -126,8 +126,8 @@
 					</eq>
 					<eq name="is_activity" value="0">
 						<div class="weikaitong-footer padt10 tc">
-							<p class="padt10">您当前未开通资产对标，需要先开通才能操作。</p>
-							<p class="padt10"><button class="default-form-submit default-form-blue weikaitong-form-submit">开通</button></p>
+							<p class="padt10">{$Think.Lang.V_FINANCE_ZCDB_21}</p>
+							<p class="padt10"><button class="default-form-submit default-form-blue weikaitong-form-submit">{$Think.Lang.V_FINANCE_ZCDB_22}</button></p>
 						</div>
 					</eq>
 				</div>
@@ -146,14 +146,14 @@
             var num = parseInt($('#num').val());
             if(num>0){
                 if(num%500 !== 0){
-                    $('#profit').html('请输入500或500倍数');
+                    $('#profit').html(lange.FINANCE_ZCDB_1);
                     $('#profit').removeClass('hide');
                     return;
 				}
                 var day = $('#choose-pay option:selected').val();
                 var rate = $('#choose-pay option:selected').attr('rate')*1;
                 var ETH = (num * currency_lock_new_price * rate / currency_profit_new_price).toFixed(4);
-				$('#profit').html('收益'+rate*100+"%,≈"+ETH+"ETH");
+				$('#profit').html(lange.FINANCE_ZCDB_2 +rate*100+"%,≈"+ETH+"ETH");
                 $('#profit').removeClass('hide');
 			}else{
                 $('#profit').addClass('hide');
@@ -185,15 +185,15 @@
             var num = parseInt($('#num').val());
             var day = $('#choose-pay option:selected').val();
             if(!day){
-                layer.msg('输入错误', {icon: 2});
+                layer.msg(lange.FINANCE_ZCDB_3 , {icon: 2});
                 return;
             }
             if(num<=0 || num%500!=0){
-                layer.msg('请输入500或500倍数的锁仓数量', {icon: 2});
+                layer.msg(lange.FINANCE_ZCDB_4, {icon: 2});
                 return;
             }
-            layer.confirm('锁仓币种：CNUT<br>锁仓时长：'+day+'天<br>锁仓数量：'+num,
-				{btn:['确定锁仓','取消'],title:'请确认'},
+            layer.confirm(lange.FINANCE_ZCDB_5 +day+lange.FINANCE_ZCDB_6 +num,
+				{btn:[lange.FINANCE_ZCDB_7 ,lange.ALL_CANCEL],title:lange.ALL_CONFIRM},
 				function(index){
 					layer.close(index);
 					$.post("{:U('Finance/zcdb_submit')}", {
@@ -221,14 +221,14 @@
         var num = _this.value;
         if(num>0){
             if(num%500 !== 0){
-                $('#profit').html('请输入500或500倍数');
+                $('#profit').html(lange.FINANCE_ZCDB_1);
                 $('#profit').removeClass('hide');
                 return;
             }
             var day = $('#choose-pay option:selected').val();
             var rate = $('#choose-pay option:selected').attr('rate')*1;
             var ETH = (num * currency_lock_new_price * rate / currency_profit_new_price).toFixed(4);
-            $('#profit').html('收益'+rate*100+"%,≈"+ETH+"ETH");
+            $('#profit').html(lange.FINANCE_ZCDB_2+rate*100+"%,≈"+ETH+"ETH");
             $('#profit').removeClass('hide');
         }else{
             $('#profit').addClass('hide');
@@ -245,8 +245,8 @@
     });
 
     $(document).on('click','.weikaitong-form-submit',function(){
-        layer.confirm('是否确认开通资产对标',
-            {btn:['确认','取消'],title:'请确认'},
+        layer.confirm(lange.FINANCE_ZCDB_8,
+            {btn:[lange.ALL_OK,lange.ALL_CANCEL],title:lange.ALL_CONFIRM},
             function(index){
                 layer.close(index);
                 $.post("{:U('Finance/open_activity')}", {
