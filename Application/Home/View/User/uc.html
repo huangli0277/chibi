@@ -120,12 +120,32 @@
                                 </if>
                              </li>
                         </ul>
-                        <!--<ul class="flex-box">-->
-                        <!--<li class="flex-item-2"><span class="picon-warning">谷歌验证器</span></li>-->
-                        <!--<li class="flex-item-4"><span class=""></span></li>-->
-                        <!--<li class="flex-item-4"><span class="">用于登陆、提币、找回密码、修改安全设置、等</span></li>-->
-                        <!--<li class="flex-item-2 tr"><a class="uc-btn" href="#">绑定</a></li>-->
-                        <!--</ul>-->
+                        <ul class="flex-box">
+                            <li class="flex-item-2">
+                                <eq name="Think.session.ga" value="1">
+                                    <span class="picon-success">谷歌验证器</span>
+                                    <else/>
+                                    <span class="picon-warning">谷歌验证器</span>
+                                </eq>
+                            </li>
+                            <li class="flex-item-4">
+                                <span class=""></span>
+                            </li>
+                            <li class="flex-item-4">
+                                <span class="">用于登陆、提币、找回密码、修改安全设置、等</span>
+                            </li>
+                            <li class="flex-item-2 tr">
+                                <eq name="Think.session.ga" value="1">
+                                    <eq name="Think.session.ga_open" value="1">
+                                        已开启
+                                        <else/>
+                                        <a class="uc-btn" href="googleauth.html">去开启</a>
+                                    </eq>
+                                    <else/>
+                                    <a class="uc-btn" href="googleauth.html">去绑定</a>
+                                </eq>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="uc-unit">
