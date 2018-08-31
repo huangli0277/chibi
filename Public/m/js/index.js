@@ -134,7 +134,7 @@ var bjsIndex = (function(){
 	}
 	bjsIndex.prototype.initSettings = function(){
 		var _this = this;
-		this._initBack(null,'reload');
+		this._initBack(null,'/Finance/index');
 
 		$(document).on('click','.my-links-skin',function(){
 			$('#skin-box').addClass('right-show');
@@ -469,23 +469,18 @@ var bjsIndex = (function(){
 		var _this = this;
 		_this._fetch(_this.localPath+_this.indexUrl.starRemove,{userId:userId,coinType:cid},'post','json',callback);
 	}
-	bjsIndex.prototype._initBack = function(el,reload){
-			var url = document.referrer;
-			if(url.search(/\?/) > 0){
-				url += '&random='+((Math.random()*100)>>0);
+	bjsIndex.prototype._initBack = function(el,url){
+				console.log(url)			
+		var back = ( el ? el + ' ' : '' ) + '.search-slide-back';
+		$(document).on('click',back,function(event){
+			event.preventDefault();
+			if(url){
+				window.location.replace(url+'?random='+((Math.random()*100)>>0));
 			}else{
-				url += '?random='+((Math.random()*100)>>0);
+				window.history.back();
 			}
-			var back = ( el ? el + ' ' : '' ) + '.search-slide-back';
-			$(document).on('click',back,function(event){
-				event.preventDefault();
-				if(reload){
-					window.location.href = url;
-				}else{
-					window.history.back();
-				}
-			});
-
+			
+		});
 	}
 	bjsIndex.prototype._initClipboard = function(){
 		//复制到剪贴板

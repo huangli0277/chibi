@@ -815,7 +815,7 @@ class LoginController extends HomeController
 //            }
 
 
-            if(check($moble, 'email')){//通过邮箱登陆
+            if(check($moble, 'email')){//通过邮箱登录
 
             }
             else if (check($moble, 'moble')){//通过手机登录
@@ -1036,7 +1036,7 @@ class LoginController extends HomeController
     public function verifyGoogle($google_code = null)
     {
         if (!userid()) {
-            $this->error('您还未登陆');
+            $this->error('您还未登录');
         }
 
         if($google_code){

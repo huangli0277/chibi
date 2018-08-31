@@ -3,6 +3,7 @@ lange.ALL_OK = '确定';
 lange.ALL_CANCEL = '取消';
 lange.ALL_CANCEL_CONFIRM = '确认取消?';
 lange.ALL_CONFIRM = '请确认?';
+lange.ALL_WEBSOCKET_SUCCESS = 'websocket握手成功，发送登录数据:';
 
 lange.FINANCE_BANK_CHANGEFILE = '请选择正确的文件类型和大小！';
 lange.FINANCE_BANK_UPLOADERROR = '上传出错！';
@@ -78,3 +79,30 @@ lange.LOGIN_REGISTER_8 = '请输入邮箱验证码';
 
 lange.LOGIN_REGISTER3_1 = '请输入真实姓名';
 lange.LOGIN_REGISTER3_2 = '请输入身份证号';
+
+lange.TRADE_INDEX_1 = '万';
+lange.TRADE_INDEX_2 = '亿';
+lange.TRADE_INDEX_3 = '当前无数据!';
+lange.TRADE_INDEX_4 = '昨日收盘价:';
+lange.TRADE_INDEX_5 = '今日涨幅限制:';
+lange.TRADE_INDEX_6 = '今日跌幅限制:';
+lange.TRADE_INDEX_7 = '今日买入最小交易价:';
+lange.TRADE_INDEX_8 = '今日卖出最大交易价:';
+lange.TRADE_INDEX_9 = '今日行情';
+lange.TRADE_INDEX_10 = '请输入交易密码';
+lange.TRADE_INDEX_11 = '请输入选择一个';
+lange.TRADE_INDEX_12 = '设置成功';
+lange.TRADE_INDEX_13 = '不要重复提交';
+lange.TRADE_INDEX_14 = '请输入内容';
+lange.TRADE_INDEX_15 = '买入';
+lange.TRADE_INDEX_16 = '卖出';
+lange.TRADE_INDEX_17 = '登录';
+lange.TRADE_INDEX_18 = '交易密码输入设置';
+lange.TRADE_INDEX_19 = '保存';
+lange.TRADE_INDEX_20 = '退出了';
+lange.TRADE_INDEX_21 = '';
+lange.TRADE_INDEX_22 = '';
+lange.TRADE_INDEX_23 = '';
+lange.TRADE_INDEX_24 = '';
+
+

@@ -1274,37 +1274,37 @@ code {
 			<div id="control">
 				<div class="inner">
 					<ul id="periods" class="horiz">
-						<li style='line-height: 26px'>K线时间段:</li>
-						<li class="period"><a>1天</a></li>
-						<li class="period"><a>6小时</a></li>
-						<li class="period"><a>1小时</a></li>
-						<li class="period"><a>30分</a></li>
-						<li class="period selected"><a>15分</a></li>
-						<li class="period"><a>5分</a></li>
+						<li style='line-height: 26px'>{$Think.Lang.V_TRADE_SPECIALTY_1}</li>
+						<li class="period"><a>{$Think.Lang.V_TRADE_SPECIALTY_2}</a></li>
+						<li class="period"><a>{$Think.Lang.V_TRADE_SPECIALTY_3}</a></li>
+						<li class="period"><a>{$Think.Lang.V_TRADE_SPECIALTY_4}</a></li>
+						<li class="period"><a>{$Think.Lang.V_TRADE_SPECIALTY_5}</a></li>
+						<li class="period selected"><a>{$Think.Lang.V_TRADE_SPECIALTY_6}</a></li>
+						<li class="period"><a>{$Think.Lang.V_TRADE_SPECIALTY_7}</a></li>
 						<li class="subsep"></li>
 						<li>
 							<div class="dropdown">
-								<div class="t">页面设置</div>
+								<div class="t">{$Think.Lang.V_TRADE_SPECIALTY_8}</div>
 								<div class="dropdown-data">
 									<table class="nowrap simple settings">
 										<tbody>
 											<tr class="main_lines">
-												<td>均线设置</td>
+												<td>{$Think.Lang.V_TRADE_SPECIALTY_9}</td>
 												<td><ul id="setting_main_lines">
 														<li value="mas" class="active">MA</li>
 														<li value="emas">EMA</li>
-														<li value="none">关闭均线</li>
+														<li value="none">{$Think.Lang.V_TRADE_SPECIALTY_10}</li>
 													</ul></td>
 											</tr>
 											<tr class="stick_style">
-												<td>图线样式</td>
+												<td>{$Think.Lang.V_TRADE_SPECIALTY_11}</td>
 												<td><ul id="setting_stick_style">
-														<li value="candle_stick" class="active">K线-OHLC</li>
-														<li value="candle_stick_hlc">K线-HLC</li>
-														<li value="ohlc">OHLC</li>
-														<li value="line">单线</li>
-														<li value="line_o">单线-o</li>
-														<li value="none">关闭线图</li>
+														<li value="candle_stick" class="active">{$Think.Lang.V_TRADE_SPECIALTY_12}</li>
+														<li value="candle_stick_hlc">{$Think.Lang.V_TRADE_SPECIALTY_13}</li>
+														<li value="ohlc">{$Think.Lang.V_TRADE_SPECIALTY_14}</li>
+														<li value="line">{$Think.Lang.V_TRADE_SPECIALTY_15}</li>
+														<li value="line_o">{$Think.Lang.V_TRADE_SPECIALTY_16}</li>
+														<li value="none">{$Think.Lang.V_TRADE_SPECIALTY_17}关闭线图</li>
 													</ul></td>
 											</tr>
 											<tr class="line_style" style="display: none;">
@@ -1315,38 +1315,38 @@ code {
 													</ul></td>
 											</tr>
 											<tr class="indicator">
-												<td>技术指标</td>
+												<td>{$Think.Lang.V_TRADE_SPECIALTY_1}技术指标</td>
 												<td><ul id="setting_indicator">
-														<li value="macd">MACD</li>
-														<li value="kdj">KDJ</li>
-														<li value="stoch_rsi" class="active">StochRSI</li>
-														<li value="none">关闭指标</li>
+														<li value="macd">{$Think.Lang.V_TRADE_SPECIALTY_1}MACD</li>
+														<li value="kdj">{$Think.Lang.V_TRADE_SPECIALTY_1}KDJ</li>
+														<li value="stoch_rsi" class="active">{$Think.Lang.V_TRADE_SPECIALTY_1}StochRSI</li>
+														<li value="none">{$Think.Lang.V_TRADE_SPECIALTY_1}关闭指标</li>
 													</ul></td>
 											</tr>
 											<tr class="scale">
-												<td>线图比例</td>
+												<td>{$Think.Lang.V_TRADE_SPECIALTY_1}线图比例</td>
 												<td><ul id="setting_scale">
-														<li value="normal">普通K线</li>
-														<li value="logarithmic" class="active">对数K线</li>
+														<li value="normal">{$Think.Lang.V_TRADE_SPECIALTY_1}普通K线</li>
+														<li value="logarithmic" class="active">{$Think.Lang.V_TRADE_SPECIALTY_1}对数K线</li>
 													</ul></td>
 											</tr>
 											<tr>
 												<td></td>
-												<td colspan="2"><a id="btn_settings">指标参数设置</a></td>
+												<td colspan="2"><a id="btn_settings">{$Think.Lang.V_TRADE_SPECIALTY_1}指标参数设置</a></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
 							<div class="dropdown">
-								<div class="t">工具</div>
+								<div class="t">{$Think.Lang.V_TRADE_SPECIALTY_1}工具</div>
 								<div class="dropdown-data">
 									<table class="nowrap simple">
 										<tbody>
 											<tr>
-												<td><a class="mode" mode="draw_line">画线</a><br> <a class="mode" mode="draw_fhline">绘制斐波那契回调线</a> <br> <a class="mode" mode="draw_ffan">绘制斐波那契面</a><br> <a class="mode selected" mode="draw_fhlineex">绘制斐波那契扩展</a>
+												<td><a class="mode" mode="draw_line">画线</a><br> <a class="mode" mode="draw_fhline">{$Think.Lang.V_TRADE_SPECIALTY_1}绘制斐波那契回调线</a> <br> <a class="mode" mode="draw_ffan">{$Think.Lang.V_TRADE_SPECIALTY_1}绘制斐波那契面</a><br> <a class="mode selected" mode="draw_fhlineex">{$Think.Lang.V_TRADE_SPECIALTY_1}绘制斐波那契扩展</a>
 													<div class="hint">
-														点击左键画点/线 <br>点击右键清除
+														{$Think.Lang.V_TRADE_SPECIALTY_1}点击左键画点/线 <br>点击右键清除
 													</div></td>
 											</tr>
 										</tbody>
@@ -1371,9 +1371,9 @@ code {
 						</li>
 						<li class="sep"></li>
 						<li>
-							已更新
+							{$Think.Lang.V_TRADE_SPECIALTY_1}已更新
 							<span id="change">0</span>
-							秒
+							{$Think.Lang.V_TRADE_SPECIALTY_1}秒
 							<span id="realtime_error" style="display: none">
 								in <abbr title="Realtime(WebSocket) connection failed. Orderbook update every 1 minute, Trades update every 10 seconds.">Slow Mode</abbr>
 							</span>
@@ -1412,14 +1412,14 @@ code {
 	</div>
 	<div id="assist" style='display: none'></div>
 	<div id="settings">
-		<h2>技术指标参数设定</h2>
+		<h2>{$Think.Lang.V_TRADE_SPECIALTY_1}技术指标参数设定</h2>
 		<table>
 			<tr id="indicator_price_mas">
 				<th>EMA / MA <abbr title="Up to 4 different indicators
 Set field blank to remove one of the indicators.">?</abbr>
 				</th>
 				<td><input name=price_mas /> <input name=price_mas /> <input name=price_mas /> <input name=price_mas /></td>
-				<td><button>默认值</button></td>
+				<td><button>{$Think.Lang.V_TRADE_SPECIALTY_1}默认值</button></td>
 			</tr>
 			<tr id="indicator_macd">
 				<th>MACD <abbr title="Short, Long, Move">?</abbr>
@@ -1441,7 +1441,7 @@ Set field blank to remove one of the indicators.">?</abbr>
 			</tr>
 		</table>
 		<div id="close_settings">
-			<a>[ 关闭 ]</a>
+			<a>{$Think.Lang.V_TRADE_SPECIALTY_1}[ 关闭 ]</a>
 		</div>
 	</div>
 	<script type=text/javascript>
@@ -1466,7 +1466,7 @@ Set field blank to remove one of the indicators.">?</abbr>
 			window.$c_usdcny=6.0463;
 			setTimeout(function(){
 				if(!window.$script_loaded){
-					return document.getElementById('loading').innerHTML="<div class=inner>正在加载脚本，请稍后...</div>";
+					return document.getElementById('loading').innerHTML="<div class=inner>{$Think.Lang.V_TRADE_SPECIALTY_1}正在加载脚本，请稍后...</div>";
 				}
 			},1000);
 			var goaa=null;

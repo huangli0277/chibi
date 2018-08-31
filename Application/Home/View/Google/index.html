@@ -22,6 +22,14 @@
 <script type="text/javascript" src="__PUBLIC__/v2/js/md5.js"></script>
 
 <script>
+    $(function(){
+        //submit 事件
+        $('.register-form').on('keyup','input',function(e){
+            if(e.keyCode == 13){
+                $('.default-form-submit').click();
+            }
+        });
+    });
     function footer_login() {
         var google_code = $("#google_code").val();
         if (google_code == "" || google_code == null) {

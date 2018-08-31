@@ -8,22 +8,22 @@
 					<div class="clearfix padt20 mart20">
 						<div class="bjs-tab-tr clearfix">
 							<div class="bjs-search-box coins-search-box">
-								<input type="text" name="keywords" placeholder="搜索">
+								<input type="text" name="keywords" placeholder="{$Think.Lang.V_TRADE_INFO_1}">
 							</div>
 						</div>
 					</div>
 					<ul class="coins-list-detail-search flex-box">
 						<li>
-							<span>排序：</span>
+							<span>{$Think.Lang.V_TRADE_INFO_2}</span>
 						</li>
 						<li>
-							<a class="active" data-keywords="default" href="javascript:;"><span>默认</span></a>
+							<a class="active" data-keywords="default" href="javascript:;"><span>{$Think.Lang.V_TRADE_INFO_3}</span></a>
 						</li>
 						<li>
-							<a class="" data-keywords="logogram" href="javascript:;"><span>币种缩写</span></a>
+							<a class="" data-keywords="logogram" href="javascript:;"><span>{$Think.Lang.V_TRADE_INFO_4}</span></a>
 						</li>
 						<li>
-							<a class="" data-keywords="mvalue" href="javascript:;"><span>币种价格</span></a>
+							<a class="" data-keywords="mvalue" href="javascript:;"><span>{$Think.Lang.V_TRADE_INFO_5}</span></a>
 						</li>
 					</ul>
 					<div class="padt20 bjs-tab-cont">
@@ -31,21 +31,21 @@
 							<div id="page-left-iscroll-wrap" class="page-left-iscroll-wrap">
 								<div class="page-left-iscroll-box">
 									<div class="bjs-tab-title">
-										<em>主区</em>
-										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_main.html" target="_blank">主区介绍</a>
+										<em>{$Think.Lang.V_INDEX_MAIN_AREA}</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_main.html" target="_blank">{$Think.Lang.V_INDEX_MAIN_AREA_INTRODUCE}</a>
 									</div>
 									<div class="bjs-tab-tbody" id="all_coin">
 									</div>
 									<div class="bjs-tab-title">
-										<em>创新区</em>
-										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_new.html" target="_blank">创新区介绍</a>
+										<em>{$Think.Lang.V_INDEX_NEW_AREA}</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_new.html" target="_blank">{$Think.Lang.V_INDEX_NEW_AREA_INTRODUCE}</a>
 									</div>
 									<div class="bjs-tab-tbody" id="all_coin_new">
 									</div>
 
 									<div class="bjs-tab-title">
-										<em>实验区</em>
-										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_experiment.html" target="_blank">实验区介绍</a>
+										<em>{$Think.Lang.V_INDEX_EXPERIMENT_AREA}</em>
+										<a class="pull-right coins-link-to-introduce" href="/Finance/introduce_experiment.html" target="_blank">{$Think.Lang.V_INDEX_EXPERIMENT_AREA_INTRODUCE}</a>
 									</div>
 									<div class="bjs-tab-tbody" id="all_coin_experiment">
 									</div>
@@ -74,64 +74,64 @@
 			</div>
 			<div class="c2c-page-right pull-right">
 				<div class="c2c-cont">
-					<h3 class="tc coins-detail-title"><img src="__UPLOAD__/coin/{$C['market'][$market]['xnbimg']}">{$C['market'][$market]['xnbtitle']}({$xnb|strtoupper})介绍</h3>
+					<h3 class="tc coins-detail-title"><img src="__UPLOAD__/coin/{$C['market'][$market]['xnbimg']}">{$C['market'][$market]['xnbtitle']}({$xnb|strtoupper}){$Think.Lang.V_TRADE_INDEX_9}</h3>
 					<div class="coins-detail-title2 tc clearfix">
 						<div class="coins-detail-menu pull-left">
 							<ul class="breadcrumbs-navigation">
-								<li><a href="#">币种资料库</a></li>
+								<li><a href="#">{$Think.Lang.V_TRADE_INFO_6}</a></li>
 								<li><span>{$xnb|strtoupper}</span></li>
 							</ul>
 						</div>
 						<div class="tc coins-detail-info">
-							中文名 <span class="cc7cce6">{$C['coin'][$xnb]['title']}</span>           英文名 <span class="cc7cce6">{$C['coin'][$xnb]['js_yw']}</span>           缩写 <span class="cc7cce6">{$xnb|strtoupper}</span>
+							{$Think.Lang.V_TRADE_INFO_7} <span class="cc7cce6">{$C['coin'][$xnb]['title']}</span>       {$Think.Lang.V_TRADE_INFO_8} <span class="cc7cce6">{$C['coin'][$xnb]['js_yw']}</span>           {$Think.Lang.V_TRADE_INFO_9} <span class="cc7cce6">{$xnb|strtoupper}</span>
 						</div>
 						<div class="pull-right">
-							<a href="/Trade/index/market/{$C['coin'][$xnb]['name']}_cnyt" class="a-border-link">去交易</a>
+							<a href="/Trade/index/market/{$C['coin'][$xnb]['name']}_cnyt" class="a-border-link">{$Think.Lang.V_TRADE_INFO_10}</a>
 						</div>
 					</div>
 					<div class="coins-detail-cont">
-						<h4 class="coins-detail-cont-title tc">币种简介</h4>
+						<h4 class="coins-detail-cont-title tc">{$Think.Lang.V_TRADE_INFO_11}</h4>
 						<div class="coins-detail-cont-info tc">
 							{$C['coin'][$xnb]['js_sm']|htmlspecialchars_decode}
 						</div>
-						<h4 class="coins-detail-cont-title tc">币种参数</h4>
+						<h4 class="coins-detail-cont-title tc">{$Think.Lang.V_TRADE_INFO_12}</h4>
 						<div class="coins-detail-cont-list">
 							<ul class="coins-detail-cont-table flex-box">
 								<li>
-									<p><label>推出日期</label>：{$C['coin'][$xnb]['cs_fb']}</p>
-									<p><label>区块奖励</label>： {$C['coin'][$xnb]['cs_jl']}</p>
-									<p><label>发行总量</label>： {$C['coin'][$xnb]['cs_zl']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_13}</label>：{$C['coin'][$xnb]['cs_fb']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_14}</label>： {$C['coin'][$xnb]['cs_jl']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_15}</label>： {$C['coin'][$xnb]['cs_zl']}</p>
 								</li>
 								<li>
-									<p><label>研发者</label>：{$C['coin'][$xnb]['cs_yf']}</p>
-									<p><label>核心算法</label>：{$C['coin'][$xnb]['cs_sf']}</p>
-									<p><label>难度调整</label>：{$C['coin'][$xnb]['cs_nd']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_16}</label>：{$C['coin'][$xnb]['cs_yf']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_17}</label>：{$C['coin'][$xnb]['cs_sf']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_18}</label>：{$C['coin'][$xnb]['cs_nd']}</p>
 								</li>
 								<li>
-									<p><label>存<span class="vhide">存量</span>量</label>：{$C['coin'][$xnb]['cs_cl']}</p>
-									<p><label>区块速度</label>：{$C['coin'][$xnb]['cs_qk']}</p>
-									<p><label>证明方式</label>：{$C['coin'][$xnb]['cs_zm']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_19} </label>：{$C['coin'][$xnb]['cs_cl']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_20}</label>：{$C['coin'][$xnb]['cs_qk']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_21}</label>：{$C['coin'][$xnb]['cs_zm']}</p>
 								</li>
 								<li>
-									<p><label>主要特色</label>：{$C['coin'][$xnb]['cs_ts']}</p>
-									<p><label>不足之处</label>：{$C['coin'][$xnb]['cs_bz']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_22}</label>：{$C['coin'][$xnb]['cs_ts']}</p>
+									<p><label>{$Think.Lang.V_TRADE_INFO_23}</label>：{$C['coin'][$xnb]['cs_bz']}</p>
 								</li>
 							</ul>
 						</div>
-						<h4 class="coins-detail-cont-title tc">链 接</h4>
+						<h4 class="coins-detail-cont-title tc">{$Think.Lang.V_TRADE_INFO_24}</h4>
 						<div class="coins-detail-cont-list">
 							<ul class="coins-detail-cont-link flex-box tc">
 								<li>
-									<a target="_blank" href="{$C['coin'][$xnb]['js_qb']}">{$C['coin'][$xnb]['title']}钱包下载</a>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_qb']}">{$C['coin'][$xnb]['title']}{$Think.Lang.V_TRADE_INFO_25}</a>
 								</li>
 								<li>
-									<a target="_blank" href="{$C['coin'][$xnb]['js_ym']}">{$C['coin'][$xnb]['title']}源码下载</a>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_ym']}">{$C['coin'][$xnb]['title']}{$Think.Lang.V_TRADE_INFO_26}</a>
 								</li>
 								<li>
-									<a target="_blank" href="{$C['coin'][$xnb]['js_gw']}">{$C['coin'][$xnb]['title']}官方网站</a>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_gw']}">{$C['coin'][$xnb]['title']}{$Think.Lang.V_TRADE_INFO_27}</a>
 								</li>
 								<li>
-									<a target="_blank" href="{$C['coin'][$xnb]['js_lt']}">{$C['coin'][$xnb]['title']}白皮书</a>
+									<a target="_blank" href="{$C['coin'][$xnb]['js_lt']}">{$C['coin'][$xnb]['title']}{$Think.Lang.V_TRADE_INFO_28}</a>
 								</li>
 							</ul>
 						</div>

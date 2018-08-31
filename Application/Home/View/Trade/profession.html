@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>币币交易--专业版</title>
+    <title>{$Think.Lang.V_TRADE_PROFESSION_1}</title>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/v2/css/index.css" />
     <style type="text/css">
         @media screen and (max-width: 1800px){
@@ -37,16 +37,16 @@
                                     </ul>
                                 </div>
                                 <div class="trade-head-info pull-left">
-                                    当前:<span class="trade-bi-num cc7cce6"  id="market_new_price">$0/¥0</span>
-                                    最高:<span class="trade-bi-num"  id="market_max_price"></span>
-                                    最低:<span class="trade-bi-num"  id="market_min_price"></span>
-                                    日额:<span class="trade-bi-num"  id="market_volumes"></span>
-                                    日量:<span class="trade-bi-num"  id="market_volume"></span>
+                                    {$Think.Lang.V_TRADE_INDEX_3}<span class="trade-bi-num cc7cce6"  id="market_new_price">$0/¥0</span>
+                                    {$Think.Lang.V_TRADE_INDEX_4}<span class="trade-bi-num"  id="market_max_price"></span>
+                                    {$Think.Lang.V_TRADE_INDEX_5}<span class="trade-bi-num"  id="market_min_price"></span>
+                                    {$Think.Lang.V_TRADE_INDEX_6}<span class="trade-bi-num"  id="market_volumes"></span>
+                                    {$Think.Lang.V_TRADE_INDEX_7}<span class="trade-bi-num"  id="market_volume"></span>
                                     <span class="icon-arrow-up"  id="market_change">0%</span>
                                 </div>
                                 <div class="pull-right">
-                                    <a class="pull-left" href="/trade/index/market/{$market}">普通版</a>
-                                    <a class="pull-right ml10" href="/Trade/info/market/{$market}t/" target="_blank">{:C('coin')[$xnb]['title']}介绍</a>
+                                    <a class="pull-left" href="/trade/index/market/{$market}">{$Think.Lang.V_TRADE_PROFESSION_2}</a>
+                                    <a class="pull-right ml10" href="/Trade/info/market/{$market}t/" target="_blank">{:C('coin')[$xnb]['title']}{$Think.Lang.V_TRADE_INDEX_9}</a>
                                 </div>
                             </h3>
                             <!--<div class="clearfix trade-view-choose">-->
@@ -112,10 +112,10 @@
                     <div class="profession-page-left-2">
                         <div class="my-tab-box trade-unit-box clearfix">
                             <div class="my-tab-head trade-unit-title">
-                                <a href="#">当前委托</a>
-                                <a href="#">已成交</a>
-                                <a href="#" class="active">我的资金</a>
-                                <label class="c2c-off-open pull-right"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right fontnormal">隐藏零资金币种 </span></label>
+                                <a href="#">{$Think.Lang.V_TRADE_INDEX_29}</a>
+                                <a href="#">{$Think.Lang.V_TRADE_INDEX_30}</a>
+                                <a href="#" class="active">{$Think.Lang.V_TRADE_INDEX_31}</a>
+                                <label class="c2c-off-open pull-right"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right fontnormal">{$Think.Lang.V_TRADE_INDEX_32}</span></label>
                             </div>
                             <div class="my-tab-cont">
                                 <div class="my-tab-unit">
@@ -124,13 +124,13 @@
                                             <table class="c2c-table">
                                                 <thead>
                                                 <tr>
-                                                    <th>时间</th>
-                                                    <th>买/卖</th>
-                                                    <th>价格</th>
-                                                    <th>数量</th>
-                                                    <th>已成交</th>
-                                                    <th>总额</th>
-                                                    <th>操作</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_33}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_34}</th>
+                                                    <th>{$Think.Lang.V_INDEX_COIN_PRICE}</th>
+                                                    <th>{$Think.Lang.V_FINANCE_MYCZ_BILL_NUM}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_30}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_35}</th>
+                                                    <th>{$Think.Lang.V_FINANCE_ZCDB_19}</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -140,13 +140,13 @@
                                                 <table class="c2c-table">
                                                     <thead>
                                                     <tr>
-                                                        <th>时间</th>
-                                                        <th>买/卖</th>
-                                                        <th>价格</th>
-                                                        <th>数量</th>
-                                                        <th>已成交</th>
-                                                        <th>总额</th>
-                                                        <th>操作</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_33}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_34}</th>
+                                                        <th>{$Think.Lang.V_INDEX_COIN_PRICE}</th>
+                                                        <th>{$Think.Lang.V_FINANCE_MYCZ_BILL_NUM}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_30}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_35}</th>
+                                                        <th>{$Think.Lang.V_FINANCE_ZCDB_19}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="entrustlist">
@@ -159,17 +159,17 @@
                                                     <tr>
                                                         {{ if(entrusts[i].type == 1){ }}
                                                         <td>{{= entrusts[i].addtime }}</td>
-                                                        <td>买</td>
-                                                        <td><div title="以这个价格卖出" onclick="autotrust(this,'buy',2)" class="mouseover">{{= entrusts[i].price }}</div>></td>
+                                                        <td>{$Think.Lang.V_TRADE_INDEX_39}</td>
+                                                        <td><div title="{$Think.Lang.V_TRADE_INDEX_37}" onclick="autotrust(this,'buy',2)" class="mouseover">{{= entrusts[i].price }}</div>></td>
                                                         {{ }else{ }}
                                                         <td>{{= entrusts[i].addtime }}</td>
-                                                        <td>卖</td>
-                                                        <td><div title="以这个价格买入" onclick="autotrust(this,'sell',2)" class="mouseover">{{= entrusts[i].price }}</div></td>
+                                                        <td>{$Think.Lang.V_TRADE_INDEX_40}</td>
+                                                        <td><div title="{$Think.Lang.V_TRADE_INDEX_38}" onclick="autotrust(this,'sell',2)" class="mouseover">{{= entrusts[i].price }}</div></td>
                                                         {{  } }}
                                                         <td>{{= entrusts[i].num }}</td>
                                                         <td>{{= entrusts[i].deal }}</td>
                                                         <td>{{= (entrusts[i].price * entrusts[i].num).toFixed(6) }}</td>
-                                                        <td><a id="{{= entrusts[i].id }}" onclick="cancelaa('{{= entrusts[i].id }}')" href="javascript:;">撤销</a></td>
+                                                        <td><a id="{{= entrusts[i].id }}" onclick="cancelaa('{{= entrusts[i].id }}')" href="javascript:;">{$Think.Lang.V_TRADE_INDEX_41}</a></td>
                                                     </tr>
                                                     {{  } }}
                                                 </script>
@@ -183,11 +183,11 @@
                                             <table class="c2c-table">
                                                 <thead>
                                                 <tr>
-                                                    <th>委托时间</th>
-                                                    <th>类型</th>
-                                                    <th>价格</th>
-                                                    <th>委托量</th>
-                                                    <th>成交量</th>
+                                                    <th>{$Think.Lang.V_FINANCE_COMMISSION_TIME}</th>
+                                                    <th>{$Think.Lang.V_FINANCE_MYCZ_BILL_TYPE}</th>
+                                                    <th>{$Think.Lang.V_INDEX_COIN_PRICE}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_42}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_43}</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -197,11 +197,11 @@
                                                 <table class="c2c-table">
                                                     <thead>
                                                     <tr>
-                                                        <th>委托时间</th>
-                                                        <th>类型</th>
-                                                        <th>价格</th>
-                                                        <th>委托量</th>
-                                                        <th>成交量</th>
+                                                        <th>{$Think.Lang.V_FINANCE_COMMISSION_TIME}</th>
+                                                        <th>{$Think.Lang.V_FINANCE_MYCZ_BILL_TYPE}</th>
+                                                        <th>{$Think.Lang.V_INDEX_COIN_PRICE}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_42}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_43}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="entrust_finish">
@@ -213,9 +213,9 @@
                                                     <tr>
                                                         <td>{{= entrusts[i].addtime }}</td>
                                                         {{ if(entrusts[i].type == 1){ }}
-                                                        <td>买入</td>
+                                                        <td>{$Think.Lang.V_FINANCE_COMMISSION_BUY}</td>
                                                         {{ }else{ }}
-                                                        <td>卖出</td>
+                                                        <td>{$Think.Lang.V_FINANCE_COMMISSION_SHELL}</td>
                                                         {{ } }}
                                                         <td>{{= entrusts[i].price }}</td>
                                                         <td>{{= entrusts[i].num }}</td>
@@ -233,11 +233,12 @@
                                             <table class="c2c-table">
                                                 <thead>
                                                 <tr>
-                                                    <th>币种</th>
-                                                    <th>可用余额</th>
-                                                    <th>充值/提现</th>
-                                                    <th>挂单金额</th>
-                                                    <th>总计</th>
+                                                    <th>{$Think.Lang.V_SHARE_COIN_TYPE}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_44}</th>
+                                                    <th>{$Think.Lang.V_TRADE_PROFESSION_3}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_46}</th>
+                                                    <th>{$Think.Lang.V_TRADE_INDEX_47}</th>
+                                                    <th>{$Think.Lang.V_FINANCE_ZCDB_19}</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -247,12 +248,12 @@
                                                 <table class="c2c-table">
                                                     <thead>
                                                     <tr>
-                                                        <th>币种</th>
-                                                        <th>可用余额</th>
-                                                        <th>冻结金额</th>
-                                                        <th>总计</th>
-                                                        <th>折合(CNYT)</th>
-                                                        <th>操作</th>
+                                                        <th>{$Think.Lang.V_SHARE_COIN_TYPE}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_44}</th>
+                                                        <th>{$Think.Lang.V_TRADE_PROFESSION_3}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_46}</th>
+                                                        <th>{$Think.Lang.V_TRADE_INDEX_47}</th>
+                                                        <th>{$Think.Lang.V_FINANCE_ZCDB_19}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="my_coin">
@@ -269,14 +270,14 @@
                                                         <td>{{= my_coin_list[i].zhehe }}</td>
                                                         <td>
                                                             {{ if(my_coin_list[i].zr_jz == 1){  }}
-                                                            <a class="c2c-option-btn c2c-buy-btn" href="/Finance/myzr/coin/{{= my_coin_list[i].xnbs }}">充值</a>
+                                                            <a class="c2c-option-btn c2c-buy-btn" href="/Finance/myzr/coin/{{= my_coin_list[i].xnbs }}">{$Think.Lang.V_LOGIN_REGISTER4_8}</a>
                                                             {{ }else{ }}
-                                                            <a class="c2c-option-btn c2c-btn-disable" href="javascript:;" >充值</a>
+                                                            <a class="c2c-option-btn c2c-btn-disable" href="javascript:;" >{$Think.Lang.V_LOGIN_REGISTER4_8}</a>
                                                             {{ } }}
                                                             {{ if(my_coin_list[i].zc_jz == 1){ }}
-                                                            <a class="c2c-option-btn c2c-sell-btn" href="/Finance/myzc/coin/{{= my_coin_list[i].xnbs }}">提现</a>
+                                                            <a class="c2c-option-btn c2c-sell-btn" href="/Finance/myzc/coin/{{= my_coin_list[i].xnbs }}">{$Think.Lang.V_FINANCE_WITHDRAW}</a>
                                                             {{ }else{ }}
-                                                            <a class="c2c-option-btn c2c-btn-disable" href="javascript:;">提现</a>
+                                                            <a class="c2c-option-btn c2c-btn-disable" href="javascript:;">{$Think.Lang.V_FINANCE_WITHDRAW}</a>
                                                             {{ } }}
                                                         </td>
                                                     </tr>
@@ -295,7 +296,7 @@
                         <div class="pull-left page-w50">
                             <div class="trade-unit-box trade-global-box trade-profession-global-box-left">
                                 <h4 class="trade-unit-title">
-                                    <span class="active">最新价   </span><span class="font18 icon-arrow-up" id="price_now"></span>
+                                    <span class="active">{$Think.Lang.V_TRADE_INDEX_48}   </span><span class="font18 icon-arrow-up" id="price_now"></span>
                                     <label class="c2c-off-open pull-right"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right"></span></label>
                                 </h4>
                                 <div class="trade-global-scroll">
@@ -303,9 +304,9 @@
                                         <div class="my-tab-scroll-head">
                                             <div class="c2c-table-box c2c-table-box-head">
                                                 <ul class="clearfix">
-                                                    <li class="c2c-table-item-1 c2c-table-item-11">价格</li>
-                                                    <li class="c2c-table-item-2 c2c-table-item-12">数量</li>
-                                                    <li class="c2c-table-item-3 c2c-table-item-13">总计</li>
+                                                    <li class="c2c-table-item-1 c2c-table-item-11">{$Think.Lang.V_INDEX_COIN_PRICE}</li>
+                                                    <li class="c2c-table-item-2 c2c-table-item-12">{$Think.Lang.V_FINANCE_MYCZ_BILL_NUM}</li>
+                                                    <li class="c2c-table-item-3 c2c-table-item-13">{$Think.Lang.V_TRADE_INDEX_46}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -317,7 +318,7 @@
                                                 <div class="c2c-table-box c2c-table-item-rect-down">
                                                     {{ for(var i = 0;i< sellers.length;i++){  }}
                                                     <ul class="clearfix">
-                                                        <li class="c2c-table-item-1 c2c-table-item-11"><div class="icon-arrow-down mouseover" title="以这个价格买入" onclick="autotrust(this,'sell',1)">{{= sellers[i][0] }}</div></li>
+                                                        <li class="c2c-table-item-1 c2c-table-item-11"><div class="icon-arrow-down mouseover" title="{$Think.Lang.V_TRADE_INDEX_38}" onclick="autotrust(this,'sell',1)">{{= sellers[i][0] }}</div></li>
                                                         <li class="c2c-table-item-2 c2c-table-item-12">{{= sellers[i][1]}}</li>
                                                         <li class="c2c-table-item-3 c2c-table-item-13">{{= (sellers[i][0] * sellers[i][1]).toFixed(6) }}</li>
                                                         <li class="c2c-table-item-rect"></li>
@@ -335,7 +336,7 @@
                                                 <div class="c2c-table-box c2c-table-item-rect-up">
                                                     {{ for(var i = 0;i< buyers.length;i++){  }}
                                                     <ul class="clearfix">
-                                                        <li class="c2c-table-item-1 c2c-table-item-11"><div class="icon-arrow-up mouseover" title="以这个价格卖出" onclick="autotrust(this,'buy',1)">{{= buyers[i][0] }}</div></li>
+                                                        <li class="c2c-table-item-1 c2c-table-item-11"><div class="icon-arrow-up mouseover" title="{$Think.Lang.V_TRADE_PROFESSION_1}以这个价格卖出" onclick="autotrust(this,'buy',1)">{{= buyers[i][0] }}</div></li>
                                                         <li class="c2c-table-item-2 c2c-table-item-12">{{= buyers[i][1] }}</li>
                                                         <li class="c2c-table-item-3 c2c-table-item-13">{{= (buyers[i][0] * buyers[i][1]).toFixed(6) }}</li>
                                                         <li class="c2c-table-item-rect"></li>
@@ -352,7 +353,7 @@
                         <div class="pull-right page-w50">
                             <div class="trade-unit-box trade-global-box trade-profession-global-box-right">
                                 <h4 class="trade-unit-title">
-                                    <span class="active">最新成交   </span>
+                                    <span class="active">{$Think.Lang.V_TRADE_INDEX_49}</span>
                                     <label class="c2c-off-open pull-right"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right"></span></label>
                                     <!--<span class="pull-right trade-unit-title-msg">最高价: 6500   最低价: 5810</span>-->
                                 </h4>
@@ -362,9 +363,9 @@
                                             <table class="c2c-table">
                                                 <thead>
                                                 <tr>
-                                                    <th style="width: 33.5%;">成交价</th>
-                                                    <th style="width: 33.5%;">成交量</th>
-                                                    <th style="width: 33%;">总额</th>
+                                                    <th style="width: 33.5%;">{$Think.Lang.V_TRADE_INDEX_50}</th>
+                                                    <th style="width: 33.5%;">{$Think.Lang.V_TRADE_INDEX_43}</th>
+                                                    <th style="width: 33%;">{$Think.Lang.V_TRADE_INDEX_35}</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -374,9 +375,9 @@
                                                 <table class="c2c-table">
                                                     <thead>
                                                     <tr>
-                                                        <th style="width: 33.5%;">成交价</th>
-                                                        <th style="width: 33.5%;">成交量</th>
-                                                        <th style="width: 33%;">总额</th>
+                                                        <th style="width: 33.5%;">{$Think.Lang.V_TRADE_INDEX_50}</th>
+                                                        <th style="width: 33.5%;">{$Think.Lang.V_TRADE_INDEX_43}</th>
+                                                        <th style="width: 33%;">{$Think.Lang.V_TRADE_INDEX_35}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="orderlist">
@@ -386,13 +387,13 @@
                                                 <script type="text/template" id="orderlist-tmp">
                                                     {{ for(var i in  orders){  if(orders[i].type == 1){ }}
                                                     <tr>
-                                                        <td><div class="icon-arrow-up mouseover" title="以这个价格卖出" onclick="autotrust(this,'buy',2)">{{=orders[i].price }}</div></td>
+                                                        <td><div class="icon-arrow-up mouseover" title="{$Think.Lang.V_TRADE_INDEX_37}" onclick="autotrust(this,'buy',2)">{{=orders[i].price }}</div></td>
                                                         <td>{{=orders[i].num }}</td>
                                                         <td>{{=orders[i].mum }}</td>
                                                     </tr>
                                                     {{ }else{ }}
                                                     <tr>
-                                                        <td><div class="icon-arrow-down mouseover" title="以这个价格买入" onclick="autotrust(this,'sell',2)">{{=orders[i].price }}</div></td>
+                                                        <td><div class="icon-arrow-down mouseover" title="{$Think.Lang.V_TRADE_INDEX_38}" onclick="autotrust(this,'sell',2)">{{=orders[i].price }}</div></td>
                                                         <td>{{=orders[i].num }}</td>
                                                         <td>{{=orders[i].mum }}</td>
                                                     </tr>
@@ -411,15 +412,15 @@
                             <div class="c2c-trading clearfix">
                                 <div class="trading-buy pull-left">
                                     <h4 class="trading-box-title">
-                                        <span>买入</span></h4>
+                                        <span>{$Think.Lang.V_FINANCE_COMMISSION_BUY}</span></h4>
                                     <p class="trading-box-list trading-box-list2">
-                                        <span class="cb94e50">我的余额  <span id="my_rmb">0</span></span>
+                                        <span class="cb94e50">{$Think.Lang.V_TRADE_INDEX_10}  <span id="my_rmb">0</span></span>
                                     </p>
 
-                                    <p class="trading-box-list trading-box-list2">最大可买 <span id="buy_max" title="满仓(全买)，设置买入数量为最大值">-</span></p>
-                                    <p class="trading-box-list trading-box-list2">最佳买价 <a href="javascript:;"><span id="buy_best_price" onclick="setMaiRu();">-</span></a></p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">买入价格</span><input id="buy_price" class="form-control" type="text" name="price" placeholder="此出价为1个币的价格"></p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">买入量</span><input class="form-control" type="text" id="buy_num" name="num"></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_12} <span id="buy_max" title="{$Think.Lang.V_TRADE_INDEX_13}">-</span></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_14} <a href="javascript:;"><span id="buy_best_price" onclick="setMaiRu();">-</span></a></p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_TRADE_INDEX_15}</span><input id="buy_price" class="form-control" type="text" name="price" placeholder="{$Think.Lang.V_TRADE_INDEX_16}"></p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_TRADE_INDEX_17}</span><input class="form-control" type="text" id="buy_num" name="num"></p>
                                     <!--<div class="trading-box-list">-->
                                     <!--买入比例：-->
                                     <!--<div class="bjs-progress trading-progress trading-progress-r clearfix">-->
@@ -431,8 +432,8 @@
                                     <!--</div>-->
                                     <!--</div>-->
 
-                                    <p class="trading-box-list trading-box-list2">总价 <span id="buy_mum">-</span> </p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">交易密码</span><input class="form-control" id="buy_paypassword" name="pwtrade" type="password"><span onclick="layertpwd()" class="icon-setting setting-pay-password">设置</span></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_19} <span id="buy_mum">-</span> </p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_ALL_PASSWORD_PAY}</span><input class="form-control" id="buy_paypassword" name="pwtrade" type="password"><span onclick="layertpwd()" class="icon-setting setting-pay-password">{$Think.Lang.V_TRADE_INDEX_20}</span></p>
                                     <p class="trading-box-list trading-box-list2 cplaceholder">
                                         <!--<eq name="showPW" value="0">-->
                                         <!--您设置了不需要输入交易密码,-->
@@ -440,24 +441,24 @@
                                         <!--<eq name="showPW" value="2">-->
                                         <!--根据设置本次不需要输入交易密码,-->
                                         <!--</eq>-->
-                                        手续费(<span class="cb94e50">{:C('market')[$market]['fee_buy']}%</span> 成交才收，撤单退回）
+                                        {$Think.Lang.V_FINANCE_OUT_LIST_TITLE4}(<span class="cb94e50">{:C('market')[$market]['fee_buy']}%</span> {$Think.Lang.V_TRADE_INDEX_21}）
                                     </p>
-                                    <p class="trading-box-list"><a id="buy-btn" class="trading-buy-btn" href="javascript:;" onclick="tradeadd_buy();">买入</a></p>
+                                    <p class="trading-box-list"><a id="buy-btn" class="trading-buy-btn" href="javascript:;" onclick="tradeadd_buy();">{$Think.Lang.V_FINANCE_COMMISSION_BUY}</a></p>
                                 </div>
                                 <div class="trading-sell pull-right">
                                     <h4 class="trading-box-title">
-                                        <span>卖出</span>
+                                        <span>{$Think.Lang.V_FINANCE_COMMISSION_SHELL}</span>
                                         <span class="pull-right">
-                                                <label class="c2c-off-open"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right fontnormal">CNY计价 </span></label>
+                                                <label class="c2c-off-open"><input type="checkbox" name="name[]" value="0" class="hide"><span class="pull-right fontnormal">{$Think.Lang.V_TRADE_INDEX_22} </span></label>
                                             </span>
                                     </h4>
                                     <p class="trading-box-list trading-box-list2">
-                                        <span class="c03ad6f">我的余额  <span id="my_xnb">0</span></span>
+                                        <span class="c03ad6f">{$Think.Lang.V_TRADE_INDEX_10}  <span id="my_xnb">0</span></span>
                                     </p>
-                                    <p class="trading-box-list trading-box-list2">最大可卖  <span id="sell_max" title="满仓(全卖)，设置买入数量为最大值">-</span></p>
-                                    <p class="trading-box-list trading-box-list2">最佳卖价  <a href="javascript:;"><span id="sell_best_price" onclick="setMaiChu();">-</span></a></p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">卖出价格</span><input id="sell_price" class="form-control" type="text" name="price" placeholder="此出价为1个币的价格"></p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">卖出数量</span><input class="form-control" type="text" id="sell_num" name="num"></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_23}  <span id="sell_max" title="{$Think.Lang.V_TRADE_INDEX_24}">-</span></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_25}  <a href="javascript:;"><span id="sell_best_price" onclick="setMaiChu();">-</span></a></p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_TRADE_INDEX_26}</span><input id="sell_price" class="form-control" type="text" name="price" placeholder="{$Think.Lang.V_TRADE_INDEX_16}"></p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_TRADE_INDEX_27}</span><input class="form-control" type="text" id="sell_num" name="num"></p>
                                     <!--<div class="trading-box-list">-->
                                     <!--卖出比例：-->
                                     <!--<div class="bjs-progress trading-progress trading-progress-g clearfix">-->
@@ -468,8 +469,8 @@
                                     <!--<input type="hidden" name="progress-num" class="progress-num-input">-->
                                     <!--</div>-->
                                     <!--</div>-->
-                                    <p class="trading-box-list trading-box-list2">总价 <span id="sell_mum">-</span> </p>
-                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">交易密码</span><input class="form-control" id="sell_paypassword" name="pwtrade" type="password"><span onclick="layertpwd()" class="icon-setting setting-pay-password">设置</span></p>
+                                    <p class="trading-box-list trading-box-list2">{$Think.Lang.V_TRADE_INDEX_19} <span id="sell_mum">-</span> </p>
+                                    <p class="input-group trading-box-list trading-input-group"><span class="input-group-addon">{$Think.Lang.V_ALL_PASSWORD_PAY}</span><input class="form-control" id="sell_paypassword" name="pwtrade" type="password"><span onclick="layertpwd()" class="icon-setting setting-pay-password">{$Think.Lang.V_TRADE_INDEX_20}</span></p>
                                     <p class="trading-box-list trading-box-list2 cplaceholder">
                                         <!--<eq name="showPW" value="0">-->
                                         <!--您设置了不需要输入交易密码,-->
@@ -477,9 +478,9 @@
                                         <!--<eq name="showPW" value="2">-->
                                         <!--根据设置本次不需要输入交易密码,-->
                                         <!--</eq>-->
-                                        手续费(<span class="c03ad6f">{:C('market')[$market]['fee_sell']}%</span> 成交才收，撤单退回）
+                                        {$Think.Lang.V_FINANCE_OUT_LIST_TITLE4}(<span class="c03ad6f">{:C('market')[$market]['fee_sell']}%</span> {$Think.Lang.V_TRADE_INDEX_21}）
                                     </p>
-                                    <p class="trading-box-list"><a id="sell-btn" class="trading-sell-btn" href="javascript:;" onclick="tradeadd_sell();">卖出</a></p>
+                                    <p class="trading-box-list"><a id="sell-btn" class="trading-sell-btn" href="javascript:;" onclick="tradeadd_sell();">{$Think.Lang.V_FINANCE_COMMISSION_SHELL}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -522,10 +523,10 @@
                     }
                     if (data['info']['volume']) {
                         if (data['info']['volume'] > 10000) {
-                            data['info']['volume'] = (data['info']['volume'] / 10000).toFixed(2) + "万"
+                            data['info']['volume'] = (data['info']['volume'] / 10000).toFixed(2) + lange.TRADE_INDEX_1
                         }
                         if (data['info']['volume'] > 100000000) {
-                            data['info']['volume'] = (data['info']['volume'] / 100000000).toFixed(2) + "亿"
+                            data['info']['volume'] = (data['info']['volume'] / 100000000).toFixed(2) + lange.TRADE_INDEX_2
                         }
                         $("#market_volume").html(data['info']['volume']);
                         $("#market_volumes").html(data['info']['volumes']);
@@ -621,10 +622,10 @@
             }
             if (data['info']['volume']) {
                 if (data['info']['volume'] > 10000) {
-                    data['info']['volume'] = (data['info']['volume'] / 10000).toFixed(2) + "万"
+                    data['info']['volume'] = (data['info']['volume'] / 10000).toFixed(2) + lange.TRADE_INDEX_1
                 }
                 if (data['info']['volume'] > 100000000) {
-                    data['info']['volume'] = (data['info']['volume'] / 100000000).toFixed(2) + "亿"
+                    data['info']['volume'] = (data['info']['volume'] / 100000000).toFixed(2) + lange.TRADE_INDEX_2
                 }
                 $("#market_volume").html(data['info']['volume']);
                 $("#market_volumes").html(data['info']['volumes']);
@@ -687,18 +688,18 @@
             var paypassword = $("#apaypassword").val();
             var tpwdsetting = $("input[name='atpwdsetting']:checked").val();
             if (paypassword == "" || paypassword == null) {
-                layer.tips('请输入交易密码', '#apaypassword', {tips: 3});
+                layer.tips(lange.FINANCE_OUT_CHECK4, '#apaypassword', {tips: 3});
                 return false;
             }
             if (tpwdsetting == "" || tpwdsetting == null) {
-                layer.tips('请输入选择一个', '#atpwdsetting', {tips: 3});
+                layer.tips(lange.TRADE_INDEX_11, '#atpwdsetting', {tips: 3});
                 return false;
             }
 
 
             $.post('/user/uptpwdsetting', {paypassword:  hex_md5(paypassword), tpwdsetting: tpwdsetting}, function (d) {
                 if (d.status) {
-                    layer.msg('设置成功', {icon: 1,time:2000},function(){window.location.reload();});
+                    layer.msg(lange.TRADE_INDEX_12, {icon: 1,time:2000},function(){window.location.reload();});
                 } else {
                     layer.msg(d.info, {icon: 2});
                 }
@@ -714,7 +715,7 @@
                 return;
             }
             if (trans_lock) {
-                layer.msg('不要重复提交', {icon: 2});
+                layer.msg(lange.TRADE_INDEX_13, {icon: 2});
                 return;
             }
             trans_lock = 1;
@@ -723,11 +724,11 @@
             var num = parseFloat($('#buy-num').val());
             var paypassword = $('#buy_paypassword').val();
             if (price == "" || price == null) {
-                layer.tips('请输入内容', '#buy_price', {tips: 3});
+                layer.tips(lange.TRADE_INDEX_14, '#buy_price', {tips: 3});
                 return false;
             }
             if (num == "" || num == null) {
-                layer.tips('请输入内容', '#buy_num', {tips: 3});
+                layer.tips(lange.TRADE_INDEX_14, '#buy_num', {tips: 3});
                 return false;
             }
 
@@ -768,7 +769,7 @@
                 return;
             }
             if (trans_lock) {
-                layer.msg('不要重复提交', {icon: 2});
+                layer.msg(lange.TRADE_INDEX_13, {icon: 2});
                 return;
             }
             trans_lock = 1;
@@ -776,11 +777,11 @@
             var num = parseFloat($('#sell_num').val());
             var paypassword = $('#sell_paypassword').val();
             if (price == "" || price == null) {
-                layer.tips('请输入内容', '#sell_price', {tips: 3});
+                layer.tips(lange.TRADE_INDEX_14, '#sell_price', {tips: 3});
                 return false;
             }
             if (num == "" || num == null) {
-                layer.tips('请输入内容', '#sell_num', {tips: 3});
+                layer.tips(lange.TRADE_INDEX_14, '#sell_num', {tips: 3});
                 return false;
             }
             layer.load();
@@ -1183,7 +1184,7 @@
         {
             // 登录
             var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"'+market+'"}';
-            console.log("websocket握手成功，发送登录数据:"+login_data);
+            console.log(lange.ALL_WEBSOCKET_SUCCESS+login_data);
             ws.send(login_data);
         }
 
@@ -1209,7 +1210,6 @@
                     {
                         client_list[data['client_id']] = data['client_name'];
                     }
-                    flush_client_list();
                     //console.log(data['client_name']+"登录成功");
                     break;
                 // 发言
@@ -1224,19 +1224,11 @@
                     break;
                 case 'logout':
                     //{"type":"logout","client_id":xxx,"time":"xxx"}
-                    say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                    say(data['from_client_id'], data['from_client_name'], data['from_client_name']+lange.TRADE_INDEX_20, data['time']);
                     delete client_list[data['from_client_id']];
-                    flush_client_list();
             }
         }
 
-        // 输入姓名
-        function show_prompt(){
-            name = prompt('输入你的名字：', '');
-            if(!name || name=='null'){
-                name = '游客';
-            }
-        }
 
         // 提交对话
         function onSubmit() {
@@ -1246,22 +1238,6 @@
             ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
             input.value = "";
             input.focus();
-        }
-
-        // 刷新用户列表框
-        function flush_client_list(){
-            var userlist_window = $("#userlist");
-            var client_list_slelect = $("#client_list");
-            userlist_window.empty();
-            client_list_slelect.empty();
-            userlist_window.append('<h4>在线用户</h4><ul>');
-            client_list_slelect.append('<option value="all" id="cli_all">所有人</option>');
-            for(var p in client_list){
-                userlist_window.append('<li id="'+p+'">'+client_list[p]+'</li>');
-                client_list_slelect.append('<option value="'+p+'">'+client_list[p]+'</option>');
-            }
-            $("#client_list").val(select_client_id);
-            userlist_window.append('</ul>');
         }
 
         // 发言
@@ -1299,11 +1275,11 @@
                 if(result.userid){
                     name = result.userid;
                     isLogin = 1;
-                    $("#buy-btn").html('买入');
-                    $("#sell-btn").html('卖出');
+                    $("#buy-btn").html(lange.TRADE_INDEX_15);
+                    $("#sell-btn").html(lange.TRADE_INDEX_16);
                 }else{
-                    $("#buy-btn").html('登陆');
-                    $("#sell-btn").html('登陆');
+                    $("#buy-btn").html(lange.TRADE_INDEX_17);
+                    $("#sell-btn").html(lange.TRADE_INDEX_17);
                     isLogin = 0;
                     name = "youke"+Math.ceil(Math.random()*1000000000000);
                 };
@@ -1324,17 +1300,17 @@
     <script type="text/template" id="tpwd-tpl">
         <ul class="tpwd">
             <li>
-                <label for="only"><input type="radio" id="only" value="1" name="atpwdsetting"> 每次登录只输入一次交易密码 </label>
+                <label for="only"><input type="radio" id="only" value="1" name="atpwdsetting"> {$Think.Lang.V_TRADE_INDEX_51} </label>
             </li>
             <li>
-                <label for="every"><input type="radio" checked="" id="every" value="2" name="atpwdsetting"> 每笔交易都输入交易密码</label>
+                <label for="every"><input type="radio" checked="" id="every" value="2" name="atpwdsetting"> {$Think.Lang.V_TRADE_INDEX_52}</label>
             </li>
             <li>
-                <label for="none"><input type="radio" id="none" name="atpwdsetting" value="3"> 每次交易都不需要输入交易密码</label>
+                <label for="none"><input type="radio" id="none" name="atpwdsetting" value="3"> {$Think.Lang.V_TRADE_INDEX_53}</label>
             </li>
             <li>
                 <p class="input-group trading-input-group">
-                    <input type="password" id="apaypassword" name="paypassword" placeholder="请输入交易密码" class="form-control form-control-tl">
+                    <input type="password" id="apaypassword" name="paypassword" placeholder="{$Think.Lang.V_TRADE_INDEX_54}" class="form-control form-control-tl">
                 </p>
             </li>
         </ul>
@@ -1342,9 +1318,9 @@
     <script type="text/javascript">
         function layertpwd(){
             layer.open({
-                title: '交易密码输入设置'
+                title: lange.TRADE_INDEX_18
                 ,btnAlign: 'c'
-                ,btn: '保存'
+                ,btn: lange.TRADE_INDEX_19
                 ,yes: function(index, layero){
                     if(!tpwdsettingaa()){
                         return false;

@@ -1554,11 +1554,17 @@ VALUES (NULL ,  '$data1',  '$data2',  '$data3',  '$data4',  '$data5',  '$data6',
         if($google_code){
 
             if($user['moble']){
+                if(!$moble_code){
+                    $this->error('请输入手机验证码');
+                }
                 if($moble_code != session('google_code_moble_verify')){
                     $this->error('手机验证码错误');
                 }
             }
             if($user['email']){
+                if(!$email_code){
+                    $this->error('请输入邮箱验证码');
+                }
                 if($email_code != session('google_code_email_verify')){
                     $this->error('邮箱验证码错误');
                 }
